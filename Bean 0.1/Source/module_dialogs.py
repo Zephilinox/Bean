@@ -5072,7 +5072,7 @@ dialogs = [
 		(call_script, "script_change_troop_faction", "$g_talk_troop", ":new_faction"),
 	
 		(troop_get_type, reg4, "$g_talk_troop"),
-		(display_message, "str_lord_defects_ordinary", color_quest_and_faction_news),
+		(display_message, "str_lord_defects_ordinary", color_neutral_news),
 	(else_try),
 		(call_script, "script_change_troop_faction", "$g_talk_troop", "fac_outlaws"),
 	(try_end),

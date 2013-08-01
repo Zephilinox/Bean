@@ -3169,7 +3169,8 @@ scripts = [
                 (gt, reg0, 0),
                 #(troop_set_slot, ":cur_troop_id", slot_troop_is_prisoner, 1),
                 (troop_set_slot, ":cur_troop_id", slot_troop_prisoner_of_party, ":nonempty_winner_party"),
-                (display_log_message, "str_hero_taken_prisoner", color_terrible_news),
+				(call_script, "script_get_message_color", news_lord_captured, ":cur_troop_id"),
+                (display_log_message, "str_hero_taken_prisoner", reg20),
 				 
                 (try_begin),
                   (call_script, "script_cf_prisoner_offered_parole", ":cur_troop_id"),
@@ -3194,7 +3195,7 @@ scripts = [
 				(store_faction_of_party, ":capturer_faction", ":nonempty_winner_party"),
                 (call_script, "script_update_troop_location_notes_prisoned", ":cur_troop_id", ":capturer_faction"),
               (else_try),
-                (display_message,"@{s1} of {s3} was defeated in battle but managed to escape."),
+                (display_message,"@{s1} of {s3} was defeated in battle but managed to escape.", color_neutral_news),
               (try_end),
               
               (try_begin),
@@ -3222,7 +3223,8 @@ scripts = [
                (str_store_troop_name_link, s1, ":cur_troop_id"),
                (str_store_faction_name_link, s2, ":faction_receiving_prisoners"),
                (str_store_faction_name_link, s3, ":cur_troop_faction"),
-               (display_log_message,"str_hero_freed", color_good_news),
+			   (call_script, "script_get_message_color", news_lord_freed, ":cur_troop_id"),
+               (display_log_message,"str_hero_freed", reg20),
              (try_end),
 
              (try_begin),
@@ -3254,7 +3256,8 @@ scripts = [
                (str_store_party_name, s1, ":root_defeated_party"),
                (str_store_faction_name, s2, ":winner_faction"),
                (str_store_faction_name, s3, ":defeated_faction"),
-               (display_log_message, "str_center_captured", color_bad_news),
+			   (call_script, "script_get_message_color", news_center_captured, ":root_defeated_party"),
+               (display_log_message, "str_center_captured", reg20),
 			
 			   (store_current_hours, ":hours"),
 			   (faction_set_slot, ":winner_faction", slot_faction_ai_last_decisive_event, ":hours"),
@@ -14693,7 +14696,7 @@ scripts = [
             (try_begin),
               (eq, "$cheat_mode", 1),
               (str_store_party_name, s1, ":prison_center"),
-              (display_message, "str_your_hero_prisoned_at_s1", color_bad_news),
+              (display_message, "str_your_hero_prisoned_at_s1", color_terrible_news),
             (try_end),
           (else_try),
             #bandits or deserters won and captured companion. So place it randomly in a town's tavern.
@@ -19555,7 +19558,7 @@ scripts = [
       
       
       (assign, reg0, ":raw_advantage"),
-      (display_message, "@Battle Advantage = {reg0}."),
+      (display_message, "@Battle Advantage = {reg0}.", color_neutral_news),
   ]),
   
   
@@ -21544,7 +21547,8 @@ scripts = [
                (party_stack_get_troop_id, ":raid_leader", ":looter_party", 0),
                (ge, ":raid_leader", 0),
                (str_store_party_name, s2, ":looter_party"),
-               (display_log_message, "@The village of {s1} has been looted by {s2}.", color_quest_and_faction_news),
+			   (call_script, "script_get_message_color", news_village_looted, ":village_no"),
+               (display_log_message, "@The village of {s1} has been looted by {s2}.", reg20),
 
                (try_begin),
                  (party_get_slot, ":village_lord", ":village_no", slot_town_lord),
@@ -21735,7 +21739,8 @@ scripts = [
       (try_begin),
         (eq, ":display_message", 1),
         (str_store_party_name_link, s3, ":center_no"),
-        (display_message, "@{s3} is no longer under siege.", color_quest_and_faction_news),
+		(call_script, "script_get_message_color", news_center_siege_lifted, ":center_no"),
+        (display_message, "@{s3} is no longer under siege.", reg20),
       (try_end),
       ]),
 
@@ -22503,7 +22508,8 @@ scripts = [
             (str_store_party_name_link, s1, ":ai_object"),
             (str_store_troop_name_link, s2, ":troop_no"),
             (str_store_faction_name_link, s3, ":faction_no"),
-            (display_log_message, "@{s1} has been besieged by {s2} of {s3}.", color_quest_and_faction_news),
+			(call_script, "script_get_message_color", news_center_under_siege, ":ai_object"),
+            (display_log_message, "@{s1} has been besieged by {s2} of {s3}.", reg20),
             (try_begin),
               (store_faction_of_party, ":ai_object_faction", ":ai_object"),
               (this_or_next|party_slot_eq, ":ai_object", slot_town_lord, "trp_player"),
@@ -24007,10 +24013,10 @@ scripts = [
       (val_add, "$player_honor", ":honor_dif"),
       (try_begin),
         (gt, ":honor_dif", 0),
-        (display_message, "@You gain honour.", color_good_news),
+        (display_message, "@You gain honour.", color_hero_news),
       (else_try),
         (lt, ":honor_dif", 0),
-        (display_message, "@You lose honour.", color_bad_news),
+        (display_message, "@You lose honour.", color_hero_news),
       (try_end),
 
 ##      (val_mul, ":honor_dif", 1000),
@@ -33308,7 +33314,8 @@ scripts = [
        (str_store_string, s4, s50),
        (try_begin),
          (party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
-         (display_message, "@Prosperity of {s2} has changed from {s3} to {s4}.", color_neutral_news),
+		 (call_script, "script_get_message_color", news_center_prosperity_changed, ":center_no"),
+         (display_message, "@Prosperity of {s2} has changed from {s3} to {s4}.", reg20),
        (try_end),
        (call_script, "script_update_center_notes", ":center_no"),
      (else_try),
