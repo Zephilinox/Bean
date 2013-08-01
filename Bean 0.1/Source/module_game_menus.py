@@ -11918,7 +11918,7 @@ game_menus = [
 		    (str_store_troop_name, s5, ":target_leader"),
 			
 			(str_store_string, s9, "str_local_notables_from_s1_a_village_claimed_by_the_s4_have_been_mistreated_by_their_overlords_from_the_s3_and_petition_s5_for_protection"),
-			(display_log_message, "@There has been an alleged border incident: {s9}"),
+			(display_log_message, "@There has been an alleged border incident: {s9}", color_bad_news),
 			
 			(call_script, "script_add_log_entry", logent_border_incident_subjects_mistreated, ":acting_village", -1, -1, ":acting_faction"),
 			
@@ -11934,7 +11934,7 @@ game_menus = [
 				(eq, ":random", 0),
 
 				(str_store_string, s9, "str_villagers_from_s1_stole_some_cattle_from_s2"),
-				(display_log_message, "@There has been an alleged border incident: {s9}"),
+				(display_log_message, "@There has been an alleged border incident: {s9}", color_bad_news),
 				
 				(call_script, "script_add_log_entry", logent_border_incident_cattle_stolen, ":acting_village", ":target_village", -1,":acting_faction"),
 				
@@ -11942,14 +11942,14 @@ game_menus = [
 				(eq, ":random", 1),
 
 				(str_store_string, s9, "str_villagers_from_s1_abducted_a_woman_from_a_prominent_family_in_s2_to_marry_one_of_their_boys"),
-				(display_log_message, "@There has been an alleged border incident: {s9}"),
+				(display_log_message, "@There has been an alleged border incident: {s9}", color_bad_news),
 				
 				(call_script, "script_add_log_entry", logent_border_incident_bride_abducted, ":acting_village", ":target_village", -1, ":acting_faction"),
 			(else_try),	
 				(eq, ":random", 2),
 				
 				(str_store_string, s9, "str_villagers_from_s1_killed_some_farmers_from_s2_in_a_fight_over_the_diversion_of_a_stream"),
-				(display_log_message, "@There has been an alleged border incident: {s9}"),
+				(display_log_message, "@There has been an alleged border incident: {s9}", color_bad_news),
 				
 			    (call_script, "script_add_log_entry", logent_border_incident_villagers_killed, ":acting_village", ":target_village", -1,":acting_faction"),
 			(try_end),

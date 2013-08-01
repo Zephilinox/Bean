@@ -5072,7 +5072,7 @@ dialogs = [
 		(call_script, "script_change_troop_faction", "$g_talk_troop", ":new_faction"),
 	
 		(troop_get_type, reg4, "$g_talk_troop"),
-		(display_message, "str_lord_defects_ordinary"),
+		(display_message, "str_lord_defects_ordinary", color_quest_and_faction_news),
 	(else_try),
 		(call_script, "script_change_troop_faction", "$g_talk_troop", "fac_outlaws"),
 	(try_end),
@@ -5289,7 +5289,7 @@ dialogs = [
             (troop_set_slot, "$supported_pretender", slot_troop_cur_center, 0),
             (troop_set_auto_equip, "$supported_pretender",0),
             (str_store_troop_name_link, s6, "$supported_pretender"),
-            (display_message, "@{s6} has joined your party."),
+            (display_message, "@{s6} has joined your party.", color_hero_news),
             
 #            (faction_get_slot, ":location", "$g_talk_troop_faction", slot_faction_inactive_leader_location),
 #            (faction_set_slot, "$g_talk_troop_faction", slot_faction_inactive_leader_location, 0),
@@ -9001,7 +9001,7 @@ dialogs = [
 					(str_store_string, s31, "str_there_are_some_outstanding_matters_between_me_and_some_of_your_vassals_"),										
 					(try_begin),
 					  (assign, reg41, ":result_for_political"),
-					  (display_message, "str_result_for_political_=_reg41"),
+					  (display_message, "str_result_for_political_=_reg41", color_quest_and_faction_news),
 					(try_end),  					  
 				(else_try),
 					(troop_slot_eq, "$g_talk_troop", slot_lord_reputation_type, lrep_quarrelsome),

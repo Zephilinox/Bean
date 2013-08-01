@@ -1106,6 +1106,32 @@ scene_prop_belfry_platform_moved    = 5 #for belfries only
 scene_prop_slots_end                = 6
 
 ########################################################
+##  COLOR CODES             ############################
+########################################################
+##BEAN BEGIN - Color Coded Messages
+color_great_news = 0x00FF00
+color_good_news = 0x50FF50
+color_terrible_news = 0xFF2222
+color_bad_news = 0xFF5050
+color_neutral_news = 0xFFAA00
+color_quest_and_faction_news = 0x66CCFF
+color_hero_news = 0xFFFF00
+
+########################################################
+##  NEWS TYPES              ############################
+########################################################
+news_lord_defeated = 1
+news_lord_captured = 2
+news_lord_freed = 3
+news_lord_escaped = 4
+news_village_looted = 5
+news_center_captured = 6
+news_center_under_siege = 7
+news_center_siege_lifted = 8
+news_center_prosperity_changed = 9
+##BEAN END - Color Coded Messages
+########################################################
+
 rel_enemy   = 0
 rel_neutral = 1
 rel_ally    = 2
