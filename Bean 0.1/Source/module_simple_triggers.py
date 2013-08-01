@@ -2507,7 +2507,7 @@ simple_triggers = [
           (str_store_troop_name, s1, ":stack_troop"),
           (str_store_faction_name, s2, ":faction_no"),
           (str_store_faction_name, s3, ":troop_faction"),
-		  (call_script, "script_get_message_color", news_lord_freed, ":stack_troop"),
+          (call_script, "script_get_message_color", news_lord_freed, ":stack_troop"),
           (display_log_message, "@{s1} of {s3} has been released from captivity.", reg20),
         (try_end),
       (try_end),
