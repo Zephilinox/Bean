@@ -1962,50 +1962,32 @@ game_menus = [
 
 	   ]
   ),
+    ##BEAN BEGIN - Party Size Increase
+    ("party_size_report", 0, "{s1}", "none",
+    [
+        (call_script, "script_game_get_party_companion_limit"),
 
-  ("party_size_report",0,
-   "{s1}",
-   "none",
-   [(call_script, "script_game_get_party_companion_limit"),
-    (assign, ":party_size_limit", reg0),
+        (store_skill_level, ":leadership", "skl_leadership", "trp_player"),
+        (val_mul, ":leadership", 5),
+        (store_attribute_level, ":charisma", "trp_player", ca_charisma),
 
-    (store_skill_level, ":leadership", "skl_leadership", "trp_player"),
-    (val_mul, ":leadership", 5),
-    (store_attribute_level, ":charisma", "trp_player", ca_charisma),
+        (troop_get_slot, ":renown", "trp_player", slot_troop_renown),
+        (val_div, ":renown", 25),
 
-    (troop_get_slot, ":renown", "trp_player", slot_troop_renown),
-    (val_div, ":renown", 25),
-    (try_begin),
-      (gt, ":leadership", 0),
-      (str_store_string, s2, "@{!} +"),
-    (else_try),
-      (str_store_string, s2, "str_space"),
-    (try_end),
-    (try_begin),
-      (gt, ":charisma", 0),
-      (str_store_string, s3, "@{!} +"),
-    (else_try),
-      (str_store_string, s3, "str_space"),
-    (try_end),
-    (try_begin),
-      (gt, ":renown", 0),
-      (str_store_string, s4, "@{!} +"),
-    (else_try),
-      (str_store_string, s4, "str_space"),
-    (try_end),
-    (assign, reg5, ":party_size_limit"),
-    (assign, reg1, ":leadership"),
-    (assign, reg2, ":charisma"),
-    (assign, reg3, ":renown"),
-    (str_store_string, s1, "@Current party size limit is {reg5}.^Current party size modifiers are:^^Base size:  +30^Leadership: {s2}{reg1}^Charisma: {s3}{reg2}^Renown: {s4}{reg3}^TOTAL:  {reg5}"),
+        (assign, reg2, ":leadership"),
+        (assign, reg3, ":charisma"),
+        (assign, reg4, ":renown"),
+        (str_store_string, s1, "@Current party size limit is {reg0}.^Current party size modifiers are:^^Base size:    +30^Leadership: +{reg2}^Charisma:  +{reg3}^Renown:    +{reg4}^Fiefs:         +{reg1}^TOTAL:    {reg0}"),
     ],
     [
-      ("continue",[],"Continue...",
-       [(jump_to_menu, "mnu_reports"),
+        ("continue",[],"Continue...",
+        [
+            (jump_to_menu, "mnu_reports"),
         ]
-       ),
-      ]
-  ),
+        ),
+    ]
+    ),
+    ##BEAN END - Party Size Increase
 
   ("faction_relations_report",0,
    "{s1}",

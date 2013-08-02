@@ -4413,24 +4413,43 @@ scripts = [
   # This script is called from the game engine when the companion limit is needed for a party.
   # INPUT: arg1 = none
   # OUTPUT: reg0 = companion_limit
-  ("game_get_party_companion_limit",
+    ##BEAN BEGIN - Party Size Increase
+    ("game_get_party_companion_limit",
     [
-      (assign, ":troop_no", "trp_player"),
+        (assign, ":troop_no", "trp_player"),
 
-      (assign, ":limit", 30),
-      (store_skill_level, ":skill", "skl_leadership", ":troop_no"),
-      (store_attribute_level, ":charisma", ":troop_no", ca_charisma),
-      (val_mul, ":skill", 5),
-      (val_add, ":limit", ":skill"),
-      (val_add, ":limit", ":charisma"),
+        (assign, ":limit", 30),
+        (store_skill_level, ":skill", "skl_leadership", ":troop_no"),
+        (store_attribute_level, ":charisma", ":troop_no", ca_charisma),
+        (val_mul, ":skill", 5),
+        (val_add, ":limit", ":skill"),
+        (val_add, ":limit", ":charisma"),
 
-      (troop_get_slot, ":troop_renown", ":troop_no", slot_troop_renown),
-      (store_div, ":renown_bonus", ":troop_renown", 25),
-      (val_add, ":limit", ":renown_bonus"),
-
-      (assign, reg0, ":limit"),
-      (set_trigger_result, reg0),
-  ]),
+        (troop_get_slot, ":troop_renown", ":troop_no", slot_troop_renown),
+        (store_div, ":renown_bonus", ":troop_renown", 25),
+        (val_add, ":limit", ":renown_bonus"),
+        
+        (assign, ":extra_limit", 0),
+        (try_for_range, ":cur_center", centers_begin, centers_end),
+        (party_slot_eq, ":cur_center", slot_town_lord, ":troop_no"),
+            (try_begin),
+            (party_slot_eq, ":cur_center", slot_party_type, spt_town),
+                (val_add, ":extra_limit", 40),
+            (else_try),
+            (party_slot_eq, ":cur_center", slot_party_type, spt_castle),
+                (val_add, ":extra_limit", 20),
+            (else_try),
+            (party_slot_eq, ":cur_center", slot_party_type, spt_village),
+                (val_add, ":extra_limit", 10),
+            (try_end),
+        (try_end),
+        (val_add, ":limit", ":extra_limit"),
+        (assign, reg0, ":limit"),
+        (assign, reg1, ":extra_limit"),
+        (set_trigger_result, reg0),
+    ]
+    ),
+    ##BEAN END - Party Size Increase
 
 
   #script_game_reset_player_party_name:
@@ -20071,7 +20090,19 @@ scripts = [
                     (str_store_string, s1, ":title_index"),
                 (try_end),
             (try_end),
-            (str_store_string, s5, "@{s1} {s0}"),
+            
+            (try_begin),
+            (eq, ":troop_no", "trp_player"),
+                (try_begin),
+                (eq, ":faction_leader", "trp_player"),
+                    (str_store_string, s5, "@{s1} {s0}"),
+                (else_try),
+                    (str_store_string, s5, "@{s1}"),
+                (try_end),
+            (else_try),
+                (str_store_string, s5, "@{s1}"),
+            (try_end),
+            
             (troop_set_name, ":troop_no", s5),
             (troop_get_slot, ":troop_party", ":troop_no", slot_troop_leaded_party),
             (try_begin),
@@ -20079,7 +20110,7 @@ scripts = [
                 (party_set_name, ":troop_party", s5),
             (else_try),
                 (party_set_name, ":troop_party", "str_s5_s_party"),
-            (try_end),  
+            (try_end),
         (try_end),
     ]
     ),
@@ -47791,7 +47822,7 @@ scripts = [
                 (faction_set_slot, ":faction_no", slot_faction_leader, "p_main_party"),
                 (call_script, "script_give_center_to_lord", "$g_starting_town", "trp_player", 0),
                 (try_for_range, ":cur_village", villages_begin, villages_end),
-                    (party_slot_eq, ":cur_village", slot_village_bound_center, "$g_starting_town"),
+                (party_slot_eq, ":cur_village", slot_village_bound_center, "$g_starting_town"),
                     (call_script, "script_give_center_to_lord", ":cur_village", "trp_player", 0),
                 (try_end),
                 
@@ -47804,6 +47835,7 @@ scripts = [
                 (remove_party, ":OldKingParty"),                
                 
                 (call_script, "script_troop_set_title_according_to_faction", "trp_player", ":faction_no"),
+                (troop_set_slot, "trp_kingdom_2_lord", slot_troop_renown, 500),
             (else_try),
             (eq, "$background_answer_2", cb2_vassal),
                 (call_script, "script_player_join_faction", ":faction_no"),
@@ -47818,6 +47850,7 @@ scripts = [
                 (call_script, "script_get_poorest_village_of_faction", ":faction_no"),
                 (call_script, "script_give_center_to_lord", reg0, "trp_player"), #reg0 = poorest village
                 (call_script, "script_troop_set_title_according_to_faction", "trp_player", ":faction_no"),
+                (troop_set_slot, "trp_kingdom_2_lord", slot_troop_renown, 200),
             (else_try),
             (eq, "$background_answer_2", cb2_mercenary),
                 (call_script, "script_player_join_faction", "fac_kingdom_1"),
@@ -47828,6 +47861,7 @@ scripts = [
                 (assign, "$g_invite_offered_center", 0),
                 (troop_set_faction, "trp_player", ":faction_no"),
                 (party_set_faction, "p_main_party", ":faction_no"),
+                (troop_set_slot, "trp_kingdom_2_lord", slot_troop_renown, 50),
             (try_end),
         ]
     ),
