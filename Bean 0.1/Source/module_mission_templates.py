@@ -32,6 +32,169 @@ from module_constants import *
 # 
 ####################################################################################################################
 
+##BEAN BEGIN - Death Cam
+common_init_deathcam = (
+   0, 0, ti_once,
+   [],
+   [
+      (assign, "$pop_camera_on", 0),
+      # mouse center coordinates (non-windowed)
+      (assign, "$pop_camera_mouse_center_x", 500),
+      (assign, "$pop_camera_mouse_center_y", 375),
+      # last recorded mouse coordinates
+      (assign, "$pop_camera_mouse_x", "$pop_camera_mouse_center_x"),
+      (assign, "$pop_camera_mouse_y", "$pop_camera_mouse_center_y"),
+      # counts how many cycles the mouse stays in the same position, to determine new center in windowed mode
+      (assign, "$pop_camera_mouse_counter", 0),
+   ]
+)
+
+common_start_deathcam = (
+   0, 4, ti_once, # 4 seconds delay before the camera activates
+   [
+     (main_hero_fallen),
+     (eq, "$pop_camera_on", 0),
+   ],
+   [
+      (get_player_agent_no, ":player_agent"),
+      (agent_get_position, pos1, ":player_agent"),
+      (position_get_x, ":pos_x", pos1),
+      (position_get_y, ":pos_y", pos1),
+      (init_position, pos47),
+      (position_set_x, pos47, ":pos_x"),
+      (position_set_y, pos47, ":pos_y"),
+      (position_set_z_to_ground_level, pos47),
+      (position_move_z, pos47, 250),
+      (mission_cam_set_mode, 1, 0, 0),
+      (mission_cam_set_position, pos47),
+      (assign, "$pop_camera_rotx", 0),
+      (assign, "$pop_camera_on", 1),
+   ]
+)
+
+common_move_deathcam = (
+   0, 0, 0,
+   [
+      (eq, "$pop_camera_on", 1),
+      (this_or_next|game_key_clicked, gk_move_forward),
+      (this_or_next|game_key_is_down, gk_move_forward),
+      (this_or_next|game_key_clicked, gk_move_backward),
+      (this_or_next|game_key_is_down, gk_move_backward),
+      (this_or_next|game_key_clicked, gk_move_left),
+      (this_or_next|game_key_is_down, gk_move_left),
+      (this_or_next|game_key_clicked, gk_move_right),
+      (game_key_is_down, gk_move_right),
+   ],
+   [
+      (mission_cam_get_position, pos47),
+      (assign, ":move_x", 0),
+      (assign, ":move_y", 0),
+      (try_begin), #forward
+        (this_or_next|game_key_clicked, gk_move_forward),
+        (game_key_is_down, gk_move_forward),
+        (assign, ":move_y", 10),
+      (try_end),
+      (try_begin), #backward
+        (this_or_next|game_key_clicked, gk_move_backward),
+        (game_key_is_down, gk_move_backward),
+        (assign, ":move_y", -10),
+      (try_end),
+      (try_begin), #left
+        (this_or_next|game_key_clicked, gk_move_left),
+        (game_key_is_down, gk_move_left),
+        (assign, ":move_x", -10),
+      (try_end),
+      (try_begin), #right
+        (this_or_next|game_key_clicked, gk_move_right),
+        (game_key_is_down, gk_move_right),
+        (assign, ":move_x", 10),
+      (try_end),
+      (position_move_x, pos47, ":move_x"),
+      (position_move_y, pos47, ":move_y"),
+      (mission_cam_set_position, pos47),      
+   ]
+)
+
+deathcam_mouse_deadzone = 0 #set this to a positive number (MV: 2 or 3 works well for me, but needs testing on other people's PCs)
+
+common_rotate_deathcam = (
+   0, 0, 0,
+   [
+      (eq, "$pop_camera_on", 1),
+      (neg|is_presentation_active, "prsnt_battle"),
+      (mouse_get_position, pos1),
+      (set_fixed_point_multiplier, 1000),
+      (position_get_x, reg1, pos1),
+      (position_get_y, reg2, pos1),
+      (this_or_next|neq, reg1, "$pop_camera_mouse_center_x"),
+      (neq, reg2, "$pop_camera_mouse_center_y"),
+   ],
+   [
+      # fix for windowed mode: recenter the mouse
+      (assign, ":continue", 1),
+      (try_begin),
+        (eq, reg1, "$pop_camera_mouse_x"),
+        (eq, reg2, "$pop_camera_mouse_y"),
+        (val_add, "$pop_camera_mouse_counter", 1),
+        (try_begin), #hackery: if the mouse hasn't moved for X cycles, recenter it
+          (gt, "$pop_camera_mouse_counter", 50000),
+          (assign, "$pop_camera_mouse_center_x", reg1),
+          (assign, "$pop_camera_mouse_center_y", reg2),
+          (assign, "$pop_camera_mouse_counter", 0),
+        (try_end),
+        (assign, ":continue", 0),
+      (try_end),
+      (eq, ":continue", 1), #continue only if mouse has moved
+      (assign, "$pop_camera_mouse_counter", 0), # reset recentering hackery
+      
+      # update recorded mouse position
+      (assign, "$pop_camera_mouse_x", reg1),
+      (assign, "$pop_camera_mouse_y", reg2),
+      
+      (mission_cam_get_position, pos47),
+      (store_sub, ":shift", "$pop_camera_mouse_center_x", reg1), #horizontal shift for pass 0
+      (store_sub, ":shift_vertical", reg2, "$pop_camera_mouse_center_y"), #for pass 1
+      
+      (try_for_range, ":pass", 0, 2), #pass 0: check mouse x movement (left/right), pass 1: check mouse y movement (up/down)
+        (try_begin),
+          (eq, ":pass", 1),
+          (assign, ":shift", ":shift_vertical"), #get ready for the second pass
+        (try_end),
+        (this_or_next|lt, ":shift", -deathcam_mouse_deadzone), #skip pass if not needed (mouse deadzone)
+        (gt, ":shift", deathcam_mouse_deadzone),
+        
+        (assign, ":sign", 1),
+        (try_begin),
+          (lt, ":shift", 0),
+          (assign, ":sign", -1),
+        (try_end),
+        # square root calc
+        (val_abs, ":shift"),
+        (val_sub, ":shift", deathcam_mouse_deadzone), # ":shift" is now 1 or greater
+        (convert_to_fixed_point, ":shift"),
+        (store_sqrt, ":shift", ":shift"),
+        (convert_from_fixed_point, ":shift"),
+        (val_clamp, ":shift", 1, 6), #limit rotation speed
+        (val_mul, ":shift", ":sign"),
+        (try_begin),
+          (eq, ":pass", 0), # rotate around z (left/right)
+          (store_mul, ":minusrotx", "$pop_camera_rotx", -1),
+          (position_rotate_x, pos47, ":minusrotx"), #needed so camera yaw won't change
+          (position_rotate_z, pos47, ":shift"),
+          (position_rotate_x, pos47, "$pop_camera_rotx"), #needed so camera yaw won't change
+        (try_end),
+        (try_begin),
+          (eq, ":pass", 1), # rotate around x (up/down)
+          (position_rotate_x, pos47, ":shift"),
+          (val_add, "$pop_camera_rotx", ":shift"),
+        (try_end),
+      (try_end), #try_for_range ":pass"
+      (mission_cam_set_position, pos47),
+   ]
+)
+
+##BEAN END - Deathcam
+
 pilgrim_disguise = [itm_pilgrim_hood,itm_pilgrim_disguise,itm_practice_staff, itm_throwing_daggers]
 af_castle_lord = af_override_horse | af_override_weapons| af_require_civilian
 
@@ -648,7 +811,7 @@ common_battle_tab_press = (
       (call_script, "script_cf_check_enemies_nearby"),
       (question_box,"str_do_you_want_to_retreat"),
     (else_try),
-      (display_message,"str_can_not_retreat", color_hero_news),
+      (display_message,"str_can_not_retreat", color_neutral_news),
     (try_end),
     ])
 
@@ -883,7 +1046,6 @@ common_battle_check_victory_condition = (
     (store_mission_timer_a,reg(1)),
     (ge,reg(1),10),
     (all_enemies_defeated, 5),
-    (neg|main_hero_fallen, 0),
     (set_mission_result,1),
     (display_message,"str_msg_battle_won", color_great_news),
     (assign,"$g_battle_won",1),
@@ -918,6 +1080,7 @@ common_siege_refill_ammo = (
     (try_end),
     ])
 
+##BEAN BEGIN - Deathcam
 common_siege_check_defeat_condition = (
   1, 4, ti_once,
   [
@@ -925,23 +1088,9 @@ common_siege_check_defeat_condition = (
     ],
   [
     (assign, "$pin_player_fallen", 1),
-    (get_player_agent_no, ":player_agent"),
-    (agent_get_team, ":agent_team", ":player_agent"),
-    (try_begin),
-      (neq, "$attacker_team", ":agent_team"),
-      (neq, "$attacker_team_2", ":agent_team"),
-      (str_store_string, s5, "str_siege_continues"),
-      (call_script, "script_simulate_retreat", 8, 15, 0),
-    (else_try),
-      (str_store_string, s5, "str_retreat"),
-      (call_script, "script_simulate_retreat", 5, 20, 0),
-    (try_end),
-    (assign, "$g_battle_result", -1),
-    (set_mission_result,-1),
-    (call_script, "script_count_mission_casualties_from_agents"),
-    (finish_mission,0),
+    (display_message, "@You have fallen in battle!", color_terrible_news),
     ])
-
+##BEAN END - Deathcam
 common_battle_order_panel = (
   0, 0, 0, [],
   [
@@ -2214,6 +2363,12 @@ mission_templates = [
      (4,mtef_attackers|mtef_team_1,0,aif_start_alarmed,0,[]),
      ],
     [
+      ##BEAN BEGIN - Deathcam
+      common_init_deathcam,
+      common_start_deathcam,
+      common_move_deathcam,
+      common_rotate_deathcam,
+      ##BEAN END - Deathcam
       (ti_on_agent_spawn, 0, 0, [],
        [
          (store_trigger_param_1, ":agent_no"),
@@ -2360,16 +2515,14 @@ mission_templates = [
 
       common_battle_check_victory_condition,
       common_battle_victory_display,
-
+      
+      ##BEAN BEGIN - Deathcam
       (1, 4, ti_once, [(main_hero_fallen)],
           [
               (assign, "$pin_player_fallen", 1),
-              (str_store_string, s5, "str_retreat"),
-              (call_script, "script_simulate_retreat", 10, 20, 1),
-              (assign, "$g_battle_result", -1),
-              (set_mission_result,-1),
-              (call_script, "script_count_mission_casualties_from_agents"),
-              (finish_mission,0)]),
+              (display_message, "@You have fallen in battle!", color_terrible_news),
+              ]),
+      ##BEAN END - Deathcam
 
       common_battle_inventory,
 
@@ -2420,9 +2573,15 @@ mission_templates = [
      (1,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,1,[]),
      ],
     [
+      ##BEAN BEGIN - Deathcam
+      common_init_deathcam,
+      common_start_deathcam,
+      common_move_deathcam,
+      common_rotate_deathcam,
+      ##BEAN END - Deathcam
       common_battle_tab_press,
       common_battle_init_banner,
-
+      
       (ti_question_answered, 0, 0, [],
        [(store_trigger_param_1,":answer"),
         (eq,":answer",0),
@@ -2479,6 +2638,12 @@ mission_templates = [
      (1,mtef_attackers|mtef_team_1,0,aif_start_alarmed,0,[]),
      ],
     [
+      ##BEAN BEGIN - Deathcam
+      common_init_deathcam,
+      common_start_deathcam,
+      common_move_deathcam,
+      common_rotate_deathcam,
+      ##BEAN END - Deathcam
       common_battle_tab_press,
       common_battle_init_banner,
 
@@ -2737,7 +2902,12 @@ mission_templates = [
      ],
     [
       (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
-
+      ##BEAN BEGIN - Deathcam
+      common_init_deathcam,
+      common_start_deathcam,
+      common_move_deathcam,
+      common_rotate_deathcam,
+      ##BEAN END - Deathcam
       common_battle_tab_press,
       common_battle_init_banner,
 
@@ -2801,7 +2971,12 @@ mission_templates = [
      ],
     [
       (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
-
+      ##BEAN BEGIN - Deathcam
+      common_init_deathcam,
+      common_start_deathcam,
+      common_move_deathcam,
+      common_rotate_deathcam,
+      ##BEAN END - Deathcam
       common_battle_tab_press,
       common_battle_init_banner,
 
@@ -2873,7 +3048,12 @@ mission_templates = [
          (call_script, "script_change_banners_and_chest"),
          (call_script, "script_remove_siege_objects"),
          ]),
-
+      ##BEAN BEGIN - Deathcam
+      common_init_deathcam,
+      common_start_deathcam,
+      common_move_deathcam,
+      common_rotate_deathcam,
+      ##BEAN END - Deathcam
       common_battle_tab_press,
       common_battle_init_banner,
 
@@ -2970,6 +3150,12 @@ mission_templates = [
      (47,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
      ],
     [
+      ##BEAN BEGIN - Deathcam
+      common_init_deathcam,
+      common_start_deathcam,
+      common_move_deathcam,
+      common_rotate_deathcam,
+      ##BEAN END - Deathcam
       common_battle_mission_start,
       common_battle_tab_press,
       common_battle_init_banner,
@@ -3050,6 +3236,12 @@ mission_templates = [
      (46,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
      ],
     [
+      ##BEAN BEGIN - Deathcam
+      common_init_deathcam,
+      common_start_deathcam,
+      common_move_deathcam,
+      common_rotate_deathcam,
+      ##BEAN END - Deathcam
       common_battle_mission_start,
       common_battle_tab_press,
       common_battle_init_banner,
@@ -7637,6 +7829,12 @@ mission_templates = [
       (31,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
      ],
     [
+      ##BEAN BEGIN - Deathcam
+      common_init_deathcam,
+      common_start_deathcam,
+      common_move_deathcam,
+      common_rotate_deathcam,
+      ##BEAN END - Deathcam
       common_custom_battle_tab_press,
       common_custom_battle_question_answered,
       common_inventory_not_available,
@@ -7720,6 +7918,12 @@ mission_templates = [
       (47,mtef_visitor_source|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
      ],
     [
+      ##BEAN BEGIN - Deathcam
+      common_init_deathcam,
+      common_start_deathcam,
+      common_move_deathcam,
+      common_rotate_deathcam,
+      ##BEAN END - Deathcam
       common_battle_mission_start,
       common_battle_init_banner,
 
@@ -13359,6 +13563,12 @@ mission_templates = [
       (10,mtef_visitor_source|mtef_team_1,af_override_horse, aif_start_alarmed,20,[]),
     ],
     [
+      ##BEAN BEGIN - Deathcam
+      common_init_deathcam,
+      common_start_deathcam,
+      common_move_deathcam,
+      common_rotate_deathcam,
+      ##BEAN END - Deathcam
       common_battle_init_banner,
     
       common_inventory_not_available,
@@ -14089,6 +14299,12 @@ mission_templates = [
 	  (47,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
     ],
     [
+      ##BEAN BEGIN - Deathcam
+      common_init_deathcam,
+      common_start_deathcam,
+      common_move_deathcam,
+      common_rotate_deathcam,
+      ##BEAN END - Deathcam
       common_battle_init_banner,
     
       (ti_on_agent_spawn, 0, 0, [],
