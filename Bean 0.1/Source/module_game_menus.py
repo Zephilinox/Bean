@@ -54,7 +54,7 @@ game_menus = [
   ),
 
   ("start_phase_2",mnf_disable_all_keys,
-    "Upon arriving in Calradia, you decide to...",
+    "Upon arriving in Calradia, you decided to...",
     "none",
     [],
     [
@@ -63,34 +63,9 @@ game_menus = [
         (assign, "$current_town", "p_town_6"),
         (assign, "$g_starting_town", "$current_town"),
         (assign, "$g_journey_string", "str_journey_to_praven"),
-		#(set_show_messages, 0),
+		(set_show_messages, 0),
 		(party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
-		(call_script, "script_change_player_party_morale", 100),
-        
-        #(try_begin),
-        #(eq, "$background_answer_2", cb2_vassal),
-            (call_script, "script_player_join_faction", "fac_kingdom_1"),
-            (assign, "$player_has_homage", 1),
-            (assign, "$g_player_banner_granted", 1),
-            (assign, "$g_invite_faction", 0),
-            (assign, "$g_invite_faction_lord", 0),
-            (assign, "$g_invite_offered_center", 0),
-            
-            #Perhaps, move kings party to players, and disable king?
-            
-            (troop_set_plural_name, "trp_kingdom_1_lord", "@Count Harlaus's"),
-            (troop_set_name, "trp_kingdom_1_lord", "@Count Harlaus"),
-            
-            (faction_set_slot, "fac_kingdom_1", slot_faction_leader, "p_main_party"),
-            (call_script, "script_give_center_to_lord", "p_town_6", "trp_player", 0),
-            (party_set_extra_text, "p_main_party", "@King of Swadia"),
-            
-            #(party_set_faction, "p_main_party", "fac_kingdom_1"),
-            #(party_set_faction, "p_town_6", "fac_kingdom_1"),
-            #(party_set_faction, "p_main_party", "fac_kingdom_1"),
-            #(call_script, "script_add_log_entry", logent_castle_captured_by_player, "trp_player", "p_town_6", "trp_kingdom_1_lord", "fac_kingdom_1"),
-        #(try_end),
-        
+        (call_script, "script_handle_start_menu", "fac_kingdom_1", "trp_kingdom_1_lord"),
 		(set_show_messages, 1),
 		(change_screen_return),	 
        ]),
@@ -102,7 +77,7 @@ game_menus = [
         (assign, "$g_journey_string", "str_journey_to_reyvadin"),
 		(set_show_messages, 0),
 		(party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
-		(call_script, "script_change_player_party_morale", 100),
+        (call_script, "script_handle_start_menu", "fac_kingdom_2", "trp_kingdom_2_lord"),
 		(set_show_messages, 1),
 		(change_screen_return),
        ]),
@@ -114,7 +89,7 @@ game_menus = [
         (assign, "$g_journey_string", "str_journey_to_tulga"),
 		(set_show_messages, 0),
 		(party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
-		(call_script, "script_change_player_party_morale", 100),
+		(call_script, "script_handle_start_menu", "fac_kingdom_3", "trp_kingdom_3_lord"),
 		(set_show_messages, 1),
 		(change_screen_return),
        ]),
@@ -126,7 +101,7 @@ game_menus = [
         (assign, "$g_journey_string", "str_journey_to_sargoth"),
 		(set_show_messages, 0),
 		(party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
-		(call_script, "script_change_player_party_morale", 100),
+		(call_script, "script_handle_start_menu", "fac_kingdom_4", "trp_kingdom_4_lord"),
 		(set_show_messages, 1),
 		(change_screen_return),
        ]),
@@ -138,7 +113,7 @@ game_menus = [
         (assign, "$g_journey_string", "str_journey_to_jelkala"),
 		(set_show_messages, 0),
 		(party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
-		(call_script, "script_change_player_party_morale", 100),
+		(call_script, "script_handle_start_menu", "fac_kingdom_5", "trp_kingdom_5_lord"),
 		(set_show_messages, 1),
 		(change_screen_return),
        ]),
@@ -150,7 +125,7 @@ game_menus = [
         (assign, "$g_journey_string", "str_journey_to_shariz"),
 		(set_show_messages, 0),
 		(party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
-		(call_script, "script_change_player_party_morale", 100),
+		(call_script, "script_handle_start_menu", "fac_kingdom_6", "trp_kingdom_6_lord"),
 		(set_show_messages, 1),
 		(change_screen_return),
        ]),
@@ -921,7 +896,7 @@ game_menus = [
   ##BEAN BEGIN - Start Menu
   (
     "start_character_1",mnf_disable_all_keys,
-    "You were born years ago, in a land far away, you are...",
+    "You were born years ago, in a land far away, you're blood is...",
     "none",
 	[
 		(str_clear,s10),
@@ -934,15 +909,15 @@ game_menus = [
     [
 	("start_highborn",[],"Highborn.",
 		[
-			(assign,"$background_type",cb_highborn),
-			(str_store_string,s10,"@You came into the world as a Highborn."),
+			(assign, "$background_type", cb_highborn),
+			(str_store_string, s10, "@Your blood is that of a Highborn."),
 			(jump_to_menu,"mnu_start_character_2"),
 		]
 	),
     ("start_lowborn",[],"Lowborn.",
 		[
 			(assign,"$background_type",cb_lowborn),
-			(str_store_string,s10,"@You came into the world as a Lowborn."),
+			(str_store_string,s10,"@Your blood is that of a Lowborn."),
 			(jump_to_menu,"mnu_start_character_2"),
 		]
 	),
@@ -959,37 +934,40 @@ game_menus = [
     "none",
     [],
     [
-	("start_sovereign", [], "Sovereign",
+	("start_sovereign", [(eq, "$background_type", cb_highborn)], "Sovereign",
 		[
-			(assign,"$background_answer_2",cb2_sovereign),
-			(str_store_string,s10,"@After ariving in Calradia, you became a sovereign."),
-			(jump_to_menu,"mnu_choose_skill"),
+			(assign,"$background_answer_2", cb2_sovereign),
+			(str_store_string, s10, "@After ariving in Calradia, you became a sovereign."),
+            #TODO: Give army, gear, exp
+			(jump_to_menu, "mnu_choose_skill"),
 		]
 	),
-	("start_vassal", [], "Vassal",
+	("start_vassal", [(eq, "$background_type", cb_highborn)], "Vassal",
 		[
-			(assign,"$background_answer_2",cb2_vassal),
-			(str_store_string,s10,"@After ariving in Calradia, you became a vassal."),
-			(jump_to_menu,"mnu_choose_skill"),
+			(assign,"$background_answer_2", cb2_vassal),
+			(str_store_string, s10, "@After ariving in Calradia, you became a vassal."),
+            #TODO: Give army, gear, exp
+			(jump_to_menu, "mnu_choose_skill"),
 		]
 	),
 	("start_mercenary", [], "Mercenary",
 		[
-			(assign,"$background_answer_2",cb2_mercenary),
-			(str_store_string,s10,"@After ariving in Calradia, you became a mercenary."),
-			(jump_to_menu,"mnu_choose_skill"),
+			(assign,"$background_answer_2", cb2_mercenary),
+			(str_store_string, s10, "@After ariving in Calradia, you became a mercenary."),
+            #TODO: Give army, gear, exp
+			(jump_to_menu, "mnu_choose_skill"),
 		]
 	),
 	("start_wanderer", [], "Wanderer",
 		[
-			(assign,"$background_answer_2",cb2_wanderer),
-			(str_store_string,s10,"@After ariving in Calradia, you became a wanderer."),
-			(jump_to_menu,"mnu_choose_skill"),
+			(assign,"$background_answer_2", cb2_wanderer),
+			(str_store_string, s10,"@After ariving in Calradia, you became a wanderer."),
+			(jump_to_menu, "mnu_choose_skill"),
 		]
 	),
     ("go_back", [], "Go back.",
 		[
-			(jump_to_menu,"mnu_start_character_1"),
+			(jump_to_menu, "mnu_start_character_1"),
 		]
     ),
     ]
@@ -1011,7 +989,7 @@ game_menus = [
 	 (try_end),
 	
 	 (try_begin),
-        (eq,"$background_type",cb_highborn),
+        (eq,"$background_type", cb_highborn),
 		(str_store_string, s15, "str_noble"),
 		(val_sub, ":difficulty", 1),
 	 (else_try),

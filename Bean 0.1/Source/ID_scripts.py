@@ -568,5 +568,6 @@ script_refresh_center_armories = 566
 script_refresh_center_weaponsmiths = 567
 script_refresh_center_stables = 568
 script_get_message_color = 569
+script_handle_start_menu = 570
 
 

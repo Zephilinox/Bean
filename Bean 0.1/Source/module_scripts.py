@@ -3195,6 +3195,7 @@ scripts = [
 				(store_faction_of_party, ":capturer_faction", ":nonempty_winner_party"),
                 (call_script, "script_update_troop_location_notes_prisoned", ":cur_troop_id", ":capturer_faction"),
               (else_try),
+                #TODO: call_script get message color
                 (display_message,"@{s1} of {s3} was defeated in battle but managed to escape.", color_neutral_news),
               (try_end),
               
@@ -20036,30 +20037,52 @@ scripts = [
 
   # script_troop_set_title_according_to_faction
   # Input: arg1 = troop_no, arg2 = faction_no
+  ##BEAN BEGIN - Start Menu
   ("troop_set_title_according_to_faction",
     [
       (store_script_param, ":troop_no", 1),
       (store_script_param, ":faction_no", 2),
       (try_begin),
         (is_between, ":faction_no", kingdoms_begin, kingdoms_end),
-        (str_store_troop_name_plural, s0, ":troop_no"),
+        (try_begin),
+        (eq, ":troop_no", "trp_player"),
+            (str_store_string, s0, "@{playername}"),
+        (else_try),
+            (str_store_troop_name_plural, s0, ":troop_no"),
+        (try_end),
         (troop_get_type, ":gender", ":troop_no"),
         (store_sub, ":title_index", ":faction_no", kingdoms_begin),
+        (faction_get_slot, ":faction_leader", ":faction_no", slot_faction_leader),
         (try_begin),
-          (eq, ":gender", 0), #male
-          (val_add, ":title_index", kingdom_titles_male_begin),
+            (eq, ":gender", 0), #male
+            (try_begin),
+                (eq, ":faction_leader", "trp_player"),
+                    (str_store_string, s1, "@King {s0}"),
+            (else_try),
+                (val_add, ":title_index", kingdom_titles_male_begin),
+            (try_end),
         (else_try),
-          (val_add, ":title_index", kingdom_titles_female_begin),
+            (try_begin),
+                (eq, ":faction_leader", "trp_player"),
+                    (str_store_string, s1, "@Queen {s0}"),
+            (else_try),
+                (val_add, ":title_index", kingdom_titles_female_begin),
+                (str_store_string, s1, ":title_index"),
+            (try_end),
         (try_end),
-        (str_store_string, s1, ":title_index"),
         (troop_set_name, ":troop_no", s1),
         (troop_get_slot, ":troop_party", ":troop_no", slot_troop_leaded_party),
-        (gt, ":troop_party", 0),
-        (str_store_troop_name, s5, ":troop_no"),
-        (party_set_name, ":troop_party", "str_s5_s_party"),
+        (try_begin),
+        (eq, ":troop_no", "trp_player"),
+            (party_set_name, ":troop_party", "@{s1}'s Party"),
+        (else_try),
+            (str_store_troop_name, s5, ":troop_no"),
+            (party_set_name, ":troop_party", "@str_s5_s_party"),
+        (try_end),
       (try_end),
       ]),
-
+  ##BEAN END - Start Menu
+  
   # script_give_center_to_lord
   # Input: arg1 = center_no, arg2 = lord_troop, arg3 = add_garrison_to_center
   ("give_center_to_lord",
@@ -47652,7 +47675,17 @@ scripts = [
 			(else_try),
 				# news_lord_escaped = 4
 				(eq, ":news_type", news_lord_escaped),
-
+                (store_troop_faction, ":lord_faction", ":entity"),
+                (try_begin),
+                    (eq, ":lord_faction", ":player_faction"),
+                    (assign, ":color", color_great_news),
+                (else_try),
+                    (store_relation, ":relation", ":lord_faction", ":player_faction"),
+                    (lt, ":relation", 0),
+                    (assign, ":color", color_terrible_news),
+                (else_try),
+                    (assign, ":color", color_neutral_news),
+                (try_end),
 			(else_try),
 				# news_village_looted = 5
 				# ":entity" is the village number
@@ -47664,7 +47697,7 @@ scripts = [
 				(else_try),
 					(store_relation, ":relation", ":center_faction", ":player_faction"),
 					(lt, ":relation", 0),
-					(assign, ":color", color_good_news),
+					(assign, ":color", color_quest_and_faction_news),
 				(else_try),
 					(assign, ":color", color_neutral_news),
 				(try_end),
@@ -47716,7 +47749,6 @@ scripts = [
 				(else_try),
 					(assign, ":color", color_neutral_news),
 				(try_end),
-
 			(else_try),
 				# news_center_prosperity_changed = 9
 				# ":entity" is the center number
@@ -47724,9 +47756,9 @@ scripts = [
 				(party_get_slot, ":center_lord", ":entity", slot_town_lord),
 				(try_begin),
 					(eq, ":center_lord", "trp_player"),
-					(assign, ":color", color_good_news),
+					(assign, ":color", color_hero_news),
 				(else_try),
-					(assign, ":color", 0xFFFFFFFF),
+					(assign, ":color", color_neutral_news),
 				(try_end),
 
 			(try_end),
@@ -47735,6 +47767,69 @@ scripts = [
 		]
 	),
 	##BEAN END - Color Coded Messages by HardCode
+    ##BEAN BEGIN - Start Menu
+    ("handle_start_menu",
+        [
+			(store_script_param, ":faction_no", 1),
+            (store_script_param, ":troop_no", 2),
+            
+            (call_script, "script_change_player_party_morale", 100),
+            
+            (try_begin),
+            (eq, "$background_answer_2", cb2_sovereign),
+                (call_script, "script_player_join_faction", ":faction_no"),
+                (assign, "$player_has_homage", 1),
+                (assign, "$g_player_banner_granted", 1),
+                (assign, "$g_invite_faction", 0),
+                (assign, "$g_invite_faction_lord", 0),
+                (assign, "$g_invite_offered_center", 0),
+                (troop_set_faction, "trp_player", ":faction_no"),
+                (party_set_faction, "p_main_party", ":faction_no"),
+                
+                (faction_set_slot, ":faction_no", slot_faction_leader, "p_main_party"),
+                (call_script, "script_give_center_to_lord", "$g_starting_town", "trp_player", 0),
+                (try_for_range, ":cur_village", villages_begin, villages_end),
+                    (party_slot_eq, ":cur_village", slot_village_bound_center, "$g_starting_town"),
+                    (call_script, "script_give_center_to_lord", ":cur_village", "trp_player", 0),
+                (try_end),
+                
+                (troop_set_faction, ":troop_no", "fac_no_faction"),
+                
+                (troop_get_slot, ":OldKingParty", ":troop_no", slot_troop_leaded_party),
+                (remove_member_from_party, ":troop_no", ":OldKingParty"),
+                (distribute_party_among_party_group, ":OldKingParty", "p_main_party"),
+                (disable_party, ":OldKingParty"),
+                (remove_party, ":OldKingParty"),                
+                
+                (call_script, "script_troop_set_title_according_to_faction", "trp_player", ":faction_no"),
+            (else_try),
+            (eq, "$background_answer_2", cb2_vassal),
+                (call_script, "script_player_join_faction", ":faction_no"),
+                (assign, "$player_has_homage", 1),
+                (assign, "$g_player_banner_granted", 1),
+                (assign, "$g_invite_faction", 0),
+                (assign, "$g_invite_faction_lord", 0),
+                (assign, "$g_invite_offered_center", 0),
+                (troop_set_faction, "trp_player", ":faction_no"),
+                (party_set_faction, "p_main_party", ":faction_no"),
+                
+                (call_script, "script_get_poorest_village_of_faction", ":faction_no"),
+                (call_script, "script_give_center_to_lord", reg0, "trp_player"), #reg0 = poorest village
+                (call_script, "script_troop_set_title_according_to_faction", "trp_player", ":faction_no"),
+            (else_try),
+            (eq, "$background_answer_2", cb2_mercenary),
+                (call_script, "script_player_join_faction", "fac_kingdom_1"),
+                (assign, "$player_has_homage", 0),
+                (assign, "$g_player_banner_granted", 0),
+                (assign, "$g_invite_faction", 0),
+                (assign, "$g_invite_faction_lord", 0),
+                (assign, "$g_invite_offered_center", 0),
+                (troop_set_faction, "trp_player", ":faction_no"),
+                (party_set_faction, "p_main_party", ":faction_no"),
+            (try_end),
+        ]
+    ),
+    ##BEAN END - Start Menu
 
 ]
 # modmerger_start version=201 type=2

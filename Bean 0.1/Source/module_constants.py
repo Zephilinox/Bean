@@ -1113,7 +1113,7 @@ color_great_news = 0x00FF00
 color_good_news = 0x50FF50
 color_terrible_news = 0xFF2222
 color_bad_news = 0xFF5050
-color_neutral_news = 0xFFAA00
+color_neutral_news = 0xFCFCFC
 color_quest_and_faction_news = 0x66CCFF
 color_hero_news = 0xFFFF00
 
