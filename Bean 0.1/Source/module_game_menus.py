@@ -36,6 +36,7 @@ from module_constants import *
 ####################################################################################################################
 
 game_menus = [
+  ##BEAN BEGIN - Start Menu
   ("start_game_0",menu_text_color(0xFF000000)|mnf_disable_all_keys,
     "Welcome, adventurer, to Mount and Blade: Warband. Before beginning the game you must create your character. Remember that in the traditional medieval society depicted in the game, war and politics are usually dominated by male members of the nobility. That does not however mean that you should not choose to play a female character, or one who is not of noble birth. Male nobles may have a somewhat easier start, but women and commoners can attain all of the same goals -- and in fact may have a much more interesting if more challenging early game.",
     "none",
@@ -53,11 +54,7 @@ game_menus = [
   ),
 
   ("start_phase_2",mnf_disable_all_keys,
-    "You hear about Calradia, a land torn between rival kingdoms battling each other for supremacy,\
- a haven for knights and mercenaries,  cutthroats and adventurers, all willing to risk their lives in pursuit of fortune, power, or glory...\
- In this land which holds great dangers and even greater opportunities, you believe you may leave your past behind and start a new life.\
- You feel that finally, you hold the key of your destiny in your hands, free to choose as you will,\
- and that whatever course you take, great adventures will await you. Drawn by the stories you hear about Calradia and its kingdoms, you...",
+    "Upon arriving in Calradia, you decide to...",
     "none",
     [],
     [
@@ -66,9 +63,34 @@ game_menus = [
         (assign, "$current_town", "p_town_6"),
         (assign, "$g_starting_town", "$current_town"),
         (assign, "$g_journey_string", "str_journey_to_praven"),
-		(set_show_messages, 0),
+		#(set_show_messages, 0),
 		(party_relocate_near_party, "p_main_party", "$g_starting_town", 2),
 		(call_script, "script_change_player_party_morale", 100),
+        
+        #(try_begin),
+        #(eq, "$background_answer_2", cb2_vassal),
+            (call_script, "script_player_join_faction", "fac_kingdom_1"),
+            (assign, "$player_has_homage", 1),
+            (assign, "$g_player_banner_granted", 1),
+            (assign, "$g_invite_faction", 0),
+            (assign, "$g_invite_faction_lord", 0),
+            (assign, "$g_invite_offered_center", 0),
+            
+            #Perhaps, move kings party to players, and disable king?
+            
+            (troop_set_plural_name, "trp_kingdom_1_lord", "@Count Harlaus's"),
+            (troop_set_name, "trp_kingdom_1_lord", "@Count Harlaus"),
+            
+            (faction_set_slot, "fac_kingdom_1", slot_faction_leader, "p_main_party"),
+            (call_script, "script_give_center_to_lord", "p_town_6", "trp_player", 0),
+            (party_set_extra_text, "p_main_party", "@King of Swadia"),
+            
+            #(party_set_faction, "p_main_party", "fac_kingdom_1"),
+            #(party_set_faction, "p_town_6", "fac_kingdom_1"),
+            #(party_set_faction, "p_main_party", "fac_kingdom_1"),
+            #(call_script, "script_add_log_entry", logent_castle_captured_by_player, "trp_player", "p_town_6", "trp_kingdom_1_lord", "fac_kingdom_1"),
+        #(try_end),
+        
 		(set_show_messages, 1),
 		(change_screen_return),	 
        ]),
@@ -132,76 +154,9 @@ game_menus = [
 		(set_show_messages, 1),
 		(change_screen_return),
        ]),
-
-	   
-      ("tutorial_cheat",[(eq,1,0)],"{!}CHEAT!",
-       [
-         (change_screen_return),
-         (assign, "$cheat_mode", 1),
-         (set_show_messages, 0),
-		 (add_xp_to_troop, 15000, "trp_player"),
-         (troop_raise_skill, "trp_player", skl_leadership, 7),
-         (troop_raise_skill, "trp_player", skl_prisoner_management, 5),
-         (troop_raise_skill, "trp_player", skl_inventory_management, 10),
-         (party_add_members, "p_main_party", "trp_swadian_knight", 10),
-         (party_add_members, "p_main_party", "trp_vaegir_knight", 10),
-         (party_add_members, "p_main_party", "trp_vaegir_archer", 10),
-         (party_add_members, "p_main_party", "trp_swadian_sharpshooter", 10),
-         (troop_add_item, "trp_player","itm_scale_armor",0),
-         (troop_add_item, "trp_player","itm_full_helm",0),
-         
-         (troop_add_item, "trp_player","itm_hafted_blade_b",0),
-         (troop_add_item, "trp_player","itm_hafted_blade_a",0),
-         (troop_add_item, "trp_player","itm_morningstar",0),
-         (troop_add_item, "trp_player","itm_tutorial_spear",0),
-         (troop_add_item, "trp_player","itm_tutorial_staff",0),
-         (troop_add_item, "trp_player","itm_tutorial_staff_no_attack",0),
-         (troop_add_item, "trp_player","itm_arena_lance",0),
-         (troop_add_item, "trp_player","itm_practice_staff",0),
-         (troop_add_item, "trp_player","itm_practice_lance",0),
-         (troop_add_item, "trp_player","itm_practice_javelin",0),
-         (troop_add_item, "trp_player","itm_scythe",0),
-         (troop_add_item, "trp_player","itm_pitch_fork",0),
-         (troop_add_item, "trp_player","itm_military_fork",0),
-         (troop_add_item, "trp_player","itm_battle_fork",0),
-         (troop_add_item, "trp_player","itm_boar_spear",0),
-         (troop_add_item, "trp_player","itm_jousting_lance",0),
-         (troop_add_item, "trp_player","itm_double_sided_lance",0),
-         (troop_add_item, "trp_player","itm_glaive",0),
-         (troop_add_item, "trp_player","itm_poleaxe",0),
-         (troop_add_item, "trp_player","itm_polehammer",0),
-         (troop_add_item, "trp_player","itm_staff",0),
-         (troop_add_item, "trp_player","itm_quarter_staff",0),
-         (troop_add_item, "trp_player","itm_iron_staff",0),
-         (troop_add_item, "trp_player","itm_shortened_spear",0),
-         (troop_add_item, "trp_player","itm_spear",0),
-         (troop_add_item, "trp_player","itm_war_spear",0),
-         (troop_add_item, "trp_player","itm_military_scythe",0),
-         (troop_add_item, "trp_player","itm_light_lance",0),
-         (troop_add_item, "trp_player","itm_lance",0),
-         (troop_add_item, "trp_player","itm_heavy_lance",0),
-         (troop_add_item, "trp_player","itm_great_lance",0),
-         (troop_add_item, "trp_player","itm_pike",0),
-         (troop_add_item, "trp_player","itm_ashwood_pike",0),
-         (troop_add_item, "trp_player","itm_awlpike",0),
-         (troop_add_item, "trp_player","itm_throwing_spears",0),
-         (troop_add_item, "trp_player","itm_javelin",0),
-         (troop_add_item, "trp_player","itm_jarid",0),
-         
-         (troop_add_item, "trp_player","itm_long_axe_b",0),		 
-         
-         (set_show_messages, 1),
-
-         (try_for_range, ":cur_place", scenes_begin, scenes_end),
-           (scene_set_slot, ":cur_place", slot_scene_visited, 1),
-         (try_end),
-         
-         (call_script, "script_get_player_party_morale_values"),
-         (party_set_morale, "p_main_party", reg0),
-       ]
-	   ),
     ]
   ),
+  ##BEAN END - Start Menu
  
 
 
@@ -1076,36 +1031,56 @@ game_menus = [
 	],
     [
     ("begin_adventuring",[],"Become an adventurer and ride to your destiny.",
-	[
-        (set_show_messages, 0),
+        [
+            (set_show_messages, 0),
 
-        (troop_add_item, "trp_player","itm_leather_jerkin",imod_ragged),
-        (troop_add_item, "trp_player","itm_leather_boots",imod_tattered),
-        (troop_add_item, "trp_player","itm_sword_medieval_a", imod_rusty),
-        (troop_add_item, "trp_player","itm_hunting_crossbow",0),
-        (troop_add_item, "trp_player","itm_bolts",0),
-        (troop_add_item, "trp_player","itm_saddle_horse",imod_swaybacked),
-        (troop_add_item, "trp_player","itm_smoked_fish",0),
-        (troop_add_gold, "trp_player", 2000),
-
-		(try_begin),
-		(eq, "$background_type", cb_highborn),
-			(troop_set_slot, "trp_player", slot_troop_renown, 100),
-		(try_end),
-
-	(try_begin),
-	(eq, "$background_type", cb_highborn),
-		(jump_to_menu, "mnu_auto_return"),
-		#normal_banner_begin
-		(start_presentation, "prsnt_banner_selection"),
-		#custom_banner_begin - TODO: Fix this amazing feature.
-        #(start_presentation, "prsnt_custom_banner"),
-	(else_try),
-		 (change_screen_return, 0),
-	(try_end),
-	
-	(set_show_messages, 1),
-    ]
+            (troop_add_item, "trp_player", "itm_leather_jerkin", imod_ragged),
+            (troop_add_item, "trp_player", "itm_leather_boots", imod_tattered),
+            (troop_add_item, "trp_player", "itm_sword_medieval_a", imod_rusty),
+            (troop_add_item, "trp_player", "itm_hunting_crossbow", 0),
+            (troop_add_item, "trp_player", "itm_bolts", 0),
+            (troop_add_item, "trp_player", "itm_saddle_horse", imod_swaybacked),
+            (troop_add_item, "trp_player", "itm_smoked_fish", 0),
+            (troop_add_gold, "trp_player", 2000),
+            
+            #TODO: Implement Sovereign/Vassal/Merc
+            
+            #(try_begin),
+            #(eq, "$background_answer_2", cb2_wanderer),
+                (troop_raise_attribute, "trp_player", ca_strength, 3),
+                (troop_raise_attribute, "trp_player", ca_agility, 3),
+                (troop_raise_attribute, "trp_player", ca_intelligence, 3),	
+                (troop_raise_attribute, "trp_player", ca_charisma, 3),
+                
+                (troop_raise_skill, "trp_player", skl_ironflesh, 3),
+                (troop_raise_skill, "trp_player", skl_power_strike, 3),
+                (troop_raise_skill, "trp_player", skl_power_draw, 3),
+                (troop_raise_skill, "trp_player", skl_weapon_master, 1),
+                (troop_raise_skill, "trp_player", skl_leadership, 3),
+                
+                (troop_raise_proficiency_linear, "trp_player", wpt_one_handed_weapon, 60),
+                (troop_raise_proficiency_linear, "trp_player", wpt_two_handed_weapon, 60),
+                (troop_raise_proficiency_linear, "trp_player", wpt_polearm, 60),		
+                (troop_raise_proficiency_linear, "trp_player", wpt_crossbow, 60),
+                (troop_raise_proficiency_linear, "trp_player", wpt_archery, 60),
+                (troop_raise_proficiency_linear, "trp_player", wpt_throwing, 60),
+            #(try_end),
+            
+            (try_begin),
+            (eq, "$background_type", cb_highborn),
+                (troop_set_slot, "trp_player", slot_troop_renown, 100),
+                
+                (jump_to_menu, "mnu_auto_return"),
+                #normal_banner_begin
+                (start_presentation, "prsnt_banner_selection"),
+                #custom_banner_begin - TODO: Fix this amazing feature if possible.
+                #(start_presentation, "prsnt_custom_banner"),
+            (else_try),
+                 (change_screen_return, 0),
+            (try_end),
+            
+            (set_show_messages, 1),
+        ]
 	),
     ("go_back", [], "Go back.",
 		[
