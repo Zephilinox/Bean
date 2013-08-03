@@ -38,14 +38,9 @@ common_init_deathcam = (
    [],
    [
       (assign, "$pop_camera_on", 0),
-      # mouse center coordinates (non-windowed)
+      #Mouse center coordinates (non-windowed)
       (assign, "$pop_camera_mouse_center_x", 500),
       (assign, "$pop_camera_mouse_center_y", 375),
-      # last recorded mouse coordinates
-      (assign, "$pop_camera_mouse_x", "$pop_camera_mouse_center_x"),
-      (assign, "$pop_camera_mouse_y", "$pop_camera_mouse_center_y"),
-      # counts how many cycles the mouse stays in the same position, to determine new center in windowed mode
-      (assign, "$pop_camera_mouse_counter", 0),
    ]
 )
 
@@ -56,140 +51,143 @@ common_start_deathcam = (
      (eq, "$pop_camera_on", 0),
    ],
    [
-      (get_player_agent_no, ":player_agent"),
-      (agent_get_position, pos1, ":player_agent"),
-      (position_get_x, ":pos_x", pos1),
-      (position_get_y, ":pos_y", pos1),
-      (init_position, pos47),
-      (position_set_x, pos47, ":pos_x"),
-      (position_set_y, pos47, ":pos_y"),
-      (position_set_z_to_ground_level, pos47),
-      (position_move_z, pos47, 250),
-      (mission_cam_set_mode, 1, 0, 0),
-      (mission_cam_set_position, pos47),
-      (assign, "$pop_camera_rotx", 0),
-      (assign, "$pop_camera_on", 1),
+        (get_player_agent_no, ":player_agent"),
+        (agent_get_position, pos1, ":player_agent"),
+        (position_get_x, ":pos_x", pos1),
+        (position_get_y, ":pos_y", pos1),
+        (init_position, pos47),
+        (position_set_x, pos47, ":pos_x"),
+        (position_set_y, pos47, ":pos_y"),
+        (position_set_z_to_ground_level, pos47),
+        (position_move_z, pos47, 250),
+        (mission_cam_set_mode, 1, 0, 0),
+        (mission_cam_set_position, pos47),
+        (assign, "$pop_camera_rotx", 0),
+        (assign, "$pop_camera_on", 1),
+        
+        (display_message, "@You were defeated.", color_terrible_news),
+        (display_message, "@Hold down left-click to rotate", color_neutral_news),
+        (display_message, "@Move with standard keys, shift/control for up/down", color_neutral_news),
+        
+        (team_give_order, 0, grc_everyone, mordr_charge),
+        (team_give_order, 1, grc_everyone, mordr_charge),
+        (team_give_order, 2, grc_everyone, mordr_charge),
+        (team_give_order, 3, grc_everyone, mordr_charge),
    ]
 )
 
 common_move_deathcam = (
    0, 0, 0,
    [
-      (eq, "$pop_camera_on", 1),
-      (this_or_next|game_key_clicked, gk_move_forward),
-      (this_or_next|game_key_is_down, gk_move_forward),
-      (this_or_next|game_key_clicked, gk_move_backward),
-      (this_or_next|game_key_is_down, gk_move_backward),
-      (this_or_next|game_key_clicked, gk_move_left),
-      (this_or_next|game_key_is_down, gk_move_left),
-      (this_or_next|game_key_clicked, gk_move_right),
-      (game_key_is_down, gk_move_right),
+    (eq, "$pop_camera_on", 1),
+    (this_or_next|game_key_is_down, gk_move_forward),
+    (this_or_next|game_key_is_down, gk_move_backward),
+    (this_or_next|game_key_is_down, gk_move_left),
+    (this_or_next|game_key_is_down, gk_move_right),
+    (this_or_next|key_is_down, key_left_shift),
+    (key_is_down, key_left_control),
    ],
    [
-      (mission_cam_get_position, pos47),
-      (assign, ":move_x", 0),
-      (assign, ":move_y", 0),
-      (try_begin), #forward
-        (this_or_next|game_key_clicked, gk_move_forward),
-        (game_key_is_down, gk_move_forward),
-        (assign, ":move_y", 10),
-      (try_end),
-      (try_begin), #backward
-        (this_or_next|game_key_clicked, gk_move_backward),
-        (game_key_is_down, gk_move_backward),
-        (assign, ":move_y", -10),
-      (try_end),
-      (try_begin), #left
-        (this_or_next|game_key_clicked, gk_move_left),
-        (game_key_is_down, gk_move_left),
-        (assign, ":move_x", -10),
-      (try_end),
-      (try_begin), #right
-        (this_or_next|game_key_clicked, gk_move_right),
-        (game_key_is_down, gk_move_right),
-        (assign, ":move_x", 10),
-      (try_end),
-      (position_move_x, pos47, ":move_x"),
-      (position_move_y, pos47, ":move_y"),
+        (mission_cam_get_position, pos47),
+      
+        (try_begin),
+			(game_key_is_down, gk_move_forward),		
+			(position_move_y, pos47, 10),
+		(try_end),
+		
+		(try_begin),
+			(game_key_is_down, gk_move_backward),		
+			(position_move_y, pos47, -10),
+		(try_end),
+
+		(try_begin),
+			(game_key_is_down, gk_move_right),		
+			(position_move_x, pos47, 10), 
+		(try_end),
+
+		(try_begin),
+			(game_key_is_down, gk_move_left),		
+			(position_move_x, pos47, -10),
+		(try_end),
+
+		(try_begin),
+			(key_is_down, key_left_shift),
+			(position_move_z, pos47, 10),
+		(try_end),			
+
+		(try_begin),
+			(key_is_down, key_left_control),
+			(position_move_z, pos47, -10),
+		(try_end),
+      
       (mission_cam_set_position, pos47),      
    ]
 )
-
-deathcam_mouse_deadzone = 0 #set this to a positive number (MV: 2 or 3 works well for me, but needs testing on other people's PCs)
 
 common_rotate_deathcam = (
    0, 0, 0,
    [
       (eq, "$pop_camera_on", 1),
-      (neg|is_presentation_active, "prsnt_battle"),
-      (mouse_get_position, pos1),
-      (set_fixed_point_multiplier, 1000),
-      (position_get_x, reg1, pos1),
-      (position_get_y, reg2, pos1),
-      (this_or_next|neq, reg1, "$pop_camera_mouse_center_x"),
-      (neq, reg2, "$pop_camera_mouse_center_y"),
    ],
    [
-      # fix for windowed mode: recenter the mouse
-      (assign, ":continue", 1),
-      (try_begin),
-        (eq, reg1, "$pop_camera_mouse_x"),
-        (eq, reg2, "$pop_camera_mouse_y"),
-        (val_add, "$pop_camera_mouse_counter", 1),
-        (try_begin), #hackery: if the mouse hasn't moved for X cycles, recenter it
-          (gt, "$pop_camera_mouse_counter", 50000),
-          (assign, "$pop_camera_mouse_center_x", reg1),
-          (assign, "$pop_camera_mouse_center_y", reg2),
-          (assign, "$pop_camera_mouse_counter", 0),
-        (try_end),
-        (assign, ":continue", 0),
-      (try_end),
-      (eq, ":continue", 1), #continue only if mouse has moved
-      (assign, "$pop_camera_mouse_counter", 0), # reset recentering hackery
-      
-      # update recorded mouse position
-      (assign, "$pop_camera_mouse_x", reg1),
-      (assign, "$pop_camera_mouse_y", reg2),
-      
-      (mission_cam_get_position, pos47),
-      (store_sub, ":shift", "$pop_camera_mouse_center_x", reg1), #horizontal shift for pass 0
-      (store_sub, ":shift_vertical", reg2, "$pop_camera_mouse_center_y"), #for pass 1
-      
-      (try_for_range, ":pass", 0, 2), #pass 0: check mouse x movement (left/right), pass 1: check mouse y movement (up/down)
-        (try_begin),
-          (eq, ":pass", 1),
-          (assign, ":shift", ":shift_vertical"), #get ready for the second pass
-        (try_end),
-        (this_or_next|lt, ":shift", -deathcam_mouse_deadzone), #skip pass if not needed (mouse deadzone)
-        (gt, ":shift", deathcam_mouse_deadzone),
+        (set_fixed_point_multiplier, 1000),
         
-        (assign, ":sign", 1),
+        #Get and set mouse position
+        (mouse_get_position, pos1),
+        (position_get_x, reg1, pos1),
+        (position_get_y, reg2, pos1),
+        
         (try_begin),
-          (lt, ":shift", 0),
-          (assign, ":sign", -1),
+        (key_is_down, key_left_mouse_button),
+            (try_begin),
+            (neg|is_presentation_active, "prsnt_battle"),
+                (start_presentation, "prsnt_fake_presentation"), #For whatever reason having a presentation open allows smooth rotation.
+            (try_end),
+            
+            (mission_cam_get_position, pos47),
+            
+            #Store difference between mouse pos and center mouse pos.
+            (store_sub, ":deltaX", "$pop_camera_mouse_center_x", reg1),
+            (store_sub, ":deltaY", "$pop_camera_mouse_center_y", reg2),
+            (try_begin),
+            (gt, ":deltaX", 10),
+                (assign, reg33, ":deltaX"),
+                (assign, reg34, ":deltaY"),
+                (display_message, "@X, Y: {reg33}, {reg34}"),
+            (try_end),
+            #min = -1, max = 1
+            (val_clamp, ":deltaX", -1, 2),
+            (val_clamp, ":deltaY", -1, 2),
+            
+            #Set padding
+            (store_sub, ":leftPad", "$pop_camera_mouse_center_x", 20),
+            (store_add, ":rightPad", "$pop_camera_mouse_center_x", 20),
+            (store_sub, ":topPad", "$pop_camera_mouse_center_y", 15),
+            (store_add, ":botPad", "$pop_camera_mouse_center_y", 15),
+            
+            (try_begin),
+            (this_or_next|lt, reg1, ":leftPad"), #40 pixel padding
+            (gt, reg1, ":rightPad"),
+                (store_mul, ":neg_rotx", -1, "$pop_camera_rotx"),
+                (position_rotate_x, pos47, ":neg_rotx"), #Fix Yaw
+                (position_rotate_z, pos47, ":deltaX"), #Left/Right
+                (position_rotate_x, pos47, "$pop_camera_rotx"), #Fix Yaw
+            (try_end),
+            
+            (try_begin),
+            (this_or_next|lt, reg2, ":topPad"), #30 pixel padding
+            (gt, reg2, ":botPad"),
+                (val_mul, ":deltaY", -1), #Invert Up/Down movement
+                (position_rotate_x, pos47, ":deltaY"), #Up/Down
+                (val_add, "$pop_camera_rotx", ":deltaY"),
+            (try_end),
+            
+            (mission_cam_set_position, pos47),
+        (else_try),
+            #Set the center for the next padding as current mouse pos
+            (assign, "$pop_camera_mouse_center_x", reg1),
+            (assign, "$pop_camera_mouse_center_y", reg2),
         (try_end),
-        # square root calc
-        (val_abs, ":shift"),
-        (val_sub, ":shift", deathcam_mouse_deadzone), # ":shift" is now 1 or greater
-        (convert_to_fixed_point, ":shift"),
-        (store_sqrt, ":shift", ":shift"),
-        (convert_from_fixed_point, ":shift"),
-        (val_clamp, ":shift", 1, 6), #limit rotation speed
-        (val_mul, ":shift", ":sign"),
-        (try_begin),
-          (eq, ":pass", 0), # rotate around z (left/right)
-          (store_mul, ":minusrotx", "$pop_camera_rotx", -1),
-          (position_rotate_x, pos47, ":minusrotx"), #needed so camera yaw won't change
-          (position_rotate_z, pos47, ":shift"),
-          (position_rotate_x, pos47, "$pop_camera_rotx"), #needed so camera yaw won't change
-        (try_end),
-        (try_begin),
-          (eq, ":pass", 1), # rotate around x (up/down)
-          (position_rotate_x, pos47, ":shift"),
-          (val_add, "$pop_camera_rotx", ":shift"),
-        (try_end),
-      (try_end), #try_for_range ":pass"
-      (mission_cam_set_position, pos47),
    ]
 )
 
@@ -800,21 +798,26 @@ common_battle_mission_start = (
     (call_script, "script_change_banners_and_chest"),
     ])
 
+##BEAN BEGIN - Deathcam
 common_battle_tab_press = (
-  ti_tab_pressed, 0, 0, [],
-  [
-    (try_begin),
-      (eq, "$g_battle_won", 1),
-      (call_script, "script_count_mission_casualties_from_agents"),
-      (finish_mission,0),
-    (else_try),
-      (call_script, "script_cf_check_enemies_nearby"),
-      (question_box,"str_do_you_want_to_retreat"),
-    (else_try),
-      (display_message,"str_can_not_retreat", color_neutral_news),
-    (try_end),
-    ])
-
+    ti_tab_pressed, 0, 0, [],
+    [
+        (try_begin),
+        (eq, "$g_battle_won", 1),
+            (call_script, "script_count_mission_casualties_from_agents"),
+            (finish_mission,0),
+        (else_try),
+        (eq, "$pin_player_fallen", 1),
+            (question_box,"str_do_you_want_to_retreat"),
+        (else_try),
+            (call_script, "script_cf_check_enemies_nearby"),
+            (question_box,"str_do_you_want_to_retreat"),
+        (else_try),
+            (display_message,"str_can_not_retreat", color_neutral_news),
+        (try_end),
+    ]
+)
+##BEAN END - Deathcam
 common_battle_init_banner = (
   ti_on_agent_spawn, 0, 0, [],
   [
@@ -1088,7 +1091,6 @@ common_siege_check_defeat_condition = (
     ],
   [
     (assign, "$pin_player_fallen", 1),
-    (display_message, "@You have fallen in battle!", color_terrible_news),
     ])
 ##BEAN END - Deathcam
 common_battle_order_panel = (
@@ -2520,7 +2522,6 @@ mission_templates = [
       (1, 4, ti_once, [(main_hero_fallen)],
           [
               (assign, "$pin_player_fallen", 1),
-              (display_message, "@You have fallen in battle!", color_terrible_news),
               ]),
       ##BEAN END - Deathcam
 

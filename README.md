@@ -2,6 +2,7 @@ A M&B Warband mod to enhance, simplify and improve the game play experience of N
 
 ***Bean 0.1***
 
+
 *Removed Merchant Quests
 
 *Modified Start Screen
@@ -14,7 +15,11 @@ A M&B Warband mod to enhance, simplify and improve the game play experience of N
 
 *Automatic Kingdom Title
 
-*TODO: Deathcam
+*Removed XGM Mod Options, useless and no known new version.
+
+*May remove Mod Merger altogether, it serves no purpose.
+
+*Deathcam by kt0, modified by MadVader, Xenoargh and me.
 
 *TODO: Modify Weather
 
