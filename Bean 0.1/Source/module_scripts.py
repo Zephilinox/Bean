@@ -895,6 +895,10 @@ scripts = [
       (try_for_range, ":party_no", centers_begin, centers_end),
         (party_set_note_available, ":party_no", 1),
       (try_end),
+      
+      ##BEAN BEGIN - Sort Parties by Level
+      (call_script, "script_sort_parties_by_level"),
+      ##BEAN END - Sort Parties by Level
     ]),
 
   #script_game_get_use_string
@@ -47804,12 +47808,14 @@ scripts = [
     ("handle_start_menu",
         [
 			(store_script_param, ":faction_no", 1),
-            (store_script_param, ":troop_no", 2),
             
             (call_script, "script_change_player_party_morale", 100),
             
             (try_begin),
             (eq, "$background_answer_2", cb2_sovereign),
+                (faction_get_slot, ":troop_no", ":faction_no", slot_faction_leader), #store king of faction
+                
+                #setup player joining faction
                 (call_script, "script_player_join_faction", ":faction_no"),
                 (assign, "$player_has_homage", 1),
                 (assign, "$g_player_banner_granted", 1),
@@ -47819,6 +47825,7 @@ scripts = [
                 (troop_set_faction, "trp_player", ":faction_no"),
                 (party_set_faction, "p_main_party", ":faction_no"),
                 
+                #set player as king of faction, give capital & attached villages
                 (faction_set_slot, ":faction_no", slot_faction_leader, "p_main_party"),
                 (call_script, "script_give_center_to_lord", "$g_starting_town", "trp_player", 0),
                 (try_for_range, ":cur_village", villages_begin, villages_end),
@@ -47826,18 +47833,25 @@ scripts = [
                     (call_script, "script_give_center_to_lord", ":cur_village", "trp_player", 0),
                 (try_end),
                 
-                (troop_set_faction, ":troop_no", "fac_no_faction"),
+                #absorb kings party, remove king from game
+                (troop_set_faction, ":troop_no", "fac_outlaws"),
+                (troop_get_slot, ":old_king_party", ":troop_no", slot_troop_leaded_party),
                 
-                (troop_get_slot, ":OldKingParty", ":troop_no", slot_troop_leaded_party),
-                (remove_member_from_party, ":troop_no", ":OldKingParty"),
-                (distribute_party_among_party_group, ":OldKingParty", "p_main_party"),
-                (disable_party, ":OldKingParty"),
-                (remove_party, ":OldKingParty"),                
+                #(remove_member_from_party, ":troop_no", ":old_king_party"),
+                #(distribute_party_among_party_group, ":old_king_party", "p_main_party"),
+                #Untested, time to go to sleep
+                (assign, "$g_move_heroes", 0), #set to false, used by script_party_add_party_companions below.
+                (call_script, "script_party_add_party_companions", "p_main_party", ":old_king_party"),
+                
+                (disable_party, ":old_king_party"),
+                (remove_party, ":old_king_party"),
+                #TODO: Look at topic about disabling king, more code is needed
                 
                 (call_script, "script_troop_set_title_according_to_faction", "trp_player", ":faction_no"),
                 (troop_set_slot, "trp_kingdom_2_lord", slot_troop_renown, 500),
             (else_try),
             (eq, "$background_answer_2", cb2_vassal),
+                #setup player joining faction
                 (call_script, "script_player_join_faction", ":faction_no"),
                 (assign, "$player_has_homage", 1),
                 (assign, "$g_player_banner_granted", 1),
@@ -47847,8 +47861,32 @@ scripts = [
                 (troop_set_faction, "trp_player", ":faction_no"),
                 (party_set_faction, "p_main_party", ":faction_no"),
                 
-                (call_script, "script_get_poorest_village_of_faction", ":faction_no"),
-                (call_script, "script_give_center_to_lord", reg0, "trp_player"), #reg0 = poorest village
+                (call_script, "script_get_poorest_village_of_faction", ":faction_no"), #set reg0 = poorest village
+                (call_script, "script_give_center_to_lord", reg0, "trp_player"), 
+                    
+                (assign, ":found_party", 0),
+                (try_for_range, ":npc", active_npcs_begin, active_npcs_end), #find party to dupe
+                    (store_faction_of_troop, ":npc_faction", ":npc"),
+                    (faction_get_slot, ":npc_faction_leader", ":npc_faction", slot_faction_leader),
+                    (troop_get_slot, ":npc_party", ":npc", slot_troop_leaded_party),
+                    (try_begin),
+                    (eq, ":npc_faction", ":faction_no"),
+                    (neq, ":npc_faction_leader", ":npc"),
+                    (neq, ":npc_party", 0), #0 = p_main_party, but also default val for slots, so lord has not lead party
+                        (try_begin),
+                        (eq, ":found_party", 0), #TODO: figure out how to break out of a try_for_range
+                            (assign, ":found_party", 1),
+                            (assign, "$g_move_heroes", 0), #set to false, used by script_party_add_party_companions below.
+                            (call_script, "script_party_add_party_companions", "p_main_party", ":npc_party"),
+                        (try_end),
+                    (try_end),
+                (try_end),
+                
+                (try_begin),
+                (eq, ":found_party", 0),
+                    (display_log_message, "@Party could not be found."),
+                (try_end),
+                
                 (call_script, "script_troop_set_title_according_to_faction", "trp_player", ":faction_no"),
                 (troop_set_slot, "trp_kingdom_2_lord", slot_troop_renown, 200),
             (else_try),
@@ -47866,8 +47904,69 @@ scripts = [
         ]
     ),
     ##BEAN END - Start Menu
-
+    ##BEAN BEGIN - Sort Parties by Level
+    ("sort_parties_by_level",
+        [
+            (try_for_parties, ":party_no"),
+            (neq, ":party_no", "p_main_party"),
+            (neq, ":party_no", "p_temp_party"),
+            (assign, ":continue", 0),
+            (try_begin),
+              (this_or_next|party_slot_eq, ":party_no", slot_party_type, spt_kingdom_hero_party),
+              (party_slot_eq, ":party_no", slot_party_type, spt_kingdom_caravan),
+              (party_is_active, ":party_no"),
+              (assign, ":continue", 1),
+              (try_begin),
+                (party_stack_get_troop_id, ":cur_troop", ":party_no", 0),
+                (this_or_next|troop_is_hero, ":cur_troop"),
+                (eq, ":cur_troop", "trp_caravan_master"),
+                (assign, ":first_stack", 1),
+              (else_try),
+                (assign, ":first_stack", 0),
+              (try_end),
+            (else_try),
+              (this_or_next|party_slot_eq, ":party_no", slot_party_type, spt_castle),
+              (party_slot_eq, ":party_no", slot_party_type, spt_town),
+              (neg|party_slot_eq, ":party_no", slot_town_lord, "trp_player"),
+              (assign, ":first_stack", 0),
+              (assign, ":continue", 1),
+            (try_end),
+            (eq, ":continue", 1),
+            (party_get_num_companion_stacks, ":num_stacks", ":party_no"),
+            (gt, ":num_stacks", ":first_stack"),
+            (assign, ":last_stack", ":num_stacks"),
+           
+            # start to sort
+            (store_sub, ":num_times", ":num_stacks", ":first_stack"),
+            (try_for_range, ":unused", 0, ":num_times"),
+              # find highest-level troop
+              (assign, ":best_stack", -1),
+              (assign, ":best_level", -1),
+              (try_for_range, ":cur_stack", ":first_stack", ":last_stack"),
+                (party_stack_get_troop_id, ":cur_troop", ":party_no", ":cur_stack"),
+                (store_character_level, ":troop_level", ":cur_troop"),
+                (gt, ":troop_level", ":best_level"),
+                (assign, ":best_level", ":troop_level"),
+                (assign, ":best_stack", ":cur_stack"),
+              (try_end),
+              # move to the end
+              (try_begin),
+                (gt, ":best_level", -1),
+                (party_stack_get_troop_id, ":stack_troop", ":party_no", ":best_stack"),
+                (party_stack_get_size, ":stack_size", ":party_no", ":best_stack"),
+                (party_stack_get_num_wounded, ":num_wounded", ":party_no", ":best_stack"),
+                (party_remove_members, ":party_no", ":stack_troop", ":stack_size"),
+                (party_add_members, ":party_no", ":stack_troop", ":stack_size"),
+                (party_wound_members, ":party_no", ":stack_troop", ":num_wounded"),
+                (val_sub, ":last_stack", 1),
+              (try_end),
+            (try_end),
+          (try_end),
+        ]
+    ),
+    ##BEAN END - Sort Parties by Level
 ]
+
 # modmerger_start version=201 type=2
 try:
     component_name = "scripts"

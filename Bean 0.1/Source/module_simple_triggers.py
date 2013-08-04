@@ -4036,6 +4036,13 @@ simple_triggers = [
       (item_set_slot, "itm_wine", slot_item_food_bonus, 5),
       (item_set_slot, "itm_ale", slot_item_food_bonus, 4),
    ]),
+    ##BEAN BEGIN - Sort Parties by Level
+    (24,
+        [
+          (call_script, "script_sort_parties_by_level"),
+        ]
+    ),
+    ##BEAN END - Sort Parties by Level
   (24,
    []),
   (24,

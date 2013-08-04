@@ -17,9 +17,11 @@ A M&B Warband mod to enhance, simplify and improve the game play experience of N
 
 *Removed XGM Mod Options, useless and no known new version.
 
-*May remove Mod Merger altogether, it serves no purpose.
+*May remove Mod Merger for 0.1+, it serves no purpose right now.
 
 *Deathcam by kt0, modified by MadVader, Xenoargh and me.
+
+*Sort Parties by Level, by Rubik.
 
 *TODO: Modify Weather
 
