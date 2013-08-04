@@ -47825,6 +47825,8 @@ scripts = [
                 (troop_set_faction, "trp_player", ":faction_no"),
                 (party_set_faction, "p_main_party", ":faction_no"),
                 
+                #TODO: player has met all vassals and kings of all factions
+                
                 #set player as king of faction, give capital & attached villages
                 (faction_set_slot, ":faction_no", slot_faction_leader, "p_main_party"),
                 (call_script, "script_give_center_to_lord", "$g_starting_town", "trp_player", 0),
@@ -47835,20 +47837,16 @@ scripts = [
                 
                 #absorb kings party, remove king from game
                 (troop_set_faction, ":troop_no", "fac_outlaws"),
+                (troop_set_slot, ":troop_no", slot_troop_occupation, slto_inactive),
                 (troop_get_slot, ":old_king_party", ":troop_no", slot_troop_leaded_party),
-                
-                #(remove_member_from_party, ":troop_no", ":old_king_party"),
-                #(distribute_party_among_party_group, ":old_king_party", "p_main_party"),
-                #Untested, time to go to sleep
                 (assign, "$g_move_heroes", 0), #set to false, used by script_party_add_party_companions below.
                 (call_script, "script_party_add_party_companions", "p_main_party", ":old_king_party"),
-                
                 (disable_party, ":old_king_party"),
                 (remove_party, ":old_king_party"),
-                #TODO: Look at topic about disabling king, more code is needed
+                (troop_set_slot, ":troop_no", slot_troop_leaded_party, -1),
                 
                 (call_script, "script_troop_set_title_according_to_faction", "trp_player", ":faction_no"),
-                (troop_set_slot, "trp_kingdom_2_lord", slot_troop_renown, 500),
+                (troop_set_slot, "trp_player", slot_troop_renown, 500),
             (else_try),
             (eq, "$background_answer_2", cb2_vassal),
                 #setup player joining faction
@@ -47863,32 +47861,24 @@ scripts = [
                 
                 (call_script, "script_get_poorest_village_of_faction", ":faction_no"), #set reg0 = poorest village
                 (call_script, "script_give_center_to_lord", reg0, "trp_player"), 
-                    
-                (assign, ":found_party", 0),
-                (try_for_range, ":npc", active_npcs_begin, active_npcs_end), #find party to dupe
-                    (store_faction_of_troop, ":npc_faction", ":npc"),
-                    (faction_get_slot, ":npc_faction_leader", ":npc_faction", slot_faction_leader),
-                    (troop_get_slot, ":npc_party", ":npc", slot_troop_leaded_party),
+                
+                #TODO: player has met fellow vassals
+                
+                (assign, ":upper_limit", lords_end),
+                (try_for_range, ":lord", lords_begin, ":upper_limit"), #find party to dupe
+                    (store_faction_of_troop, ":lord_faction", ":lord"),
+                    (troop_get_slot, ":lord_party", ":lord", slot_troop_leaded_party),
                     (try_begin),
-                    (eq, ":npc_faction", ":faction_no"),
-                    (neq, ":npc_faction_leader", ":npc"),
-                    (neq, ":npc_party", 0), #0 = p_main_party, but also default val for slots, so lord has not lead party
-                        (try_begin),
-                        (eq, ":found_party", 0), #TODO: figure out how to break out of a try_for_range
-                            (assign, ":found_party", 1),
-                            (assign, "$g_move_heroes", 0), #set to false, used by script_party_add_party_companions below.
-                            (call_script, "script_party_add_party_companions", "p_main_party", ":npc_party"),
-                        (try_end),
+                    (eq, ":lord_faction", ":faction_no"),
+                    (le, ":lord_party", 0), #0 = p_main_party, but also default val for slots, so lord has not lead party
+                        (assign, ":upper_limit", ":lord"),
+                        (assign, "$g_move_heroes", 0), #set to false, used by script_party_add_party_companions below.
+                        (call_script, "script_party_add_party_companions", "p_main_party", ":lord_party"),
                     (try_end),
                 (try_end),
                 
-                (try_begin),
-                (eq, ":found_party", 0),
-                    (display_log_message, "@Party could not be found."),
-                (try_end),
-                
                 (call_script, "script_troop_set_title_according_to_faction", "trp_player", ":faction_no"),
-                (troop_set_slot, "trp_kingdom_2_lord", slot_troop_renown, 200),
+                (troop_set_slot, "trp_player", slot_troop_renown, 200),
             (else_try),
             (eq, "$background_answer_2", cb2_mercenary),
                 (call_script, "script_player_join_faction", "fac_kingdom_1"),
@@ -47899,7 +47889,7 @@ scripts = [
                 (assign, "$g_invite_offered_center", 0),
                 (troop_set_faction, "trp_player", ":faction_no"),
                 (party_set_faction, "p_main_party", ":faction_no"),
-                (troop_set_slot, "trp_kingdom_2_lord", slot_troop_renown, 50),
+                (troop_set_slot, "trp_player", slot_troop_renown, 50),
             (try_end),
         ]
     ),

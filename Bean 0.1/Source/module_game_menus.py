@@ -934,11 +934,11 @@ game_menus = [
     "none",
     [],
     [
-	("start_sovereign", [(eq, "$background_type", cb_highborn)], "Sovereign",
+	("start_sovereign", [(eq, "$background_type", cb_highborn)], "Sovereign (EXTREMELY BUGGY)",
 		[
 			(assign,"$background_answer_2", cb2_sovereign),
 			(str_store_string, s10, "@After ariving in Calradia, you became a sovereign."),
-            #TODO: Give army, gear, exp
+            #TODO: Give gear, exp
 			(jump_to_menu, "mnu_choose_skill"),
 		]
 	),
@@ -946,7 +946,7 @@ game_menus = [
 		[
 			(assign,"$background_answer_2", cb2_vassal),
 			(str_store_string, s10, "@After ariving in Calradia, you became a vassal."),
-            #TODO: Give army, gear, exp
+            #TODO: Give gear, exp
 			(jump_to_menu, "mnu_choose_skill"),
 		]
 	),
