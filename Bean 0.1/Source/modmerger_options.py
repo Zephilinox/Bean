@@ -24,7 +24,7 @@ options={
 
 mods_active = [
 # insert the active mod names here
-    "xgm_mod_options",
+    #"",
 ]
 
 

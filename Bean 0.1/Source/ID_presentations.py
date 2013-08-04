@@ -43,4 +43,3 @@ prsnt_retirement = 41
 prsnt_budget_report = 42
 prsnt_game_before_quit = 43
 prsnt_multiplayer_duel_start_counter = 44
-prsnt_mod_option = 45
