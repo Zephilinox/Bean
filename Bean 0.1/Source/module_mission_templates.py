@@ -32,31 +32,31 @@ from module_constants import *
 # 
 ####################################################################################################################
 
-##BEAN BEGIN - Death Cam
+##BEAN BEGIN - Deathcam
 common_init_deathcam = (
    0, 0, ti_once,
    [],
    [
       (assign, "$deathcam_on", 0),
-      #Mouse center coordinates (non-windowed)
-      (assign, "$deathcam_mouse_center_x", 500),
-      (assign, "$deathcam_mouse_center_y", 375),
+      (assign, "$deathcam_mouse_last_x", 500),
+      (assign, "$deathcam_mouse_last_y", 375),
       (assign, "$deathcam_delta_x", 0),
       (assign, "$deathcam_delta_y", 0),
    ]
 )
 
 common_start_deathcam = (
-   0, 4, ti_once, # 4 seconds delay before the camera activates
-   [
-     (main_hero_fallen),
-     (eq, "$deathcam_on", 0),
-   ],
-   [
+    0, 4, ti_once, # 4 seconds delay before the camera activates
+    [
+        (main_hero_fallen),
+        (eq, "$deathcam_on", 0),
+    ],
+    [
         (get_player_agent_no, ":player_agent"),
         (agent_get_position, pos1, ":player_agent"),
         (position_get_x, ":pos_x", pos1),
         (position_get_y, ":pos_y", pos1),
+        
         (init_position, pos47),
         (position_set_x, pos47, ":pos_x"),
         (position_set_y, pos47, ":pos_y"),
@@ -64,6 +64,7 @@ common_start_deathcam = (
         (position_move_z, pos47, 250),
         (mission_cam_set_mode, 1, 0, 0),
         (mission_cam_set_position, pos47),
+        
         (assign, "$deathcam_rotx", 0),
         (assign, "$deathcam_on", 1),
         
@@ -79,59 +80,59 @@ common_start_deathcam = (
 )
 
 common_move_deathcam = (
-   0, 0, 0,
-   [
-    (eq, "$deathcam_on", 1),
-    (this_or_next|game_key_is_down, gk_move_forward),
-    (this_or_next|game_key_is_down, gk_move_backward),
-    (this_or_next|game_key_is_down, gk_move_left),
-    (this_or_next|game_key_is_down, gk_move_right),
-    (this_or_next|key_is_down, key_left_shift),
-    (key_is_down, key_left_control),
-   ],
-   [
+    0, 0, 0,
+    [
+        (eq, "$deathcam_on", 1),
+        (this_or_next|game_key_is_down, gk_move_forward),
+        (this_or_next|game_key_is_down, gk_move_backward),
+        (this_or_next|game_key_is_down, gk_move_left),
+        (this_or_next|game_key_is_down, gk_move_right),
+        (this_or_next|key_is_down, key_left_shift),
+        (key_is_down, key_left_control),
+    ],
+    [
         (mission_cam_get_position, pos47),
       
         (try_begin),
-			(game_key_is_down, gk_move_forward),		
-			(position_move_y, pos47, 10),
-		(try_end),
-		
-		(try_begin),
-			(game_key_is_down, gk_move_backward),		
-			(position_move_y, pos47, -10),
-		(try_end),
+        (game_key_is_down, gk_move_forward),		
+            (position_move_y, pos47, 10),
+        (try_end),
+        
+        (try_begin),
+        (game_key_is_down, gk_move_backward),		
+            (position_move_y, pos47, -10),
+        (try_end),
 
-		(try_begin),
-			(game_key_is_down, gk_move_right),		
-			(position_move_x, pos47, 10), 
-		(try_end),
+        (try_begin),
+        (game_key_is_down, gk_move_right),		
+            (position_move_x, pos47, 10), 
+        (try_end),
 
-		(try_begin),
-			(game_key_is_down, gk_move_left),		
-			(position_move_x, pos47, -10),
-		(try_end),
+        (try_begin),
+        (game_key_is_down, gk_move_left),		
+            (position_move_x, pos47, -10),
+        (try_end),
 
-		(try_begin),
-			(key_is_down, key_left_shift),
-			(position_move_z, pos47, 10),
-		(try_end),			
+        (try_begin),
+        (key_is_down, key_left_shift),
+            (position_move_z, pos47, 10),
+        (try_end),			
 
-		(try_begin),
-			(key_is_down, key_left_control),
-			(position_move_z, pos47, -10),
-		(try_end),
+        (try_begin),
+        (key_is_down, key_left_control),
+            (position_move_z, pos47, -10),
+        (try_end),
       
       (mission_cam_set_position, pos47),      
    ]
 )
 
 common_rotate_deathcam = (
-   0, 0, 0,
-   [
-      (eq, "$deathcam_on", 1),
-   ],
-   [
+    0, 0, 0,
+    [
+        (eq, "$deathcam_on", 1),
+    ],
+    [
         (set_fixed_point_multiplier, 1000),
         
         #Get and set mouse position
@@ -148,87 +149,85 @@ common_rotate_deathcam = (
             
             (mission_cam_get_position, pos47),
             
-            #Store difference between mouse pos and center mouse pos.
-            (store_sub, ":delta_x", "$deathcam_mouse_center_x", reg1),
-            (store_sub, ":delta_y", "$deathcam_mouse_center_y", reg2),
+            #Store difference between mouse pos and last mouse pos.
+            (store_sub, ":delta_x", "$deathcam_mouse_last_x", reg1),
+            (store_sub, ":delta_y", "$deathcam_mouse_last_y", reg2),
             
+            #Accumulate the delta
             (val_add, "$deathcam_delta_x", ":delta_x"),
             (val_add, "$deathcam_delta_y", ":delta_y"),
             
-            #min = -1, max = 1
-            #(val_clamp, ":deltaX", -1, 2),
-            #(val_clamp, ":deltaY", -1, 2),
-            
             #Set padding
-            (store_sub, ":leftPad", "$deathcam_mouse_center_x", 20), #40 pixels
-            (store_add, ":rightPad", "$deathcam_mouse_center_x", 20),
-            (store_sub, ":topPad", "$deathcam_mouse_center_y", 15), #30 pixels
-            (store_add, ":botPad", "$deathcam_mouse_center_y", 15),
+            (store_sub, ":leftPad", "$deathcam_mouse_last_x", 20), #40 pixels
+            (store_add, ":rightPad", "$deathcam_mouse_last_x", 20),
+            (store_sub, ":topPad", "$deathcam_mouse_last_y", 15), #30 pixels
+            (store_add, ":botPad", "$deathcam_mouse_last_y", 15),
+            
+            #Note: 1000px width, 750px height = 4:3 ratio, threshold/padding should conform to that.
             
             (try_begin),
-            (this_or_next|lt, reg1, ":leftPad"), #Rotation padding/deadzone
+            (this_or_next|lt, reg1, ":leftPad"), #Rotation padding
             (gt, reg1, ":rightPad"),
                 (assign, ":infini_loop_x_end", 2147483647),
                 (try_for_range, reg60, 0, ":infini_loop_x_end"), #Almost infinite loop, allows for relative rotation speed
                     (try_begin),
-                    (ge, "$deathcam_delta_x", 200),
-                        (val_sub, "$deathcam_delta_x", 200),
+                    (ge, "$deathcam_delta_x", 60), #Once the accumulated delta passes threshold, rotate and subtract threshold
+                        (val_sub, "$deathcam_delta_x", 60),
                         (store_mul, ":neg_rotx", -1, "$deathcam_rotx"),
                         
                         (position_rotate_x, pos47, ":neg_rotx"), #Fix Yaw
                         (position_rotate_z, pos47, 1), #Right
                         (position_rotate_x, pos47, "$deathcam_rotx"), #Fix Yaw
                     (else_try),
-                    (le, "$deathcam_delta_x", -200),
-                        (val_sub, "$deathcam_delta_x", -200),
+                    (le, "$deathcam_delta_x", -60),
+                        (val_sub, "$deathcam_delta_x", -60),
                         
                         (store_mul, ":neg_rotx", -1, "$deathcam_rotx"),
                         (position_rotate_x, pos47, ":neg_rotx"), #Fix Yaw
                         (position_rotate_z, pos47, -1), #Left
                         (position_rotate_x, pos47, "$deathcam_rotx"), #Fix Yaw
                     (else_try),
-                        (assign, ":infini_loop_x_end", 0),
+                        (assign, ":infini_loop_x_end", 0), #Break loop, not enough delta accumulated
                     (try_end),
                 (try_end),
             (else_try),
-                (assign, "$deathcam_delta_x", 0), #Within padding, reset
+                (assign, "$deathcam_delta_x", 0), #Get rid of lingering delta under threshold
             (try_end),
             
             (try_begin),
-            (this_or_next|lt, reg2, ":topPad"), #Rotation padding/deadzone
+            (this_or_next|lt, reg2, ":topPad"), #Rotation padding
             (gt, reg2, ":botPad"),
                 (assign, ":infini_loop_y_end", 2147483647),
                 (try_for_range, reg60, 0, ":infini_loop_y_end"), #Almost infinite loop, allows for relative rotation speed
                     (try_begin),
-                    (ge, "$deathcam_delta_y", 150),
-                        (val_sub, "$deathcam_delta_y", 150),
+                    (ge, "$deathcam_delta_y", 45), #Once the accumulated delta passes threshold, rotate and subtract threshold
+                        (val_sub, "$deathcam_delta_y", 45),
                         
                         (position_rotate_x, pos47, -1), #Up
-                        (val_add, "$deathcam_rotx", -1),
+                        (val_add, "$deathcam_rotx", -1), #Fix Yaw
                     (else_try),
-                    (le, "$deathcam_delta_y", -150),
-                        (val_sub, "$deathcam_delta_y", -150),
+                    (le, "$deathcam_delta_y", -45),
+                        (val_sub, "$deathcam_delta_y", -45),
                         
                         (position_rotate_x, pos47, 1), #Down
-                        (val_add, "$deathcam_rotx", 1),
+                        (val_add, "$deathcam_rotx", 1), #Fix Yaw
                     (else_try),
-                        (assign, ":infini_loop_y_end", 1),
+                        (assign, ":infini_loop_y_end", 0), #Break loop, not enough delta accumulated
                     (try_end),
                 (try_end),
             (else_try),
-                (assign, "$deathcam_delta_y", 0), #Within padding, reset
+                (assign, "$deathcam_delta_y", 0), #Get rid of lingering delta under threshold
             (try_end),
             
             (mission_cam_set_position, pos47),
         (else_try),
-            #Set the center for the next padding as current mouse pos
-            (assign, "$deathcam_mouse_center_x", reg1),
-            (assign, "$deathcam_mouse_center_y", reg2),
-            #No longer rotating, reset delta's
-            (assign, "$deathcam_delta_x", 0),
+            (assign, "$deathcam_mouse_last_x", reg1), #Set the center for the padding as current mouse pos
+            (assign, "$deathcam_mouse_last_y", reg2),
+            
+            (assign, "$deathcam_delta_x", 0), #No longer rotating, reset delta's
             (assign, "$deathcam_delta_y", 0),
         (try_end),
-   ]
+    ]
 )
 
 ##BEAN END - Deathcam

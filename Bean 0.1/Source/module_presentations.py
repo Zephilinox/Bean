@@ -17,16 +17,17 @@ import string
 
 presentations = [
 ##BEAN BEGIN - Deathcam
-("fake_presentation",0,0,[
-      (ti_on_presentation_run,
-       [
+("fake_presentation",0,0,
+[
+    (ti_on_presentation_run,
+    [
         (try_begin),
         (key_is_down, key_left_mouse_button),
             (presentation_set_duration, 1000000),
         (else_try),
             (presentation_set_duration, 0),
         (try_end),
-		]),
+    ]),
 ]),
 ##BEAN END - Deathcam
 
