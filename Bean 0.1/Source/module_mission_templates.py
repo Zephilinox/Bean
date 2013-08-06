@@ -60,18 +60,16 @@ common_start_deathcam = (
         (assign, "$deathcam_on", 1),
         
         (display_message, "@You were defeated.", color_terrible_news),        
-        (display_message, "@Hold down left-click to rotate", color_neutral_news),
-        (display_message, "@Move with standard keys, shift/control for up/down", color_neutral_news),
+        (display_message, "@Rotate with the mouse, move with standard keys.", color_neutral_news),
+        (display_message, "@Shift/Control for Up/Down, Space Bar to increase speed.", color_neutral_news),
         
         (mission_cam_get_position, pos1),
-        (position_get_z, reg10, pos1),
         (position_get_rotation_around_z, ":rot_z", pos1),
         
         (init_position, pos47),
         (position_copy_origin, pos47, pos1),
         (position_rotate_z, pos47, ":rot_z"),
         
-        (display_log_message, "@{reg10}"),
         (mission_cam_set_mode, 1, 0, 0),
         (mission_cam_set_position, pos47),
         
