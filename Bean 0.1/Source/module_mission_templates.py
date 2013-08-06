@@ -139,7 +139,7 @@ common_move_deathcam = (
         
         (position_move_x, pos47, ":move_x"),
         (position_move_y, pos47, ":move_y"),
-        (position_move_z, pos47, 150),
+        (position_move_z, pos47, ":move_z"),
         
         (mission_cam_set_position, pos47),      
    ]
