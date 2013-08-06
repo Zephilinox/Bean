@@ -16,21 +16,6 @@ import string
 ####################################################################################################################
 
 presentations = [
-##BEAN BEGIN - Deathcam
-("fake_presentation",0,0,
-[
-    (ti_on_presentation_run,
-    [
-        (try_begin),
-        (key_is_down, key_left_mouse_button),
-            (presentation_set_duration, 1000000),
-        (else_try),
-            (presentation_set_duration, 0),
-        (try_end),
-    ]),
-]),
-##BEAN END - Deathcam
-
   ("game_credits",prsntf_read_only,mesh_load_window,[
       (ti_on_presentation_load,
        [(assign, "$g_presentation_credits_obj_1", -1),

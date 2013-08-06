@@ -43,27 +43,33 @@ common_init_deathcam = (
       (assign, "$deathcam_mouse_notmoved_x", 500),
       (assign, "$deathcam_mouse_notmoved_y", 375),
       (assign, "$deathcam_mouse_notmoved_counter", 0),
-      (assign, "$deathcam_rotx", 0),
+      (assign, "$deathcam_delta_x", 0),
+      (assign, "$deathcam_delta_y", 0),
+      #(assign, "$fake_presentation_duration", 
    ]
 )
 
 common_start_deathcam = (
-    0, 0, ti_once, #No delay before the camera activates
+    0, 4, ti_once, # 4 seconds delay before the camera activates
     [
         (main_hero_fallen),
         (eq, "$deathcam_on", 0),
     ],
     [
-        #Typically deathcams set the camera to the players x, y but not rotation
-        #This is because in order to get straight left/right rotation, the x Axis must be reset to its default rotation (0), done by subtracting/adding to that axis before/after left/right rotation
-        #In order to do that the variable deathcam_rotx exists, however if we get the players rotation, subtract it from 0 and then store it in that variable we can pretend we manually rotated it, thus ensuring the player is looking at the same spot when it died and keeping left/right rotation straight.
-        (mission_cam_get_position, pos47),
-        (position_get_rotation_around_x, ":rot_x", pos47),
-        (val_mul, ":rot_x", 1000), #CBA to set fixed point multiplier and then convert to it, just mul by 1000
-        (store_sub, "$deathcam_rotx", 0, ":rot_x"),
+        (get_player_agent_no, ":player_agent"),
+        (agent_get_position, pos1, ":player_agent"),
+        (position_get_x, ":pos_x", pos1),
+        (position_get_y, ":pos_y", pos1),
         
+        (init_position, pos47),
+        (position_set_x, pos47, ":pos_x"),
+        (position_set_y, pos47, ":pos_y"),
+        (position_set_z_to_ground_level, pos47),
+        (position_move_z, pos47, 250),
         (mission_cam_set_mode, 1, 0, 0),
+        (mission_cam_set_position, pos47),
         
+        (assign, "$deathcam_rotx", 0),
         (assign, "$deathcam_on", 1),
         
         (display_message, "@You were defeated.", color_terrible_news),
@@ -90,53 +96,38 @@ common_move_deathcam = (
     ],
     [
         (mission_cam_get_position, pos47),
-        
-        (assign, ":move_x", 0),
-        (assign, ":move_y", 0),
-        (assign, ":move_z", 0),
-        
+      
         (try_begin),
-        (game_key_is_down, gk_move_forward),
-            (val_add, ":move_y", 10),
+        (game_key_is_down, gk_move_forward),		
+            (position_move_y, pos47, 10),
         (try_end),
         
         (try_begin),
         (game_key_is_down, gk_move_backward),		
-            (val_add, ":move_y", -10),
+            (position_move_y, pos47, -10),
         (try_end),
 
         (try_begin),
         (game_key_is_down, gk_move_right),		
-            (val_add, ":move_x", -10), 
+            (position_move_x, pos47, 10), 
         (try_end),
 
         (try_begin),
         (game_key_is_down, gk_move_left),		
-            (val_add, ":move_x", 10),
+            (position_move_x, pos47, -10),
         (try_end),
 
         (try_begin),
         (key_is_down, key_left_shift),
-            (val_add, ":move_z", 10),
+            (position_move_z, pos47, 10),
         (try_end),			
 
         (try_begin),
         (key_is_down, key_left_control),
-            (val_add, ":move_z", -10),
+            (position_move_z, pos47, -10),
         (try_end),
-        
-        (try_begin),
-        (key_is_down, key_space),
-            (val_mul, ":move_x", 2),
-            (val_mul, ":move_y", 2),
-            (val_mul, ":move_z", 2),
-        (try_end),
-        
-        (position_move_x, pos47, ":move_x"),
-        (position_move_y, pos47, ":move_y"),
-        (position_move_z, pos47, ":move_z"),
       
-        (mission_cam_set_position, pos47),      
+      (mission_cam_set_position, pos47),      
    ]
 )
 
@@ -151,67 +142,137 @@ common_rotate_deathcam = (
         (this_or_next|neq, reg1, "$deathcam_mouse_notmoved_x"), #If mouse has moved, rotate
         (neq, reg2, "$deathcam_mouse_notmoved_y"),
     ],
-[
-        (mission_cam_get_position, pos47),
+    [
+        ##In order to get smooth rotation, you either need to be able to pass floating point numbers as angles, or have a presentation open
+        ##If a presentation is open however, once the mouse reaches the edge of the screen it will not have enoguh room to move on that side
+        ##In this file I experimented with opening/closing a presentation while rotating, but not when getting the mouse pos, unfortunately this doesn't work smoothly.
+        ##as long as the mouse is moving the presentation doesn't seem to run, which means it cannot be forced to end.
         
-        (assign, ":has_moved", 1),
-        (try_begin), #If current mouse pos equals last mouse pos increment counter to determine when to set mouse notmoved pos
-        (eq, reg1, "$deathcam_mouse_last_x"),
-        (eq, reg2, "$deathcam_mouse_last_y"),
-            (val_add, "$deathcam_mouse_notmoved_counter", 1),
-            (assign, ":has_moved", 0),
-        (else_try),
-            (assign, "$deathcam_mouse_notmoved_counter", 0), #If mouse has moved, reset notmoved counter
-        (try_end),
-        
-        (try_begin), #If mouse notmoved for >= n cycles, reset counter and set notmoved to current pos
-        (ge, "$deathcam_mouse_notmoved_counter", 25),
-            (assign, "$deathcam_mouse_notmoved_counter", 0),
-            (assign, "$deathcam_mouse_notmoved_x", reg1),
-            (assign, "$deathcam_mouse_notmoved_y", reg2),
-        (try_end),
-        
-        (eq, ":has_moved", 1), #Continue if mouse has moved
-        
-        #Store difference between mouse pos and mouse notmoved pos.
-        (store_sub, ":delta_x", "$deathcam_mouse_notmoved_x", reg1),
-        (store_sub, ":delta_y", reg2, "$deathcam_mouse_notmoved_y"),
-        
-        (val_mul, ":delta_x", 100),
-        (val_mul, ":delta_y", 100),
-        
-        #Set padding
-        (store_sub, ":leftPad", "$deathcam_mouse_notmoved_x", 1),
-        (store_add, ":rightPad", "$deathcam_mouse_notmoved_x", 1),
-        (store_sub, ":topPad", "$deathcam_mouse_notmoved_y", 1),
-        (store_add, ":botPad", "$deathcam_mouse_notmoved_y", 1),
-        
-        (try_begin), #If not within padding
-        (this_or_next|lt, reg1, ":leftPad"),
-        (gt, reg1, ":rightPad"),
-            (store_mul, ":neg_rotx", "$deathcam_rotx", -1),
-            (position_rotate_x_floating, pos47, ":neg_rotx"), #Reset x axis to initial state by negating total x axis rotation up until this point
+        #(try_begin),
+        #(key_is_down, key_left_mouse_button),
+            #(try_begin),
+            #(neg|is_presentation_active, "prsnt_battle"),
+                #(start_presentation, "prsnt_fake_presentation"), #For whatever reason having a presentation open allows smooth rotation.
+            #(try_end),
             
-            (position_rotate_y_floating, pos47, 90000), #Barrel roll by 90 degrees to turn x (up/down) in to z (left/right)
-            (position_rotate_x_floating, pos47, ":delta_x"), #Rotate simulated z axis by distance from current mouse x pos to notmoved mouse x pos
-            (store_add, ":reverse_y", -90000, ":delta_x"), #Add rotation along x-axis to barrel roll rotation
-            (position_rotate_y_floating, pos47, ":reverse_y"), #Barrel roll by -90 degrees + x-axis rotation to reset y-axis.
+            (mission_cam_get_position, pos47),
             
-            (position_rotate_x_floating, pos47, "$deathcam_rotx"), #Put x axis back to where it was
-        (try_end),
-        
-        (try_begin),
-        (this_or_next|lt, reg2, ":topPad"),
-        (gt, reg2, ":botPad"),
-            (position_rotate_x_floating, pos47, ":delta_y"), #Rotate x axis by distance from current mouse y pos to notmoved mouse y pos
-            (val_add, "$deathcam_rotx", ":delta_y"), #Add rotation to deathcam_rotx
-        (try_end),
-        
-        (mission_cam_set_position, pos47),
-        
-        #Set the position of the mouse in this cycle as the last for the next cycle
-        (assign, "$deathcam_mouse_last_x", reg1),
-        (assign, "$deathcam_mouse_last_y", reg2),
+            (assign, ":has_moved", 1),
+            (try_begin), #If current mouse pos equals last mouse pos increment counter to determine when to set mouse notmoved pos
+            (eq, reg1, "$deathcam_mouse_last_x"),
+            (eq, reg2, "$deathcam_mouse_last_y"),
+                (val_add, "$deathcam_mouse_notmoved_counter", 1),
+                (assign, ":has_moved", 0),
+            (else_try),
+                (assign, "$deathcam_mouse_notmoved_counter", 0), #If mouse has moved, reset notmoved counter
+            (try_end),
+            
+            (try_begin), #If mouse notmoved for >= n cycles, reset counter, deltas and set notmoved to current pos
+            (ge, "$deathcam_mouse_notmoved_counter", 25),
+                (assign, "$deathcam_mouse_notmoved_counter", 0),
+                (assign, "$deathcam_mouse_notmoved_x", reg1),
+                (assign, "$deathcam_mouse_notmoved_y", reg2),
+                (assign, "$deathcam_delta_x", 0), #No longer rotating, reset leftover delta's
+                (assign, "$deathcam_delta_y", 0),
+            (try_end),
+            
+            (eq, ":has_moved", 1), #Continue if mouse has moved
+            
+            #Store difference between mouse pos and mouse notmoved pos.
+            (store_sub, ":delta_x", "$deathcam_mouse_notmoved_x", reg1),
+            (store_sub, ":delta_y", "$deathcam_mouse_notmoved_y", reg2),
+            
+            #Accumulate the delta
+            (val_add, "$deathcam_delta_x", ":delta_x"),
+            (val_add, "$deathcam_delta_y", ":delta_y"),
+            
+            #Set padding
+            (store_sub, ":leftPad", "$deathcam_mouse_notmoved_x", 0),
+            (store_add, ":rightPad", "$deathcam_mouse_notmoved_x", 0),
+            (store_sub, ":topPad", "$deathcam_mouse_notmoved_y", 0),
+            (store_add, ":botPad", "$deathcam_mouse_notmoved_y", 0),
+            
+            #Note: 1000px width, 750px height = 4:3 ratio, threshold/padding should conform to that.
+            
+            (try_begin),
+            (this_or_next|lt, reg1, ":leftPad"), #Rotation padding
+            (gt, reg1, ":rightPad"),
+                (assign, ":infini_loop_x_end", 2147483647),
+                (try_for_range, reg60, 0, ":infini_loop_x_end"), #Almost infinite loop, allows for relative rotation speed
+                    (try_begin),
+                    (ge, "$deathcam_delta_x", 3), #Once the accumulated delta passes threshold, rotate and subtract threshold
+                        (val_sub, "$deathcam_delta_x", 3),
+                        (store_mul, ":neg_rotx", -1, "$deathcam_rotx"),
+                        (assign, "$deathcam_kill_fake_presentation", 0),
+                        (start_presentation, "prsnt_fake_presentation"), #For whatever reason having a presentation open allows smooth rotation.
+                        (position_rotate_x, pos47, ":neg_rotx"), #Fix Yaw
+                        (position_rotate_z, pos47, 1), #Right
+                        (position_rotate_x, pos47, "$deathcam_rotx"), #Fix Yaw
+                        (assign, "$deathcam_kill_fake_presentation", 1),
+                    (else_try),
+                    (le, "$deathcam_delta_x", -3),
+                        (val_sub, "$deathcam_delta_x", -3),
+                        (store_mul, ":neg_rotx", -1, "$deathcam_rotx"),
+                        (assign, "$deathcam_kill_fake_presentation", 0),
+                        (start_presentation, "prsnt_fake_presentation"), #For whatever reason having a presentation open allows smooth rotation.
+                        (position_rotate_x, pos47, ":neg_rotx"), #Fix Yaw
+                        (position_rotate_z, pos47, -1), #Left
+                        (position_rotate_x, pos47, "$deathcam_rotx"), #Fix Yaw
+                        (assign, "$deathcam_kill_fake_presentation", 1),
+                    (else_try),
+                        (assign, ":infini_loop_x_end", 0), #Break loop, not enough delta accumulated
+                    (try_end),
+                (try_end),
+            (else_try),
+                (assign, "$deathcam_delta_x", 0), #Get rid of lingering delta under threshold when within padding
+            (try_end),
+            
+            (try_begin),
+            (this_or_next|lt, reg2, ":topPad"), #Rotation padding
+            (gt, reg2, ":botPad"),
+                (assign, ":infini_loop_y_end", 2147483647),
+                (try_for_range, reg60, 0, ":infini_loop_y_end"), #Almost infinite loop, allows for relative rotation speed
+                    (try_begin),
+                    (ge, "$deathcam_delta_y", 3), #Once the accumulated delta passes threshold, rotate and subtract threshold
+                        (val_sub, "$deathcam_delta_y", 3),
+                        
+                        (assign, "$deathcam_kill_fake_presentation", 0),
+                        (start_presentation, "prsnt_fake_presentation"), #For whatever reason having a presentation open allows smooth rotation.
+                        (position_rotate_x, pos47, -1), #Up
+                        (assign, "$deathcam_kill_fake_presentation", 1),
+                        
+                        (val_add, "$deathcam_rotx", -1), #Fix Yaw
+                    (else_try),
+                    (le, "$deathcam_delta_y", -3),
+                        (val_sub, "$deathcam_delta_y", -3),
+                        
+                        (assign, "$deathcam_kill_fake_presentation", 0),
+                        (start_presentation, "prsnt_fake_presentation"), #For whatever reason having a presentation open allows smooth rotation.
+                        (position_rotate_x, pos47, 1), #Down
+                        (assign, "$deathcam_kill_fake_presentation", 1),
+                        
+                        (val_add, "$deathcam_rotx", 1), #Fix Yaw
+                    (else_try),
+                        (assign, ":infini_loop_y_end", 0), #Break loop, not enough delta accumulated
+                    (try_end),
+                (try_end),
+            (else_try),
+                (assign, "$deathcam_delta_y", 0), #Get rid of lingering delta under threshold when within padding
+            (try_end),
+            
+            (mission_cam_set_position, pos47),
+            
+            #Set the position of the mouse in this cycle as the last for the next cycle
+            (assign, "$deathcam_mouse_last_x", reg1),
+            (assign, "$deathcam_mouse_last_y", reg2),
+            
+        #(else_try),
+            #(assign, "$deathcam_mouse_last_x", reg1), #Set the center for the padding as current mouse pos
+            #(assign, "$deathcam_mouse_last_y", reg2),
+            
+            #(assign, "$deathcam_delta_x", 0), #No longer rotating, reset delta's
+            #(assign, "$deathcam_delta_y", 0),
+        #(try_end),
     ]
 )
 ##BEAN END - Deathcam
