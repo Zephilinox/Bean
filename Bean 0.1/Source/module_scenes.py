@@ -1294,12 +1294,3 @@ scenes = [
   ("enterprise_oil_press",sf_indoors,"oil_press_interior", "bo_oil_press_interior", (-40,-40),(40,40),-100,"0",
     [],[]),
 ]
-# modmerger_start version=201 type=2
-try:
-    component_name = "scenes"
-    var_set = { "scenes" : scenes }
-    from modmerger import modmerge
-    modmerge(var_set)
-except:
-    raise
-# modmerger_end

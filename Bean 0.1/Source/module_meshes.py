@@ -598,12 +598,3 @@ meshes = [
   ("mp_ui_host_maps_19", 0, "mp_ui_host_maps_e2", 0, 0, 0, 0, 0, 0, 1, 1, 1),
   ("mp_ui_host_maps_20", 0, "mp_ui_host_maps_e1", 0, 0, 0, 0, 0, 0, 1, 1, 1),
 ]
-# modmerger_start version=201 type=2
-try:
-    component_name = "meshes"
-    var_set = { "meshes" : meshes }
-    from modmerger import modmerge
-    modmerge(var_set)
-except:
-    raise
-# modmerger_end

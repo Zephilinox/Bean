@@ -210,12 +210,3 @@ sounds = [
  ("team_scored_a_point", sf_2d|sf_priority_10|sf_vol_10, ["you_scored_a_point.ogg"]),
  ("enemy_scored_a_point", sf_2d|sf_priority_10|sf_vol_10, ["enemy_scored_a_point.ogg"]),
 ]
-# modmerger_start version=201 type=2
-try:
-    component_name = "sounds"
-    var_set = { "sounds" : sounds }
-    from modmerger import modmerge
-    modmerge(var_set)
-except:
-    raise
-# modmerger_end

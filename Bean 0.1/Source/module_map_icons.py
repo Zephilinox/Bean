@@ -53,13 +53,12 @@ map_icons = [
   ("camp",mcn_no_shadow,"camp_tent", 0.13, 0),
   ("ship",mcn_no_shadow,"boat_sail_on", 0.23, snd_footstep_grass, 0.0, 0.05, 0),
   ("ship_on_land",mcn_no_shadow,"boat_sail_off", 0.23, 0),
-
+  
   ("castle_a",mcn_no_shadow,"map_castle_a", 0.35,0),
   ("castle_b",mcn_no_shadow,"map_castle_b", 0.35,0),
   ("castle_c",mcn_no_shadow,"map_castle_c", 0.35,0),
   ("castle_d",mcn_no_shadow,"map_castle_d", 0.35,0),
   ("town_snow",mcn_no_shadow,"map_town_snow_a", 0.35,0),
-
 
   ("castle_snow_a",mcn_no_shadow,"map_castle_snow_a", 0.35,0),
   ("castle_snow_b",mcn_no_shadow,"map_castle_snow_b", 0.35,0),
@@ -256,12 +255,3 @@ map_icons = [
   ("banner_136",0,"map_flag_15", banner_scale,0),
   ("bandit_lair",mcn_no_shadow,"map_bandit_lair", 0.45, 0),
 ]
-# modmerger_start version=201 type=2
-try:
-    component_name = "map_icons"
-    var_set = { "map_icons" : map_icons }
-    from modmerger import modmerge
-    modmerge(var_set)
-except:
-    raise
-# modmerger_end

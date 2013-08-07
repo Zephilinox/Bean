@@ -37,15 +37,17 @@ common_init_deathcam = (
    0, 0, ti_once,
    [],
    [
-      (assign, "$deathcam_on", 0),
-      (assign, "$deathcam_mouse_last_x", 500), #1000x750 / 2 = 500x375 = center screen
-      (assign, "$deathcam_mouse_last_y", 375),
-      (assign, "$deathcam_mouse_notmoved_x", 500),
-      (assign, "$deathcam_mouse_notmoved_y", 375),
-      (assign, "$deathcam_mouse_notmoved_counter", 0),
-      (assign, "$deathcam_rotx", 0),
-      (assign, "$deathcam_deadzone_x", 0), #Increase these if you feel like you can't control the cameras rotation.
-      (assign, "$deathcam_deadzone_y", 0),
+        (assign, "$deathcam_on", 0),
+        (assign, "$deathcam_mouse_last_x", 5000), #10000x7500 / 2 = 5000x3750 = center screen (10k fixed pos)
+        (assign, "$deathcam_mouse_last_y", 3750),
+        (assign, "$deathcam_mouse_notmoved_x", 5000),
+        (assign, "$deathcam_mouse_notmoved_y", 3750),
+        (assign, "$deathcam_mouse_notmoved_counter", 0),
+        (assign, "$deathcam_rotx", 0),
+        (assign, "$deathcam_deadzone_x", 0), #Increase these if you feel like you can't control the cameras rotation
+        (assign, "$deathcam_deadzone_y", 0),
+        (assign, "$deathcam_sensitivity_x", 400), #Increase = More Sensitivity, Decrease = Less Sensitivity, 4:3 ratio may be best
+        (assign, "$deathcam_sensitivity_y", 300), #If modified, change 100, 75 in common_move_deathcam, numpad_plus/minus
    ]
 )
 
@@ -56,19 +58,20 @@ common_start_deathcam = (
         (eq, "$deathcam_on", 0),
     ],
     [
-        (set_fixed_point_multiplier, 1000),
+        (set_fixed_point_multiplier, 10000),
         (assign, "$deathcam_on", 1),
         
-        (display_message, "@You were defeated.", color_terrible_news),        
-        (display_message, "@Rotate with the mouse, move with standard keys.", color_neutral_news),
-        (display_message, "@Shift/Control for Up/Down, Space Bar to increase speed.", color_neutral_news),
+        (display_message, "@You were defeated.", 0xFF2222),
+        (display_message, "@Rotate with the mouse, move with standard keys."),
+        (display_message, "@Shift/Control for Up/Down, Space Bar to increase speed."),
+        (display_message, "@Numpad Plus/Minus to Increase/Decrease sensitivity."),
         
         (mission_cam_get_position, pos1),
         (position_get_rotation_around_z, ":rot_z", pos1),
         
         (init_position, pos47),
-        (position_copy_origin, pos47, pos1),
-        (position_rotate_z, pos47, ":rot_z"),
+        (position_copy_origin, pos47, pos1), #Copy X,Y,Z position + set Z axis rotation (left/right) the same as the player's
+        (position_rotate_z, pos47, ":rot_z"), #Setting the X axis rotation the same as the player's is likely possible, but I haven't figured it out yet
         
         (mission_cam_set_mode, 1, 0, 0),
         (mission_cam_set_position, pos47),
@@ -89,7 +92,9 @@ common_move_deathcam = (
         (this_or_next|game_key_is_down, gk_move_left),
         (this_or_next|game_key_is_down, gk_move_right),
         (this_or_next|key_is_down, key_left_shift),
-        (key_is_down, key_left_control),
+        (this_or_next|key_is_down, key_left_control),
+        (this_or_next|key_is_down, key_numpad_minus),
+        (key_is_down, key_numpad_plus),
     ],
     [
         (mission_cam_get_position, pos47),
@@ -101,9 +106,7 @@ common_move_deathcam = (
         (try_begin),
         (game_key_is_down, gk_move_forward),
             (val_add, ":move_y", 10),
-        (try_end),
-        
-        (try_begin),
+        (else_try),
         (game_key_is_down, gk_move_backward),		
             (val_add, ":move_y", -10),
         (try_end),
@@ -111,9 +114,7 @@ common_move_deathcam = (
         (try_begin),
         (game_key_is_down, gk_move_right),		
             (val_add, ":move_x", 10), 
-        (try_end),
-
-        (try_begin),
+        (else_try),
         (game_key_is_down, gk_move_left),		
             (val_add, ":move_x", -10),
         (try_end),
@@ -121,9 +122,7 @@ common_move_deathcam = (
         (try_begin),
         (key_is_down, key_left_shift),
             (val_add, ":move_z", 10),
-        (try_end),			
-
-        (try_begin),
+        (else_try),
         (key_is_down, key_left_control),
             (val_add, ":move_z", -10),
         (try_end),
@@ -139,7 +138,37 @@ common_move_deathcam = (
         (position_move_y, pos47, ":move_y"),
         (position_move_z, pos47, ":move_z"),
         
-        (mission_cam_set_position, pos47),      
+        (mission_cam_set_position, pos47),
+
+        (try_begin),
+        (key_is_down, key_numpad_minus),
+        (ge, "$deathcam_sensitivity_x", 4), #Negative check.
+        (ge, "$deathcam_sensitivity_y", 3),
+            (val_sub, "$deathcam_sensitivity_x", 4),
+            (val_sub, "$deathcam_sensitivity_y", 3),
+            (store_mod, reg20, "$deathcam_sensitivity_x", 100), #25% increments
+            (store_mod, reg21, "$deathcam_sensitivity_y", 75),
+            (try_begin),
+            (eq, reg20, 0),
+            (eq, reg21, 0),
+                (assign, reg10, "$deathcam_sensitivity_x"),
+                (assign, reg11, "$deathcam_sensitivity_y"),
+                (display_log_message, "@Sensitivity - 25% ({reg10}, {reg11})"),
+            (try_end),
+        (else_try),
+        (key_is_down, key_numpad_plus),
+            (val_add, "$deathcam_sensitivity_x", 4),
+            (val_add, "$deathcam_sensitivity_y", 3),
+            (store_mod, reg20, "$deathcam_sensitivity_x", 100), #25% increments
+            (store_mod, reg21, "$deathcam_sensitivity_y", 75),
+            (try_begin),
+            (eq, reg20, 0),
+            (eq, reg21, 0),
+                (assign, reg10, "$deathcam_sensitivity_x"),
+                (assign, reg11, "$deathcam_sensitivity_y"),
+                (display_log_message, "@Sensitivity + 25% ({reg10}, {reg11})"),
+            (try_end),
+        (try_end),
    ]
 )
 
@@ -147,14 +176,16 @@ common_rotate_deathcam = (
     0, 0, 0,
     [
         (eq, "$deathcam_on", 1),
-        (set_fixed_point_multiplier, 1000),
+        (set_fixed_point_multiplier, 10000), #Extra Precision
         (mouse_get_position, pos1), #Get and set mouse position
         (position_get_x, reg1, pos1),
         (position_get_y, reg2, pos1),
         (this_or_next|neq, reg1, "$deathcam_mouse_notmoved_x"), #If mouse has moved, rotate
         (neq, reg2, "$deathcam_mouse_notmoved_y"),
+        (neg|is_presentation_active, "prsnt_battle"),
     ],
-[
+    [   
+        #TODO: Start check prsnt_battle
         (mission_cam_get_position, pos47),
         
         (assign, ":has_moved", 1),
@@ -167,7 +198,7 @@ common_rotate_deathcam = (
             (assign, "$deathcam_mouse_notmoved_counter", 0), #If mouse has moved, reset notmoved counter
         (try_end),
         
-        (try_begin), #If mouse notmoved for >= n cycles, reset counter and set notmoved to current pos
+        (try_begin), #If mouse notmoved for >= n cycles, reset counter and set mouse notmoved pos to current pos
         (ge, "$deathcam_mouse_notmoved_counter", 25),
             (assign, "$deathcam_mouse_notmoved_counter", 0),
             (assign, "$deathcam_mouse_notmoved_x", reg1),
@@ -176,12 +207,11 @@ common_rotate_deathcam = (
         
         (eq, ":has_moved", 1), #Continue if mouse has moved
         
-        (store_sub, ":delta_x", reg1, "$deathcam_mouse_notmoved_x"), #Store difference between mouse pos and mouse notmoved pos.
+        (store_sub, ":delta_x", reg1, "$deathcam_mouse_notmoved_x"), #Store differences between mouse pos and mouse notmoved pos.
         (store_sub, ":delta_y", reg2, "$deathcam_mouse_notmoved_y"),
+        (val_mul, ":delta_x", "$deathcam_sensitivity_x"),
+        (val_mul, ":delta_y", "$deathcam_sensitivity_y"),
         
-        (val_mul, ":delta_x", 300), #Increase = More Sensitivy, Decrease = Less Sensitivity, 4:3 ratio may be best.
-        (val_mul, ":delta_y", 225),
-                
         (store_sub, ":leftPad", "$deathcam_mouse_notmoved_x", "$deathcam_deadzone_x"), #Set deadzone
         (store_add, ":rightPad", "$deathcam_mouse_notmoved_x", "$deathcam_deadzone_x"),
         (store_sub, ":topPad", "$deathcam_mouse_notmoved_y", "$deathcam_deadzone_y"),
@@ -193,14 +223,14 @@ common_rotate_deathcam = (
             (store_mul, ":neg_rotx", "$deathcam_rotx", -1),
             (position_rotate_x_floating, pos47, ":neg_rotx"), #Reset x axis to initial state(0) by negating total x axis rotation up until this point
             
-            (position_rotate_y_floating, pos47, 90000), #Barrel roll by 90 degrees to turn x (up/down) in to z (left/right)
-            (position_rotate_x_floating, pos47, ":delta_x"), #Rotate simulated z axis by distance from current mouse x pos to notmoved mouse x pos
-            (position_rotate_y_floating, pos47, -90000), #Reverse
+            (position_rotate_y, pos47, 90), #Barrel roll by 90 degrees to turn x (up/down) in to z (left/right)
+            (position_rotate_x_floating, pos47, ":delta_x"), #Rotate simulated z axis by distance from current mouse x pos to mouse notmoved x pos
+            (position_rotate_y, pos47, -90), #Reverse
             
             (position_rotate_x_floating, pos47, "$deathcam_rotx"), #Reverse
         (try_end),
         
-        (try_begin), #Rotate x axis by distance from current mouse y pos to notmoved mouse y pos
+        (try_begin), #Rotate x axis by distance from current mouse y pos to mouse notmoved y pos
         (this_or_next|le, reg2, ":topPad"),
         (ge, reg2, ":botPad"),
             (position_rotate_x_floating, pos47, ":delta_y"), 
@@ -827,9 +857,17 @@ common_battle_tab_press = (
         (try_begin),
         (eq, "$g_battle_won", 1),
             (call_script, "script_count_mission_casualties_from_agents"),
-            (finish_mission,0),
+            (finish_mission, 0),
         (else_try),
         (eq, "$pin_player_fallen", 1),
+            #(str_store_string, s5, "@Defeat"),
+            (call_script, "script_simulate_retreat", 0, 0, 0),
+            (assign, "$g_battle_result", -1),
+            (set_mission_result, -1),
+            (call_script, "script_count_mission_casualties_from_agents"),
+            (finish_mission, 0),
+        (else_try),
+        (eq, "$deathcam_on", 1),
             (question_box,"str_do_you_want_to_retreat"),
         (else_try),
             (call_script, "script_cf_check_enemies_nearby"),
@@ -1107,13 +1145,23 @@ common_siege_refill_ammo = (
 
 ##BEAN BEGIN - Deathcam
 common_siege_check_defeat_condition = (
-  1, 4, ti_once,
-  [
-    (main_hero_fallen)
+    1, 4, ti_once,
+    [
+        (main_hero_fallen),
+        (assign, ":pteam_alive", 0), 
+        (try_for_agents, ":agent"), #Check players team is dead
+        (neq, ":pteam_alive", 1), #Break loop
+        (agent_is_ally, ":agent"),
+        (agent_is_alive, ":agent"),
+            (assign, ":pteam_alive", 1),
+        (try_end),
+        (eq, ":pteam_alive", 0),
     ],
-  [
-    (assign, "$pin_player_fallen", 1),
-    ])
+    [
+        (assign, "$pin_player_fallen", 1),
+        (display_message, "@Press TAB to end the battle."),
+    ]
+)
 ##BEAN END - Deathcam
 common_battle_order_panel = (
   0, 0, 0, [],
@@ -2541,10 +2589,21 @@ mission_templates = [
       common_battle_victory_display,
       
       ##BEAN BEGIN - Deathcam
-      (1, 4, ti_once, [(main_hero_fallen)],
-          [
-              (assign, "$pin_player_fallen", 1),
-              ]),
+        (1, 4, ti_once,
+        [
+            (main_hero_fallen),
+            (assign, ":pteam_alive", 0), 
+            (try_for_agents, ":agent"), #Check players team is dead
+            (agent_is_ally, ":agent"),
+            (agent_is_alive, ":agent"),
+                (assign, ":pteam_alive", 1),
+            (try_end),
+            (eq, ":pteam_alive", 0),
+        ],
+        [
+            (assign, "$pin_player_fallen", 1),
+            (display_message, "@Press TAB to end the battle."),
+        ]),
       ##BEAN END - Deathcam
 
       common_battle_inventory,
@@ -14890,12 +14949,3 @@ mission_templates = [
 
 
 ]
-# modmerger_start version=201 type=4
-try:
-    component_name = "mission_templates"
-    var_set = { "mission_templates":mission_templates,"multiplayer_server_check_belfry_movement":multiplayer_server_check_belfry_movement,"multiplayer_server_spawn_bots":multiplayer_server_spawn_bots,"multiplayer_server_manage_bots":multiplayer_server_manage_bots,"multiplayer_server_check_polls":multiplayer_server_check_polls,"multiplayer_server_check_end_map":multiplayer_server_check_end_map,"multiplayer_once_at_the_first_frame":multiplayer_once_at_the_first_frame,"multiplayer_battle_window_opened":multiplayer_battle_window_opened,"common_battle_mission_start":common_battle_mission_start,"common_battle_tab_press":common_battle_tab_press,"common_battle_init_banner":common_battle_init_banner,"common_arena_fight_tab_press":common_arena_fight_tab_press,"common_custom_battle_tab_press":common_custom_battle_tab_press,"custom_battle_check_victory_condition":custom_battle_check_victory_condition,"custom_battle_check_defeat_condition":custom_battle_check_defeat_condition,"common_battle_victory_display":common_battle_victory_display,"common_siege_question_answered":common_siege_question_answered,"common_custom_battle_question_answered":common_custom_battle_question_answered,"common_custom_siege_init":common_custom_siege_init,"common_siege_init":common_siege_init,"common_music_situation_update":common_music_situation_update,"common_siege_ai_trigger_init":common_siege_ai_trigger_init,"common_siege_ai_trigger_init_2":common_siege_ai_trigger_init_2,"common_siege_ai_trigger_init_after_2_secs":common_siege_ai_trigger_init_after_2_secs,"common_siege_defender_reinforcement_check":common_siege_defender_reinforcement_check,"common_siege_defender_reinforcement_archer_reposition":common_siege_defender_reinforcement_archer_reposition,"common_siege_attacker_reinforcement_check":common_siege_attacker_reinforcement_check,"common_siege_attacker_do_not_stall":common_siege_attacker_do_not_stall,"common_battle_check_friendly_kills":common_battle_check_friendly_kills,"common_battle_check_victory_condition":common_battle_check_victory_condition,"common_battle_victory_display":common_battle_victory_display,"common_siege_refill_ammo":common_siege_refill_ammo,"common_siege_check_defeat_condition":common_siege_check_defeat_condition,"common_battle_order_panel":common_battle_order_panel,"common_battle_order_panel_tick":common_battle_order_panel_tick,"common_battle_inventory":common_battle_inventory,"common_inventory_not_available":common_inventory_not_available,"common_siege_init_ai_and_belfry":common_siege_init_ai_and_belfry,"common_siege_move_belfry":common_siege_move_belfry,"common_siege_rotate_belfry":common_siege_rotate_belfry,"common_siege_assign_men_to_belfry":common_siege_assign_men_to_belfry,"tournament_triggers":tournament_triggers, }
-    from modmerger import modmerge
-    modmerge(var_set, component_name)
-except:
-    raise
-# modmerger_end

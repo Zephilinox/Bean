@@ -2997,12 +2997,3 @@ scene_props = [
  ("suspension_bridge_a",0,"suspension_bridge_a","bo_suspension_bridge_a", []),
  ("mine_a",0,"mine_a","bo_mine_a", []),
 ]
-# modmerger_start version=201 type=2
-try:
-    component_name = "scene_props"
-    var_set = { "scene_props" : scene_props }
-    from modmerger import modmerge
-    modmerge(var_set)
-except:
-    raise
-# modmerger_end

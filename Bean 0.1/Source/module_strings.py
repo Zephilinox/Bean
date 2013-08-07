@@ -4092,12 +4092,3 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("ranged_weapons_are_allowed", "Ranged weapons are allowed."),
   ("duel_starts_in_reg0_seconds", "Duel starts in {reg0} seconds..."),
 ]
-# modmerger_start version=201 type=2
-try:
-    component_name = "strings"
-    var_set = { "strings" : strings }
-    from modmerger import modmerge
-    modmerge(var_set)
-except:
-    raise
-# modmerger_end

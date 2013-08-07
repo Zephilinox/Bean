@@ -1,4 +1,12 @@
 @echo off
+echo Getting Header Files
+copy ".\Header\*.*" ".\" >> garbage.txt
+echo Getting ID Files
+copy ".\ID\*.*" ".\" >> garbage.txt
+echo Getting Process Files
+copy ".\Process\*.*" ".\" >> garbage.txt
+echo ______________________________
+
 python process_init.py
 python process_global_variables.py
 python process_strings.py
@@ -28,10 +36,21 @@ python process_simple_triggers.py
 python process_dialogs.py
 python process_global_variables_unused.py
 python process_postfx.py
-@del *.pyc
-echo.
+
 echo ______________________________
-echo.
-echo Script processing has ended.
-echo Press any key to exit. . .
+
+echo Deleting Compiled Python
+@del *.pyc
+echo Deleting Header Files
+@del header_*.py
+copy ".\Header\header_operations.py" ".\" >> garbage.txt
+echo Deleting ID Files
+@del ID_*.py
+echo Deleting Process Files
+@del process_*.py
+
+echo ______________________________
+
+echo Script processing has ended
+echo Press any key to exit
 pause>nul
