@@ -44,8 +44,6 @@ common_init_deathcam = (
         (assign, "$deathcam_mouse_notmoved_y", 3750),
         (assign, "$deathcam_mouse_notmoved_counter", 0),
         (assign, "$deathcam_rotx", 0),
-        (assign, "$deathcam_deadzone_x", 0), #Increase these if you feel like you can't control the cameras rotation
-        (assign, "$deathcam_deadzone_y", 0),
         (assign, "$deathcam_sensitivity_x", 400), #Increase = More Sensitivity, Decrease = Less Sensitivity, 4:3 ratio may be best
         (assign, "$deathcam_sensitivity_y", 300), #If modified, change 100, 75 in common_move_deathcam, numpad_plus/minus
    ]
@@ -184,8 +182,7 @@ common_rotate_deathcam = (
         (neq, reg2, "$deathcam_mouse_notmoved_y"),
         (neg|is_presentation_active, "prsnt_battle"),
     ],
-    [   
-        #TODO: Start check prsnt_battle
+    [            
         (mission_cam_get_position, pos47),
         
         (assign, ":has_moved", 1),
@@ -194,48 +191,35 @@ common_rotate_deathcam = (
         (eq, reg2, "$deathcam_mouse_last_y"),
             (val_add, "$deathcam_mouse_notmoved_counter", 1),
             (assign, ":has_moved", 0),
+            (try_begin),
+            (ge, "$deathcam_mouse_notmoved_counter", 25), #Recenter
+                (assign, "$deathcam_mouse_notmoved_counter", 0),
+                (assign, "$deathcam_mouse_notmoved_x", reg1),
+                (assign, "$deathcam_mouse_notmoved_y", reg2),
+            (try_end),
         (else_try),
             (assign, "$deathcam_mouse_notmoved_counter", 0), #If mouse has moved, reset notmoved counter
-        (try_end),
-        
-        (try_begin), #If mouse notmoved for >= n cycles, reset counter and set mouse notmoved pos to current pos
-        (ge, "$deathcam_mouse_notmoved_counter", 25),
-            (assign, "$deathcam_mouse_notmoved_counter", 0),
-            (assign, "$deathcam_mouse_notmoved_x", reg1),
-            (assign, "$deathcam_mouse_notmoved_y", reg2),
         (try_end),
         
         (eq, ":has_moved", 1), #Continue if mouse has moved
         
         (store_sub, ":delta_x", reg1, "$deathcam_mouse_notmoved_x"), #Store differences between mouse pos and mouse notmoved pos.
         (store_sub, ":delta_y", reg2, "$deathcam_mouse_notmoved_y"),
+        
         (val_mul, ":delta_x", "$deathcam_sensitivity_x"),
         (val_mul, ":delta_y", "$deathcam_sensitivity_y"),
         
-        (store_sub, ":leftPad", "$deathcam_mouse_notmoved_x", "$deathcam_deadzone_x"), #Set deadzone
-        (store_add, ":rightPad", "$deathcam_mouse_notmoved_x", "$deathcam_deadzone_x"),
-        (store_sub, ":topPad", "$deathcam_mouse_notmoved_y", "$deathcam_deadzone_y"),
-        (store_add, ":botPad", "$deathcam_mouse_notmoved_y", "$deathcam_deadzone_y"),
-            
-        (try_begin),
-        (this_or_next|le, reg1, ":leftPad"),
-        (ge, reg1, ":rightPad"),
-            (store_mul, ":neg_rotx", "$deathcam_rotx", -1),
-            (position_rotate_x_floating, pos47, ":neg_rotx"), #Reset x axis to initial state(0) by negating total x axis rotation up until this point
-            
-            (position_rotate_y, pos47, 90), #Barrel roll by 90 degrees to turn x (up/down) in to z (left/right)
-            (position_rotate_x_floating, pos47, ":delta_x"), #Rotate simulated z axis by distance from current mouse x pos to mouse notmoved x pos
-            (position_rotate_y, pos47, -90), #Reverse
-            
-            (position_rotate_x_floating, pos47, "$deathcam_rotx"), #Reverse
-        (try_end),
+        (store_mul, ":neg_rotx", "$deathcam_rotx", -1),
+        (position_rotate_x_floating, pos47, ":neg_rotx"), #Reset x axis to initial state(0) by negating total x axis rotation up until this point
         
-        (try_begin), #Rotate x axis by distance from current mouse y pos to mouse notmoved y pos
-        (this_or_next|le, reg2, ":topPad"),
-        (ge, reg2, ":botPad"),
-            (position_rotate_x_floating, pos47, ":delta_y"), 
-            (val_add, "$deathcam_rotx", ":delta_y"),
-        (try_end),
+        (position_rotate_y, pos47, 90), #Barrel roll by 90 degrees to inverse x/z axis
+        (position_rotate_x_floating, pos47, ":delta_x"), #Rotate simulated z axis, Horizontal
+        (position_rotate_y, pos47, -90), #Reverse
+        
+        (position_rotate_x_floating, pos47, "$deathcam_rotx"), #Reverse
+        
+        (position_rotate_x_floating, pos47, ":delta_y"), #Vertical
+        (val_add, "$deathcam_rotx", ":delta_y"),
         
         (mission_cam_set_position, pos47),
         
@@ -860,8 +844,6 @@ common_battle_tab_press = (
             (finish_mission, 0),
         (else_try),
         (eq, "$pin_player_fallen", 1),
-            #(str_store_string, s5, "@Defeat"),
-            (call_script, "script_simulate_retreat", 0, 0, 0),
             (assign, "$g_battle_result", -1),
             (set_mission_result, -1),
             (call_script, "script_count_mission_casualties_from_agents"),
