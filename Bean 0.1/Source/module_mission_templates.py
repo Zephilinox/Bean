@@ -211,7 +211,8 @@ common_rotate_deathcam = (
         (try_begin),
         (this_or_next|is_presentation_active, "prsnt_battle"), #Opened (mouse must move)
         (this_or_next|key_clicked, key_escape), #Menu
-        (key_clicked, key_q), #Notes, etc
+        (this_or_next|key_clicked, key_q), #Notes, etc
+        (key_clicked, key_tab), #Retreat
         (eq, "$deathcam_prsnt_was_active", 0),
             (assign, "$deathcam_prsnt_was_active", 1),
             (assign, "$deathcam_mouse_last_notmoved_x", "$deathcam_mouse_notmoved_x"),
