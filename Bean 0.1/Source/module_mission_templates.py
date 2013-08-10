@@ -238,7 +238,7 @@ common_rotate_deathcam = (
             (neq, reg2, "$deathcam_mouse_notmoved_y"),
                 (val_add, "$deathcam_mouse_notmoved_counter", 1),
                 (try_begin), #Notmoved for n cycles
-                (ge, "$deathcam_mouse_notmoved_counter", 5),
+                (ge, "$deathcam_mouse_notmoved_counter", 15),
                     (assign, "$deathcam_mouse_notmoved_counter", 0),
                     (assign, "$deathcam_mouse_notmoved_x", reg1),
                     (assign, "$deathcam_mouse_notmoved_y", reg2),
