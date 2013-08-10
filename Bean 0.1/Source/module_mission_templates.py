@@ -38,6 +38,9 @@ common_init_deathcam = (
    [],
    [
         (assign, "$deathcam_on", 0),
+        (assign, "$deathcam_death_pos_x", 0),
+        (assign, "$deathcam_death_pos_y", 0),
+        (assign, "$deathcam_death_pos_z", 0),
         
         (assign, "$deathcam_mouse_last_x", 5000), 
         (assign, "$deathcam_mouse_last_y", 3750),
@@ -70,9 +73,15 @@ common_start_deathcam = (
         (display_message, "@You were defeated.", 0xFF2222),
         (display_message, "@Rotate with the mouse, move with standard keys."),
         (display_message, "@Shift/Control for Up/Down, Space Bar to increase speed."),
-        (display_message, "@Numpad Plus/Minus to Increase/Decrease sensitivity."),
+        (display_message, "@Numpad Plus/Minus to change sensitivity, Home to reset position."),
 
         (mission_cam_get_position, pos1), #Death pos
+        (position_get_x, reg10, pos1),
+        (position_get_y, reg11, pos1),
+        (position_get_z, reg12, pos1),
+        (assign, "$deathcam_death_pos_x", reg10),
+        (assign, "$deathcam_death_pos_y", reg11),
+        (assign, "$deathcam_death_pos_z", reg12),
         (position_get_rotation_around_z, ":rot_z", pos1),
         
         (init_position, pos47),
@@ -80,6 +89,7 @@ common_start_deathcam = (
         (position_rotate_z, pos47, ":rot_z"), #Copying X-Rotation is likely possible, but I haven't figured it out yet
         
         (mission_cam_set_mode, 1, 0, 0), #Manual?
+
         (mission_cam_set_position, pos47),
         
         (team_give_order, 0, grc_everyone, mordr_charge),
@@ -100,10 +110,19 @@ common_move_deathcam = (
         (this_or_next|key_is_down, key_left_shift),
         (this_or_next|key_is_down, key_left_control),
         (this_or_next|key_is_down, key_numpad_minus),
-        (key_is_down, key_numpad_plus),
+        (this_or_next|key_is_down, key_numpad_plus),
+        (key_clicked, key_home),
     ],
-    [
+    [   
+        (set_fixed_point_multiplier, 10000),
         (mission_cam_get_position, pos47),
+        
+        (try_begin),
+        (key_clicked, key_home),
+            (position_set_x, pos47, "$deathcam_death_pos_x"),
+            (position_set_y, pos47, "$deathcam_death_pos_y"),
+            (position_set_z, pos47, "$deathcam_death_pos_z"),
+        (try_end),
         
         (assign, ":move_x", 0),
         (assign, ":move_y", 0),
@@ -112,7 +131,8 @@ common_move_deathcam = (
         (try_begin),
         (game_key_is_down, gk_move_forward),
             (val_add, ":move_y", 10),
-        (else_try),
+        (try_end),
+        (try_begin),
         (game_key_is_down, gk_move_backward),		
             (val_add, ":move_y", -10),
         (try_end),
@@ -120,7 +140,8 @@ common_move_deathcam = (
         (try_begin),
         (game_key_is_down, gk_move_right),		
             (val_add, ":move_x", 10), 
-        (else_try),
+        (try_end),
+        (try_begin),
         (game_key_is_down, gk_move_left),		
             (val_add, ":move_x", -10),
         (try_end),
@@ -128,7 +149,8 @@ common_move_deathcam = (
         (try_begin),
         (key_is_down, key_left_shift),
             (val_add, ":move_z", 10),
-        (else_try),
+        (try_end),
+        (try_begin),
         (key_is_down, key_left_control),
             (val_add, ":move_z", -10),
         (try_end),
@@ -145,7 +167,7 @@ common_move_deathcam = (
         (position_move_z, pos47, ":move_z"),
         
         (mission_cam_set_position, pos47),
-
+        
         (try_begin),
         (key_is_down, key_numpad_minus),
         (ge, "$deathcam_sensitivity_x", 4), #Negative check.
@@ -182,24 +204,25 @@ common_rotate_deathcam = (
     0, 0, 0,
     [
         (eq, "$deathcam_on", 1),
-        (set_fixed_point_multiplier, 10000), #Extra Precision
-        (mouse_get_position, pos1), #Get and set mouse position
-        (position_get_x, reg1, pos1),
-        (position_get_y, reg2, pos1),
     ],
     [
+        (set_fixed_point_multiplier, 10000), #Extra Precision
+        
         (try_begin),
-        (is_presentation_active, "prsnt_battle"), #Opened (mouse must move)
+        (this_or_next|is_presentation_active, "prsnt_battle"), #Opened (mouse must move)
+        (this_or_next|key_clicked, key_escape), #Menu
+        (key_clicked, key_q), #Notes, etc
         (eq, "$deathcam_prsnt_was_active", 0),
             (assign, "$deathcam_prsnt_was_active", 1),
             (assign, "$deathcam_mouse_last_notmoved_x", "$deathcam_mouse_notmoved_x"),
             (assign, "$deathcam_mouse_last_notmoved_y", "$deathcam_mouse_notmoved_y"),
-            (assign, reg3, "$deathcam_mouse_last_notmoved_x"),
-            (assign, reg4, "$deathcam_mouse_last_notmoved_y"),
-            (display_log_message, "@last notmoved: {reg3}, {reg4}"),
         (try_end),
         
         (neg|is_presentation_active, "prsnt_battle"),
+        
+        (mouse_get_position, pos1), #Get and set mouse position
+        (position_get_x, reg1, pos1),
+        (position_get_y, reg2, pos1),
         
         (mission_cam_get_position, pos47),
         

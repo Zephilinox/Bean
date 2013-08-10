@@ -48,6 +48,7 @@ echo Deleting ID Files
 @del ID_*.py
 echo Deleting Process Files
 @del process_*.py
+@del garbage.txt
 
 echo ______________________________
 
