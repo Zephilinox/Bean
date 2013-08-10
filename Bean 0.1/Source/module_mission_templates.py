@@ -51,7 +51,7 @@ common_init_deathcam = (
         (assign, "$deathcam_mouse_notmoved_y", 3750),
         (assign, "$deathcam_mouse_notmoved_counter", 0),
         
-        (assign, "$deathcam_rotx", 0),
+        (assign, "$deathcam_total_rotx", 0),
         
         (assign, "$deathcam_sensitivity_x", 400), #4:3 ratio may be best
         (assign, "$deathcam_sensitivity_y", 300), #If modified, change values in common_move_deathcam
@@ -278,17 +278,17 @@ common_rotate_deathcam = (
         (val_clamp, ":delta_x", -80000, 80001), #8
         (val_clamp, ":delta_y", -60000, 60001), #6
             
-        (store_mul, ":neg_rotx", "$deathcam_rotx", -1),
+        (store_mul, ":neg_rotx", "$deathcam_total_rotx", -1),
         (position_rotate_x_floating, pos47, ":neg_rotx"), #Reset x axis to initial state
         
         (position_rotate_y, pos47, 90), #Barrel roll by 90 degrees to inverse x/z axis
         (position_rotate_x_floating, pos47, ":delta_x"), #Rotate simulated z axis, Horizontal
         (position_rotate_y, pos47, -90), #Reverse
         
-        (position_rotate_x_floating, pos47, "$deathcam_rotx"), #Reverse
+        (position_rotate_x_floating, pos47, "$deathcam_total_rotx"), #Reverse
         
         (position_rotate_x_floating, pos47, ":delta_y"), #Vertical
-        (val_add, "$deathcam_rotx", ":delta_y"), #Fix yaw
+        (val_add, "$deathcam_total_rotx", ":delta_y"), #Fix yaw
         
         (mission_cam_set_position, pos47),
     ]
