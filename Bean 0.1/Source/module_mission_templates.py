@@ -38,14 +38,22 @@ common_init_deathcam = (
    [],
    [
         (assign, "$deathcam_on", 0),
-        (assign, "$deathcam_mouse_last_x", 5000), #10000x7500 / 2 = 5000x3750 = center screen (10k fixed pos)
+        
+        (assign, "$deathcam_mouse_last_x", 5000), 
         (assign, "$deathcam_mouse_last_y", 3750),
-        (assign, "$deathcam_mouse_notmoved_x", 5000),
+        
+        (assign, "$deathcam_mouse_last_notmoved_y", 5000),
+        (assign, "$deathcam_mouse_last_notmoved_y", 3750),
+        (assign, "$deathcam_mouse_notmoved_x", 5000), #Center screen (10k fixed pos)
         (assign, "$deathcam_mouse_notmoved_y", 3750),
         (assign, "$deathcam_mouse_notmoved_counter", 0),
+        
         (assign, "$deathcam_rotx", 0),
-        (assign, "$deathcam_sensitivity_x", 400), #Increase = More Sensitivity, Decrease = Less Sensitivity, 4:3 ratio may be best
-        (assign, "$deathcam_sensitivity_y", 300), #If modified, change 100, 75 in common_move_deathcam, numpad_plus/minus
+        
+        (assign, "$deathcam_sensitivity_x", 400), #4:3 ratio may be best
+        (assign, "$deathcam_sensitivity_y", 300), #If modified, change values in common_move_deathcam
+        
+        (assign, "$deathcam_prsnt_was_active", 0),
    ]
 )
 
@@ -63,15 +71,15 @@ common_start_deathcam = (
         (display_message, "@Rotate with the mouse, move with standard keys."),
         (display_message, "@Shift/Control for Up/Down, Space Bar to increase speed."),
         (display_message, "@Numpad Plus/Minus to Increase/Decrease sensitivity."),
-        
-        (mission_cam_get_position, pos1),
+
+        (mission_cam_get_position, pos1), #Death pos
         (position_get_rotation_around_z, ":rot_z", pos1),
         
         (init_position, pos47),
-        (position_copy_origin, pos47, pos1), #Copy X,Y,Z position + set Z axis rotation (left/right) the same as the player's
-        (position_rotate_z, pos47, ":rot_z"), #Setting the X axis rotation the same as the player's is likely possible, but I haven't figured it out yet
+        (position_copy_origin, pos47, pos1), #Copy X,Y,Z pos
+        (position_rotate_z, pos47, ":rot_z"), #Copying X-Rotation is likely possible, but I haven't figured it out yet
         
-        (mission_cam_set_mode, 1, 0, 0),
+        (mission_cam_set_mode, 1, 0, 0), #Manual?
         (mission_cam_set_position, pos47),
         
         (team_give_order, 0, grc_everyone, mordr_charge),
@@ -151,7 +159,7 @@ common_move_deathcam = (
             (eq, reg21, 0),
                 (assign, reg10, "$deathcam_sensitivity_x"),
                 (assign, reg11, "$deathcam_sensitivity_y"),
-                (display_log_message, "@Sensitivity - 25% ({reg10}, {reg11})"),
+                (display_message, "@Sensitivity - 25% ({reg10}, {reg11})"),
             (try_end),
         (else_try),
         (key_is_down, key_numpad_plus),
@@ -164,7 +172,7 @@ common_move_deathcam = (
             (eq, reg21, 0),
                 (assign, reg10, "$deathcam_sensitivity_x"),
                 (assign, reg11, "$deathcam_sensitivity_y"),
-                (display_log_message, "@Sensitivity + 25% ({reg10}, {reg11})"),
+                (display_message, "@Sensitivity + 25% ({reg10}, {reg11})"),
             (try_end),
         (try_end),
    ]
@@ -178,39 +186,76 @@ common_rotate_deathcam = (
         (mouse_get_position, pos1), #Get and set mouse position
         (position_get_x, reg1, pos1),
         (position_get_y, reg2, pos1),
-        (this_or_next|neq, reg1, "$deathcam_mouse_notmoved_x"), #If mouse has moved, rotate
-        (neq, reg2, "$deathcam_mouse_notmoved_y"),
-        (neg|is_presentation_active, "prsnt_battle"),
     ],
-    [            
+    [
+        (try_begin),
+        (is_presentation_active, "prsnt_battle"), #Opened (mouse must move)
+        (eq, "$deathcam_prsnt_was_active", 0),
+            (assign, "$deathcam_prsnt_was_active", 1),
+            (assign, "$deathcam_mouse_last_notmoved_x", "$deathcam_mouse_notmoved_x"),
+            (assign, "$deathcam_mouse_last_notmoved_y", "$deathcam_mouse_notmoved_y"),
+            (assign, reg3, "$deathcam_mouse_last_notmoved_x"),
+            (assign, reg4, "$deathcam_mouse_last_notmoved_y"),
+            (display_log_message, "@last notmoved: {reg3}, {reg4}"),
+        (try_end),
+        
+        (neg|is_presentation_active, "prsnt_battle"),
+        
         (mission_cam_get_position, pos47),
         
-        (assign, ":has_moved", 1),
-        (try_begin), #If current mouse pos equals last mouse pos increment counter to determine when to set mouse notmoved pos
-        (eq, reg1, "$deathcam_mouse_last_x"),
-        (eq, reg2, "$deathcam_mouse_last_y"),
-            (val_add, "$deathcam_mouse_notmoved_counter", 1),
-            (assign, ":has_moved", 0),
-            (try_begin),
-            (ge, "$deathcam_mouse_notmoved_counter", 25), #Recenter
+        (assign, ":continue", 0),
+        
+        (try_begin),
+        (neq, "$deathcam_prsnt_was_active", 1),
+            (try_begin), #Check not moved
+            (eq, reg1, "$deathcam_mouse_last_x"),
+            (eq, reg2, "$deathcam_mouse_last_y"),
+            (this_or_next|neq, reg1, "$deathcam_mouse_notmoved_x"),
+            (neq, reg2, "$deathcam_mouse_notmoved_y"),
+                (val_add, "$deathcam_mouse_notmoved_counter", 1),
+                (try_begin), #Notmoved for n cycles
+                (ge, "$deathcam_mouse_notmoved_counter", 5),
+                    (assign, "$deathcam_mouse_notmoved_counter", 0),
+                    (assign, "$deathcam_mouse_notmoved_x", reg1),
+                    (assign, "$deathcam_mouse_notmoved_y", reg2),
+                (try_end),
+            (else_try), #Has moved
+                (assign, ":continue", 1),
                 (assign, "$deathcam_mouse_notmoved_counter", 0),
+            (try_end),
+            (assign, "$deathcam_mouse_last_x", reg1), #Next cycle, this pos = last pos
+            (assign, "$deathcam_mouse_last_y", reg2),
+        (else_try), #prsnt was active
+            (try_begin),
+            (neq, reg1, "$deathcam_mouse_last_x"), #Is moving
+            (neq, reg2, "$deathcam_mouse_last_y"),
+                (store_sub, ":delta_x2", reg1, "$deathcam_mouse_last_notmoved_x"), #Store pos difference
+                (store_sub, ":delta_y2", reg2, "$deathcam_mouse_last_notmoved_y"),
+            (is_between, ":delta_x2", -10, 11), #when engine recenters mouse, there is a small gap
+            (is_between, ":delta_y2", -10, 11), #usually 5 pixels, but did 10 to be safe.
+                (assign, "$deathcam_prsnt_was_active", 0),
+                (assign, "$deathcam_mouse_notmoved_x", "$deathcam_mouse_last_notmoved_x"),
+                (assign, "$deathcam_mouse_notmoved_y", "$deathcam_mouse_last_notmoved_y"),
+            (else_try),
                 (assign, "$deathcam_mouse_notmoved_x", reg1),
                 (assign, "$deathcam_mouse_notmoved_y", reg2),
             (try_end),
-        (else_try),
-            (assign, "$deathcam_mouse_notmoved_counter", 0), #If mouse has moved, reset notmoved counter
+                (assign, "$deathcam_mouse_last_x", reg1), #Next cycle, this pos = last pos
+                (assign, "$deathcam_mouse_last_y", reg2),
         (try_end),
         
-        (eq, ":has_moved", 1), #Continue if mouse has moved
-        
-        (store_sub, ":delta_x", reg1, "$deathcam_mouse_notmoved_x"), #Store differences between mouse pos and mouse notmoved pos.
+        (eq, ":continue", 1), #Else exit
+            
+        (store_sub, ":delta_x", reg1, "$deathcam_mouse_notmoved_x"), #Store pos difference
         (store_sub, ":delta_y", reg2, "$deathcam_mouse_notmoved_y"),
-        
+
         (val_mul, ":delta_x", "$deathcam_sensitivity_x"),
         (val_mul, ":delta_y", "$deathcam_sensitivity_y"),
-        
+        (val_clamp, ":delta_x", -80000, 80001), #8
+        (val_clamp, ":delta_y", -60000, 60001), #6
+            
         (store_mul, ":neg_rotx", "$deathcam_rotx", -1),
-        (position_rotate_x_floating, pos47, ":neg_rotx"), #Reset x axis to initial state(0) by negating total x axis rotation up until this point
+        (position_rotate_x_floating, pos47, ":neg_rotx"), #Reset x axis to initial state
         
         (position_rotate_y, pos47, 90), #Barrel roll by 90 degrees to inverse x/z axis
         (position_rotate_x_floating, pos47, ":delta_x"), #Rotate simulated z axis, Horizontal
@@ -219,12 +264,9 @@ common_rotate_deathcam = (
         (position_rotate_x_floating, pos47, "$deathcam_rotx"), #Reverse
         
         (position_rotate_x_floating, pos47, ":delta_y"), #Vertical
-        (val_add, "$deathcam_rotx", ":delta_y"),
+        (val_add, "$deathcam_rotx", ":delta_y"), #Fix yaw
         
         (mission_cam_set_position, pos47),
-        
-        (assign, "$deathcam_mouse_last_x", reg1), #Set the position of the mouse in this cycle as the last for the next cycle
-        (assign, "$deathcam_mouse_last_y", reg2),
     ]
 )
 ##BEAN END - Deathcam
