@@ -15344,7 +15344,9 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
    [
    ],
    "Let us take inventory of our household possessions", "spouse_household_possessions",[
+   (call_script, "script_rearrange_inventory", "trp_household_possessions", 2),
    (change_screen_loot, "trp_household_possessions"),
+   (call_script, "script_rearrange_inventory", "trp_player", 2),
  ]],
 
   [anyone, "spouse_household_possessions", 
@@ -15472,7 +15474,9 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
    [
    ],
    "Let me add more items to our storehouses",   "spouse_feast_added_items", [
+   (call_script, "script_rearrange_inventory", "trp_household_possessions", 2),
    (change_screen_loot, "trp_household_possessions"),
+   (call_script, "script_rearrange_inventory", "trp_player", 2),
    ]],
 
   [anyone, "spouse_feast_added_items",
@@ -21372,7 +21376,9 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
    
   [anyone|plyr,"master_craftsman_talk", [],
    "Let's check the inventories.", "master_craftsman_pretalk",[
+   (call_script, "script_rearrange_inventory", "trp_household_possessions", 2),
    (change_screen_loot, "$g_talk_troop"),
+   (call_script, "script_rearrange_inventory", "trp_player", 2),
    ]],
    
   [anyone|plyr,"master_craftsman_talk", [
@@ -23184,7 +23190,13 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   [anyone|plyr,"village_elder_trade_talk", [], "I want to buy food and supplies.", "village_elder_trade",[]],
 
   [anyone ,"village_elder_trade", [],
-   "We have some food and other supplies in our storehouse. Come have a look.", "village_elder_pretalk",[(change_screen_trade, "$g_talk_troop"),]],
+   "We have some food and other supplies in our storehouse. Come have a look.", "village_elder_pretalk",
+       [
+            (call_script, "script_rearrange_inventory", "$g_talk_troop", 2),
+            (change_screen_trade, "$g_talk_troop"),
+            (call_script, "script_rearrange_inventory", "trp_player", 2),
+       ]
+   ],
 
   [anyone|plyr,"village_elder_trade_talk", [(party_slot_eq, "$current_town", slot_village_state, 0),
                                       (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),

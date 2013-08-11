@@ -17,9 +17,9 @@ A M&B Warband mod to enhance, simplify and improve the game play experience of N
 
 *Removed XGM Mod Options, useless and no known new version.
 
-*May remove Mod Merger for 0.1+, it serves no purpose right now.
+*Removed Mod Merger
 
-*Deathcam by kt0, modified by MadVader, Xenoargh and me.
+*Deathcam by me, based on MadVader's
 
 *Sort Parties by Level, by Rubik.
 
@@ -29,11 +29,7 @@ A M&B Warband mod to enhance, simplify and improve the game play experience of N
 
 *TODO: Improved Auto-Resolve AI
 
-*TODO: Increase ammo amounts
-
 *TODO: Inventory Sort
-
-*TODO: Bodyguards
 
 *TODO: Speak to Town/Center Mayor
 
