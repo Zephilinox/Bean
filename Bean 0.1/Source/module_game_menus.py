@@ -6618,6 +6618,39 @@ game_menus = [
            (assign, "$g_next_menu", "mnu_village"),
            (jump_to_menu, "mnu_center_manage"),
         ]),
+      ##BEAN BEGIN - Talk to village/town elder  
+      ("village_elder_talk",[(neg|party_slot_eq, "$current_town", slot_village_state, svs_looted),
+                         (neg|party_slot_eq, "$current_town", slot_village_state, svs_being_raided),
+                         (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),]
+       ,"Speak with the Village Elder.",
+       [
+         (try_begin),
+           (call_script, "script_cf_enter_center_location_bandit_check"),
+         (else_try),
+           (party_get_slot, ":village_scene", "$current_town", slot_castle_exterior),
+           (modify_visitors_at_site,":village_scene"),
+           (reset_visitors),
+           (party_get_slot, ":village_elder_troop", "$current_town",slot_town_elder),
+           (set_visitor, 11, ":village_elder_troop"),
+
+           (call_script, "script_init_town_walkers"),
+
+           (try_begin),
+             (check_quest_active, "qst_hunt_down_fugitive"),
+             (neg|is_currently_night),
+             (quest_slot_eq, "qst_hunt_down_fugitive", slot_quest_target_center, "$current_town"),
+             (neg|check_quest_succeeded, "qst_hunt_down_fugitive"),
+             (neg|check_quest_failed, "qst_hunt_down_fugitive"),
+             (set_visitor, 45, "trp_fugitive"),
+           (try_end),
+
+           (set_jump_mission,"mt_village_center"),
+           (jump_to_scene,":village_scene"),
+
+           (change_screen_map_conversation, ":village_elder_troop"),
+         (try_end),
+        ],"Door to the village center."),
+      ##BEAN END - Talk to village/town elder
       ("recruit_volunteers",
       [
         (call_script, "script_cf_village_recruit_volunteers_cond"),
@@ -8704,7 +8737,28 @@ game_menus = [
            (assign, "$g_next_menu", "mnu_town"),
            (jump_to_menu, "mnu_center_manage"),
        ]),
-		
+      ##BEAN BEGIN - Talk to village/town elder  
+      ("guild_master_talk",[(neg|party_slot_eq, "$current_town", slot_village_state, svs_under_siege),]
+       ,"Speak with the Guild Master.",
+       [
+         (try_begin),
+           (call_script, "script_cf_enter_center_location_bandit_check"),
+         (else_try),
+           (party_get_slot, ":town_scene", "$current_town", slot_castle_exterior),
+           (modify_visitors_at_site, ":town_scene"),
+           (reset_visitors),
+           (party_get_slot, ":guild_master_troop", "$current_town", slot_town_elder),
+           (set_visitor, 11, ":guild_master_troop"),
+
+           (call_script, "script_init_town_walkers"),
+
+           (set_jump_mission, "mt_town_center"),
+           (jump_to_scene, ":town_scene"),
+
+           (change_screen_map_conversation, ":guild_master_troop"),
+         (try_end),
+        ],"Door to the town center."),
+      ##BEAN END - Talk to village/town elder
       ("walled_center_move_court",
       [
         (neg|party_slot_eq, "$current_town", slot_village_state, svs_under_siege),
