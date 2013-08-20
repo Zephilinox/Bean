@@ -7,7 +7,8 @@ MODE CON: COLS=100 LINES=60
 
 :: this is to support paths with spaces and strange characters
 set CD="!CD!"
-set msyspp_params=-strict -id-folder -hide-tags -hide-global-vars -hide-dialog-states -hide-scripts -list-resources -compile-data
+::set msyspp_params=-strict -id-folder -hide-tags -hide-global-vars -hide-dialog-states -hide-scripts -list-resources -compile-data
+set msyspp_params=-strict -id-folder
 set PATH=""
 
 :: specify what folders are included in the search path for scripts
@@ -21,7 +22,7 @@ echo.
 
 echo Copying /Output to Warband Directory...
 
-start xcopy "Output" "Z:\Games\Mount & Blade Warband 1.157\Modules\Bean" /e /i /h /y
+start xcopy "Output" "Z:\Games\Mount & Blade Warband 1.158\Modules\Bean" /e /i /h /y
 
 echo.
 echo Press any key to restart. . .

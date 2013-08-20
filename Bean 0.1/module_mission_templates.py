@@ -45,7 +45,7 @@ common_init_deathcam = (
         (assign, "$deathcam_mouse_last_x", 5000), 
         (assign, "$deathcam_mouse_last_y", 3750),
         
-        (assign, "$deathcam_mouse_last_notmoved_y", 5000),
+        (assign, "$deathcam_mouse_last_notmoved_x", 5000),
         (assign, "$deathcam_mouse_last_notmoved_y", 3750),
         (assign, "$deathcam_mouse_notmoved_x", 5000), #Center screen (10k fixed pos)
         (assign, "$deathcam_mouse_notmoved_y", 3750),
