@@ -53,7 +53,7 @@ map_icons = [
   ("camp",mcn_no_shadow,"camp_tent", 0.13, 0),
   ("ship",mcn_no_shadow,"boat_sail_on", 0.23, snd_footstep_grass, 0.0, 0.05, 0),
   ("ship_on_land",mcn_no_shadow,"boat_sail_off", 0.23, 0),
-  
+
   ("castle_a",mcn_no_shadow,"map_castle_a", 0.35,0),
   ("castle_b",mcn_no_shadow,"map_castle_b", 0.35,0),
   ("castle_c",mcn_no_shadow,"map_castle_c", 0.35,0),

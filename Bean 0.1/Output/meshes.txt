@@ -1,4 +1,4 @@
-545
+557
 mesh_pic_bandits 0 pic_bandits 0 0 0 0 0 0 1 1 1 
 mesh_pic_mb_warrior_1 0 pic_mb_warrior_1 0 0 0 0 0 0 1 1 1 
 mesh_pic_messenger 0 pic_messenger 0 0 0 0 0 0 1 1 1 
@@ -544,3 +544,15 @@ mesh_mp_ui_host_maps_17 0 mp_ui_host_maps_d2 0 0 0 0 0 0 1 1 1
 mesh_mp_ui_host_maps_18 0 mp_ui_host_maps_d3 0 0 0 0 0 0 1 1 1 
 mesh_mp_ui_host_maps_19 0 mp_ui_host_maps_e2 0 0 0 0 0 0 1 1 1 
 mesh_mp_ui_host_maps_20 0 mp_ui_host_maps_e1 0 0 0 0 0 0 1 1 1 
+mesh_longer_button 0 longer_button 0 0 0 0 0 0 0.4 0.5 0.5 
+mesh_longer_button_down 0 longer_button_down 0 0 0 0 0 0 0.4 0.5 0.5 
+mesh_message_window 0 message_window 0 0 0 0 0 0 0.8 0.5 0.5 
+mesh_face_gen_window 0 face_gen_window 0 0 0 0 0 0 1 1 1 
+mesh_options_window 0 options_window 0 0 0 0 0 0 1 1 1 
+mesh_note_window 0 note_window 0 0 0 0 0 0 1 1 1 
+mesh_drop_button 0 button_drop 0 0 0 0 0 0 1 0.5 0.5 
+mesh_drop_button_down 0 button_drop_clicked 0 0 0 0 0 0 1 0.5 0.5 
+mesh_drop_button_hl 0 button_drop_hl 0 0 0 0 0 0 1 0.5 0.5 
+mesh_drop_button_child 0 button_drop_child 0 0 0 0 0 0 1.0 0.5 0.5 
+mesh_drop_button_child_down 0 button_drop_child_clicked 0 0 0 0 0 0 1.0 0.5 0.5 
+mesh_drop_button_child_hl 0 button_drop_child_hl 0 0 0 0 0 0 1.0 0.5 0.5 

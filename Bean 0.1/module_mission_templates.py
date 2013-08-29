@@ -32,6 +32,44 @@ from module_constants import *
 # 
 ####################################################################################################################
 
+pilgrim_disguise = [itm_pilgrim_hood,itm_pilgrim_disguise,itm_practice_staff, itm_throwing_daggers]
+af_castle_lord = af_override_horse | af_override_weapons| af_require_civilian
+
+##diplomacy begin
+from header_skills import *
+
+dplmc_horse_speed = (
+  1, 0, 0, [],
+  [
+  (eq, "$g_dplmc_horse_speed", 0),
+  (try_for_agents, ":agent_no"),
+    (agent_is_alive, ":agent_no"),
+    (agent_is_human, ":agent_no"),
+    (agent_get_horse, ":horse_agent", ":agent_no"),
+    (try_begin),
+      (ge, ":horse_agent", 0),
+      (store_agent_hit_points, ":horse_hp",":horse_agent"),
+      (store_sub, ":lost_hp", 100, ":horse_hp"),
+      (try_begin),
+        (le, ":lost_hp", 15),
+        (val_div, ":lost_hp", 2),
+        (store_add, ":speed_factor", 100, ":lost_hp"),
+      (else_try),
+        (val_mul, ":lost_hp", 2),
+        (val_div, ":lost_hp", 3),
+        (store_sub, ":speed_factor", 115, ":lost_hp"),
+      (try_end),
+      (agent_get_troop_id, ":agent_troop", ":agent_no"),
+      (store_skill_level, ":skl_level", skl_riding, ":agent_troop"),
+      (store_mul, ":speed_multi", ":skl_level", 2),
+      (val_add, ":speed_multi", 100),
+      (val_mul, ":speed_factor", ":speed_multi"),
+      (val_div, ":speed_factor", 100),
+      (agent_set_horse_speed_factor, ":agent_no", ":speed_factor"),
+    (try_end),
+  (try_end),
+  ])
+
 ##BEAN BEGIN - Deathcam
 common_init_deathcam = (
    0, 0, ti_once,
@@ -91,6 +129,8 @@ common_start_deathcam = (
         (mission_cam_set_mode, 1, 0, 0), #Manual?
 
         (mission_cam_set_position, pos47),
+        
+        (eq, "$g_dplmc_charge_when_dead", 1), ##DIPLOMACY FIX
         
         (team_give_order, 0, grc_everyone, mordr_charge),
         (team_give_order, 1, grc_everyone, mordr_charge),
@@ -295,8 +335,14 @@ common_rotate_deathcam = (
 )
 ##BEAN END - Deathcam
 
-pilgrim_disguise = [itm_pilgrim_hood,itm_pilgrim_disguise,itm_practice_staff, itm_throwing_daggers]
-af_castle_lord = af_override_horse | af_override_weapons| af_require_civilian
+dplmc_battle_mode_triggers = [
+    dplmc_horse_speed,
+    common_init_deathcam,
+    common_start_deathcam,
+    common_move_deathcam,
+    common_rotate_deathcam,
+  ]
+##diplomacy end
 
 multiplayer_server_check_belfry_movement = (
   0, 0, 0, [],
@@ -900,7 +946,6 @@ common_battle_mission_start = (
     (call_script, "script_change_banners_and_chest"),
     ])
 
-##BEAN BEGIN - Deathcam
 common_battle_tab_press = (
     ti_tab_pressed, 0, 0, [],
     [
@@ -921,11 +966,11 @@ common_battle_tab_press = (
             (call_script, "script_cf_check_enemies_nearby"),
             (question_box,"str_do_you_want_to_retreat"),
         (else_try),
-            (display_message,"str_can_not_retreat", color_neutral_news),
+            (display_message,"str_can_not_retreat", color_neutral_news), ##BEAN - Color Coded Messages
         (try_end),
     ]
 )
-##BEAN END - Deathcam
+
 common_battle_init_banner = (
   ti_on_agent_spawn, 0, 0, [],
   [
@@ -950,7 +995,7 @@ common_custom_battle_tab_press = (
       (finish_mission),
     (else_try),
       (question_box,"str_give_up_fight"),
-      (try_end),
+    (try_end),
     ])
 
 custom_battle_check_victory_condition = (
@@ -959,9 +1004,12 @@ custom_battle_check_victory_condition = (
     (store_mission_timer_a,reg(1)),
     (ge,reg(1),10),
     (all_enemies_defeated, 2),
+    ##diplomacy begin
+    (this_or_next|eq, "$g_dplmc_battle_continuation", 0),
     (neg|main_hero_fallen, 0),
+    ##diplomacy end
     (set_mission_result,1),
-    (display_message,"str_msg_battle_won", color_great_news),
+    (display_message,"str_msg_battle_won", color_great_news), ##BEAN - Color Coded Messages
     (assign, "$g_battle_won",1),
     (assign, "$g_battle_result", 1),
     ],
@@ -970,11 +1018,36 @@ custom_battle_check_victory_condition = (
     (finish_mission, 1),
     ])
 
-custom_battle_check_defeat_condition = (
-  1, 4, ti_once,
+custom_battle_check_defeat_condition = ( #NOTE: USES DIPLOMACY DEATHCAM
+  1, 4,
+##diplomacy begin
+0,
+##diplomacy end
   [
     (main_hero_fallen),
+    ##diplomacy begin
+    (try_begin),
+      (eq, "$g_dplmc_battle_continuation", 0),
+      (assign, ":num_allies", 0),
+      (try_for_agents, ":agent"),
+       (agent_is_ally, ":agent"),
+       (agent_is_alive, ":agent"),
+       (val_add, ":num_allies", 1),
+      (try_end),
+      (gt, ":num_allies", 0),
+      (try_begin),
+        (eq, "$g_dplmc_cam_activated", 0),
+        #(store_mission_timer_a, "$g_dplmc_main_hero_fallen_seconds"),
+        (assign, "$g_dplmc_cam_activated", 1),
+        (display_message, "@You have been knocked out by the enemy. Watch your men continue the fight without you or press Tab to retreat."),
+        (display_message, "@To watch the fight you can use 'w, a, s, d, numpad_+/numpad_-' to move and 'numpad_1,2,3,4,6,8' to rotate the cam."),
+      (try_end),
+  (else_try),
+    ##diplomacy end
     (assign,"$g_battle_result",-1),
+    ##diplomacy begin
+    (try_end),
+    ##diplomacy end
     ],
   [
     (call_script, "script_custom_battle_end"),
@@ -985,7 +1058,7 @@ common_battle_victory_display = (
   10, 0, 0, [],
   [
     (eq,"$g_battle_won",1),
-    (display_message,"str_msg_battle_won", color_great_news),
+    (display_message,"str_msg_battle_won", color_great_news), ##BEAN - Color Coded Messages
     ])
 
 common_siege_question_answered = (
@@ -1048,6 +1121,25 @@ common_siege_ai_trigger_init = (
     (assign, "$attacker_team", 1),
     (assign, "$defender_team_2", 2),
     (assign, "$attacker_team_2", 3),
+	
+	#TB: Simple start player troops in formations during siege attack
+	(try_begin),
+		(get_player_agent_no, "$fplayer_agent_no"),
+		(agent_get_team, "$fplayer_team_no", "$fplayer_agent_no"),
+		(this_or_next|eq, "$attacker_team", "$fplayer_team_no"),
+		(eq, "$attacker_team_2", "$fplayer_team_no"),
+		(agent_get_position, pos1, "$fplayer_agent_no"),
+		#(display_message, "@Forming up to face the walls ..."),
+		(set_show_messages, 0),
+		(team_give_order, "$fplayer_team_no", grc_everyone, mordr_hold),
+		(position_move_y, pos1, 500), #Infantry set up 5m in front of leader
+		(team_set_order_position, "$fplayer_team_no", grc_infantry, pos1),
+		(agent_get_position, pos1, "$fplayer_agent_no"),
+		(position_move_y, pos1, 100),		#archers set up 1m in front of leader
+		(team_set_order_position, "$fplayer_team_no", grc_archers, pos1),
+		(team_give_order, "$fplayer_team_no", grc_archers, mordr_spread_out),
+		(set_show_messages, 1),
+	(try_end),	# end TB positions
     ], [])
 
 common_siege_ai_trigger_init_2 = (
@@ -1157,8 +1249,10 @@ common_battle_check_victory_condition = (
     (store_mission_timer_a,reg(1)),
     (ge,reg(1),10),
     (all_enemies_defeated, 5),
+	(this_or_next|eq, "$deathcam_on", 1), ##BEAN - Deathcam
+    (neg|main_hero_fallen),
     (set_mission_result,1),
-    (display_message,"str_msg_battle_won", color_great_news),
+    (display_message,"str_msg_battle_won", color_great_news), ##BEAN - Color Coded Messages
     (assign,"$g_battle_won",1),
     (assign, "$g_battle_result", 1),
     (call_script, "script_play_victorious_sound"),
@@ -1172,7 +1266,7 @@ common_battle_victory_display = (
   10, 0, 0, [],
   [
     (eq,"$g_battle_won",1),
-    (display_message,"str_msg_battle_won", color_great_news),
+    (display_message,"str_msg_battle_won", color_great_news), ##BEAN - Color Coded Messages
     ])
 
 common_siege_refill_ammo = (
@@ -1211,10 +1305,14 @@ common_siege_check_defeat_condition = (
     ]
 )
 ##BEAN END - Deathcam
+
 common_battle_order_panel = (
   0, 0, 0, [],
   [
     (game_key_clicked, gk_view_orders),
+    ##diplomacy begin
+    (neg|main_hero_fallen),
+    ##diplomacy end
     (neg|is_presentation_active, "prsnt_battle"),
     (start_presentation, "prsnt_battle"),
     ])
@@ -1229,13 +1327,13 @@ common_battle_order_panel_tick = (
 common_battle_inventory = (
   ti_inventory_key_pressed, 0, 0, [],
   [
-    (display_message,"str_use_baggage_for_inventory", color_neutral_news),
+    (display_message,"str_use_baggage_for_inventory", color_neutral_news), ##BEAN - Color Coded Messages
     ])
 
 common_inventory_not_available = (
   ti_inventory_key_pressed, 0, 0,
   [
-    (display_message, "str_cant_use_inventory_now", color_neutral_news),
+    (display_message, "str_cant_use_inventory_now", color_neutral_news), ##BEAN - Color Coded Messages
     ], [])
 
 common_siege_init_ai_and_belfry = (
@@ -1269,7 +1367,7 @@ common_siege_assign_men_to_belfry = (
 tournament_triggers = [
   (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest"),
                                        (assign, "$g_arena_training_num_agents_spawned", 0)]),
-  (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_arena", color_neutral_news)], []),
+  (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_arena", color_neutral_news)], []), ##BEAN - Color Coded Messages
   (ti_tab_pressed, 0, 0, [],
    [(try_begin),
       (eq, "$g_mt_mode", abm_visit),
@@ -1771,7 +1869,22 @@ mission_templates = [
       ], 
       [
 		(party_get_slot, ":tavernkeeper", "$g_encountered_party", slot_town_tavernkeeper),
-		(start_mission_conversation, ":tavernkeeper"),	 
+		##diplomacy start+
+		#Turn of this !@#$%ing obnoxious and totally illogical restriction provided:
+		(try_begin),
+			#1) there is an actual fight
+			(gt, "$g_main_attacker_agent", 0),
+			(agent_is_alive, "$g_main_attacker_agent"),
+			(neg|agent_is_wounded, "$g_main_attacker_agent"),
+			#2) the player is the lord of this town, a mercenary captain in the kingdom's employ, or ruler of this kingdom
+			(store_faction_of_party , ":center_faction", "$g_encountered_party"),
+			(this_or_next|eq, ":center_faction", "$players_kingdom"),
+				(eq, ":center_faction", "fac_player_supporters_faction"),
+		(else_try),
+		#Else, original behavior:
+			(start_mission_conversation, ":tavernkeeper"),
+		(try_end),
+		##diplomacy stop+
 	  ]),
 	  	  	  
 	  #Check for weapon in hand of attacker, also, everyone gets out of the way
@@ -1906,9 +2019,9 @@ mission_templates = [
           (set_trigger_result,1),
         (else_try),
           (eq, "$g_mt_mode", tcm_disguised),
-          (display_message,"str_cant_use_inventory_disguised", color_neutral_news),
+          (display_message,"str_cant_use_inventory_disguised", color_neutral_news), ##BEAN - Color Coded Messages
         (else_try),
-          (display_message, "str_cant_use_inventory_now", color_neutral_news),
+          (display_message, "str_cant_use_inventory_now", color_neutral_news), ##BEAN - Color Coded Messages
         (try_end),
       ], 
       []),
@@ -1918,14 +2031,14 @@ mission_templates = [
         (try_begin),
           (this_or_next|eq, "$talk_context", tc_escape),
           (eq, "$talk_context", tc_prison_break),
-          (display_message, "str_cannot_leave_now", color_neutral_news),
+          (display_message, "str_cannot_leave_now", color_neutral_news), ##BEAN - Color Coded Messages
         (else_try),
           (this_or_next|eq, "$g_mt_mode", tcm_default),
           (eq, "$g_mt_mode", tcm_disguised),
           (mission_enable_talk),
           (set_trigger_result,1),
         (else_try),
-          (display_message, "str_cannot_leave_now", color_neutral_news),
+          (display_message, "str_cannot_leave_now", color_neutral_news), ##BEAN - Color Coded Messages
         (try_end),
       ], 
       []),
@@ -2001,7 +2114,7 @@ mission_templates = [
 		  (troop_slot_ge, ":prisoner", slot_troop_mission_participation, mp_prison_break_fight),
 
 		  (str_store_troop_name, s4, ":prisoner"),
-		  (display_message, "str_s4_joins_prison_break", color_hero_news),
+		  (display_message, "str_s4_joins_prison_break", color_hero_news), ##BEAN - Color Coded Messages
 			
 		  (store_current_scene, ":cur_scene"), #this might be a better option?
 		  (modify_visitors_at_site, ":cur_scene"),
@@ -2085,7 +2198,7 @@ mission_templates = [
           
        (eq, ":killer_agent_troop_no", "trp_player"),
           
-       (display_message, "@You got the keys to the dungeon.", color_good_news),
+       (display_message, "@You got the keys to the dungeon.", color_good_news), ##BEAN - Color Coded Messages
      (try_end),
    ]),     
   ]),
@@ -2200,7 +2313,7 @@ mission_templates = [
       
       (ti_tab_pressed, 0, 0,
        [
-         (display_message, "str_cannot_leave_now", color_neutral_news),
+         (display_message, "str_cannot_leave_now", color_neutral_news), ##BEAN - Color Coded Messages
          ], []),
       (ti_on_leave_area, 0, 0,
        [
@@ -2342,7 +2455,7 @@ mission_templates = [
  	    (eq, "$talk_context", tc_prison_break),
  	  ], 
 	  [
-	    (display_message, "str_leaving_area_during_prison_break", color_neutral_news),
+	    (display_message, "str_leaving_area_during_prison_break", color_neutral_news), ##BEAN - Color Coded Messages
 	    (set_jump_mission, "mt_sneak_caught_fight"),
 	  ]),
 	 	  
@@ -2374,7 +2487,7 @@ mission_templates = [
     ],
     [
       common_inventory_not_available,
-      (ti_tab_pressed, 0, 0, [(display_message,"str_cannot_leave_now", color_neutral_news)], []),
+      (ti_tab_pressed, 0, 0, [(display_message,"str_cannot_leave_now", color_neutral_news)], []), ##BEAN - Color Coded Messages
       (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
 
       (0, 0, ti_once, [],
@@ -2452,7 +2565,7 @@ mission_templates = [
         (jump_to_menu, "mnu_collect_taxes_failed"),
         (finish_mission),]),
 
-      (ti_tab_pressed, 0, 0, [(display_message,"str_cannot_leave_now", color_neutral_news)], []),
+      (ti_tab_pressed, 0, 0, [(display_message,"str_cannot_leave_now", color_neutral_news)], []), ##BEAN - Color Coded Messages
       (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
 
       (0, 0, ti_once, [],
@@ -2483,12 +2596,6 @@ mission_templates = [
      (4,mtef_attackers|mtef_team_1,0,aif_start_alarmed,0,[]),
      ],
     [
-      ##BEAN BEGIN - Deathcam
-      common_init_deathcam,
-      common_start_deathcam,
-      common_move_deathcam,
-      common_rotate_deathcam,
-      ##BEAN END - Deathcam
       (ti_on_agent_spawn, 0, 0, [],
        [
          (store_trigger_param_1, ":agent_no"),
@@ -2516,7 +2623,7 @@ mission_templates = [
          #min starting : 3600, max starting  : 9600, average starting : 7200
          (agent_set_slot, ":agent_no", slot_agent_courage_score, ":initial_courage_score"), 
          ]),
-
+         
       common_battle_init_banner,
 		 
       (ti_on_agent_killed_or_wounded, 0, 0, [],
@@ -2574,12 +2681,23 @@ mission_templates = [
          ]),
 
       
-      (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
+            (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
                            (assign,"$defender_reinforcement_stage",0),
                            (assign,"$attacker_reinforcement_stage",0),
                            (call_script, "script_place_player_banner_near_inventory"),
                            (call_script, "script_combat_music_set_situation_with_culture"),
                            (assign, "$g_defender_reinforcement_limit", 2),
+                           ## HOLD ON START
+                           (get_player_agent_no, ":player_agent"),
+                           (agent_get_team, ":player_team", ":player_agent"),
+                           (set_show_messages, 0),
+                           (team_give_order, ":player_team", grc_everyone, mordr_hold),
+                           (set_show_messages, 1),
+                           ## END HOLD ON START
+                           ##diplomacy begin
+                           (assign, "$g_dplmc_cam_activated", 0),
+                           (assign, "$g_dplmc_charge_when_dead", 0),
+                           ##diplomacy end
                            ]),
 
       common_music_situation_update,
@@ -2611,13 +2729,8 @@ mission_templates = [
         (eq, "$defender_reinforcement_limit_increased", 0),
         (val_add, "$g_defender_reinforcement_limit", 1),                    
         (assign, "$defender_reinforcement_limit_increased", 1),
-      (try_end),    
+      (try_end),
       #new (25.11.09) ends
-      
-      
-      
-      
-      
       
       (lt,"$defender_reinforcement_stage","$g_defender_reinforcement_limit"),
                  (store_mission_timer_a,":mission_time"),
@@ -2635,8 +2748,8 @@ mission_templates = [
 
       common_battle_check_victory_condition,
       common_battle_victory_display,
-      
-      ##BEAN BEGIN - Deathcam
+
+        ##BEAN BEGIN - Deathcam
         (1, 4, ti_once,
         [
             (main_hero_fallen),
@@ -2652,7 +2765,7 @@ mission_templates = [
             (assign, "$pin_player_fallen", 1),
             (display_message, "@Press TAB to end the battle."),
         ]),
-      ##BEAN END - Deathcam
+        ##BEAN END - Deathcam
 
       common_battle_inventory,
 
@@ -2691,7 +2804,10 @@ mission_templates = [
       common_battle_order_panel,
       common_battle_order_panel_tick,
 
-    ],
+    ]
+    ##diplomacy begin
+    + dplmc_battle_mode_triggers,
+    ##diplomacy end
   ),
 
   (
@@ -2703,15 +2819,9 @@ mission_templates = [
      (1,mtef_visitor_source|mtef_team_0,0,aif_start_alarmed,1,[]),
      ],
     [
-      ##BEAN BEGIN - Deathcam
-      common_init_deathcam,
-      common_start_deathcam,
-      common_move_deathcam,
-      common_rotate_deathcam,
-      ##BEAN END - Deathcam
       common_battle_tab_press,
       common_battle_init_banner,
-      
+
       (ti_question_answered, 0, 0, [],
        [(store_trigger_param_1,":answer"),
         (eq,":answer",0),
@@ -2738,22 +2848,33 @@ mission_templates = [
       common_battle_check_friendly_kills,
       common_battle_check_victory_condition,
       common_battle_victory_display,
+      ##BEAN BEGIN - Deathcam
+        (1, 4, ti_once,
+        [
+            (main_hero_fallen),
+            (assign, ":pteam_alive", 0), 
+            (try_for_agents, ":agent"), #Check players team is dead
+            (agent_is_ally, ":agent"),
+            (agent_is_alive, ":agent"),
+                (assign, ":pteam_alive", 1),
 
-      (1, 4, ti_once, [(main_hero_fallen)],
-          [
-              (assign, "$pin_player_fallen", 1),
-              (str_store_string, s5, "str_retreat"),
-              (call_script, "script_simulate_retreat", 10, 20, 1),
-              (assign, "$g_battle_result", -1),
-              (set_mission_result, -1),
-              (call_script, "script_count_mission_casualties_from_agents"),
-              (finish_mission, 0)]),
+            (try_end),
+            (eq, ":pteam_alive", 0),
+        ],
+        [
+            (assign, "$pin_player_fallen", 1),
+            (display_message, "@Press TAB to end the battle."),
+        ]),
+      ##BEAN END - Deathcam
 
       common_battle_inventory,      
       common_battle_order_panel,
       common_battle_order_panel_tick,
-      
-    ],
+
+    ]
+    ##diplomacy begin
+    + dplmc_battle_mode_triggers,
+    ##diplomacy end
   ),
 
 
@@ -2768,12 +2889,6 @@ mission_templates = [
      (1,mtef_attackers|mtef_team_1,0,aif_start_alarmed,0,[]),
      ],
     [
-      ##BEAN BEGIN - Deathcam
-      common_init_deathcam,
-      common_start_deathcam,
-      common_move_deathcam,
-      common_rotate_deathcam,
-      ##BEAN END - Deathcam
       common_battle_tab_press,
       common_battle_init_banner,
 
@@ -2813,9 +2928,10 @@ mission_templates = [
          (store_mission_timer_a,reg(1)),
          (ge,reg(1),10),
          (all_enemies_defeated, 5),
+	     (this_or_next|eq, "$deathcam_on", 1), ##BEAN - Deathcam
          (neg|main_hero_fallen, 0),
          (set_mission_result,1),
-         (display_message,"str_msg_battle_won", color_great_news),
+         (display_message,"str_msg_battle_won", color_great_news), ##BEAN - Color Coded Messages
          (assign,"$g_battle_won",1),
          (assign, "$g_battle_result", 1),
          (try_begin),
@@ -2831,16 +2947,23 @@ mission_templates = [
          ]),
 
       common_battle_victory_display,
-
-      (1, 4, ti_once, [(main_hero_fallen)],
-          [
-              (assign, "$pin_player_fallen", 1),
-              (str_store_string, s5, "str_retreat"),
-              (call_script, "script_simulate_retreat", 10, 20, 1),
-              (assign, "$g_battle_result", -1),
-              (set_mission_result,-1),
-              (call_script, "script_count_mission_casualties_from_agents"),
-              (finish_mission,0)]),
+        ##BEAN BEGIN - Deathcam
+        (1, 4, ti_once,
+        [
+            (main_hero_fallen),
+            (assign, ":pteam_alive", 0), 
+            (try_for_agents, ":agent"), #Check players team is dead
+            (agent_is_ally, ":agent"),
+            (agent_is_alive, ":agent"),
+                (assign, ":pteam_alive", 1),
+            (try_end),
+            (eq, ":pteam_alive", 0),
+        ],
+        [
+            (assign, "$pin_player_fallen", 1),
+            (display_message, "@Press TAB to end the battle."),
+        ]),
+        ##BEAN END - Deathcam
 
       common_battle_inventory,
       common_battle_order_panel,
@@ -2856,7 +2979,10 @@ mission_templates = [
 ##          (store_mission_timer_a,reg(1)),(ge,reg(1),4),
 ##          (call_script, "script_battle_tactic_apply"),
 ##          ], []),
-    ],
+    ]
+    ##diplomacy begin
+    + dplmc_battle_mode_triggers,
+    ##diplomacy end
   ),
 
 
@@ -3032,12 +3158,7 @@ mission_templates = [
      ],
     [
       (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
-      ##BEAN BEGIN - Deathcam
-      common_init_deathcam,
-      common_start_deathcam,
-      common_move_deathcam,
-      common_rotate_deathcam,
-      ##BEAN END - Deathcam
+
       common_battle_tab_press,
       common_battle_init_banner,
 
@@ -3054,6 +3175,10 @@ mission_templates = [
         ]),
         
       (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
+                           ##diplomacy begin
+                           (assign, "$g_dplmc_cam_activated", 0),
+                           (assign, "$g_dplmc_charge_when_dead", 1),
+                           ##diplomacy end
                            (call_script, "script_music_set_situation_with_culture", mtf_sit_ambushed),
                            ]),
       
@@ -3068,22 +3193,31 @@ mission_templates = [
       common_battle_check_friendly_kills,
       common_battle_check_victory_condition,
       common_battle_victory_display,
-
-      (1, 4, ti_once, [(main_hero_fallen)],
-          [
-              (assign, "$pin_player_fallen", 1),
-              (str_store_string, s5, "str_retreat"),
-              (call_script, "script_simulate_retreat", 5, 20, 0),
-              (assign, "$g_battle_result", -1),
-              (set_mission_result,-1),
-              (call_script, "script_count_mission_casualties_from_agents"),
-              (finish_mission,0)
-              ]),
+        ##BEAN BEGIN - Deathcam
+        (1, 4, ti_once,
+        [
+            (main_hero_fallen),
+            (assign, ":pteam_alive", 0), 
+            (try_for_agents, ":agent"), #Check players team is dead
+            (agent_is_ally, ":agent"),
+            (agent_is_alive, ":agent"),
+                (assign, ":pteam_alive", 1),
+            (try_end),
+            (eq, ":pteam_alive", 0),
+        ],
+        [
+            (assign, "$pin_player_fallen", 1),
+            (display_message, "@Press TAB to end the battle."),
+        ]),
+        ##BEAN END - Deathcam
       
       common_battle_order_panel,
       common_battle_order_panel_tick,
       common_battle_inventory,
-    ],
+    ]
+    ##diplomacy begin
+    + dplmc_battle_mode_triggers,
+    ##diplomacy end
   ),
 
   (
@@ -3101,12 +3235,7 @@ mission_templates = [
      ],
     [
       (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
-      ##BEAN BEGIN - Deathcam
-      common_init_deathcam,
-      common_start_deathcam,
-      common_move_deathcam,
-      common_rotate_deathcam,
-      ##BEAN END - Deathcam
+
       common_battle_tab_press,
       common_battle_init_banner,
 
@@ -3123,6 +3252,10 @@ mission_templates = [
         ]),
         
       (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
+                           ##diplomacy begin
+                           (assign, "$g_dplmc_cam_activated", 0),
+                           (assign, "$g_dplmc_charge_when_dead", 1),
+                           ##diplomacy end
                            (call_script, "script_music_set_situation_with_culture", mtf_sit_ambushed),
                            ]),
       
@@ -3137,22 +3270,31 @@ mission_templates = [
       common_battle_check_friendly_kills,
       common_battle_check_victory_condition,
       common_battle_victory_display,
-
-      (1, 4, ti_once, [(main_hero_fallen)],
-          [
-              (assign, "$pin_player_fallen", 1),
-              (str_store_string, s5, "str_retreat"),
-              (call_script, "script_simulate_retreat", 5, 20, 0),
-              (assign, "$g_battle_result", -1),
-              (set_mission_result,-1),
-              (call_script, "script_count_mission_casualties_from_agents"),
-              (finish_mission,0)
-              ]),
+        ##BEAN BEGIN - Deathcam
+        (1, 4, ti_once,
+        [
+            (main_hero_fallen),
+            (assign, ":pteam_alive", 0), 
+            (try_for_agents, ":agent"), #Check players team is dead
+            (agent_is_ally, ":agent"),
+            (agent_is_alive, ":agent"),
+                (assign, ":pteam_alive", 1),
+            (try_end),
+            (eq, ":pteam_alive", 0),
+        ],
+        [
+            (assign, "$pin_player_fallen", 1),
+            (display_message, "@Press TAB to end the battle."),
+        ]),
+        ##BEAN END - Deathcam
 
       common_battle_order_panel,
       common_battle_order_panel_tick,
       common_battle_inventory,
-    ],
+    ]
+    ##diplomacy begin
+    + dplmc_battle_mode_triggers,
+    ##diplomacy end
   ),
 
   (
@@ -3178,12 +3320,7 @@ mission_templates = [
          (call_script, "script_change_banners_and_chest"),
          (call_script, "script_remove_siege_objects"),
          ]),
-      ##BEAN BEGIN - Deathcam
-      common_init_deathcam,
-      common_start_deathcam,
-      common_move_deathcam,
-      common_rotate_deathcam,
-      ##BEAN END - Deathcam
+
       common_battle_tab_press,
       common_battle_init_banner,
 
@@ -3220,6 +3357,10 @@ mission_templates = [
         (finish_mission,0),]),
         
       (0, 0, ti_once, [], [(assign,"$g_battle_won",0),
+                           ##diplomacy begin
+                           (assign, "$g_dplmc_cam_activated", 0),
+                           (assign, "$g_dplmc_charge_when_dead", 1),
+                           ##diplomacy end
                            (call_script, "script_combat_music_set_situation_with_culture"),
                            ]),
       
@@ -3229,9 +3370,10 @@ mission_templates = [
       (1, 60, ti_once, [(store_mission_timer_a, reg(1)),
                         (ge, reg(1), 10),
                         (all_enemies_defeated, 2),
+						(this_or_next|eq, "$deathcam_on", 1), ##BEAN - Deathcam
                         (neg|main_hero_fallen,0),
                         (set_mission_result,1),
-                        (display_message,"str_msg_battle_won", color_great_news),
+                        (display_message,"str_msg_battle_won", color_great_news), ##BEAN - Color Coded Messages
                         (assign, "$g_battle_won", 1),
                         (assign, "$g_battle_result", 1),
                         (assign, "$g_siege_sallied_out_once", 1),
@@ -3243,20 +3385,31 @@ mission_templates = [
 
       common_battle_victory_display,
 
-      (1, 4, ti_once, [(main_hero_fallen)],
-          [
-              (assign, "$pin_player_fallen", 1),
-              (str_store_string, s5, "str_retreat"),
-              (call_script, "script_simulate_retreat", 5, 20, 0),
-              (assign, "$g_battle_result", -1),
-              (set_mission_result, -1),
-              (call_script, "script_count_mission_casualties_from_agents"),
-              (finish_mission,0)]),
+        ##BEAN BEGIN - Deathcam
+        (1, 4, ti_once,
+        [
+            (main_hero_fallen),
+            (assign, ":pteam_alive", 0), 
+            (try_for_agents, ":agent"), #Check players team is dead
+            (agent_is_ally, ":agent"),
+            (agent_is_alive, ":agent"),
+                (assign, ":pteam_alive", 1),
+            (try_end),
+            (eq, ":pteam_alive", 0),
+        ],
+        [
+            (assign, "$pin_player_fallen", 1),
+            (display_message, "@Press TAB to end the battle."),
+        ]),
+        ##BEAN END - Deathcam
 
       common_battle_order_panel,
       common_battle_order_panel_tick,
       common_battle_inventory,
-    ],
+    ]
+    ##diplomacy begin
+    + dplmc_battle_mode_triggers,
+    ##diplomacy end
   ),
 
 
@@ -3280,12 +3433,6 @@ mission_templates = [
      (47,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
      ],
     [
-      ##BEAN BEGIN - Deathcam
-      common_init_deathcam,
-      common_start_deathcam,
-      common_move_deathcam,
-      common_rotate_deathcam,
-      ##BEAN END - Deathcam
       common_battle_mission_start,
       common_battle_tab_press,
       common_battle_init_banner,
@@ -3344,7 +3491,10 @@ mission_templates = [
       common_siege_move_belfry,
       common_siege_rotate_belfry,
       common_siege_assign_men_to_belfry,
-    ],
+    ]
+    ##diplomacy begin
+    + dplmc_battle_mode_triggers,
+    ##diplomacy end
   ),
 
   (
@@ -3366,12 +3516,6 @@ mission_templates = [
      (46,mtef_defenders|mtef_team_0|mtef_archers_first,af_override_horse,aif_start_alarmed,1,[]),
      ],
     [
-      ##BEAN BEGIN - Deathcam
-      common_init_deathcam,
-      common_start_deathcam,
-      common_move_deathcam,
-      common_rotate_deathcam,
-      ##BEAN END - Deathcam
       common_battle_mission_start,
       common_battle_tab_press,
       common_battle_init_banner,
@@ -3465,7 +3609,10 @@ mission_templates = [
 ##         (try_end),
 ##         ],
 ##       []),
-    ],
+    ]
+    ##diplomacy begin
+    + dplmc_battle_mode_triggers,
+    ##diplomacy end
   ),
   
 
@@ -3545,7 +3692,7 @@ mission_templates = [
           
           (eq, ":killer_agent_troop_no", "trp_player"),
           
-          (display_message, "@You got the keys to the dungeon.", color_good_news),
+          (display_message, "@You got the keys to the dungeon.", color_good_news), ##BEAN - Color Coded Messages
         (try_end),
       ]),     
 
@@ -3580,7 +3727,7 @@ mission_templates = [
           (troop_slot_ge, ":prisoner", slot_troop_mission_participation, 1),
           
           (str_store_troop_name, s4, ":prisoner"),
-          (display_message, "str_s4_joins_prison_break", color_hero_news),
+          (display_message, "str_s4_joins_prison_break", color_hero_news), ##BEAN - Color Coded Messages
           
           (store_current_scene, ":cur_scene"), #this might be a better option?
           (modify_visitors_at_site, ":cur_scene"),
@@ -3599,14 +3746,14 @@ mission_templates = [
         (try_begin),
           (this_or_next|eq, "$talk_context", tc_escape),
           (eq, "$talk_context", tc_prison_break),
-          (display_message, "str_cannot_leave_now", color_neutral_news),
+          (display_message, "str_cannot_leave_now", color_neutral_news), ##BEAN - Color Coded Messages
         (else_try),
           (this_or_next|eq, "$g_mt_mode", tcm_default),
           (eq, "$g_mt_mode", tcm_disguised),
           (set_trigger_result, 1),
           (mission_enable_talk),
         (else_try),
-          (display_message, "str_cannot_leave_now", color_neutral_news),
+          (display_message, "str_cannot_leave_now", color_neutral_news), ##BEAN - Color Coded Messages
         (try_end),
       ], 
       []),
@@ -3759,7 +3906,7 @@ mission_templates = [
          (set_jump_entry, 5),
          (jump_to_scene, "$g_training_ground_melee_training_scene"),
          ]),
-      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_arena", color_neutral_news)], []),
+      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_arena", color_neutral_news)], []), ##BEAN - Color Coded Messages
     ],
   ),
 
@@ -3964,7 +4111,7 @@ mission_templates = [
              (position_is_behind_position, pos2, pos1),
              (val_add, "$scene_num_total_gourds_destroyed", "$g_last_destroyed_gourds"),
            (else_try),
-             (display_message, "@You must stay behind the line on the ground! Point is not counted.", color_neutral_news),
+             (display_message, "@You must stay behind the line on the ground! Point is not counted.", color_neutral_news), ##BEAN - Color Coded Messages
            (try_end),
          (else_try),
            (val_add, "$scene_num_total_gourds_destroyed", "$g_last_destroyed_gourds"),
@@ -4181,7 +4328,7 @@ mission_templates = [
 	   (ti_on_leave_area, 0, ti_once, [],
        [(assign,"$auto_menu",-1),(jump_to_menu,"mnu_sneak_into_town_caught_ran_away"),(finish_mission,0)]),
 
-      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_arena", color_neutral_news)], []),
+      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_arena", color_neutral_news)], []), ##BEAN - Color Coded Messages
       
     ],
   ),
@@ -4312,7 +4459,7 @@ mission_templates = [
     ],
     [
       common_inventory_not_available,
-      (ti_tab_pressed, 0, 0, [(display_message, "str_cannot_leave_now", color_neutral_news)], []),
+      (ti_tab_pressed, 0, 0, [(display_message, "str_cannot_leave_now", color_neutral_news)], []), ##BEAN - Color Coded Messages
       (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
 
       (0, 0, ti_once, [],
@@ -4380,7 +4527,7 @@ mission_templates = [
     ],
     [
       common_inventory_not_available,
-      (ti_tab_pressed, 0, 0, [(display_message, "str_cannot_leave_now", color_neutral_news)], []),
+      (ti_tab_pressed, 0, 0, [(display_message, "str_cannot_leave_now", color_neutral_news)], []), ##BEAN - Color Coded Messages
       (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
 
       (0, 0, ti_once, [],
@@ -5104,7 +5251,7 @@ mission_templates = [
         (eq,":answer",0),
         (finish_mission,0),
         ]),
-      (ti_inventory_key_pressed, 0, 0, [(display_message, "str_cant_use_inventory_tutorial", color_neutral_news)], []),
+      (ti_inventory_key_pressed, 0, 0, [(display_message, "str_cant_use_inventory_tutorial", color_neutral_news)], []), ##BEAN - Color Coded Messages
 
       (ti_battle_window_opened, 0, 0, [],
        [
@@ -6616,7 +6763,7 @@ mission_templates = [
         (eq,":answer",0),
         (finish_mission,0),
         ]),
-      (ti_inventory_key_pressed, 0, 0, [(display_message, "str_cant_use_inventory_tutorial", color_neutral_news)], []),
+      (ti_inventory_key_pressed, 0, 0, [(display_message, "str_cant_use_inventory_tutorial", color_neutral_news)], []), ##BEAN - Color Coded Messages
 
       (0, 0, ti_once, [
       	               (tutorial_message_set_size, 17, 17),
@@ -6735,7 +6882,7 @@ mission_templates = [
                    (assign, "$tutorial_1_msg_6_displayed", 1),
                    (tutorial_message, "str_tutorial_1_msg_6"),
                    (play_sound, "snd_tutorial_2"),
-                   #(assign, "$tutorial_1_finished", 1),
+                   (assign, "$tutorial_1_finished", 1),
                  (try_end),
                  ], []),
     ],
@@ -6826,7 +6973,7 @@ mission_templates = [
         (eq,":answer",0),
         (finish_mission,0),
         ]),
-      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_tutorial", color_neutral_news)], []),
+      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_tutorial", color_neutral_news)], []), ##BEAN - Color Coded Messages
       (0, 0, ti_once, [
           (store_mission_timer_a, ":cur_time"),
           (gt, ":cur_time", 2),
@@ -7080,7 +7227,7 @@ mission_templates = [
                    (assign, "$tutorial_2_msg_9_displayed", 1),
                    (tutorial_message, "str_tutorial_2_msg_9"),
                    (play_sound, "snd_tutorial_2"),
-                   #(assign, "$tutorial_2_finished", 1),
+                   (assign, "$tutorial_2_finished", 1),
                  (else_try),
                    (gt, "$tutorial_2_state", 30),
                    (tutorial_message, "str_tutorial_failed"),
@@ -7111,7 +7258,7 @@ mission_templates = [
         (eq,":answer",0),
         (finish_mission,0),
         ]),
-      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_tutorial", color_neutral_news)], []),
+      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_tutorial", color_neutral_news)], []), ##BEAN - Color Coded Messages
 
       (0, 0, ti_once, [
           (store_mission_timer_a, ":cur_time"),
@@ -7368,7 +7515,7 @@ mission_templates = [
         (eq,":answer",0),
         (finish_mission,0),
         ]),
-      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_tutorial", color_neutral_news)], []),
+      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_tutorial", color_neutral_news)], []), ##BEAN - Color Coded Messages
 
       (0, 0, ti_once, [
           (store_mission_timer_a, ":cur_time"),
@@ -7489,7 +7636,7 @@ mission_templates = [
                    (assign, "$tutorial_3_msg_5_displayed", 1),
                    (tutorial_message, "str_tutorial_3_2_msg_5"),
                    (play_sound, "snd_tutorial_2"),
-                   #(assign, "$tutorial_3_finished", 1),
+                   (assign, "$tutorial_3_finished", 1),
                  (else_try),
                    (gt, "$tutorial_3_state", 30),
                    (tutorial_message, "str_tutorial_failed"),
@@ -7520,7 +7667,7 @@ mission_templates = [
         (eq,":answer",0),
         (finish_mission,0),
         ]),
-      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_tutorial", color_neutral_news)], []),
+      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_tutorial", color_neutral_news)], []), ##BEAN - Color Coded Messages
 
       (ti_before_mission_start, 0, 0, [],
        [
@@ -7709,7 +7856,7 @@ mission_templates = [
                    (assign, "$tutorial_4_msg_7_displayed", 1),
                    (tutorial_message, "str_tutorial_4_msg_7"),
                    (play_sound, "snd_tutorial_2"),
-                   #(assign, "$tutorial_4_finished", 1),
+                   (assign, "$tutorial_4_finished", 1),
                  (try_end),
                  ], []),
     ],
@@ -7746,7 +7893,7 @@ mission_templates = [
         (eq,":answer",0),
         (finish_mission,0),
         ]),
-      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_tutorial", color_neutral_news)], []),
+      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_tutorial", color_neutral_news)], []), ##BEAN - Color Coded Messages
 
 
       (0, 0, ti_once, [
@@ -7904,7 +8051,7 @@ mission_templates = [
                    (assign, "$tutorial_5_msg_6_displayed", 1),
                    (tutorial_message, "str_tutorial_5_msg_6"),
                    (play_sound, "snd_tutorial_2"),
-                   #(assign, "$tutorial_5_finished", 1),
+                   (assign, "$tutorial_5_finished", 1),
                  (else_try),
                    (gt, "$tutorial_5_state", 30),
                    (tutorial_message, "str_tutorial_failed"),
@@ -7959,12 +8106,6 @@ mission_templates = [
       (31,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
      ],
     [
-      ##BEAN BEGIN - Deathcam
-      common_init_deathcam,
-      common_start_deathcam,
-      common_move_deathcam,
-      common_rotate_deathcam,
-      ##BEAN END - Deathcam
       common_custom_battle_tab_press,
       common_custom_battle_question_answered,
       common_inventory_not_available,
@@ -7986,7 +8127,10 @@ mission_templates = [
       custom_battle_check_victory_condition,
       common_battle_victory_display,
       custom_battle_check_defeat_condition,
-    ],
+    ]
+	##diplomacy begin
+	+ dplmc_battle_mode_triggers,
+	##diplomacy end
   ),
 
   (
@@ -8048,12 +8192,6 @@ mission_templates = [
       (47,mtef_visitor_source|mtef_team_0,af_override_horse,aif_start_alarmed,1,[]),
      ],
     [
-      ##BEAN BEGIN - Deathcam
-      common_init_deathcam,
-      common_start_deathcam,
-      common_move_deathcam,
-      common_rotate_deathcam,
-      ##BEAN END - Deathcam
       common_battle_mission_start,
       common_battle_init_banner,
 
@@ -8311,7 +8449,7 @@ mission_templates = [
          (store_trigger_param_2, ":killer_agent_no"),
          (call_script, "script_multiplayer_server_on_agent_killed_or_wounded_common", ":dead_agent_no", ":killer_agent_no"),
          ]),
-         
+      
       #  Tests for set_shader_param_ operations
       #   (1, 0, 0, [],
       # [
@@ -13693,12 +13831,6 @@ mission_templates = [
       (10,mtef_visitor_source|mtef_team_1,af_override_horse, aif_start_alarmed,20,[]),
     ],
     [
-      ##BEAN BEGIN - Deathcam
-      common_init_deathcam,
-      common_start_deathcam,
-      common_move_deathcam,
-      common_rotate_deathcam,
-      ##BEAN END - Deathcam
       common_battle_init_banner,
     
       common_inventory_not_available,
@@ -13752,7 +13884,7 @@ mission_templates = [
         
       (ti_tab_pressed, 0, 0,
        [
-        (display_message, "str_cannot_leave_now", color_neutral_news),
+        (display_message, "str_cannot_leave_now", color_neutral_news), ##BEAN - Color Coded Messages
        ], []),
      
       (1, 0, ti_once, [],
@@ -14139,7 +14271,7 @@ mission_templates = [
 
       (ti_tab_pressed, 0, 0, [], 
       [
-        (display_message, "str_cannot_leave_now", color_neutral_news),
+        (display_message, "str_cannot_leave_now", color_neutral_news), ##BEAN - Color Coded Messages
       ]),
 
       (0, 0, ti_once, [],
@@ -14370,7 +14502,7 @@ mission_templates = [
 
           (set_trigger_result, 1),
         (else_try),
-          (display_message, "str_cannot_leave_now", color_neutral_news),
+          (display_message, "str_cannot_leave_now", color_neutral_news), ##BEAN - Color Coded Messages
         (try_end),
       ], []),
     ]),
@@ -14429,12 +14561,6 @@ mission_templates = [
 	  (47,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
     ],
     [
-      ##BEAN BEGIN - Deathcam
-      common_init_deathcam,
-      common_start_deathcam,
-      common_move_deathcam,
-      common_rotate_deathcam,
-      ##BEAN END - Deathcam
       common_battle_init_banner,
     
       (ti_on_agent_spawn, 0, 0, [],
@@ -14630,15 +14756,15 @@ mission_templates = [
           (set_trigger_result,1),
         (else_try),
           (eq, "$g_mt_mode", tcm_disguised),
-          (display_message,"str_cant_use_inventory_disguised", color_neutral_news),
+          (display_message,"str_cant_use_inventory_disguised", color_neutral_news), ##BEAN - Color Coded Messages
         (else_try),
-          (display_message, "str_cant_use_inventory_now", color_neutral_news),
+          (display_message, "str_cant_use_inventory_now", color_neutral_news), ##BEAN - Color Coded Messages
         (try_end),
       ], []),
        
       (ti_tab_pressed, 0, 0,
       [
-        (display_message, "str_cannot_leave_now", color_neutral_news),
+        (display_message, "str_cannot_leave_now", color_neutral_news), ##BEAN - Color Coded Messages
       ], []),
   ]),
     
@@ -14776,10 +14902,10 @@ mission_templates = [
            (agent_slot_ge, ":player_agent", slot_agent_in_duel_with, 0),
            (try_begin),
              (eq, ":dead_agent_no", ":player_agent"),
-             (display_message, "str_you_have_lost_a_duel", color_bad_news),
+             (display_message, "str_you_have_lost_a_duel"),
            (else_try),
              (agent_slot_eq, ":player_agent", slot_agent_in_duel_with, ":dead_agent_no"),
-             (display_message, "str_you_have_won_a_duel", color_good_news),
+             (display_message, "str_you_have_won_a_duel"),
            (try_end),
          (try_end),
          (try_begin),
@@ -14994,6 +15120,4 @@ mission_templates = [
          ]),
       ],
   ),
-
-
 ]

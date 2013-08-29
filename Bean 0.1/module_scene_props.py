@@ -859,7 +859,7 @@ scene_props = [
 
 
 
-  ("full_keep_b",0,"full_keep_b","bo_full_keep_b", []),
+  ("full_keep_b", 0,"full_keep_b","bo_full_keep_b", []),
 
   ("castle_f_keep_a",0,"castle_f_keep_a","bo_castle_f_keep_a", []),
   ("castle_f_battlement_a",0,"castle_f_battlement_a","bo_castle_f_battlement_a", []),
@@ -2081,8 +2081,8 @@ scene_props = [
   ("squash_plant",0,"marrow_c","0", []),
 
 
-  ("gatehouse_new_a",0,"gatehouse_new_a","bo_gatehouse_new_a", []),
-  ("gatehouse_new_b",0,"gatehouse_new_b","bo_gatehouse_new_b", []),
+  ("gatehouse_new_a", 0,"gatehouse_new_a","bo_gatehouse_new_a", []),
+  ("gatehouse_new_b", 0,"gatehouse_new_b","bo_gatehouse_new_b", []),
   ("gatehouse_new_snowy_a",0,"gatehouse_new_snowy_a","bo_gatehouse_new_b", []),
 
   ("winch",sokf_moveable,"winch","bo_winch", []),
@@ -2992,7 +2992,7 @@ scene_props = [
      (particle_system_add_new, "psys_fall_leafs_a"),
     ]),
    ]),
-   
+
  ("rock_bridge_a",0,"rock_bridge_a","bo_rock_bridge_a", []),
  ("suspension_bridge_a",0,"suspension_bridge_a","bo_suspension_bridge_a", []),
  ("mine_a",0,"mine_a","bo_mine_a", []),
