@@ -176,5 +176,3 @@ snd_enemy_flag_taken = 174
 snd_flag_returned = 175
 snd_team_scored_a_point = 176
 snd_enemy_scored_a_point = 177
-
-

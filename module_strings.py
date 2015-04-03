@@ -327,16 +327,7 @@ strings = [
   ("other_party_lost_morale",   "{s1} loses {reg1} morale."),
 
   ("qst_follow_spy_noticed_you", "The spy has spotted you! He's making a run for it!"),
-  ("father", "father"),
-  ("husband", "husband"),
-  ("wife", "wife"),
-  ("daughter", "daughter"),
-  ("mother", "mother"),
-  ("son", "son"),
-  ("brother", "brother"),
-  ("sister", "sister"),
-  ("he", "He"),
-  ("she", "She"),
+
   ("s3s_s2", "{s3}'s {s2}"),
   ("s5_is_s51", "{s5} is {s51}."),
   ("s5_is_the_ruler_of_s51", "{s5} is the ruler of {s51}. "),
@@ -1346,7 +1337,7 @@ strings = [
   ("npc16_kingsupport_2b", "No offense, but I'm not sure that's the approach I'd take"), #klethi
   
   ("npc1_kingsupport_3", "If I could go about this land for a few weeks, telling the common folk that you were going to amnesty their kinfolk like the emperors of old -- well, they would start talking of you as the Emperor, and that would pave your way to the throne. Shall I do that, Boss?"), #Borcha
-  ("npc2_kingsupport_2", "If you like, captain, I can take a few weeks to visit the guildhalls and caravanseries where I have contacts, and explain to them that, in you, they will have a {king/ruler} who will check the rapacious nobles, who, with their tariffs and taxes, would strangle commerce for the sake of a few extra denars to spend on their wars and their feasts. What do you say to that, captain?"), #marnid
+  ("npc2_kingsupport_3", "If you like, captain, I can take a few weeks to visit the guildhalls and caravanseries where I have contacts, and explain to them that, in you, they will have a {king/ruler} who will check the rapacious nobles, who, with their tariffs and taxes, would strangle commerce for the sake of a few extra denars to spend on their wars and their feasts. What do you say to that, captain?"), #marnid
   ("npc3_kingsupport_3", "If you were to make such a pledge, {sir/madame}, I think that it would help many of the lords of this land overcome any reluctance that they might have. If your aim is to restore the old Calradic system, then arguably you are a more legitimate {king/ruler} then any of these come-lately usurpers. Give me leave for several weeks, {sir/madame}, and I will let it be known in the noble courts and merchant houses of this land that you intend to restore their ancient rights."), #ymira
   ("npc4_kingsupport_3", "Yes -- I think I have heard of that line, In fact, I can envision {his/her} entire genealogy. If you give me leave, 'Majesty', I shall travel about the villages and castles of this realm over the next several weeks, spreading word of your royal birth. Of course, I would hope that you would remember your faithful subject, when it comes to distributing lands..."),
   ("npc5_kingsupport_3", "Anyway, lord, in these sorry times the men of the great estates have taken to blocking our passage, charging us huge fees to cross. It is a great burden on my people, Bahadur. If I could take a few weeks to let the men of the steppes know that you would support the restoration of our ancient rights, well, then, I think you would find many who would support you as khan, And when men speak of you as khan, that's the first step to becoming one."), #beheshtur
@@ -1437,7 +1428,7 @@ strings = [
   ("npc2_turn_against", "This is a sad day. I never thought that I might meet my old captain on the field of battle. Even if I triumph, it will bring me no joy."), #marnid
   ("npc3_turn_against", "Oh {playername} -- what a tragic turn our lives have taken! I can only hope that the tides of war that have made us enemies, will one day allow us to be friends."), #ymira
   ("npc4_turn_against", "Aye, well.... I'm not sure what to say. If we must fight, let's get it over with."), #rolf
-  ("npc4_turn_against", "{playername} Bahadur! I took your salt, and was well rewarded for it! However, I will remind you of an old truth -- that while a Khergit may be an ardent follower, and a devoted friend, he will never be your slave.... Anyway, today I come against you with my sword raised. But I hope that one day we raise a glass together, to a friendship renewed."), #beheshtur
+  ("npc5_turn_against", "{playername} Bahadur! I took your salt, and was well rewarded for it! However, I will remind you of an old truth -- that while a Khergit may be an ardent follower, and a devoted friend, he will never be your slave.... Anyway, today I come against you with my sword raised. But I hope that one day we raise a glass together, to a friendship renewed."), #beheshtur
   ("npc6_turn_against", "It grieves me more than anything I can say to meet you like this, {playername}. I shall not dwell on the circumstances that have led us to this point. I can only hope that we may one day be reconciled."), #firentis
   ("npc7_turn_against", "Well, captain. You made of me a great lady, and for that I am grateful. However, you did not buy me, and now the circumstances have caused us our interests to clash, I can meet you in battle with a clear conscience. Still, I hope some day that circumstances may change again, and we may meet as friends."), #deshavi
   ("npc8_turn_against", "So we now we meet as enemies, and may shortly face each other over the rims of our shields. A grim day this is. Sometimes, the spinners of our fate have a dark sense of humor."), #matheld
@@ -1675,9 +1666,6 @@ strings = [
   ("comment_you_helped_my_ally_chivalrous",                   "I heard that you got {s54} out of a tight spot. That was a noble deed."), 
   ("comment_you_helped_my_ally_default",                   "I heard that you got {s54} out of a tight spot. Good work!"), 
  
-  ("comment_you_were_defeated_allied_unfriendly",             "I heard that {s54} defeated you. Look, try not to get too many of our men killed, will you?"), 
-  ("comment_you_were_defeated_allied",                        "I heard that {s54} defeated you. But take heart -- the tables will soon be turned!"), 
-
   ("comment_you_abandoned_us_unfriendly_spiteful",     "You worm! You left us alone to face {s54}, didn't you? I spit at you."), 
   ("comment_you_abandoned_us_unfriendly_pitiless",     "Well... You abandoned me in the middle of a battle with {s54}, didn't you? I'll see you buried in a traitor's grave."), 
   ("comment_you_abandoned_us_spiteful",                "You disappeared in the middle of that battle with {s54}... I hope you have a good explanation. Did your bowels give out? Were you shaking too hard with fear to hold your weapon?"), 
@@ -2044,11 +2032,11 @@ strings = [
   ("rebellion_refuse_default",              "{!}[liege]"),
   ("rebellion_refuse_martial",              "I am sorry. {s45} has a good claim, but it's not enough for me to turn my back on {s46}. I will remain loyal to my liege."),
   ("rebellion_refuse_quarrelsome",          "Nah. Your whelp {s45} doesn't have what it takes to rule this realm. I'm sticking with {s46}."),
-  ("rebellion_agree_pitiless",              "No. I will not join your rebellion. I count it little more than the tantrum of a child, denied a bauble which {reg3?she:he} thinks should be {reg3?hers:his}. I will stick with {s46}, whose ability to rule is well-tested."),
-  ("rebellion_agree_cunning",               "I am sorry. You do not give me reason for confidence that you will win. Many will die, but I do not wish to be among them. I will continue to back {s46}."),
-  ("rebellion_agree_sadistic",              "No. I won't play your little game. You grasp at a crown, but I think instead you'll get a quick trip to the scaffold, and I'll be there by {s46}'s side to watch the headsman's axe drop."),
-  ("rebellion_agree_goodnatured",           "I am sorry. I don't feel right turning my back on {s46}. No hard feelings when me meet on the battlefield."),
-  ("rebellion_agree_upstanding",            "I am sorry. {s45}'s claim is not strong enough for me to inflict the curse of civil disorder on the poor wretches of this land. I will continue to back {s46}. May the Heavens forgive me if I do wrong."),
+  ("rebellion_refuse_pitiless",              "No. I will not join your rebellion. I count it little more than the tantrum of a child, denied a bauble which {reg3?she:he} thinks should be {reg3?hers:his}. I will stick with {s46}, whose ability to rule is well-tested."),
+  ("rebellion_refuse_cunning",               "I am sorry. You do not give me reason for confidence that you will win. Many will die, but I do not wish to be among them. I will continue to back {s46}."),
+  ("rebellion_refuse_sadistic",              "No. I won't play your little game. You grasp at a crown, but I think instead you'll get a quick trip to the scaffold, and I'll be there by {s46}'s side to watch the headsman's axe drop."),
+  ("rebellion_refuse_goodnatured",           "I am sorry. I don't feel right turning my back on {s46}. No hard feelings when me meet on the battlefield."),
+  ("rebellion_refuse_upstanding",            "I am sorry. {s45}'s claim is not strong enough for me to inflict the curse of civil disorder on the poor wretches of this land. I will continue to back {s46}. May the Heavens forgive me if I do wrong."),
 
   ("talk_later_default",                    "{!}[liege]"),
   ("talk_later_martial",                    "Now is not the time to talk politics! I am here today with my fellow lords, armed for battle. You'd better prepare to fight."),
@@ -2557,7 +2545,6 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("reg0_dead", "{reg0} Dead"),
   ("bots_reg0_agents", "Bots ({reg0} agents)"),
   ("bot_1_agent", "Bot (1 agent)"),
-  ("score", "Score"),
   ("score_reg0", "Score: {reg0}"),
   ("flags_reg0", "(Flags: {reg0})"),
   ("reg0_players", "({reg0} players)"),
@@ -2695,7 +2682,6 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("reg4_killed_reg5_routed", "{reg4} killed, {reg5} routed"),
   ("reg4_killed_reg5_wounded", "{reg4} killed, {reg5} wounded"),
   ("reg4_wounded_reg5_routed", "{reg4} wounded, {reg5} routed"),
-  ("routed", "routed"),
   ("caravan_in_s10_considers_s11_total_price_dif_=_reg3", "{!}Caravan in {s10} considers {s11}, total price dif = {reg3}"),
   ("test__caravan_in_s3_selects_for_s4_trade_score_reg3", "{!}TEST - Caravan in {s3} selects for {s4}, trade score: {reg3}"),
   ("prisoner_relative_is_reg0", "{!}prisoner relative is {reg0}"),
@@ -2793,7 +2779,6 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("trade_explanation_leatherwork", "I work in the tanneries outside the walls, turning cured hides from the countryside into good, supple leather. It's foul work, and I come home stinking of urine, dung, and lime -- but that's where your boots, saddles, and bridles come from, {sir/my lady}."),
   ("trade_explanation_flax", "I sew and harvest linseed, and rot the stems to make flax fibers. That's the source of your fine linens, {sir/my lady} -- a rotting pit on the edge of a field."),
   ("trade_explanation_dates", "I tend to a grove of date palms. I hope you don't mind me saying so, but it takes great skill to tend them, as we must climb to the tops of the palms to ensure that the trees will flower. We export the fruit far and wide, as they keep for many months when properly dried. As sweet as honey, and they grant the eater health and strength."),
-  ("trade_explanation_dates", "I tend to a grove of date palms. We grow them using well-water, and export the fruit far and wide, as they keep for many months when properly dried. As sweet as honey, and they grant the eater health and vigor."),
   ("trade_explanation_olives", "I tend to a grove of olive trees. You can eat the fruit or preserve it in brine, but we end up sending most of it to be pressed, to be made into oil."),
   
   
@@ -2851,7 +2836,6 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("reputation_cheat_mode_only_ambitious_", "{!}Reputation (cheat mode only): Ambitious^"),
   ("reputation_cheat_mode_only_reg11_", "{!}Reputation (cheat mode only): {reg11}^"),
   ("love_interest", "love interest"),
-  ("betrothed", "betrothed"),
   ("s40_s39_s2_reg0", "{!}{s40}, {s39} ({s2}, {reg0})"),
   ("other_relations_s40_", "Other relations: {s40}^"),
   ("relation_with_liege_reg0_", "Relation with liege: {reg0}^"),
@@ -3449,7 +3433,6 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("forgive_me_but_id_prefer_to_keep_our_conversations_in_the_open", "Forgive me, but I'd prefer to keep our conversations in the open."),
   ("please_do_not_take_this_amiss_but_im_not_sure_you_and_i_are_still_on_those_terms", "Please do not take this amiss, but I'm not sure you and I are still on those terms."),
   ("persuasion__relation_less_than_5", "{!}Persuasion + relation less than -5)"),
-  ("s15", "{!}{s15}"),
   ("persuasion__2__lord_reputation_modifier__relation_less_than_10", "{!}Persuasion * 2 + lord reputation modifier + relation less than 10)"),
   ("s13", "{!}{s13}"),
   ("placeholder", "{!}[placeholder]..."),
@@ -3604,7 +3587,6 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("i_am", "I am"),
   ("s12", "{!}{s12},"),
   ("s12_s11_to_s14", "{s12} {s11} to {s14}"),
-  ("s12", "{!}{s12}."),
   ("s12_i_am_here_for_the_feast", "{s12}. I am here for the feast."),
   ("another_tournament_dedication_oh_i_suppose_it_is_always_flattering", "Another tournament dedication? Oh, I suppose it is always flattering..."),
   ("do_you_why_what_a_most_gallant_thing_to_say", "Do you? Why, what a most gallant thing to say."),
@@ -3849,7 +3831,6 @@ We apologize sincerely if you contributed your suggestions and feedback but were
 
   ("we_are_conducting_recce", "We will first scout the area, and then decide what to do."),
   
-  ("_family_", "^Family:"),
   ("s49_s12_s11_end", "{s49} {s12} ({s11})."),
   
   ("center_party_not_active", "is not our target, because we don't have a leader who has taken the field."),
@@ -4025,7 +4006,6 @@ We apologize sincerely if you contributed your suggestions and feedback but were
 
   ("attempting_to_rejoin_party", "Attempting to rejoin party,"),
   ("separated_from_party", "Separated from party,"),
-  ("whereabouts_unknown", "whereabouts unknown"),
   
   ("none_yet_gathered", "{!}None yet gathered"),
   

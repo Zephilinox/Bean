@@ -568,5 +568,3 @@ script_refresh_center_armories = 566
 script_refresh_center_weaponsmiths = 567
 script_refresh_center_stables = 568
 script_player_get_value_of_original_items = 569
-
-

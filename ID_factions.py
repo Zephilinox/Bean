@@ -31,5 +31,3 @@ fac_undeads = 29
 fac_slavers = 30
 fac_peasant_rebels = 31
 fac_noble_refugees = 32
-
-
