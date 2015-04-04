@@ -61,10 +61,10 @@ man_face_keys = [
 ]
 # Face width-Jaw width Temple width
 woman_face_keys = [
-(230,0,0.8,-1.0, "Chin Size"), 
-(220,0,-1.0,1.0, "Chin Shape"), 
+(230,0,0.8,-1.0, "Chin Size"),
+(220,0,-1.0,1.0, "Chin Shape"),
 (10,0,-1.2,1.0, "Chin Forward"),
-(20,0, -0.6, 1.2, "Jaw Width"), 
+(20,0, -0.6, 1.2, "Jaw Width"),
 (40,0,-0.7,1.0, "Jaw Position"),
 (270,0,0.9,-0.9, "Mouth-Nose Distance"),
 (30,0,-0.5,1.0, "Mouth Width"),
@@ -141,14 +141,14 @@ skins = [
     ["beard_blonde","beard_red","beard_brunette","beard_black","beard_white"], #beard_materials
     [("manface_young_2",0xffcbe0e0,["hair_blonde"],[0xffffffff, 0xffb04717, 0xff502a19]),
      ("manface_midage",0xffdfefe1,["hair_blonde"],[0xffffffff, 0xffb04717, 0xff632e18, 0xff502a19, 0xff19100c]),
-     ("manface_young",0xffd0e0e0,["hair_blonde"],[0xff83301a, 0xff502a19, 0xff19100c, 0xff0c0d19]),     
+     ("manface_young",0xffd0e0e0,["hair_blonde"],[0xff83301a, 0xff502a19, 0xff19100c, 0xff0c0d19]),
 #     ("manface_old",0xffd0d0d0,["hair_white","hair_brunette","hair_red","hair_blonde"],[0xffffcded, 0xffbbcded, 0xff99eebb]),
      ("manface_young_3",0xffdceded,["hair_blonde"],[0xff2f180e, 0xff171313, 0xff007080c]),
      ("manface_7",0xffc0c8c8,["hair_blonde"],[0xff171313, 0xff007080c]),
      ("manface_midage_2",0xfde4c8d8,["hair_blonde"],[0xff502a19, 0xff19100c, 0xff0c0d19]),
      ("manface_rugged",0xffb0aab5,["hair_blonde"],[0xff171313, 0xff007080c]),
 #     ("manface_young_4",0xffe0e8e8,["hair_blonde"],[0xff2f180e, 0xff171313, 0xff007080c]),
-     ("manface_african",0xff807c8a,["hair_blonde"],[0xff120808, 0xff007080c]),     
+     ("manface_african",0xff807c8a,["hair_blonde"],[0xff120808, 0xff007080c]),
 #     ("manface_old_2",0xffd5d5c5,["hair_white"],[0xffffcded, 0xffbbcded, 0xff99eebb]),
      ], #man_face_textures,
     [(voice_die,"snd_man_die"),(voice_hit,"snd_man_hit"),(voice_grunt,"snd_man_grunt"),(voice_grunt_long,"snd_man_grunt_long"),(voice_yell,"snd_man_yell"),(voice_stun,"snd_man_stun"),(voice_victory,"snd_man_victory")], #voice sounds
@@ -164,7 +164,7 @@ skins = [
      [2.7, comp_greater_than, (1.0,chin_size), (1.0,mouth_nose_distance), (1.0,nose_height), (-1.0,face_width)],
      ]
   ),
-  
+
   (
     "woman", skf_use_morph_key_10,
     "woman_body",  "woman_calf_l", "f_handL",
@@ -185,7 +185,7 @@ skins = [
     "skel_human", 1.0,
     psys_game_blood,psys_game_blood_2,
   ),
-  
+
 ##  (
 ##    "undead", 0,
 ##    "undead_body", "undead_calf_l", "undead_handL",

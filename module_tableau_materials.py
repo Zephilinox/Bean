@@ -19,7 +19,7 @@ from compiler import *
 #  9) Tableau mesh max y (int): divided by 1000 and used when a mesh is auto-generated using the tableau material
 #  10) Operations block (list): A list of operations. See header_operations.py for reference.
 #     The operations block is executed when the tableau is activated.
-# 
+#
 ####################################################################################################################
 
 #banner height = 200, width = 85 with wood, 75 without wood
@@ -115,12 +115,12 @@ tableaus = [
        (init_position, pos1),
        (position_set_y, pos1, 120),
        (cur_tableau_add_mesh, ":banner_mesh", pos1, 120, 0),
-	   
+
        #(init_position, pos1),
        #(position_set_z, pos1, 10),
        #(cur_tableau_add_mesh, "mesh_troop_label_banner", pos1, 112, 0),
        ]),
-	   
+
   ("round_shield_1", 0, "sample_shield_round_1", 512, 256, 0, 0, 0, 0,
    [
        (store_script_param, ":banner_mesh", 1),
@@ -166,7 +166,7 @@ tableaus = [
        (cur_tableau_add_mesh, "mesh_tableau_mesh_shield_round_3", pos1, 0, 0),
        (cur_tableau_set_camera_parameters, 0, 200, 100, 0, 100000),
        ]),
-  
+
   ("round_shield_4", 0, "sample_shield_matte", 512, 256, 0, 0, 0, 0,
    [
        (store_script_param, ":banner_mesh", 1),
@@ -182,7 +182,7 @@ tableaus = [
        (cur_tableau_add_mesh, "mesh_tableau_mesh_shield_round_4", pos1, 0, 0),
        (cur_tableau_set_camera_parameters, 0, 200, 100, 0, 100000),
        ]),
-  
+
   ("round_shield_5", 0, "sample_shield_matte", 512, 256, 0, 0, 0, 0,
    [
        (store_script_param, ":banner_mesh", 1),
@@ -213,7 +213,7 @@ tableaus = [
        (cur_tableau_add_mesh, "mesh_tableau_mesh_shield_small_round_1", pos1, 0, 0),
        (cur_tableau_set_camera_parameters, 0, 200, 100, 0, 100000),
        ]),
-  
+
   ("small_round_shield_2", 0, "sample_shield_small_round_2", 512, 256, 0, 0, 0, 0,
    [
        (store_script_param, ":banner_mesh", 1),
@@ -244,7 +244,7 @@ tableaus = [
        (cur_tableau_add_mesh, "mesh_tableau_mesh_shield_small_round_3", pos1, 0, 0),
        (cur_tableau_set_camera_parameters, 0, 200, 100, 0, 100000),
        ]),
-  
+
   ("kite_shield_1", 0, "sample_shield_matte", 512, 512, 0, 0, 0, 0,
    [
        (store_script_param, ":banner_mesh", 1),
@@ -392,7 +392,7 @@ tableaus = [
        (cur_tableau_add_mesh, "mesh_tableau_mesh_heraldic_armor_a", pos1, 0, 0),
        (cur_tableau_set_camera_parameters, 0, 200, 200, 0, 100000),
        ]),
-  
+
   ("heraldic_armor_b", 0, "sample_heraldic_armor_b", 512, 512, 0, 0, 0, 0,
    [
        (store_script_param, ":banner_mesh", 1),
@@ -415,7 +415,7 @@ tableaus = [
        (cur_tableau_add_mesh, "mesh_tableau_mesh_heraldic_armor_b", pos1, 0, 0),
        (cur_tableau_set_camera_parameters, 0, 200, 200, 0, 100000),
        ]),
-  
+
   ("heraldic_armor_c", 0, "sample_heraldic_armor_c", 512, 512, 0, 0, 0, 0,
    [
        (store_script_param, ":banner_mesh", 1),
@@ -438,7 +438,7 @@ tableaus = [
        (cur_tableau_add_mesh, "mesh_tableau_mesh_heraldic_armor_c", pos1, 0, 0),
        (cur_tableau_set_camera_parameters, 0, 200, 200, 0, 100000),
        ]),
-  
+
   ("heraldic_armor_d", 0, "sample_heraldic_armor_d", 512, 512, 0, 0, 0, 0,
    [
        (store_script_param, ":banner_mesh", 1),
@@ -495,7 +495,7 @@ tableaus = [
        (cur_tableau_set_ambient_light, 10,11,15),
        (call_script, "script_add_troop_to_cur_tableau_for_character", ":troop_no"),
        ]),
-  
+
   ("troop_inventory_alpha_mask", 0, "mat_troop_portrait_mask", 1024, 1024, 0, 0, 400, 400,
    [
        (store_script_param, ":troop_no", 1),
@@ -573,7 +573,7 @@ tableaus = [
        (set_fixed_point_multiplier, 100),
        (cur_tableau_set_background_color, 0x00888888),
        (cur_tableau_set_ambient_light, 10,11,15),
-       
+
        (init_position, pos8),
        (position_set_x, pos8, -210),
        (position_set_y, pos8, 200),
@@ -679,7 +679,7 @@ tableaus = [
        (cur_tableau_set_camera_parameters, 0, 210, 210, 0, 100000),
      (try_end),
      ]),
-  
+
   ("2_factions_mesh", 0, "tableau_with_transparency", 1024, 1024, 0, 0, 200, 200,
    [
      (store_script_param, ":faction_no", 1),
@@ -946,7 +946,7 @@ tableaus = [
 ##     (position_rotate_z, pos5, 180),
 ##     (cur_tableau_set_camera_position, pos5),
 ##     ]),
-  
+
   ("retired_troop_alpha_mask", 0, "mat_troop_portrait_mask", 2048, 2048, 0, 0, 600, 600,
    [
        (store_script_param, ":type", 1),
@@ -980,5 +980,5 @@ tableaus = [
      (position_set_z, pos1, 200),
      (cur_tableau_add_tableau_mesh, "tableau_retired_troop_alpha_mask", ":type", pos1, 0, 0),
      ]),
-  
+
 ]

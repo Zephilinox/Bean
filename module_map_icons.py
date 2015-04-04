@@ -11,7 +11,7 @@ from compiler import *
 #     The prefix icon_ is automatically added before each map icon id.
 #  2) Map icon flags. See header_map icons.py for a list of available flags
 #  3) Mesh name.
-#  4) Scale. 
+#  4) Scale.
 #  5) Sound.
 #  6) Offset x position for the flag icon.
 #  7) Offset y position for the flag icon.
@@ -247,7 +247,7 @@ map_icons = [
   ("banner_133",0,"map_flag_f08", banner_scale,0),
   ("banner_134",0,"map_flag_f09", banner_scale,0),
   ("banner_135",0,"map_flag_f10", banner_scale,0),
-  
+
   ("map_flag_kingdom_a",0,"map_flag_kingdom_a", banner_scale,0),
   ("map_flag_kingdom_b",0,"map_flag_kingdom_b", banner_scale,0),
   ("map_flag_kingdom_c",0,"map_flag_kingdom_c", banner_scale,0),
