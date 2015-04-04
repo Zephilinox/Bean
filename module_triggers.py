@@ -20,7 +20,7 @@ from compiler import *
 #    Every time the trigger is checked, the conditions block will be executed.
 #    If the conditions block returns true, the consequences block will be executed.
 #    If the conditions block is empty, it is assumed that it always evaluates to true.
-# 5) Consequences block (list). This must be a valid operation block. See header_operations.py for reference. 
+# 5) Consequences block (list). This must be a valid operation block. See header_operations.py for reference.
 ####################################################################################################################
 
 # Some constants for use below
@@ -35,13 +35,13 @@ triggers = [
 
 # Refresh Merchants
   (0.0, 0, 168.0, [],
-  [    
+  [
     (call_script, "script_refresh_center_inventories"),
   ]),
 
 # Refresh Armor sellers
   (0.0, 0, 168.0, [],
-  [    
+  [
     (call_script, "script_refresh_center_armories"),
   ]),
 
@@ -56,7 +56,7 @@ triggers = [
   [
     (call_script, "script_refresh_center_stables"),
   ]),
-  
+
 
 #############
 
@@ -73,9 +73,9 @@ triggers = [
 #    ]),
 
 
-  (5.7, 0, 0.0, 
+  (5.7, 0, 0.0,
   [
-    (store_num_parties_of_template, reg2, "pt_manhunters"),    
+    (store_num_parties_of_template, reg2, "pt_manhunters"),
     (lt, reg2, 4)
   ],
   [
@@ -91,7 +91,7 @@ triggers = [
   (check_quest_active, "qst_track_down_bandits"),
   (neg|check_quest_failed, "qst_track_down_bandits"),
   (neg|check_quest_succeeded, "qst_track_down_bandits"),
-  
+
   ],
    [
     (quest_get_slot, ":bandit_party", "qst_track_down_bandits", slot_quest_target_party),
@@ -99,21 +99,21 @@ triggers = [
 		(party_is_active, ":bandit_party"),
 		(store_faction_of_party, ":bandit_party_faction", ":bandit_party"),
 		(neg|is_between, ":bandit_party_faction", kingdoms_begin, kingdoms_end), #ie, the party has not respawned as a non-bandit
-		
-		
+
+
 		(assign, ":spot_range", 8),
 		(try_begin),
 			(is_currently_night),
 			(assign, ":spot_range", 5),
 		(try_end),
-		
+
 		(try_for_parties, ":party"),
 			(gt, ":party", "p_spawn_points_end"),
-			
+
 			(store_faction_of_party, ":faction", ":party"),
 			(is_between, ":faction", kingdoms_begin, kingdoms_end),
-			
-			
+
+
 			(store_distance_to_party_from_party, ":distance", ":party", ":bandit_party"),
 			(lt, ":distance", ":spot_range"),
 			(try_begin),
@@ -121,7 +121,7 @@ triggers = [
 				(str_store_party_name, s4, ":party"),
 				(display_message, "@{!}DEBUG -- Wanted bandits spotted by {s4}"),
 			(try_end),
-			
+
 			(call_script, "script_get_closest_center", ":bandit_party"),
 			(assign, ":nearest_center", reg0),
 #			(try_begin),
@@ -136,7 +136,7 @@ triggers = [
 #			(try_end),
 		(try_end),
 	(else_try), #Party not found
-		(display_message, "str_bandits_eliminated_by_another"),
+		(display_message, "str_bandits_eliminated_by_another", color_quest_and_faction_news), ##BEAN - Color Coded Messages
         (call_script, "script_abort_quest", "qst_track_down_bandits", 0),
 	(try_end),
    ]),
@@ -204,7 +204,7 @@ triggers = [
 ##               (party_set_ai_object,reg(2),reg0),
 ##               (party_set_flags, reg(2), pf_default_behavior, 0),
 ##            ]),
-  
+
   (4.0, 0, 0.0,
    [
      (eq, "$caravan_escort_state", 1), #cancel caravan_escort_state if caravan leaves the destination
@@ -251,8 +251,8 @@ triggers = [
     (party_set_ai_object,reg(2),reg0),
     (party_set_flags, reg(2), pf_default_behavior, 0),
     ]),
-  
-  
+
+
 
 #Deserters
 
@@ -263,7 +263,7 @@ triggers = [
 #                         (assign, "$pin_limit", 4),
 #                         (call_script,"script_cf_spawn_party_at_faction_town_if_below_limit"),
 #                    ]),
-  
+
 #  (10.2, 0, 0.0, [],
 #                     [
 #                         (assign, "$pin_faction", "fac_vaegirs"),
@@ -354,7 +354,7 @@ triggers = [
 #  (0.0, 0.0, ti_once, [], [(assign,"$peak_vaegir_scouts",4)]),
 #  (0.0, 0.0, ti_once, [], [(assign,"$peak_vaegir_harassers",3)]),
 #  (0.0, 0.0, ti_once, [], [(assign,"$peak_vaegir_war_parties",2)]),
-  
+
 
 #  (10.2, 0, 0.0, [],
 #                     [
@@ -414,7 +414,7 @@ triggers = [
 ##                    ]),
 
 #  [1.0, 96.0, ti_once, [], [[assign,"$peak_dark_hunters",3]]],
-  
+
 ##  (10.1, 0, 0.0, [],
 ##                     [
 ##                         (assign, "$pin_party_template", "pt_dark_hunters"),
@@ -430,7 +430,7 @@ triggers = [
 ##       (main_party_has_troop,"trp_borcha"),
 ##       (eq,"$borcha_freed",0)
 ##    ],
-##   
+##
 ##   [
 ##       (assign,"$borcha_arrive_sargoth_as_prisoner", 1),
 ##       (start_map_conversation, "trp_borcha", -1)
@@ -447,7 +447,7 @@ triggers = [
 ##       (start_map_conversation, "trp_borcha", -1)
 ##    ]
 ##   ),
-##  
+##
 ##  (2, 0, ti_once,
 ##   [
 ##      (map_free, 0),
@@ -1047,7 +1047,7 @@ triggers = [
            (try_begin),
              (eq, "$qst_follow_spy_run_away", 2),
              (assign, ":abort_meeting", 1),
-             (display_message, "str_qst_follow_spy_noticed_you"),
+             (display_message, "str_qst_follow_spy_noticed_you", color_quest_and_faction_news), ##BEAN - Color Coded Messages
            (try_end),
          (else_try),
            (store_distance_to_party_from_party, ":cur_distance", "$qst_follow_spy_spy_partners_party", "$qst_follow_spy_spy_party"),
@@ -1066,7 +1066,7 @@ triggers = [
            (try_begin),
              (eq, "$qst_follow_spy_run_away", 2),
              (assign, ":abort_meeting", 1),
-             (display_message, "str_qst_follow_spy_noticed_you"),
+             (display_message, "str_qst_follow_spy_noticed_you", color_quest_and_faction_news), ##BEAN - Color Coded Messages
            (try_end),
          (else_try),
            (val_add, "$qst_follow_spy_meeting_counter", 1),
@@ -1079,9 +1079,9 @@ triggers = [
        (try_begin),
          (eq, ":abort_meeting", 1),
          (party_set_ai_object, "$qst_follow_spy_spy_party", ":quest_giver_center"),
-         
+
          (party_set_ai_object, "$qst_follow_spy_spy_partners_party", ":quest_object_center"),
-         
+
          (party_set_ai_behavior, "$qst_follow_spy_spy_party", ai_bhvr_travel_to_party),
          (party_set_ai_behavior, "$qst_follow_spy_spy_partners_party", ai_bhvr_travel_to_party),
          (party_set_flags, "$qst_follow_spy_spy_party", pf_default_behavior, 0),
@@ -1147,7 +1147,7 @@ triggers = [
 ##       (party_set_flags, ":quest_target_party", pf_default_behavior, 0),
 ##    ]
 ##   ),
-##  
+##
 ##  (0.1, 0.0, 0.0,
 ##   [
 ##       (check_quest_active, "qst_hunt_down_raiders"),
@@ -1160,7 +1160,7 @@ triggers = [
 ##       (call_script, "script_succeed_quest", "qst_hunt_down_raiders"),
 ##    ]
 ##   ),
-##  
+##
 ##  (1.3, 0, 0.0,
 ##   [
 ##       (check_quest_active, "qst_hunt_down_raiders"),
@@ -1182,7 +1182,7 @@ triggers = [
 
 #########################################################################
 # Random MERCHANT quest triggers
-####################################  
+####################################
  # Apply interest to merchants guild debt  1% per week
   (24.0 * 7, 0.0, 0.0,
    [],
@@ -1229,7 +1229,7 @@ triggers = [
                    (store_num_parties_destroyed_by_player, ":cur_eliminated_by_player", "pt_troublesome_bandits"),
                    (eq, ":cur_eliminated_by_player", "$qst_troublesome_bandits_eliminated_by_player"),
                    ],
-                  [(display_message, "str_bandits_eliminated_by_another"),
+                  [(display_message, "str_bandits_eliminated_by_another", color_quest_and_faction_news), ##BEAN - Color Coded Messages
                    (call_script, "script_abort_quest", "qst_troublesome_bandits", 0),
                    ]),
 
@@ -1241,7 +1241,7 @@ triggers = [
                    (neq, ":cur_eliminated_by_player", "$qst_troublesome_bandits_eliminated_by_player"),
                    ],
                   [(call_script, "script_succeed_quest", "qst_troublesome_bandits"),]),
-				  
+
 # Kidnapped girl:
    (1, 0, 0,
    [(check_quest_active, "qst_kidnapped_girl"),
@@ -1255,7 +1255,7 @@ triggers = [
 
 
 #Rebellion changes begin
-#move 
+#move
 
   (0, 0, 24 * 14,
    [
@@ -1273,7 +1273,7 @@ triggers = [
             (store_faction_of_party, ":town_faction", ":town"),
             (store_relation, ":relation", ":town_faction", ":target_faction"),
             (le, ":relation", 0), #fail if nothing qualifies
-           
+
             (troop_set_slot, ":pretender", slot_troop_cur_center, ":town"),
             (try_begin),
               (eq, "$cheat_mode", 1),
@@ -1295,7 +1295,7 @@ triggers = [
 #            (le, ":relation", 0), #fail if nothing qualifies
 
  #           (faction_set_slot, ":rebel_faction", slot_faction_inactive_leader_location, ":town"),
-        (try_end), 
+        (try_end),
        ],
 []
 ),
@@ -1303,7 +1303,7 @@ triggers = [
 
 #NPC system changes begin
 #Move unemployed NPCs around taverns
-   (24 * 15 , 0, 0, 
+   (24 * 15 , 0, 0,
    [
     (call_script, "script_update_companion_candidates_in_taverns"),
     ],
@@ -1346,7 +1346,7 @@ triggers = [
         (try_end),
 #
 
-         
+
         (try_for_range, ":npc", companions_begin, companions_end),
 ###Reset meeting variables
             (troop_set_slot, ":npc", slot_troop_turned_down_twice, 0),
@@ -1381,9 +1381,9 @@ triggers = [
 
 				(troop_get_slot, ":other_npc", ":npc", slot_troop_kingsupport_opponent),
 				(troop_slot_eq, ":other_npc", slot_troop_kingsupport_objection_state, 0),
-				
+
 				(troop_set_slot, ":other_npc", slot_troop_kingsupport_objection_state, 1),
-				
+
 				(str_store_troop_name, s3, ":npc"),
 				(str_store_troop_name, s4, ":other_npc"),
 
@@ -1396,7 +1396,7 @@ triggers = [
 			#Check for quitting
             (try_begin),
                 (main_party_has_troop, ":npc"),
-				
+
                 (call_script, "script_npc_morale", ":npc"),
                 (assign, ":npc_morale", reg0),
 
@@ -1447,7 +1447,7 @@ triggers = [
                 (try_end),
 
 
-				
+
 #Check for new personality clashes
 
 				#Active personality clash 1 if at least 24 hours have passed
@@ -1465,29 +1465,29 @@ triggers = [
 				#Personality clash 2 and personality match is triggered by battles
 				(try_begin),
 					(eq, "$npc_with_political_grievance", 0),
-				
+
 					(troop_slot_eq, ":npc", slot_troop_kingsupport_objection_state, 1),
 					(assign, "$npc_with_political_grievance", ":npc"),
 				(try_end),
 
 			#main party does not have troop, and the troop is a companion
-			(else_try), 
+			(else_try),
 				(neg|main_party_has_troop, ":npc"),
 				(eq, ":occupation", slto_player_companion),
 
-				
+
 				(troop_get_slot, ":days_on_mission", ":npc", slot_troop_days_on_mission),
 				(try_begin),
 					(gt, ":days_on_mission", 0),
 					(val_sub, ":days_on_mission", 1),
 					(troop_set_slot, ":npc", slot_troop_days_on_mission, ":days_on_mission"),
-				(else_try), 
+				(else_try),
 					(troop_slot_ge, ":npc", slot_troop_current_mission, 1),
-					
+
 					#If the hero can join
 					(this_or_next|neg|troop_slot_eq, ":npc", slot_troop_current_mission, npc_mission_rejoin_when_possible),
 						(hero_can_join, ":npc"),
-						
+
 					(assign, "$npc_to_rejoin_party", ":npc"),
 				(try_end),
             (try_end),
@@ -1501,7 +1501,7 @@ triggers = [
    (1, 0, 0,
    [
      (troop_get_type, ":is_female", "trp_player"),
-     (eq, ":is_female", 1),       
+     (eq, ":is_female", 1),
      (try_for_range, ":companion", companions_begin, companions_end),
        (troop_slot_eq, ":companion", slot_troop_occupation, slto_player_companion),
 
@@ -1514,7 +1514,7 @@ triggers = [
 	 	 (this_or_next|eq, ":item_id", "itm_great_sword"),
 	 	 (this_or_next|eq, ":item_id", "itm_sword_two_handed_a"),
 		 (eq, ":item_id", "itm_strange_great_sword"),
-		 		 
+
 		 (unlock_achievement, ACHIEVEMENT_LADY_OF_THE_LAKE),
 		 (assign, ":inv_cap", 0),
 	   (try_end),
@@ -1527,5 +1527,5 @@ triggers = [
 
 
 
- 
+
 ]

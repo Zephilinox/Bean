@@ -75,10 +75,12 @@ common_start_deathcam = (
         (set_fixed_point_multiplier, 10000),
         (assign, "$deathcam_on", 1),
 
-        (display_message, "@You were defeated.", 0xFF2222),
-        (display_message, "@Rotate with the mouse, move with standard keys."),
-        (display_message, "@Shift/Control for Up/Down, Space Bar to increase speed."),
-        (display_message, "@Numpad Plus/Minus to change sensitivity, Home to reset position."),
+        ##BEAN BEGIN - Color Coded Messages
+        (display_message, "@You were defeated.", color_terrible_news),
+        (display_message, "@Rotate with the mouse, move with standard keys.", color_neutral_news),
+        (display_message, "@Shift/Control for Up/Down, Space Bar to increase speed.", color_neutral_news),
+        (display_message, "@Numpad Plus/Minus to change sensitivity, Home to reset position.", color_neutral_news),
+        ##BEAN END - Color Coded Messages
 
         (mission_cam_get_position, pos1), #Death pos
         (position_get_x, reg3, pos1),
@@ -186,7 +188,7 @@ common_move_deathcam = (
             (eq, reg7, 0),
                 (assign, reg8, "$deathcam_sensitivity_x"),
                 (assign, reg9, "$deathcam_sensitivity_y"),
-                (display_message, "@Sensitivity - 25% ({reg8}, {reg9})"),
+                (display_message, "@Sensitivity - 25% ({reg8}, {reg9})", color_neutral_news), ##BEAN - Color Coded Messages
             (try_end),
         (else_try),
         (key_is_down, key_numpad_plus),
@@ -199,7 +201,7 @@ common_move_deathcam = (
             (eq, reg7, 0),
                 (assign, reg8, "$deathcam_sensitivity_x"),
                 (assign, reg9, "$deathcam_sensitivity_y"),
-                (display_message, "@Sensitivity + 25% ({reg8}, {reg9})"),
+                (display_message, "@Sensitivity + 25% ({reg8}, {reg9})", color_neutral_news), ##BEAN - Color Coded Messages
             (try_end),
         (try_end),
    ]
@@ -923,7 +925,7 @@ common_battle_tab_press = (
             (call_script, "script_cf_check_enemies_nearby"),
             (question_box, "str_do_you_want_to_retreat"),
         (else_try),
-            (display_message, "str_can_not_retreat"),
+            (display_message, "str_can_not_retreat", color_neutral_news), ##BEAN - Color Coded Messages
         (try_end),
     ]
 )
@@ -963,7 +965,7 @@ custom_battle_check_victory_condition = (
     (all_enemies_defeated, 2),
     (neg|main_hero_fallen, 0),
     (set_mission_result,1),
-    (display_message,"str_msg_battle_won"),
+    (display_message,"str_msg_battle_won", color_great_news), ##BEAN - Color Coded Messages
     (assign, "$g_battle_won",1),
     (assign, "$g_battle_result", 1),
     ],
@@ -987,7 +989,7 @@ common_battle_victory_display = (
   10, 0, 0, [],
   [
     (eq,"$g_battle_won",1),
-    (display_message,"str_msg_battle_won"),
+    (display_message,"str_msg_battle_won", color_great_news), ##BEAN - Color Coded Messages
     ])
 
 common_siege_question_answered = (
@@ -1163,7 +1165,7 @@ common_battle_check_victory_condition = (
     (all_enemies_defeated, 5),
     #(neg|main_hero_fallen, 0),
     (set_mission_result, 1),
-    (display_message, "str_msg_battle_won"),
+    (display_message, "str_msg_battle_won", color_great_news), ##BEAN - Color Coded Messages
     (assign, "$g_battle_won",1),
     (assign, "$g_battle_result", 1),
     (call_script, "script_play_victorious_sound"),
@@ -1180,7 +1182,7 @@ common_battle_victory_display = (
   10, 0, 0, [],
   [
     (eq,"$g_battle_won",1),
-    (display_message,"str_msg_battle_won"),
+    (display_message,"str_msg_battle_won", color_great_news), ##BEAN - Color Coded Messages
     ])
 
 common_siege_refill_ammo = (
@@ -1216,7 +1218,7 @@ common_siege_check_defeat_condition = (
     ],
     [
         (assign, "$pin_player_fallen", 1),
-        (display_message, "@Press TAB to end the battle."),
+        (display_message, "@Press TAB to end the battle.", color_neutral_news), ##BEAN - Color Coded Messages
     ]
 )
 
@@ -1240,13 +1242,13 @@ common_battle_order_panel_tick = (
 common_battle_inventory = (
   ti_inventory_key_pressed, 0, 0, [],
   [
-    (display_message,"str_use_baggage_for_inventory"),
+    (display_message,"str_use_baggage_for_inventory", color_neutral_news), ##BEAN - Color Coded Messages
     ])
 
 common_inventory_not_available = (
   ti_inventory_key_pressed, 0, 0,
   [
-    (display_message, "str_cant_use_inventory_now"),
+    (display_message, "str_cant_use_inventory_now", color_neutral_news), ##BEAN - Color Coded Messages
     ], [])
 
 common_siege_init_ai_and_belfry = (
@@ -1280,7 +1282,7 @@ common_siege_assign_men_to_belfry = (
 tournament_triggers = [
   (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest"),
                                        (assign, "$g_arena_training_num_agents_spawned", 0)]),
-  (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_arena")], []),
+  (ti_inventory_key_pressed, 0, 0, [(display_message, "str_cant_use_inventory_arena", color_neutral_news)], []), ##BEAN - Color Coded Messages
   (ti_tab_pressed, 0, 0, [],
    [(try_begin),
       (eq, "$g_mt_mode", abm_visit),
@@ -1917,9 +1919,9 @@ mission_templates = [
           (set_trigger_result,1),
         (else_try),
           (eq, "$g_mt_mode", tcm_disguised),
-          (display_message,"str_cant_use_inventory_disguised"),
+          (display_message, "str_cant_use_inventory_disguised", color_neutral_news), ##BEAN - Color Coded Messages
         (else_try),
-          (display_message, "str_cant_use_inventory_now"),
+          (display_message, "str_cant_use_inventory_now", color_neutral_news), ##BEAN - Color Coded Messages
         (try_end),
       ],
       []),
@@ -1929,14 +1931,14 @@ mission_templates = [
         (try_begin),
           (this_or_next|eq, "$talk_context", tc_escape),
           (eq, "$talk_context", tc_prison_break),
-          (display_message, "str_cannot_leave_now"),
+          (display_message, "str_cannot_leave_now", color_neutral_news), ##BEAN - Color Coded Messages
         (else_try),
           (this_or_next|eq, "$g_mt_mode", tcm_default),
           (eq, "$g_mt_mode", tcm_disguised),
           (mission_enable_talk),
           (set_trigger_result,1),
         (else_try),
-          (display_message, "str_cannot_leave_now"),
+          (display_message, "str_cannot_leave_now", color_neutral_news), ##BEAN - Color Coded Messages
         (try_end),
       ],
       []),
@@ -2012,7 +2014,7 @@ mission_templates = [
 		  (troop_slot_ge, ":prisoner", slot_troop_mission_participation, mp_prison_break_fight),
 
 		  (str_store_troop_name, s4, ":prisoner"),
-		  (display_message, "str_s4_joins_prison_break"),
+		  (display_message, "str_s4_joins_prison_break", color_hero_news), ##BEAN - Color Coded Messages
 
 		  (store_current_scene, ":cur_scene"), #this might be a better option?
 		  (modify_visitors_at_site, ":cur_scene"),
@@ -2096,7 +2098,7 @@ mission_templates = [
 
        (eq, ":killer_agent_troop_no", "trp_player"),
 
-       (display_message, "@You got keys of dungeon."),
+       (display_message, "@You got keys of dungeon.", color_quest_and_faction_news), ##BEAN - Color Coded Messages
      (try_end),
    ]),
   ]),
@@ -2211,7 +2213,7 @@ mission_templates = [
 
       (ti_tab_pressed, 0, 0,
        [
-         (display_message, "str_cannot_leave_now"),
+         (display_message, "str_cannot_leave_now", color_neutral_news), ##BEAN - Color Coded Messages
          ], []),
       (ti_on_leave_area, 0, 0,
        [
@@ -2353,7 +2355,7 @@ mission_templates = [
  	    (eq, "$talk_context", tc_prison_break),
  	  ],
 	  [
-	    (display_message, "str_leaving_area_during_prison_break"),
+	    (display_message, "str_leaving_area_during_prison_break", color_neutral_news), ##BEAN - Color Coded Messages
 	    (set_jump_mission, "mt_sneak_caught_fight"),
 	  ]),
 
@@ -2392,7 +2394,7 @@ mission_templates = [
       ##BEAN END - Deathcam
 
       common_inventory_not_available,
-      (ti_tab_pressed, 0, 0, [(display_message,"str_cannot_leave_now")], []),
+      (ti_tab_pressed, 0, 0, [(display_message,"str_cannot_leave_now", color_neutral_news)], []), ##BEAN - Color Coded Messages
       (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
 
       (0, 0, ti_once, [],
@@ -2477,7 +2479,7 @@ mission_templates = [
         (jump_to_menu, "mnu_collect_taxes_failed"),
         (finish_mission),]),
 
-      (ti_tab_pressed, 0, 0, [(display_message,"str_cannot_leave_now")], []),
+      (ti_tab_pressed, 0, 0, [(display_message,"str_cannot_leave_now", color_neutral_news)], []), ##BEAN - Color Coded Messages
       (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
 
       (0, 0, ti_once, [],
@@ -2676,7 +2678,7 @@ mission_templates = [
         ],
         [
             (assign, "$pin_player_fallen", 1),
-            (display_message, "@Press TAB to end the battle."),
+            (display_message, "@Press TAB to end the battle.", color_neutral_news), ##BEAN - Color Coded Messages
         ]
       ),
 
@@ -2780,7 +2782,7 @@ mission_templates = [
         ],
         [
             (assign, "$pin_player_fallen", 1),
-            (display_message, "@Press TAB to end the battle."),
+            (display_message, "@Press TAB to end the battle.", color_neutral_news), ##BEAN - Color Coded Messages
         ]
       ),
 
@@ -2851,7 +2853,7 @@ mission_templates = [
          (all_enemies_defeated, 5),
          (neg|main_hero_fallen, 0),
          (set_mission_result,1),
-         (display_message,"str_msg_battle_won"),
+         (display_message,"str_msg_battle_won", color_great_news), ##BEAN - Color Coded Messages
          (assign,"$g_battle_won",1),
          (assign, "$g_battle_result", 1),
          (try_begin),
@@ -2882,7 +2884,7 @@ mission_templates = [
         ],
         [
             (assign, "$pin_player_fallen", 1),
-            (display_message, "@Press TAB to end the battle."),
+            (display_message, "@Press TAB to end the battle.", color_neutral_news), ##BEAN - Color Coded Messages
         ]
       ),
 
@@ -3129,7 +3131,7 @@ mission_templates = [
         ],
         [
             (assign, "$pin_player_fallen", 1),
-            (display_message, "@Press TAB to end the battle."),
+            (display_message, "@Press TAB to end the battle.", color_neutral_news), ##BEAN - Color Coded Messages
         ]
       ),
 
@@ -3207,7 +3209,7 @@ mission_templates = [
         ],
         [
             (assign, "$pin_player_fallen", 1),
-            (display_message, "@Press TAB to end the battle."),
+            (display_message, "@Press TAB to end the battle.", color_neutral_news), ##BEAN - Color Coded Messages
         ]
       ),
 
@@ -3295,7 +3297,7 @@ mission_templates = [
                         (all_enemies_defeated, 2),
                         (neg|main_hero_fallen,0),
                         (set_mission_result,1),
-                        (display_message,"str_msg_battle_won"),
+                        (display_message, "str_msg_battle_won", color_great_news), ##BEAN - Color Coded Messages
                         (assign, "$g_battle_won", 1),
                         (assign, "$g_battle_result", 1),
                         (assign, "$g_siege_sallied_out_once", 1),
@@ -3321,7 +3323,7 @@ mission_templates = [
         ],
         [
             (assign, "$pin_player_fallen", 1),
-            (display_message, "@Press TAB to end the battle."),
+            (display_message, "@Press TAB to end the battle.", color_neutral_news), ##BEAN - Color Coded Messages
         ]
       ),
       common_battle_order_panel,
@@ -3618,7 +3620,7 @@ mission_templates = [
 
           (eq, ":killer_agent_troop_no", "trp_player"),
 
-          (display_message, "@You got keys of dungeon."),
+          (display_message, "@You got keys of dungeon.", color_neutral_news), ##BEAN - Color Coded Messages
         (try_end),
       ]),
 
@@ -3653,7 +3655,7 @@ mission_templates = [
           (troop_slot_ge, ":prisoner", slot_troop_mission_participation, 1),
 
           (str_store_troop_name, s4, ":prisoner"),
-          (display_message, "str_s4_joins_prison_break"),
+          (display_message, "str_s4_joins_prison_break", color_neutral_news), ##BEAN - Color Coded Messages
 
           (store_current_scene, ":cur_scene"), #this might be a better option?
           (modify_visitors_at_site, ":cur_scene"),
@@ -3672,14 +3674,14 @@ mission_templates = [
         (try_begin),
           (this_or_next|eq, "$talk_context", tc_escape),
           (eq, "$talk_context", tc_prison_break),
-          (display_message, "str_cannot_leave_now"),
+          (display_message, "str_cannot_leave_now", color_neutral_news), ##BEAN - Color Coded Messages
         (else_try),
           (this_or_next|eq, "$g_mt_mode", tcm_default),
           (eq, "$g_mt_mode", tcm_disguised),
           (set_trigger_result, 1),
           (mission_enable_talk),
         (else_try),
-          (display_message, "str_cannot_leave_now"),
+          (display_message, "str_cannot_leave_now", color_neutral_news), ##BEAN - Color Coded Messages
         (try_end),
       ],
       []),
@@ -3832,7 +3834,7 @@ mission_templates = [
          (set_jump_entry, 5),
          (jump_to_scene, "$g_training_ground_melee_training_scene"),
          ]),
-      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_arena")], []),
+      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_arena", color_neutral_news)], []), ##BEAN - Color Coded Messages
     ],
   ),
 
@@ -4261,7 +4263,7 @@ mission_templates = [
 	   (ti_on_leave_area, 0, ti_once, [],
        [(assign,"$auto_menu",-1),(jump_to_menu,"mnu_sneak_into_town_caught_ran_away"),(finish_mission,0)]),
 
-      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_arena")], []),
+      (ti_inventory_key_pressed, 0, 0, [(display_message, "str_cant_use_inventory_arena", color_neutral_news)], []), ##BEAN - Color Coded Messages
 
     ],
   ),
@@ -4392,7 +4394,7 @@ mission_templates = [
     ],
     [
       common_inventory_not_available,
-      (ti_tab_pressed, 0, 0, [(display_message, "str_cannot_leave_now")], []),
+      (ti_tab_pressed, 0, 0, [(display_message, "str_cannot_leave_now", color_neutral_news)], []), ##BEAN - Color Coded Messages
       (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
 
       (0, 0, ti_once, [],
@@ -4460,7 +4462,7 @@ mission_templates = [
     ],
     [
       common_inventory_not_available,
-      (ti_tab_pressed, 0, 0, [(display_message, "str_cannot_leave_now")], []),
+      (ti_tab_pressed, 0, 0, [(display_message, "str_cannot_leave_now", color_neutral_news)], []), ##BEAN - Color Coded Messages
       (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
 
       (0, 0, ti_once, [],
@@ -5184,7 +5186,7 @@ mission_templates = [
         (eq,":answer",0),
         (finish_mission,0),
         ]),
-      (ti_inventory_key_pressed, 0, 0, [(display_message, "str_cant_use_inventory_tutorial")], []),
+      (ti_inventory_key_pressed, 0, 0, [(display_message, "str_cant_use_inventory_tutorial", color_neutral_news)], []), ##BEAN - Color Coded Messages
 
       (ti_battle_window_opened, 0, 0, [],
        [
@@ -6696,7 +6698,7 @@ mission_templates = [
         (eq,":answer",0),
         (finish_mission,0),
         ]),
-      (ti_inventory_key_pressed, 0, 0, [(display_message, "str_cant_use_inventory_tutorial")], []),
+      (ti_inventory_key_pressed, 0, 0, [(display_message, "str_cant_use_inventory_tutorial", color_neutral_news)], []), ##BEAN - Color Coded Messages
 
       (0, 0, ti_once, [
       	               (tutorial_message_set_size, 17, 17),
@@ -6906,7 +6908,7 @@ mission_templates = [
         (eq,":answer",0),
         (finish_mission,0),
         ]),
-      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_tutorial")], []),
+      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_tutorial", color_neutral_news)], []), ##BEAN - Color Coded Messages
       (0, 0, ti_once, [
           (store_mission_timer_a, ":cur_time"),
           (gt, ":cur_time", 2),
@@ -7191,7 +7193,7 @@ mission_templates = [
         (eq,":answer",0),
         (finish_mission,0),
         ]),
-      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_tutorial")], []),
+      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_tutorial", color_neutral_news)], []), ##BEAN - Color Coded Messages
 
       (0, 0, ti_once, [
           (store_mission_timer_a, ":cur_time"),
@@ -7448,7 +7450,7 @@ mission_templates = [
         (eq,":answer",0),
         (finish_mission,0),
         ]),
-      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_tutorial")], []),
+      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_tutorial", color_neutral_news)], []), ##BEAN - Color Coded Messages
 
       (0, 0, ti_once, [
           (store_mission_timer_a, ":cur_time"),
@@ -7600,7 +7602,7 @@ mission_templates = [
         (eq,":answer",0),
         (finish_mission,0),
         ]),
-      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_tutorial")], []),
+      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_tutorial", color_neutral_news)], []), ##BEAN - Color Coded Messages
 
       (ti_before_mission_start, 0, 0, [],
        [
@@ -7826,7 +7828,7 @@ mission_templates = [
         (eq,":answer",0),
         (finish_mission,0),
         ]),
-      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_tutorial")], []),
+      (ti_inventory_key_pressed, 0, 0, [(display_message,"str_cant_use_inventory_tutorial", color_neutral_news)], []), ##BEAN - Color Coded Messages
 
 
       (0, 0, ti_once, [
@@ -13879,7 +13881,7 @@ mission_templates = [
 
       (ti_tab_pressed, 0, 0,
        [
-        (display_message, "str_cannot_leave_now"),
+        (display_message, "str_cannot_leave_now", color_neutral_news), ##BEAN - Color Coded Messages
        ], []),
 
       (1, 0, ti_once, [],
@@ -14273,7 +14275,7 @@ mission_templates = [
 
       (ti_tab_pressed, 0, 0, [],
       [
-        (display_message, "str_cannot_leave_now"),
+        (display_message, "str_cannot_leave_now", color_neutral_news), ##BEAN - Color Coded Messages
       ]),
 
       (0, 0, ti_once, [],
@@ -14504,7 +14506,7 @@ mission_templates = [
 
           (set_trigger_result, 1),
         (else_try),
-          (display_message, "str_cannot_leave_now"),
+          (display_message, "str_cannot_leave_now", color_neutral_news), ##BEAN - Color Coded Messages
         (try_end),
       ], []),
     ]),
@@ -14758,15 +14760,15 @@ mission_templates = [
           (set_trigger_result,1),
         (else_try),
           (eq, "$g_mt_mode", tcm_disguised),
-          (display_message,"str_cant_use_inventory_disguised"),
+          (display_message,"str_cant_use_inventory_disguised", color_neutral_news), ##BEAN - Color Coded Messages
         (else_try),
-          (display_message, "str_cant_use_inventory_now"),
+          (display_message, "str_cant_use_inventory_now", color_neutral_news), ##BEAN - Color Coded Messages
         (try_end),
       ], []),
 
       (ti_tab_pressed, 0, 0,
       [
-        (display_message, "str_cannot_leave_now"),
+        (display_message, "str_cannot_leave_now", color_neutral_news),
       ], []),
   ]),
 
@@ -14904,10 +14906,10 @@ mission_templates = [
            (agent_slot_ge, ":player_agent", slot_agent_in_duel_with, 0),
            (try_begin),
              (eq, ":dead_agent_no", ":player_agent"),
-             (display_message, "str_you_have_lost_a_duel"),
+             (display_message, "str_you_have_lost_a_duel", color_bad_news), ##BEAN - Color Coded Messages
            (else_try),
              (agent_slot_eq, ":player_agent", slot_agent_in_duel_with, ":dead_agent_no"),
-             (display_message, "str_you_have_won_a_duel"),
+             (display_message, "str_you_have_won_a_duel", color_good_news), ##BEAN - Color Coded Messages
            (try_end),
          (try_end),
          (try_begin),
