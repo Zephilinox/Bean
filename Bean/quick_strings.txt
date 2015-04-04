@@ -1,4 +1,4 @@
-675
+682
 qstr_Breaking_camp... Breaking_camp...
 qstr_{!}{s3}_commander_of {!}{s3}_commander_of_party_#{reg4}_which_is_not_his_troop_leaded_party_{reg5}
 qstr_{!}DEBUG____Doing_po {!}DEBUG_--_Doing_political_calculations_for_{s9}
@@ -674,3 +674,10 @@ qstr_There_has_been_an_al There_has_been_an_alleged_border_incident:_{s9}
 qstr_{!}{s11}{s12} {!}{s11}{s12}
 qstr_{!}DEBUG____Hours_si {!}DEBUG_--_Hours_since_last_feast_started:_{reg4}
 qstr_^^Note_that_so_long_ ^^Note_that_so_long_as_you_remain_marshal,_the_lords_of_the_realm_will_be_expecting_you_to_lead_them_on_campaign._So,_if_you_are_awaiting_a_feast,_either_for_a_wedding_or_for_other_purposes,_you_may_wish_to_resign_the_marshalship_by_speaking_to_your_liege.
+qstr_Press_TAB_to_end_the Press_TAB_to_end_the_battle.
+qstr_You_were_defeated. You_were_defeated.
+qstr_Rotate_with_the_mous Rotate_with_the_mouse,_move_with_standard_keys.
+qstr_Shift/Control_for_Up Shift/Control_for_Up/Down,_Space_Bar_to_increase_speed.
+qstr_Numpad_Plus/Minus_to Numpad_Plus/Minus_to_change_sensitivity,_Home_to_reset_position.
+qstr_Sensitivity___25%__{ Sensitivity_-_25%_({reg8},_{reg9})
+qstr_Sensitivity_+_25%__{ Sensitivity_+_25%_({reg8},_{reg9})
