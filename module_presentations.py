@@ -7716,11 +7716,11 @@ presentations = [
           (overlay_set_size, "$g_presentation_obj_custom_banner_28", pos1),
 
           (create_button_overlay, "$g_presentation_obj_custom_banner_32", "str_flip_horizontal", 0),
-          (position_set_x, pos1, 700),
+          (position_set_x, pos1, 675), ##BEAN - Custom Banners
           (position_set_y, pos1, 240),
           (overlay_set_position, "$g_presentation_obj_custom_banner_32", pos1),
           (create_button_overlay, "$g_presentation_obj_custom_banner_33", "str_flip_vertical", 0),
-          (position_set_x, pos1, 800),
+          (position_set_x, pos1, 850), ##BEAN - Custom Banners
           (overlay_set_position, "$g_presentation_obj_custom_banner_33", pos1),
         (try_end),
         (try_begin),
@@ -7755,11 +7755,11 @@ presentations = [
           (overlay_set_size, "$g_presentation_obj_custom_banner_29", pos1),
 
           (create_button_overlay, "$g_presentation_obj_custom_banner_34", "str_flip_horizontal", 0),
-          (position_set_x, pos1, 700),
+          (position_set_x, pos1, 675), ##BEAN - Custom Banners
           (position_set_y, pos1, 180),
           (overlay_set_position, "$g_presentation_obj_custom_banner_34", pos1),
           (create_button_overlay, "$g_presentation_obj_custom_banner_35", "str_flip_vertical", 0),
-          (position_set_x, pos1, 800),
+          (position_set_x, pos1, 850), ##BEAN - Custom Banners
           (overlay_set_position, "$g_presentation_obj_custom_banner_35", pos1),
         (try_end),
         (try_begin),
@@ -7794,11 +7794,11 @@ presentations = [
           (overlay_set_size, "$g_presentation_obj_custom_banner_30", pos1),
 
           (create_button_overlay, "$g_presentation_obj_custom_banner_36", "str_flip_horizontal", 0),
-          (position_set_x, pos1, 700),
+          (position_set_x, pos1, 675), ##BEAN - Custom Banners
           (position_set_y, pos1, 120),
           (overlay_set_position, "$g_presentation_obj_custom_banner_36", pos1),
           (create_button_overlay, "$g_presentation_obj_custom_banner_37", "str_flip_vertical", 0),
-          (position_set_x, pos1, 800),
+          (position_set_x, pos1, 850), ##BEAN - Custom Banners
           (overlay_set_position, "$g_presentation_obj_custom_banner_37", pos1),
         (try_end),
         (try_begin),
@@ -7833,11 +7833,11 @@ presentations = [
           (overlay_set_size, "$g_presentation_obj_custom_banner_31", pos1),
 
           (create_button_overlay, "$g_presentation_obj_custom_banner_38", "str_flip_horizontal", 0),
-          (position_set_x, pos1, 700),
+          (position_set_x, pos1, 675), ##BEAN - Custom Banners
           (position_set_y, pos1, 60),
           (overlay_set_position, "$g_presentation_obj_custom_banner_38", pos1),
           (create_button_overlay, "$g_presentation_obj_custom_banner_39", "str_flip_vertical", 0),
-          (position_set_x, pos1, 800),
+          (position_set_x, pos1, 850), ##BEAN - Custom Banners
           (overlay_set_position, "$g_presentation_obj_custom_banner_39", pos1),
         (try_end),
 
@@ -7860,7 +7860,7 @@ presentations = [
         (position_set_y, pos1, 650),
         (position_set_x, pos1, 175),
         (overlay_set_position, "$g_presentation_obj_custom_banner_16", pos1),
-        (position_set_y, pos1, 150),
+        (position_set_y, pos1, 25), ##BEAN - Custom Banners
         (position_set_x, pos1, 850),
         (overlay_set_position, "$g_presentation_obj_custom_banner_20", pos1),
         (presentation_set_duration, 999999),
@@ -8167,6 +8167,7 @@ presentations = [
         (assign, ":pos_y", 600),
         (try_for_range, ":cur_charge", custom_banner_charges_begin, custom_banner_charges_end),
           (create_image_button_overlay, reg1, ":cur_charge", ":cur_charge"),
+          (overlay_set_color, reg1, 0xFF000000), ##BEAN - Custom Banners
           (position_set_x, pos1, ":pos_x"),
           (position_set_y, pos1, ":pos_y"),
           (val_add, ":pos_x", 100),

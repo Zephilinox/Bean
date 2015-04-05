@@ -1962,11 +1962,7 @@ game_menus = [
 
            (try_begin),
              (eq, "$background_type", cb_noble),
-             (jump_to_menu, "mnu_auto_return"),
-#normal_banner_begin
-             (start_presentation, "prsnt_banner_selection"),
-#custom_banner_begin
-#             (start_presentation, "prsnt_custom_banner"),
+             (jump_to_menu, "mnu_camp_select_banner"), ##BEAN - Custom Banners
            (else_try),
              (change_screen_return, 0),
            (try_end),
@@ -3032,6 +3028,7 @@ game_menus = [
            (rest_for_hours_interactive, 24 * 365, 5, 1), #rest while attackable
 
            (change_screen_return),
+           (start_presentation, "prsnt_custom_banner"),
         ]
        ),
       ("camp_cheat",
@@ -3284,13 +3281,14 @@ game_menus = [
        [(start_presentation, "prsnt_name_kingdom"),
         ]
        ),
-
-      ("action_modify_banner",[(eq, "$cheat_mode", 1)],"{!}Cheat: Modify your banner.",
+       ##BEAN BEGIN - Custom Banners
+      ("action_modify_banner", [], "Modify your banner.",
        [
-           (start_presentation, "prsnt_banner_selection"),
-           #(start_presentation, "prsnt_custom_banner"),
+           (jump_to_menu, "mnu_camp_select_banner"),
         ]
        ),
+       ##BEAN END - Custom Banners
+
       ("action_retire",[],"Retire from adventuring.",
        [(jump_to_menu, "mnu_retirement_verify"),
         ]
@@ -3301,6 +3299,30 @@ game_menus = [
        ),
       ]
   ),
+
+  ##BEAN BEGIN - Custom Banners
+  ("camp_select_banner", 0,
+    "Would you like to select your banner, or design your own one?",
+    "none",
+    [
+    ],
+    [
+      ("action_select_premade_banner", [], "Select a banner",
+        [
+          (jump_to_menu, "mnu_auto_return"),
+          (start_presentation, "prsnt_banner_selection"),
+        ]
+      ),
+      ("action_select_custom_banner", [], "Design a banner (Buggy)",
+        [
+          (jump_to_menu, "mnu_auto_return"),
+          (start_presentation, "prsnt_custom_banner"),
+        ]
+      )
+    ],
+  ),
+
+  ##BEAN END - Custom Banners
 
   ("camp_recruit_prisoners",0,
    "You offer your prisoners freedom if they agree to join you as soldiers. {s18}",

@@ -756,7 +756,7 @@ tableaus = [
      (call_script, "script_draw_banner_to_region", ":troop_no", -9, 12, 8250, 18000, 8000, 21000, 10000, 10000, 0),
      (init_position, pos1),
      (position_set_z, pos1, 10),
-     (cur_tableau_add_mesh, "mesh_tableau_mesh_custom_banner", pos1, 0, 0),
+     (cur_tableau_add_mesh, "mesh_tableau_mesh_custom_banner_tall", pos1, 0, 0),
      (cur_tableau_set_camera_parameters, 0, 100, 200, 0, 100000),
      ]),
 

@@ -6515,16 +6515,19 @@ scripts = [
       (try_end),
       (troop_set_slot, "trp_player", slot_troop_custom_banner_flag_type, -1),
       (troop_set_slot, "trp_player", slot_troop_custom_banner_map_flag_type, -1),
+      (troop_set_slot, "trp_player", slot_troop_custom_banner_bg_type, 1), ##BEAN - Custom Banners
       (store_random_in_range, "$g_election_date", 0, 45), #setting a random election date
       #Assigning global constant
       #(call_script, "script_store_average_center_value_per_faction"),
 
       (troop_set_slot, "trp_player", slot_troop_custom_banner_bg_color_1, 0xFFFFFFFF),
-      (troop_set_slot, "trp_player", slot_troop_custom_banner_bg_color_2, 0xFFFFFFFF),
-      (troop_set_slot, "trp_player", slot_troop_custom_banner_charge_color_1, 0xFFFFFFFF),
-      (troop_set_slot, "trp_player", slot_troop_custom_banner_charge_color_2, 0xFFFFFFFF),
-      (troop_set_slot, "trp_player", slot_troop_custom_banner_charge_color_3, 0xFFFFFFFF),
-      (troop_set_slot, "trp_player", slot_troop_custom_banner_charge_color_4, 0xFFFFFFFF),
+      ##BEAN BEGIN - Custom Banners
+      (troop_set_slot, "trp_player", slot_troop_custom_banner_bg_color_2, 0xFFFFA400),
+      (troop_set_slot, "trp_player", slot_troop_custom_banner_charge_color_1, 0xFF000000),
+      (troop_set_slot, "trp_player", slot_troop_custom_banner_charge_color_2, 0xFF000000),
+      (troop_set_slot, "trp_player", slot_troop_custom_banner_charge_color_3, 0xFF000000),
+      (troop_set_slot, "trp_player", slot_troop_custom_banner_charge_color_4, 0xFF000000),
+      ##BEAN END - Custom
 
       #Setting background colors for banners
       (troop_set_slot, "trp_banner_background_color_array", 0, 0xFF8f4531),
