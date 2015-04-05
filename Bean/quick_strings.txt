@@ -1,4 +1,4 @@
-682
+697
 qstr_Breaking_camp... Breaking_camp...
 qstr_{!}{s3}_commander_of {!}{s3}_commander_of_party_#{reg4}_which_is_not_his_troop_leaded_party_{reg5}
 qstr_{!}DEBUG____Doing_po {!}DEBUG_--_Doing_political_calculations_for_{s9}
@@ -681,3 +681,18 @@ qstr_Shift/Control_for_Up Shift/Control_for_Up/Down,_Space_Bar_to_increase_speed
 qstr_Numpad_Plus/Minus_to Numpad_Plus/Minus_to_change_sensitivity,_Home_to_reset_position.
 qstr_Sensitivity___25%__{ Sensitivity_-_25%_({reg8},_{reg9})
 qstr_Sensitivity_+_25%__{ Sensitivity_+_25%_({reg8},_{reg9})
+qstr_{s1} {s1}
+qstr_{reg0} {reg0}
+qstr_Done Done
+qstr_Name:_{s1}^Level:_{r Name:_{s1}^Level:_{reg1}
+qstr_{s1}^HP:_{reg0} {s1}^HP:_{reg0}
+qstr_Attributes: Attributes:
+qstr_{s3}^STR:_{reg1}^INT {s3}^STR:_{reg1}^INT:_{reg2}^^Skills:
+qstr_{s3}^Power_Strike:_{ {s3}^Power_Strike:_{reg1}^Power_Draw:_{reg2}^Power_Throw:_{reg3}^Horse_Archery:_{reg4}^^Weapon_Proficiencies:
+qstr_{s3}^1_Hand_Wpns:_{r {s3}^1_Hand_Wpns:_{reg1}^2_Hand_Wpns:_{reg2}^Polearms:_{reg3}
+qstr_{s3} {s3}
+qstr_{s4}^AGI:_{reg1}^CHA {s4}^AGI:_{reg1}^CHA:_{reg2}^^
+qstr_{s4}^Ironflesh:_{reg {s4}^Ironflesh:_{reg1}^Athletics:_{reg2}^Shield:_{reg3}^Riding:_{reg4}^^
+qstr_{s4}^Archery:_{reg1} {s4}^Archery:_{reg1}^Crossbows:_{reg2}^Throwing:_{reg3}
+qstr_{s4} {s4}
+qstr_Equipments:_ Equipments:_
