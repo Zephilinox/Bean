@@ -547,6 +547,11 @@ game_menus = [
         ]
        ),
 
+      ##BEAN BEGIN - Dynamic Faction Troop Tree
+      ("faction_troop_tree",[],"str_faction_troop_tree",
+       [(start_presentation, "prsnt_faction_troop_tree"), ]),
+      ##BEAN End - Dynamic Faction Troop Tree
+
       ("view_character_report",[],"View character report.",
        [(jump_to_menu, "mnu_character_report"),
         ]
