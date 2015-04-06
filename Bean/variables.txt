@@ -1113,3 +1113,5 @@ deathcam_prsnt_was_active
 g_presentation_obj_1
 faction_display
 g_presentation_obj_2
+g_presentation_obj_5
+g_presentation_obj_6
