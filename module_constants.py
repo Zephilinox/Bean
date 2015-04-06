@@ -1108,7 +1108,7 @@ scene_prop_slots_end                = 6
 ########################################################
 color_great_news = 0x00FF00
 color_good_news = 0x50FF50
-color_neutral_news = 0xFFAA00
+color_neutral_news = 0xCDCDCD
 color_bad_news = 0xFF5050
 color_terrible_news = 0xFF2222
 

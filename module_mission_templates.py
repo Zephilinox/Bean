@@ -62,6 +62,10 @@ common_init_deathcam = (
         (assign, "$deathcam_sensitivity_y", 300), #If modified, change values in common_move_deathcam
 
         (assign, "$deathcam_prsnt_was_active", 0),
+
+        (assign, "$deathcam_keyboard_rotation_x", 0),
+        (assign, "$deathcam_keyboard_rotation_y", 0),
+        (assign, "$deathcam_flip_y_multiplier", 1),
    ]
 )
 
@@ -118,7 +122,8 @@ common_move_deathcam = (
         (this_or_next|key_is_down, key_left_control),
         (this_or_next|key_is_down, key_numpad_minus),
         (this_or_next|key_is_down, key_numpad_plus),
-        (key_clicked, key_home),
+        (this_or_next|key_clicked, key_home),
+        (key_clicked, key_end),
     ],
     [
         (set_fixed_point_multiplier, 10000),
@@ -167,6 +172,16 @@ common_move_deathcam = (
             (val_mul, ":move_x", 4),
             (val_mul, ":move_y", 4),
             (val_mul, ":move_z", 2),
+        (try_end),
+
+        (try_begin),
+        (key_is_down, key_end),
+            (try_begin),
+            (eq, "$deathcam_flip_y_multiplier", 1),
+                (assign, "$deathcam_flip_y_multiplier", -1),
+            (else_try),
+                (assign, "$deathcam_flip_y_multiplier", 1),
+            (try_end),
         (try_end),
 
         (position_move_x, pos47, ":move_x"),
@@ -275,29 +290,102 @@ common_rotate_deathcam = (
                 (assign, "$deathcam_mouse_last_y", reg2),
         (try_end),
 
-        (eq, ":continue", 1), #Else exit
+        (assign, ":delta_x", 0),
+        (assign, ":delta_y", 0),
+        (assign, ":rotating_horizontal", 0),
+        (assign, ":rotating_vertical", 0),
 
-        (store_sub, ":delta_x", reg1, "$deathcam_mouse_notmoved_x"), #Store pos difference
-        (store_sub, ":delta_y", reg2, "$deathcam_mouse_notmoved_y"),
+        (try_begin),
+        (this_or_next|key_is_down, key_numpad_4),
+        (key_is_down, key_left),
+            (try_begin),
+            (ge, "$deathcam_keyboard_rotation_x", 0),
+                (assign, "$deathcam_keyboard_rotation_x", -20),
+            (try_end),
+            (val_add, "$deathcam_keyboard_rotation_x", -1),
+            (assign, ":continue", 2),
+            (assign, ":rotating_horizontal", -1),
+        (else_try),
+        (this_or_next|key_is_down, key_numpad_6),
+        (key_is_down, key_right),
+            (try_begin),
+            (le, "$deathcam_keyboard_rotation_x", 0),
+                (assign, "$deathcam_keyboard_rotation_x", 20),
+            (try_end),
+            (val_add, "$deathcam_keyboard_rotation_x", 1),
+            (assign, ":continue", 2),
+            (assign, ":rotating_horizontal", 1),
+        (else_try),
+            (assign, "$deathcam_keyboard_rotation_x", 0),
+            (assign, ":rotating_horizontal", 0),
+        (try_end),
 
-        (val_mul, ":delta_x", "$deathcam_sensitivity_x"),
-        (val_mul, ":delta_y", "$deathcam_sensitivity_y"),
-        (val_clamp, ":delta_x", -80000, 80001), #8
-        (val_clamp, ":delta_y", -60000, 60001), #6
+        (try_begin),
+        (this_or_next|key_is_down, key_numpad_8),
+        (key_is_down, key_up),
+            (try_begin),
+            (le, "$deathcam_keyboard_rotation_y", 0),
+                (assign, "$deathcam_keyboard_rotation_y", 15),
+            (try_end),
+            (val_add, "$deathcam_keyboard_rotation_y", 1),
+            (assign, ":continue", 2),
+            (assign, ":rotating_vertical", 1),
+        (else_try),
+        (this_or_next|key_is_down, key_numpad_2),
+        (key_is_down, key_down),
+            (try_begin),
+            (ge, "$deathcam_keyboard_rotation_y", 0),
+                (assign, "$deathcam_keyboard_rotation_y", -15),
+            (try_end),
+            (val_add, "$deathcam_keyboard_rotation_y", -1),
+            (assign, ":continue", 2),
+            (assign, ":rotating_vertical", -1),
+        (else_try),
+            (assign, "$deathcam_keyboard_rotation_y", 0),
+            (assign, ":rotating_vertical", 0),
+        (try_end),
 
-        (store_mul, ":neg_rotx", "$deathcam_total_rotx", -1),
-        (position_rotate_x_floating, pos47, ":neg_rotx"), #Reset x axis to initial state
+        (try_begin),
+        (eq, ":continue", 1),
+            (store_sub, ":delta_x", reg1, "$deathcam_mouse_notmoved_x"), #Store pos difference
+            (store_sub, ":delta_y", reg2, "$deathcam_mouse_notmoved_y"),
+        (else_try),
+        (eq, ":continue", 2),
+            (try_begin),
+            (neq, ":rotating_horizontal", 0),
+                (val_clamp, "$deathcam_keyboard_rotation_x", -80, 80),
+                (assign, ":delta_x", "$deathcam_keyboard_rotation_x"),
+            (try_end),
 
-        (position_rotate_y, pos47, 90), #Barrel roll by 90 degrees to inverse x/z axis
-        (position_rotate_x_floating, pos47, ":delta_x"), #Rotate simulated z axis, Horizontal
-        (position_rotate_y, pos47, -90), #Reverse
+            (try_begin),
+            (neq, ":rotating_vertical", 0),
+                (val_clamp, "$deathcam_keyboard_rotation_y", -45, 45),
+                (assign, ":delta_y", "$deathcam_keyboard_rotation_y"),
+            (try_end),
+        (try_end),
 
-        (position_rotate_x_floating, pos47, "$deathcam_total_rotx"), #Reverse
+        (try_begin),
+        (ge, ":continue", 1),
+            (val_mul, ":delta_x", "$deathcam_sensitivity_x"),
+            (val_mul, ":delta_y", "$deathcam_sensitivity_y"),
+            (val_mul, ":delta_y", "$deathcam_flip_y_multiplier"),
 
-        (position_rotate_x_floating, pos47, ":delta_y"), #Vertical
-        (val_add, "$deathcam_total_rotx", ":delta_y"), #Fix yaw
+            (val_clamp, ":delta_x", -80000, 80001), #8
+            (val_clamp, ":delta_y", -60000, 60001), #6
 
-        (mission_cam_set_position, pos47),
+            (store_mul, ":neg_rotx", "$deathcam_total_rotx", -1),
+            (position_rotate_x_floating, pos47, ":neg_rotx"), #Reset x axis to initial state
+
+            (position_rotate_y, pos47, 90), #Barrel roll by 90 degrees to inverse x/z axis
+            (position_rotate_x_floating, pos47, ":delta_x"), #Rotate simulated z axis, Horizontal
+            (position_rotate_y, pos47, -90), #Reverse
+
+            (position_rotate_x_floating, pos47, "$deathcam_total_rotx"), #Reverse
+
+            (position_rotate_x_floating, pos47, ":delta_y"), #Vertical
+            (val_add, "$deathcam_total_rotx", ":delta_y"), #Fix yaw
+            (mission_cam_set_position, pos47),
+        (try_end),
     ]
 )
 
