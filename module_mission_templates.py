@@ -66,6 +66,9 @@ common_init_deathcam = (
         (assign, "$deathcam_keyboard_rotation_x", 0),
         (assign, "$deathcam_keyboard_rotation_y", 0),
         (assign, "$deathcam_flip_y_multiplier", 1),
+
+        (get_player_agent_no, ":player_agent"),
+        (agent_get_team, "$deathcam_player_team", ":player_agent"),
    ]
 )
 
@@ -81,9 +84,10 @@ common_start_deathcam = (
 
         ##BEAN BEGIN - Color Coded Messages
         (display_message, "@You were defeated.", color_terrible_news),
-        (display_message, "@Rotate with the mouse, move with standard keys.", color_neutral_news),
-        (display_message, "@Shift/Control for Up/Down, Space Bar to increase speed.", color_neutral_news),
-        (display_message, "@Numpad Plus/Minus to change sensitivity, Home to reset position.", color_neutral_news),
+        (display_message, "@Rotate with the mouse. Move with standard keys.", color_neutral_news),
+        (display_message, "@Shift/Control for Up/Down. Space Bar to increase speed.", color_neutral_news),
+        (display_message, "@Numpad Plus/Minus to change sensitivity. Numpad to rotate.", color_neutral_news),
+        (display_message, "@Home to reset position. End to flip Y rotation", color_neutral_news),
         ##BEAN END - Color Coded Messages
 
         (mission_cam_get_position, pos1), #Death pos
@@ -103,10 +107,7 @@ common_start_deathcam = (
 
         (mission_cam_set_position, pos47),
 
-        (team_give_order, 0, grc_everyone, mordr_charge),
-        (team_give_order, 1, grc_everyone, mordr_charge),
-        (team_give_order, 2, grc_everyone, mordr_charge),
-        (team_give_order, 3, grc_everyone, mordr_charge),
+        (team_give_order, "$deathcam_player_team", grc_everyone, mordr_charge),
    ]
 )
 
@@ -179,8 +180,10 @@ common_move_deathcam = (
             (try_begin),
             (eq, "$deathcam_flip_y_multiplier", 1),
                 (assign, "$deathcam_flip_y_multiplier", -1),
+                (display_message, "@Y-Rotation Inverted"),
             (else_try),
                 (assign, "$deathcam_flip_y_multiplier", 1),
+                (display_message, "@Y-Rotation Normal"),
             (try_end),
         (try_end),
 
@@ -241,53 +244,54 @@ common_rotate_deathcam = (
             (assign, "$deathcam_mouse_last_notmoved_y", "$deathcam_mouse_notmoved_y"),
         (try_end),
 
-        (neg|is_presentation_active, "prsnt_battle"),
-
-        (mouse_get_position, pos1), #Get and set mouse position
-        (position_get_x, reg1, pos1),
-        (position_get_y, reg2, pos1),
-
-        (mission_cam_get_position, pos47),
-
         (assign, ":continue", 0),
 
         (try_begin),
-        (neq, "$deathcam_prsnt_was_active", 1),
-            (try_begin), #Check not moved
-            (eq, reg1, "$deathcam_mouse_last_x"),
-            (eq, reg2, "$deathcam_mouse_last_y"),
-            (this_or_next|neq, reg1, "$deathcam_mouse_notmoved_x"),
-            (neq, reg2, "$deathcam_mouse_notmoved_y"),
-                (val_add, "$deathcam_mouse_notmoved_counter", 1),
-                (try_begin), #Notmoved for n cycles
-                (ge, "$deathcam_mouse_notmoved_counter", 15),
+        (neg|is_presentation_active, "prsnt_battle"),
+            (mouse_get_position, pos1), #Get and set mouse position
+            (position_get_x, reg1, pos1),
+            (position_get_y, reg2, pos1),
+
+            (mission_cam_get_position, pos47),
+
+            (try_begin),
+            (neq, "$deathcam_prsnt_was_active", 1),
+                (try_begin), #Check not moved
+                (eq, reg1, "$deathcam_mouse_last_x"),
+                (eq, reg2, "$deathcam_mouse_last_y"),
+                (this_or_next|neq, reg1, "$deathcam_mouse_notmoved_x"),
+                (neq, reg2, "$deathcam_mouse_notmoved_y"),
+                    (val_add, "$deathcam_mouse_notmoved_counter", 1),
+                    (try_begin), #Notmoved for n cycles
+                    (ge, "$deathcam_mouse_notmoved_counter", 15),
+                        (assign, "$deathcam_mouse_notmoved_counter", 0),
+                        (assign, "$deathcam_mouse_notmoved_x", reg1),
+                        (assign, "$deathcam_mouse_notmoved_y", reg2),
+                    (try_end),
+                (else_try), #Has moved
+                    (assign, ":continue", 1),
                     (assign, "$deathcam_mouse_notmoved_counter", 0),
+                (try_end),
+                (assign, "$deathcam_mouse_last_x", reg1), #Next cycle, this pos = last pos
+                (assign, "$deathcam_mouse_last_y", reg2),
+            (else_try), #prsnt was active
+                (try_begin),
+                (neq, reg1, "$deathcam_mouse_last_x"), #Is moving
+                (neq, reg2, "$deathcam_mouse_last_y"),
+                    (store_sub, ":delta_x2", reg1, "$deathcam_mouse_last_notmoved_x"), #Store pos difference
+                    (store_sub, ":delta_y2", reg2, "$deathcam_mouse_last_notmoved_y"),
+                (is_between, ":delta_x2", -10, 11), #when engine recenters mouse, there is a small gap
+                (is_between, ":delta_y2", -10, 11), #usually 5 pixels, but did 10 to be safe.
+                    (assign, "$deathcam_prsnt_was_active", 0),
+                    (assign, "$deathcam_mouse_notmoved_x", "$deathcam_mouse_last_notmoved_x"),
+                    (assign, "$deathcam_mouse_notmoved_y", "$deathcam_mouse_last_notmoved_y"),
+                (else_try),
                     (assign, "$deathcam_mouse_notmoved_x", reg1),
                     (assign, "$deathcam_mouse_notmoved_y", reg2),
                 (try_end),
-            (else_try), #Has moved
-                (assign, ":continue", 1),
-                (assign, "$deathcam_mouse_notmoved_counter", 0),
+                    (assign, "$deathcam_mouse_last_x", reg1), #Next cycle, this pos = last pos
+                    (assign, "$deathcam_mouse_last_y", reg2),
             (try_end),
-            (assign, "$deathcam_mouse_last_x", reg1), #Next cycle, this pos = last pos
-            (assign, "$deathcam_mouse_last_y", reg2),
-        (else_try), #prsnt was active
-            (try_begin),
-            (neq, reg1, "$deathcam_mouse_last_x"), #Is moving
-            (neq, reg2, "$deathcam_mouse_last_y"),
-                (store_sub, ":delta_x2", reg1, "$deathcam_mouse_last_notmoved_x"), #Store pos difference
-                (store_sub, ":delta_y2", reg2, "$deathcam_mouse_last_notmoved_y"),
-            (is_between, ":delta_x2", -10, 11), #when engine recenters mouse, there is a small gap
-            (is_between, ":delta_y2", -10, 11), #usually 5 pixels, but did 10 to be safe.
-                (assign, "$deathcam_prsnt_was_active", 0),
-                (assign, "$deathcam_mouse_notmoved_x", "$deathcam_mouse_last_notmoved_x"),
-                (assign, "$deathcam_mouse_notmoved_y", "$deathcam_mouse_last_notmoved_y"),
-            (else_try),
-                (assign, "$deathcam_mouse_notmoved_x", reg1),
-                (assign, "$deathcam_mouse_notmoved_y", reg2),
-            (try_end),
-                (assign, "$deathcam_mouse_last_x", reg1), #Next cycle, this pos = last pos
-                (assign, "$deathcam_mouse_last_y", reg2),
         (try_end),
 
         (assign, ":delta_x", 0),
@@ -296,8 +300,7 @@ common_rotate_deathcam = (
         (assign, ":rotating_vertical", 0),
 
         (try_begin),
-        (this_or_next|key_is_down, key_numpad_4),
-        (key_is_down, key_left),
+        (key_is_down, key_numpad_4),
             (try_begin),
             (ge, "$deathcam_keyboard_rotation_x", 0),
                 (assign, "$deathcam_keyboard_rotation_x", -20),
@@ -306,8 +309,7 @@ common_rotate_deathcam = (
             (assign, ":continue", 2),
             (assign, ":rotating_horizontal", -1),
         (else_try),
-        (this_or_next|key_is_down, key_numpad_6),
-        (key_is_down, key_right),
+        (key_is_down, key_numpad_6),
             (try_begin),
             (le, "$deathcam_keyboard_rotation_x", 0),
                 (assign, "$deathcam_keyboard_rotation_x", 20),
@@ -321,8 +323,7 @@ common_rotate_deathcam = (
         (try_end),
 
         (try_begin),
-        (this_or_next|key_is_down, key_numpad_8),
-        (key_is_down, key_up),
+        (key_is_down, key_numpad_8),
             (try_begin),
             (le, "$deathcam_keyboard_rotation_y", 0),
                 (assign, "$deathcam_keyboard_rotation_y", 15),
@@ -332,7 +333,7 @@ common_rotate_deathcam = (
             (assign, ":rotating_vertical", 1),
         (else_try),
         (this_or_next|key_is_down, key_numpad_2),
-        (key_is_down, key_down),
+        (key_is_down, key_numpad_5),
             (try_begin),
             (ge, "$deathcam_keyboard_rotation_y", 0),
                 (assign, "$deathcam_keyboard_rotation_y", -15),
