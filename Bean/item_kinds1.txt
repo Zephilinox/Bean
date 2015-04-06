@@ -308,139 +308,139 @@ itemsfile version 3
  0
 0
 
- itm_spice Spice Spice 1  spice_sack 0  33619979 0 880 0 40.000000 25 0 0 0 0 0 0 0 0 50 0 0
+ itm_spice Spice Spice 1  spice_sack 0  33619979 0 1750 4398046577664 80.000000 25 0 0 0 0 0 0 0 0 100 0 0
  0
 0
 
- itm_salt Salt Salt 1  salt_sack 0  65547 0 255 0 50.000000 120 0 0 0 0 0 0 0 0 0 0 0
+ itm_salt Salt Salt 1  salt_sack 0  65547 0 255 4398046512128 50.000000 120 0 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_oil Oil Oil 1  oil 0  33619979 0 450 0 50.000000 60 0 0 0 0 0 0 0 0 50 0 0
+ itm_oil Oil Oil 1  oil 0  33619979 0 900 69120 100.000000 60 0 0 0 0 0 0 0 0 100 0 0
  0
 0
 
- itm_pottery Pottery Pottery 1  jug 0  65547 0 100 0 50.000000 90 0 0 0 0 0 0 0 0 0 0 0
+ itm_pottery Pottery Pottery 1  jug 0  65547 0 100 25366402 50.000000 90 0 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_raw_flax Flax_Bundle Flax_Bundle 1  raw_flax 0  65547 0 150 0 40.000000 90 0 0 0 0 0 0 0 0 0 0 0
+ itm_raw_flax Flax_Bundle Flax_Bundle 1  raw_flax 0  65547 0 150 66560 40.000000 90 0 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_linen Linen Linen 1  linen 0  65547 0 250 0 40.000000 90 0 0 0 0 0 0 0 0 0 0 0
+ itm_linen Linen Linen 1  linen 0  65547 0 250 31657472 40.000000 90 0 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_wool Wool Wool 1  wool_sack 0  65547 0 130 0 40.000000 90 0 0 0 0 0 0 0 0 0 0 0
+ itm_wool Wool Wool 1  wool_sack 0  65547 0 130 66560 40.000000 90 0 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_wool_cloth Wool_Cloth Wool_Cloth 1  wool_cloth 0  65547 0 250 0 40.000000 90 0 0 0 0 0 0 0 0 0 0 0
+ itm_wool_cloth Wool_Cloth Wool_Cloth 1  wool_cloth 0  65547 0 250 31657472 40.000000 90 0 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_raw_silk Raw_Silk Raw_Silk 1  raw_silk_bundle 0  65547 0 600 0 30.000000 90 0 0 0 0 0 0 0 0 0 0 0
+ itm_raw_silk Raw_Silk Raw_Silk 1  raw_silk_bundle 0  65547 0 600 66560 30.000000 90 0 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_raw_dyes Dyes Dyes 1  dyes 0  65547 0 200 0 10.000000 90 0 0 0 0 0 0 0 0 0 0 0
+ itm_raw_dyes Dyes Dyes 1  dyes 0  65547 0 200 199680 10.000000 90 0 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_velvet Velvet Velvet 1  velvet 0  65547 0 1025 0 40.000000 30 0 0 0 0 0 0 0 0 0 0 0
+ itm_velvet Velvet Velvet 1  velvet 0  65547 0 1025 199680 40.000000 30 0 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_iron Iron Iron 1  iron 0  65547 0 264 0 60.000000 60 0 0 0 0 0 0 0 0 0 0 0
+ itm_iron Iron Iron 1  iron 0  65547 0 264 83904580 60.000000 60 0 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_tools Tools Tools 1  iron_hammer 0  65547 0 410 0 50.000000 90 0 0 0 0 0 0 0 0 0 0 0
+ itm_tools Tools Tools 1  iron_hammer 0  65547 0 410 84086660 50.000000 90 0 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_raw_leather Hides Hides 1  leatherwork_inventory 0  65547 0 120 0 40.000000 90 0 0 0 0 0 0 0 0 0 0 0
+ itm_raw_leather Hides Hides 1  leatherwork_inventory 0  65547 0 120 56689664 40.000000 90 0 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_leatherwork Leatherwork Leatherwork 1  leatherwork_frame 0  65547 0 220 0 40.000000 90 0 0 0 0 0 0 0 0 0 0 0
+ itm_leatherwork Leatherwork Leatherwork 1  leatherwork_frame 0  65547 0 220 65211904 40.000000 90 0 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_raw_date_fruit Date_Fruit Date_Fruit 1  date_inventory 0  34144267 0 120 0 40.000000 100 10 0 0 0 0 0 0 0 10 0 0
+ itm_raw_date_fruit Date_Fruit Date_Fruit 1  date_inventory 0  34144267 0 240 67072 80.000000 100 10 0 0 0 0 0 0 0 20 0 0
  0
 0
 
- itm_furs Furs Furs 1  fur_pack 0  65547 0 391 0 40.000000 90 0 0 0 0 0 0 0 0 0 0 0
+ itm_furs Furs Furs 1  fur_pack 0  65547 0 391 56690176 40.000000 90 0 0 0 0 0 0 0 0 0 0 0
  0
 0
 
- itm_wine Wine Wine 1  amphora_slim 0  33619979 0 220 0 30.000000 60 0 0 0 0 0 0 0 0 50 0 0
+ itm_wine Wine Wine 1  amphora_slim 0  33619979 0 220 537464320 60.000000 60 0 0 0 0 0 0 0 0 100 0 0
  0
 0
 
- itm_ale Ale Ale 1  ale_barrel 0  33619979 0 120 0 30.000000 70 0 0 0 0 0 0 0 0 50 0 0
+ itm_ale Ale Ale 1  ale_barrel 0  33619979 0 120 537464320 60.000000 70 0 0 0 0 0 0 0 0 100 0 0
  0
 0
 
- itm_smoked_fish Smoked_Fish Smoked_Fish 1  smoked_fish 0  34144267 0 65 0 15.000000 110 50 0 0 0 0 0 0 0 50 0 0
+ itm_smoked_fish Smoked_Fish Smoked_Fish 1  smoked_fish 0  34144267 0 130 69120 30.000000 100 50 0 0 0 0 0 0 0 100 0 0
  0
 0
 
- itm_cheese Cheese Cheese 1  cheese_b 0  34144267 0 75 0 6.000000 110 40 0 0 0 0 0 0 0 30 0 0
+ itm_cheese Cheese Cheese 1  cheese_b 0  34144267 0 150 69120 12.000000 100 40 0 0 0 0 0 0 0 60 0 0
  0
 0
 
- itm_honey Honey Honey 1  honey_pot 0  34144267 0 220 0 5.000000 110 40 0 0 0 0 0 0 0 30 0 0
+ itm_honey Honey Honey 1  honey_pot 0  34144267 0 440 67072 10.000000 100 40 0 0 0 0 0 0 0 60 0 0
  0
 0
 
- itm_sausages Sausages Sausages 1  sausages 0  34144267 0 85 0 10.000000 110 40 0 0 0 0 0 0 0 40 0 0
+ itm_sausages Sausages Sausages 1  sausages 0  34144267 0 170 69120 20.000000 100 40 0 0 0 0 0 0 0 80 0 0
  0
 0
 
- itm_cabbages Cabbages Cabbages 1  cabbage 0  34144267 0 30 0 15.000000 110 40 0 0 0 0 0 0 0 50 0 0
+ itm_cabbages Cabbages Cabbages 1  cabbage 0  34144267 0 60 67072 30.000000 100 40 0 0 0 0 0 0 0 100 0 0
  0
 0
 
- itm_dried_meat Dried_Meat Dried_Meat 1  smoked_meat 0  34144267 0 85 0 15.000000 100 70 0 0 0 0 0 0 0 50 0 0
+ itm_dried_meat Dried_Meat Dried_Meat 1  smoked_meat 0  34144267 0 170 69120 30.000000 100 70 0 0 0 0 0 0 0 100 0 0
  0
 0
 
- itm_apples Fruit Fruit 1  apple_basket 0  34144267 0 44 0 20.000000 110 40 0 0 0 0 0 0 0 50 0 0
+ itm_fruit Fruit Fruit 1  apple_basket 0  34144267 0 88 67072 40.000000 100 40 0 0 0 0 0 0 0 100 0 0
  0
 0
 
- itm_raw_grapes Grapes Grapes 1  grapes_inventory 0  33619979 0 75 0 40.000000 90 10 0 0 0 0 0 0 0 10 0 0
+ itm_raw_grapes Grapes Grapes 1  grapes_inventory 0  33619979 0 100 67072 80.000000 100 20 0 0 0 0 0 0 0 20 0 0
  0
 0
 
- itm_raw_olives Olives Olives 1  olive_inventory 0  33619979 0 100 0 40.000000 90 10 0 0 0 0 0 0 0 10 0 0
+ itm_raw_olives Olives Olives 1  olive_inventory 0  33619979 0 150 67072 80.000000 100 20 0 0 0 0 0 0 0 20 0 0
  0
 0
 
- itm_grain Grain Grain 1  wheat_sack 0  33619979 0 30 0 30.000000 110 40 0 0 0 0 0 0 0 50 0 0
+ itm_grain Grain Grain 1  wheat_sack 0  33619979 0 60 4398046578176 60.000000 110 50 0 0 0 0 0 0 0 50 0 0
  0
 0
 
- itm_cattle_meat Beef Beef 1  raw_meat 0  34144267 0 80 0 20.000000 100 80 0 0 0 0 0 0 0 50 0 0
+ itm_cattle_meat Beef Beef 1  raw_meat 0  34144267 0 160 0 40.000000 100 80 0 0 0 0 0 0 0 100 0 0
  0
 0
 
- itm_bread Bread Bread 1  bread_a 0  34144267 0 50 0 30.000000 110 40 0 0 0 0 0 0 0 50 0 0
+ itm_bread Bread Bread 1  bread_a 0  34144267 0 100 69120 60.000000 110 40 0 0 0 0 0 0 0 100 0 0
  0
 0
 
- itm_chicken Chicken Chicken 1  chicken 0  34144267 0 95 0 10.000000 110 40 0 0 0 0 0 0 0 50 0 0
+ itm_chicken Roast_Chicken Roast_Chicken 1  chicken 0  34144267 0 200 0 20.000000 110 40 0 0 0 0 0 0 0 100 0 0
  0
 0
 
- itm_pork Pork Pork 1  pork 0  34144267 0 75 0 15.000000 100 70 0 0 0 0 0 0 0 50 0 0
+ itm_pork Pork Pork 1  pork 0  34144267 0 150 0 39.000000 100 70 0 0 0 0 0 0 0 100 0 0
  0
 0
 
- itm_butter Butter Butter 1  butter_pot 0  34144267 0 150 0 6.000000 110 40 0 0 0 0 0 0 0 30 0 0
+ itm_butter Butter Butter 1  butter_pot 0  34144267 0 300 69120 12.000000 200 40 0 0 0 0 0 0 0 60 0 0
  0
 0
 
