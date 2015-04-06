@@ -548,14 +548,27 @@ game_menus = [
        ),
 
       ##BEAN BEGIN - Dynamic Faction Troop Tree
-      ("faction_troop_tree",[],"str_faction_troop_tree",
-       [(start_presentation, "prsnt_faction_troop_tree"), ]),
+      ("faction_troop_tree",[],"View faction troop trees.",
+        [
+          (start_presentation, "prsnt_faction_troop_tree"),
+        ]
+      ),
       ##BEAN End - Dynamic Faction Troop Tree
+
+      ##BEAN BEGIN - View All Items
+      ("action_view_all_items",[],"View all items.",
+        [
+          (assign, "$temp", 0),
+          (start_presentation, "prsnt_all_items"),
+        ]
+      ),
+      ##BEAN END - View All Items
 
       ("view_character_report",[],"View character report.",
        [(jump_to_menu, "mnu_character_report"),
         ]
        ),
+
       ("view_party_size_report",[],"View party size report.",
        [(jump_to_menu, "mnu_party_size_report"),
         ]
