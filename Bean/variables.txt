@@ -1115,3 +1115,6 @@ faction_display
 g_presentation_obj_2
 g_presentation_obj_5
 g_presentation_obj_6
+deathcam_keyboard_rotation_x
+deathcam_keyboard_rotation_y
+deathcam_flip_y_multiplier
