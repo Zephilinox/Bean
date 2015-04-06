@@ -4024,7 +4024,7 @@ simple_triggers = [
       (item_set_slot, "itm_raw_olives", slot_item_food_bonus, 1),
       (item_set_slot, "itm_cabbages", slot_item_food_bonus, 2),
       (item_set_slot, "itm_raw_grapes", slot_item_food_bonus, 3),
-      (item_set_slot, "itm_apples", slot_item_food_bonus, 4), #brought down from 5
+      (item_set_slot, "itm_fruit", slot_item_food_bonus, 4), #brought down from 5
 
 	  #Sweet items
       (item_set_slot, "itm_raw_date_fruit", slot_item_food_bonus, 4), #brought down from 8
@@ -4032,6 +4032,15 @@ simple_triggers = [
 
       (item_set_slot, "itm_wine", slot_item_food_bonus, 5),
       (item_set_slot, "itm_ale", slot_item_food_bonus, 4),
+
+    ##BEAN BEGIN - Extra Trade Goods
+      #(item_set_slot, "itm_roast_fish", slot_item_food_bonus, 5),
+      #(item_set_slot, "itm_gourd", slot_item_food_bonus, 3),
+      #(item_set_slot, "itm_corn", slot_item_food_bonus, 2),
+      #(item_set_slot, "itm_stew", slot_item_food_bonus, 10),
+      #(item_set_slot, "itm_turkey", slot_item_food_bonus, 9),
+    ##BEAN END - Extra Trade Goods
+
    ]),
   (24,
    []),

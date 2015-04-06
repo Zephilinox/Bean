@@ -46,6 +46,7 @@ imodbits_thrown_minus_heavy = imodbit_bent | imodbit_balanced| imodbit_large_bag
 imodbits_horse_good = imodbit_spirited|imodbit_heavy
 imodbits_good   = imodbit_sturdy | imodbit_thick | imodbit_hardened | imodbit_reinforced
 imodbits_bad    = imodbit_rusty | imodbit_chipped | imodbit_tattered | imodbit_ragged | imodbit_cracked | imodbit_bent
+
 # Replace winged mace/spiked mace with: Flanged mace / Knobbed mace?
 # Fauchard (majowski glaive)
 items = [
@@ -149,61 +150,65 @@ items = [
  ["book_training_reference","Manual of Arms", [("book_open",0)], itp_type_book, 0, 3500,weight(2)|abundance(100),imodbits_none],
  ["book_surgery_reference","The Great Book of Surgery", [("book_c",0)], itp_type_book, 0, 3500,weight(2)|abundance(100),imodbits_none],
 
- #other trade goods (first one is spice)
- ["spice","Spice", [("spice_sack",0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 880,weight(40)|abundance(25)|max_ammo(50),imodbits_none],
- ["salt","Salt", [("salt_sack",0)], itp_merchandise|itp_type_goods, 0, 255,weight(50)|abundance(120),imodbits_none],
+  ##BEAN BEGIN - Improved Trade Goods
+  # Common trade goods
+  ["spice","Spice", [("spice_sack",0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 1750,weight(80)|abundance(25)|max_ammo(100),imodbit_fine|imodbit_large_bag|imodbit_exquisite],
+  ["salt","Salt", [("salt_sack",0)], itp_merchandise|itp_type_goods, 0, 255,weight(50)|abundance(120),imodbit_fine|imodbit_large_bag],
+  ["oil","Oil", [("oil",0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 900,weight(100)|abundance(60)|max_ammo(100),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite],
+  ["pottery","Pottery", [("jug",0)], itp_merchandise|itp_type_goods, 0, 100,weight(50)|abundance(90),imodbit_cracked|imodbit_crude|imodbit_old|imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite|imodbit_masterwork|imodbit_rough|imodbit_sturdy],
+  ["raw_flax","Flax Bundle", [("raw_flax",0)], itp_merchandise|itp_type_goods, 0, 150,weight(40)|abundance(90),imodbit_fine|imodbit_exquisite],
+  ["linen","Linen", [("linen",0)], itp_merchandise|itp_type_goods, 0, 250,weight(40)|abundance(90),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite|imodbit_masterwork|imodbit_tattered|imodbit_ragged|imodbit_rough|imodbit_sturdy],
+  ["wool","Wool", [("wool_sack",0)], itp_merchandise|itp_type_goods, 0, 130,weight(40)|abundance(90),imodbit_fine|imodbit_exquisite],
+  ["wool_cloth","Wool Cloth", [("wool_cloth",0)], itp_merchandise|itp_type_goods, 0, 250,weight(40)|abundance(90),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite|imodbit_masterwork|imodbit_tattered|imodbit_ragged|imodbit_rough|imodbit_sturdy],
+  ["raw_silk","Raw Silk", [("raw_silk_bundle",0)], itp_merchandise|itp_type_goods, 0, 600,weight(30)|abundance(90),imodbit_fine|imodbit_exquisite],
+  ["raw_dyes","Dyes", [("dyes",0)], itp_merchandise|itp_type_goods, 0, 200,weight(10)|abundance(90),imodbit_fine|imodbit_well_made|imodbit_exquisite|imodbit_masterwork],
+  ["velvet","Velvet", [("velvet",0)], itp_merchandise|itp_type_goods, 0, 1025,weight(40)|abundance(30),imodbit_fine|imodbit_well_made|imodbit_exquisite|imodbit_masterwork],
+  ["iron","Iron", [("iron",0)], itp_merchandise|itp_type_goods, 0,264,weight(60)|abundance(60),imodbit_rusty|imodbit_poor|imodbit_well_made|imodbit_tempered|imodbit_hardened|imodbit_sturdy],
+  ["tools","Tools", [("iron_hammer",0)], itp_merchandise|itp_type_goods, 0, 410,weight(50)|abundance(90),imodbit_rusty|imodbit_crude|imodbit_old|imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite|imodbit_masterwork|imodbit_sturdy|imodbit_hardened],
+  ["raw_leather","Hides", [("leatherwork_inventory",0)], itp_merchandise|itp_type_goods, 0, 120,weight(40)|abundance(90),imodbit_fine|imodbit_exquisite|imodbit_tattered|imodbit_ragged|imodbit_sturdy|imodbit_thick],
+  ["leatherwork","Leatherwork", [("leatherwork_frame",0)], itp_merchandise|itp_type_goods, 0, 220,weight(40)|abundance(90),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite|imodbit_masterwork|imodbit_tattered|imodbit_ragged|imodbit_rough|imodbit_sturdy|imodbit_thick],
+  ["raw_date_fruit","Date Fruit", [("date_inventory",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 240,weight(80)|food_quality(10)|max_ammo(20),imodbit_cheap|imodbit_fine|imodbit_exquisite],
+  ["furs","Furs", [("fur_pack",0)], itp_merchandise|itp_type_goods, 0, 391,weight(40)|abundance(90),imodbit_cheap|imodbit_fine|imodbit_exquisite|imodbit_tattered|imodbit_ragged|imodbit_sturdy|imodbit_thick],
+  ##BEAN BEGIN - Extra Trade Goods
+  #["carpet","Carpet", [("carpet_d.14",0), ("carpet_e.15",0), ("carpet_f.16",0), ], itp_merchandise|itp_type_goods, 0, 400, weight(60)|abundance(90),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite|imodbit_masterwork|imodbit_tattered|imodbit_ragged|imodbit_rough|imodbit_sturdy|imodbit_thick],
+  #["rug","Rug", [("mat_b.21",0)], itp_merchandise|itp_type_goods, 0, 500, weight(60)|abundance(70),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite|imodbit_masterwork|imodbit_tattered|imodbit_ragged|imodbit_rough|imodbit_sturdy|imodbit_thick],
+  #["mattress","Mattress", [("bed_d.24",0)], itp_merchandise|itp_type_goods, 0, 800, weight(80)|abundance(50),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite|imodbit_masterwork|imodbit_tattered|imodbit_ragged|imodbit_rough|imodbit_sturdy|imodbit_thick],
+  #["lyre_renowned","Renowned Lyre", [("lyre",0)], itp_merchandise|itp_type_goods, 0, 700, weight(30)|abundance(40),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite|imodbit_masterwork|imodbit_sturdy],
+  #["lute_renowned","Renowned Lute", [("lute",0)], itp_merchandise|itp_type_goods, 0, 600, weight(20)|abundance(60),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite|imodbit_masterwork|imodbit_sturdy],
+  ##BEAN END - Extra Trade Goods
 
+  # Drinking consumables
+  ["wine","Wine", [("amphora_slim",0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 220,weight(60)|abundance(60)|max_ammo(100),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite|imodbit_strong|imodbit_lordly],
+  ["ale","Ale", [("ale_barrel",0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 120,weight(60)|abundance(70)|max_ammo(100),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite|imodbit_strong|imodbit_lordly],
 
- #["flour","Flour", [("salt_sack",0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 40,weight(50)|abundance(100)|food_quality(45)|max_ammo(50),imodbits_none],
+  # Food consumables
+  ["smoked_fish","Smoked Fish", [("smoked_fish",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 130,weight(30)|abundance(100)|food_quality(50)|max_ammo(100),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite],
+  ["cheese","Cheese", [("cheese_b",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 150,weight(12)|abundance(100)|food_quality(40)|max_ammo(60),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite],
+  ["honey","Honey", [("honey_pot",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 440,weight(10)|abundance(100)|food_quality(40)|max_ammo(60),imodbit_cheap|imodbit_fine|imodbit_exquisite],
+  ["sausages","Sausages", [("sausages",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 170,weight(20)|abundance(100)|food_quality(40)|max_ammo(80),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite],
+  ["cabbages","Cabbages", [("cabbage",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 60,weight(30)|abundance(100)|food_quality(40)|max_ammo(100),imodbit_cheap|imodbit_fine|imodbit_exquisite],
+  ["dried_meat","Dried Meat", [("smoked_meat",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 170,weight(30)|abundance(100)|food_quality(70)|max_ammo(100),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite],
+  ["fruit","Fruit", [("apple_basket",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 88,weight(40)|abundance(100)|food_quality(40)|max_ammo(100),imodbit_cheap|imodbit_fine|imodbit_exquisite],
+  ["raw_grapes","Grapes", [("grapes_inventory",0)], itp_merchandise|itp_consumable|itp_type_goods, 0, 100,weight(80)|abundance(100)|food_quality(20)|max_ammo(20),imodbit_cheap|imodbit_fine|imodbit_exquisite],
+  ["raw_olives","Olives", [("olive_inventory",0)], itp_merchandise|itp_consumable|itp_type_goods, 0, 150,weight(80)|abundance(100)|food_quality(20)|max_ammo(20),imodbit_cheap|imodbit_fine|imodbit_exquisite],
+  ["grain","Grain", [("wheat_sack",0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 60,weight(60)|abundance(110)|food_quality(50)|max_ammo(50),imodbit_cheap|imodbit_fine|imodbit_exquisite|imodbit_large_bag],
+  ["cattle_meat","Beef", [("raw_meat",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 160,weight(40)|abundance(100)|food_quality(80)|max_ammo(100),imodbits_none],
+  ["bread","Bread", [("bread_a",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 100,weight(60)|abundance(110)|food_quality(40)|max_ammo(100),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite],
+  ["chicken","Roast Chicken", [("chicken",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 200,weight(20)|abundance(110)|food_quality(40)|max_ammo(100),imodbits_none],
+  ["pork","Pork", [("pork",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 150,weight(39)|abundance(100)|food_quality(70)|max_ammo(100),imodbits_none],
+  ["butter","Butter", [("butter_pot",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 300,weight(12)|abundance(200)|food_quality(40)|max_ammo(60),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite],
+  ##BEAN END - Improved Trade Goods
 
- ["oil","Oil", [("oil",0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 450,weight(50)|abundance(60)|max_ammo(50),imodbits_none],
+  ##BEAN BEGIN - Extra Trade Goods
+  #["roast_fish","Roasted Fish", [("fish_roasted_a",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 130,weight(15)|abundance(200)|food_quality(50)|max_ammo(100),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite],
+  #["gourd","Gourd", [("gourd",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 100,weight(20)|abundance(100)|food_quality(100)|max_ammo(100),imodbit_cheap|imodbit_fine|imodbit_exquisite],
+  #["corn","Corn", [("maize_b",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 80,weight(20)|abundance(100)|food_quality(100)|max_ammo(100),imodbit_cheap|imodbit_fine|imodbit_exquisite],
+  #["stew","Stew", [("plate_b",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 200,weight(40)|abundance(70)|food_quality(200)|max_ammo(20),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite],
+  #["turkey","Roast Turkey", [("chicken_roasted",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 300,weight(30)|abundance(100)|food_quality(80)|max_ammo(100),imodbits_none],
+  ##BEAN END - Extra Trade Goods
 
- ["pottery","Pottery", [("jug",0)], itp_merchandise|itp_type_goods, 0, 100,weight(50)|abundance(90),imodbits_none],
-
- ["raw_flax","Flax Bundle", [("raw_flax",0)], itp_merchandise|itp_type_goods, 0, 150,weight(40)|abundance(90),imodbits_none],
- ["linen","Linen", [("linen",0)], itp_merchandise|itp_type_goods, 0, 250,weight(40)|abundance(90),imodbits_none],
-
- ["wool","Wool", [("wool_sack",0)], itp_merchandise|itp_type_goods, 0, 130,weight(40)|abundance(90),imodbits_none],
- ["wool_cloth","Wool Cloth", [("wool_cloth",0)], itp_merchandise|itp_type_goods, 0, 250,weight(40)|abundance(90),imodbits_none],
-
- ["raw_silk","Raw Silk", [("raw_silk_bundle",0)], itp_merchandise|itp_type_goods, 0, 600,weight(30)|abundance(90),imodbits_none],
- ["raw_dyes","Dyes", [("dyes",0)], itp_merchandise|itp_type_goods, 0, 200,weight(10)|abundance(90),imodbits_none],
- ["velvet","Velvet", [("velvet",0)], itp_merchandise|itp_type_goods, 0, 1025,weight(40)|abundance(30),imodbits_none],
-
- ["iron","Iron", [("iron",0)], itp_merchandise|itp_type_goods, 0,264,weight(60)|abundance(60),imodbits_none],
- ["tools","Tools", [("iron_hammer",0)], itp_merchandise|itp_type_goods, 0, 410,weight(50)|abundance(90),imodbits_none],
-
- ["raw_leather","Hides", [("leatherwork_inventory",0)], itp_merchandise|itp_type_goods, 0, 120,weight(40)|abundance(90),imodbits_none],
- ["leatherwork","Leatherwork", [("leatherwork_frame",0)], itp_merchandise|itp_type_goods, 0, 220,weight(40)|abundance(90),imodbits_none],
-
- ["raw_date_fruit","Date Fruit", [("date_inventory",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 120,weight(40)|food_quality(10)|max_ammo(10),imodbits_none],
- ["furs","Furs", [("fur_pack",0)], itp_merchandise|itp_type_goods, 0, 391,weight(40)|abundance(90),imodbits_none],
-
- ["wine","Wine", [("amphora_slim",0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 220,weight(30)|abundance(60)|max_ammo(50),imodbits_none],
- ["ale","Ale", [("ale_barrel",0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 120,weight(30)|abundance(70)|max_ammo(50),imodbits_none],
-
-# ["dry_bread", "wheat_sack", itp_type_goods|itp_consumable, 0, slt_none,view_goods,95,weight(2),max_ammo(50),imodbits_none],
-#foods (first one is smoked_fish)
- ["smoked_fish","Smoked Fish", [("smoked_fish",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 65,weight(15)|abundance(110)|food_quality(50)|max_ammo(50),imodbits_none],
- ["cheese","Cheese", [("cheese_b",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 75,weight(6)|abundance(110)|food_quality(40)|max_ammo(30),imodbits_none],
- ["honey","Honey", [("honey_pot",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 220,weight(5)|abundance(110)|food_quality(40)|max_ammo(30),imodbits_none],
- ["sausages","Sausages", [("sausages",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 85,weight(10)|abundance(110)|food_quality(40)|max_ammo(40),imodbits_none],
- ["cabbages","Cabbages", [("cabbage",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 30,weight(15)|abundance(110)|food_quality(40)|max_ammo(50),imodbits_none],
- ["dried_meat","Dried Meat", [("smoked_meat",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 85,weight(15)|abundance(100)|food_quality(70)|max_ammo(50),imodbits_none],
- ["apples","Fruit", [("apple_basket",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 44,weight(20)|abundance(110)|food_quality(40)|max_ammo(50),imodbits_none],
- ["raw_grapes","Grapes", [("grapes_inventory",0)], itp_merchandise|itp_consumable|itp_type_goods, 0, 75,weight(40)|abundance(90)|food_quality(10)|max_ammo(10),imodbits_none], #x2 for wine
- ["raw_olives","Olives", [("olive_inventory",0)], itp_merchandise|itp_consumable|itp_type_goods, 0, 100,weight(40)|abundance(90)|food_quality(10)|max_ammo(10),imodbits_none], #x3 for oil
- ["grain","Grain", [("wheat_sack",0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 30,weight(30)|abundance(110)|food_quality(40)|max_ammo(50),imodbits_none],
-
- ["cattle_meat","Beef", [("raw_meat",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 80,weight(20)|abundance(100)|food_quality(80)|max_ammo(50),imodbits_none],
- ["bread","Bread", [("bread_a",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 50,weight(30)|abundance(110)|food_quality(40)|max_ammo(50),imodbits_none],
- ["chicken","Chicken", [("chicken",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 95,weight(10)|abundance(110)|food_quality(40)|max_ammo(50),imodbits_none],
- ["pork","Pork", [("pork",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 75,weight(15)|abundance(100)|food_quality(70)|max_ammo(50),imodbits_none],
- ["butter","Butter", [("butter_pot",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 150,weight(6)|abundance(110)|food_quality(40)|max_ammo(30),imodbits_none],
-
-
- #Would like to remove flour altogether and reduce chicken, pork and butter (perishables) to non-trade items. Apples could perhaps become a generic "fruit", also representing dried fruit and grapes
- # Armagan: changed order so that it'll be easier to remove them from trade goods if necessary.
+#Would like to remove flour altogether and reduce chicken, pork and butter (perishables) to non-trade items. Apples could perhaps become a generic "fruit", also representing dried fruit and grapes
+# Armagan: changed order so that it'll be easier to remove them from trade goods if necessary.
 #************************************************************************************************
 # ITEMS before this point are hardcoded into item_codes.h and their order should not be changed!
 #************************************************************************************************

@@ -6030,14 +6030,14 @@ scripts = [
 	  # Setting food bonuses - these have been changed to incentivize using historical rations. Bread is the most cost-efficient
 	  #Staples
       (item_set_slot, "itm_bread", slot_item_food_bonus, 8), #brought up from 4
-      (item_set_slot, "itm_grain", slot_item_food_bonus, 2), #new - can be boiled as porridge
+      (item_set_slot, "itm_grain", slot_item_food_bonus, 3), #new - can be boiled as porridge
 
 	  #Fat sources - preserved
-      (item_set_slot, "itm_smoked_fish", slot_item_food_bonus, 4),
-      (item_set_slot, "itm_dried_meat", slot_item_food_bonus, 5),
-      (item_set_slot, "itm_cheese", slot_item_food_bonus, 5),
-      (item_set_slot, "itm_sausages", slot_item_food_bonus, 5),
-      (item_set_slot, "itm_butter", slot_item_food_bonus, 4), #brought down from 8
+      (item_set_slot, "itm_smoked_fish", slot_item_food_bonus, 6),
+      (item_set_slot, "itm_dried_meat", slot_item_food_bonus, 7),
+      (item_set_slot, "itm_cheese", slot_item_food_bonus, 7),
+      (item_set_slot, "itm_sausages", slot_item_food_bonus, 7),
+      (item_set_slot, "itm_butter", slot_item_food_bonus, 6), #brought down from 8
 
 	  #Fat sources - perishable
       (item_set_slot, "itm_chicken", slot_item_food_bonus, 8), #brought up from 7
@@ -6045,10 +6045,10 @@ scripts = [
       (item_set_slot, "itm_pork", slot_item_food_bonus, 6), #brought down from 6
 
 	  #Produce
-      (item_set_slot, "itm_raw_olives", slot_item_food_bonus, 1),
-      (item_set_slot, "itm_cabbages", slot_item_food_bonus, 2),
-      (item_set_slot, "itm_raw_grapes", slot_item_food_bonus, 3),
-      (item_set_slot, "itm_apples", slot_item_food_bonus, 4), #brought down from 5
+      (item_set_slot, "itm_raw_olives", slot_item_food_bonus, 3),
+      (item_set_slot, "itm_cabbages", slot_item_food_bonus, 4),
+      (item_set_slot, "itm_raw_grapes", slot_item_food_bonus, 4),
+      (item_set_slot, "itm_fruit", slot_item_food_bonus, 5), #brought down from 5
 
 	  #Sweet items
       (item_set_slot, "itm_raw_date_fruit", slot_item_food_bonus, 4), #brought down from 8
@@ -6056,6 +6056,14 @@ scripts = [
 
       (item_set_slot, "itm_wine", slot_item_food_bonus, 5),
       (item_set_slot, "itm_ale", slot_item_food_bonus, 4),
+
+    ##BEAN BEGIN - Extra Trade Goods
+      #(item_set_slot, "itm_roast_fish", slot_item_food_bonus, 5),
+      #(item_set_slot, "itm_gourd", slot_item_food_bonus, 4),
+      #(item_set_slot, "itm_corn", slot_item_food_bonus, 3),
+      #(item_set_slot, "itm_stew", slot_item_food_bonus, 10),
+      #(item_set_slot, "itm_turkey", slot_item_food_bonus, 9),
+    ##BEAN END - Extra Trade Goods
 
 	  #Item economic settings
 	  (item_set_slot, "itm_grain", slot_item_urban_demand, 20),
@@ -6110,12 +6118,12 @@ scripts = [
       (item_set_slot, "itm_raw_grapes", slot_item_is_raw_material_only_for, "itm_wine"),
       (item_set_slot, "itm_raw_grapes", slot_item_base_price, 75),
 
-	  (item_set_slot, "itm_apples", slot_item_urban_demand, 4),
-	  (item_set_slot, "itm_apples", slot_item_rural_demand, 4),
-	  (item_set_slot, "itm_apples", slot_item_desert_demand, 0),
-      (item_set_slot, "itm_apples", slot_item_production_slot, slot_center_acres_vineyard),
-      (item_set_slot, "itm_apples", slot_item_production_string, "str_acres_orchard"),
-      (item_set_slot, "itm_apples", slot_item_base_price, 44),
+	  (item_set_slot, "itm_fruit", slot_item_urban_demand, 4),
+	  (item_set_slot, "itm_fruit", slot_item_rural_demand, 4),
+	  (item_set_slot, "itm_fruit", slot_item_desert_demand, 0),
+      (item_set_slot, "itm_fruit", slot_item_production_slot, slot_center_acres_vineyard),
+      (item_set_slot, "itm_fruit", slot_item_production_string, "str_acres_orchard"),
+      (item_set_slot, "itm_fruit", slot_item_base_price, 44),
 
       (item_set_slot, "itm_smoked_fish", slot_item_urban_demand, 16),
       (item_set_slot, "itm_smoked_fish", slot_item_rural_demand, 16),
@@ -6327,6 +6335,54 @@ scripts = [
       (item_set_slot, "itm_pork", slot_item_urban_demand, 40),
       (item_set_slot, "itm_pork", slot_item_rural_demand, 10),
       (item_set_slot, "itm_pork", slot_item_desert_demand, -1),
+
+      ##BEAN BEGIN - Extra Trade Goods
+      #(item_set_slot, "itm_carpet", slot_item_urban_demand, 3),
+      #(item_set_slot, "itm_carpet", slot_item_rural_demand, 1),
+      #(item_set_slot, "itm_carpet", slot_item_desert_demand, 2),
+
+      #(item_set_slot, "itm_rug", slot_item_urban_demand, 3),
+      #(item_set_slot, "itm_rug", slot_item_rural_demand, 1),
+      #(item_set_slot, "itm_rug", slot_item_desert_demand, 2),
+
+      #(item_set_slot, "itm_mattress", slot_item_urban_demand, 3),
+      #(item_set_slot, "itm_mattress", slot_item_rural_demand, 1),
+      #(item_set_slot, "itm_mattress", slot_item_desert_demand, 1),
+
+      #(item_set_slot, "itm_lyre_renowned", slot_item_urban_demand, 4),
+      #(item_set_slot, "itm_lyre_renowned", slot_item_rural_demand, 2),
+      #(item_set_slot, "itm_lyre_renowned", slot_item_desert_demand, 3),
+
+      #(item_set_slot, "itm_lute_renowned", slot_item_urban_demand, 4),
+      #(item_set_slot, "itm_lute_renowned", slot_item_rural_demand, 2),
+      #(item_set_slot, "itm_lute_renowned", slot_item_desert_demand, 3),
+
+      #(item_set_slot, "itm_roast_fish", slot_item_urban_demand, 16),
+      #(item_set_slot, "itm_roast_fish", slot_item_rural_demand, 16),
+      #(item_set_slot, "itm_roast_fish", slot_item_desert_demand, 16),
+      #(item_set_slot, "itm_roast_fish", slot_item_production_slot, slot_center_fishing_fleet),
+      #(item_set_slot, "itm_roast_fish", slot_item_production_string, "str_boats"),
+
+      #(item_set_slot, "itm_gourd", slot_item_urban_demand, 9),
+      #(item_set_slot, "itm_gourd", slot_item_rural_demand, 9),
+      #(item_set_slot, "itm_gourd", slot_item_desert_demand, 9),
+      #(item_set_slot, "itm_gourd", slot_item_production_slot, slot_center_household_gardens),
+      #(item_set_slot, "itm_gourd", slot_item_production_string, "str_gardens"),
+
+      #(item_set_slot, "itm_corn", slot_item_urban_demand, 8),
+      #(item_set_slot, "itm_corn", slot_item_rural_demand, 8),
+      #(item_set_slot, "itm_corn", slot_item_desert_demand, 8),
+      #(item_set_slot, "itm_corn", slot_item_production_slot, slot_center_household_gardens),
+      #(item_set_slot, "itm_corn", slot_item_production_string, "str_gardens"),
+
+      #(item_set_slot, "itm_stew", slot_item_urban_demand, 30),
+      #(item_set_slot, "itm_stew", slot_item_rural_demand, 30),
+      #(item_set_slot, "itm_stew", slot_item_desert_demand, -1),
+
+      #(item_set_slot, "itm_turkey", slot_item_urban_demand, 60),
+      #(item_set_slot, "itm_turkey", slot_item_rural_demand, 15),
+      #(item_set_slot, "itm_turkey", slot_item_desert_demand, -1),
+      ##BEAN END - Extra Trade Goods
 
       # Setting book intelligence requirements
       (item_set_slot, "itm_book_tactics", slot_item_intelligence_requirement, 9),
@@ -13165,9 +13221,41 @@ scripts = [
           (try_end),
           (eq, ":continue", 1),
           (item_get_slot, ":food_bonus", ":item_no", slot_item_food_bonus),
+
+          ##BEAN BEGIN - Improved Trade Goods
+          (try_begin),
+            (eq, ":item_modifier", imod_cheap),
+            (val_sub, ":food_bonus", 2),
+          (else_try),
+            (eq, ":item_modifier", imod_fine),
+            (val_add, ":food_bonus", 1),
+          (else_try),
+            (eq, ":item_modifier", imod_well_made),
+            (val_add, ":food_bonus", 2),
+          (else_try),
+            (eq, ":item_modifier", imod_strong),
+            (val_add, ":food_bonus", 3),
+          (else_try),
+            (eq, ":item_modifier", imod_lordly),
+            (val_add, ":food_bonus", 5),
+          (else_try),
+            (eq, ":item_modifier", imod_exquisite),
+            (val_add, ":food_bonus", 6),
+          (try_end),
+          ##BEAN END - Improved Trade Goods
+
           (assign, reg1, ":food_bonus"),
-          (set_result_string, "@+{reg1} to party morale"),
-          (set_trigger_result, 0x4444FF),
+
+          ##BEAN BEGIN - Improved Trade Goods
+          (try_begin),
+            (ge, reg1, 0),
+            (set_result_string, "@+{reg1} to party morale"),
+            (set_trigger_result, 0x2266FF),
+          (else_try),
+            (set_result_string, "@{reg1} to party morale"),
+            (set_trigger_result, 0xFF4444),
+          (try_end),
+          ##BEAN END - Improved Trade Goods
         (try_end),
       (else_try),
         (is_between, ":item_no", readable_books_begin, readable_books_end),
@@ -13860,7 +13948,7 @@ scripts = [
 			(party_get_slot, ":base_production", ":center_no", slot_center_household_gardens),
 			(val_mul, ":base_production", 10),
 		(else_try),
-			(eq, ":cur_good", "itm_apples"), 	 #Demand = 7
+			(eq, ":cur_good", "itm_fruit"), 	 #Demand = 7
 			(party_get_slot, ":base_production", ":center_no", slot_center_household_gardens),
 			(val_mul, ":base_production", 10),
 
@@ -24092,6 +24180,7 @@ scripts = [
         (troop_get_inventory_slot_modifier, ":cur_modifier", "trp_player", ":i_slot"),
         (neq, ":cur_modifier", ":modifier"),
         (assign, ":has_without_modifier", 1),
+        (assign, reg0, ":cur_modifier"), ##BEAN - Improved Trade Goods
         (assign, ":inv_size", 0), #break
       (try_end),
       (eq, ":has_without_modifier", 1),
@@ -24135,6 +24224,28 @@ scripts = [
       (try_for_range, ":cur_edible", food_begin, food_end),
         (call_script, "script_cf_player_has_item_without_modifier", ":cur_edible", imod_rotten),
         (item_get_slot, ":food_bonus", ":cur_edible", slot_item_food_bonus),
+
+        ##BEAN BEGIN - Improved Trade Goods
+        (try_begin),
+          (eq, reg0, imod_cheap),
+          (val_sub, ":food_bonus", 2),
+        (else_try),
+          (eq, reg0, imod_fine),
+          (val_add, ":food_bonus", 1),
+        (else_try),
+          (eq, reg0, imod_well_made),
+          (val_add, ":food_bonus", 2),
+        (else_try),
+          (eq, reg0, imod_strong),
+          (val_add, ":food_bonus", 3),
+        (else_try),
+          (eq, reg0, imod_lordly),
+          (val_add, ":food_bonus", 5),
+        (else_try),
+          (eq, reg0, imod_exquisite),
+          (val_add, ":food_bonus", 6),
+        (try_end),
+        ##BEAN END - Improved Trade Goods
 
         (val_mul, ":food_bonus", 3),
         (val_div, ":food_bonus", 2),
@@ -28649,8 +28760,8 @@ scripts = [
 		(assign, ":check_for_good_price", 1),
 
 	(else_try),
-		(eq, ":item", "itm_apples"),
-		(str_store_string, s14, "str_trade_explanation_apples"),
+		(eq, ":item", "itm_fruit"),
+		(str_store_string, s14, "str_trade_explanation_fruit"),
 		(assign, ":check_for_good_price", 1),
 
 	(try_end),
@@ -47516,8 +47627,12 @@ scripts = [
       (troop_ensure_inventory_space, ":cur_merchant", 20),
       (troop_sort_inventory, ":cur_merchant"),
       (store_troop_gold, ":cur_gold",":cur_merchant"),
-      (lt,":cur_gold",1500),
-      (store_random_in_range,":new_gold",500,1000),
+
+      ##BEAN BEGIN - Improved Trade Goods
+      (lt, ":cur_gold", 15000),
+      (store_random_in_range, ":new_gold", 5000, 10000),
+      ##BEAN END - Improved Trade Goods
+
       (call_script, "script_troop_add_gold", ":cur_merchant", ":new_gold"),
     (try_end),
   ]),
