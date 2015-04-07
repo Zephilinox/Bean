@@ -37,7 +37,6 @@ pilgrim_disguise = [itm_pilgrim_hood,itm_pilgrim_disguise,itm_practice_staff, it
 af_castle_lord = af_override_horse | af_override_weapons| af_require_civilian
 
 ##BEAN BEGIN - Deathcam
-
 common_init_deathcam = (
    0, 0, ti_once,
    [],
@@ -389,8 +388,106 @@ common_rotate_deathcam = (
         (try_end),
     ]
 )
-
 ##BEAN END - Deathcam
+
+##BEAN BEGIN - Weather
+weather = (
+  ti_before_mission_start, 0, 0, [],
+  [
+    (store_current_scene, ":cur_scene"),
+    (party_get_slot, ":town_tavern", "$current_town", slot_town_tavern),
+    (party_get_slot, ":town_castle", "$current_town", slot_town_castle),
+    (party_get_slot, ":town_prison", "$current_town", slot_town_prison),
+    (party_get_slot, ":town_store", "$current_town", slot_town_store),
+    (neq, ":cur_scene", ":town_tavern"),
+    (neq, ":cur_scene", ":town_castle"),
+    (neq, ":cur_scene", ":town_prison"),
+    (neq, ":cur_scene", ":town_store"),
+    (neq, ":cur_scene", "scn_enterprise_tannery"),
+    (neq, ":cur_scene", "scn_enterprise_winery"),
+    (neq, ":cur_scene", "scn_enterprise_mill"),
+    (neq, ":cur_scene", "scn_enterprise_smithy"),
+    (neq, ":cur_scene", "scn_enterprise_dyeworks"),
+    (neq, ":cur_scene", "scn_enterprise_linen_weavery"),
+    (neq, ":cur_scene", "scn_enterprise_wool_weavery"),
+    (neq, ":cur_scene", "scn_enterprise_brewery"),
+    (neq, ":cur_scene", "scn_enterprise_oil_press"),
+    (neq, ":cur_scene", "scn_wedding"),
+
+    (store_time_of_day, ":hour"),
+    (scene_set_day_time, ":hour"),
+    (assign, reg10, ":hour"),
+    #(display_log_message, "@Time: {reg10}"),
+
+    (store_random_in_range, ":weather_chance", 0, 101),
+    (store_random_in_range, ":weather_power", 10, 101),
+    (party_get_current_terrain, ":terrain", "p_main_party"),
+    (assign, reg10, ":weather_chance"),
+    (assign, reg11, ":weather_power"),
+    (assign, reg12, ":terrain"),
+    #(display_log_message, "@Weather Chance: {reg10}^Power: {reg11}^Terrain: {reg12}"),
+
+    (try_begin),
+        (this_or_next|eq, ":terrain", rt_snow),
+        (eq, ":terrain", rt_snow_forest),
+        (le, ":weather_chance", 40), #40% chance snow in snow terrain
+      #(display_log_message, "@It's snowing!"),
+         (set_rain, 2, 10), #Power is 10 because it looks bad when higher
+    (else_try),
+        (le, ":weather_chance", 20), #20% chance rain in non-snow terrain
+      #(display_log_message, "@It's raining!"),
+        (set_rain, 1, ":weather_power"),
+    (else_try),
+      #(display_log_message, "@No Weather!"),
+      (set_rain, 0, 0),
+    (try_end),
+
+    (store_random_in_range, ":fog_chance", 0, 101),
+    (store_random_in_range, ":fog_thickness", 0, 101),
+    (assign, reg10, ":fog_chance"),
+    (assign, reg11, ":fog_thickness"),
+    #(display_log_message, "@Fog Chance: {reg10}^Thickness: {reg11}"),
+
+    (try_begin),
+        (le, ":fog_thickness", 10), #10%
+         (store_random_in_range, ":fog_distance", 50, 101),
+    (else_try),
+        (le, ":fog_thickness", 30), #20%
+         (store_random_in_range, ":fog_distance", 100, 201),
+    (else_try),
+        (le, ":fog_thickness", 55), #25%
+          (store_random_in_range, ":fog_distance", 200, 301),
+    (else_try),
+        (le, ":fog_thickness", 75), #20%
+          (store_random_in_range, ":fog_distance", 300, 351),
+    (else_try),
+        (le, ":fog_thickness", 90), #15%
+          (store_random_in_range, ":fog_distance", 350, 401),
+    (else_try), #10%
+          (store_random_in_range, ":fog_distance", 400, 451),
+    (try_end),
+
+    (assign, reg10, ":fog_distance"),
+    #(display_log_message, "@Fog Distance: {reg10}"),
+
+    (try_begin),
+        (this_or_next|eq, ":terrain", rt_mountain_forest),
+        (this_or_next|eq, ":terrain", rt_steppe_forest),
+        (this_or_next|eq, ":terrain", rt_forest),
+        (this_or_next|eq, ":terrain", rt_snow_forest),
+        (eq, ":terrain", rt_desert_forest),
+        (le, ":fog_chance", 20), #20% chance of fog in forest
+          (set_fog_distance, ":fog_distance"),
+    (else_try),
+        (le, ":fog_chance", 10), #10% chance of fog in non-forests
+          (set_fog_distance, ":fog_distance"),
+    (else_try),
+          (set_fog_distance, 1000000),
+    (try_end),
+  ]
+)
+
+##BEAN END - Weather
 
 multiplayer_server_check_belfry_movement = (
   0, 0, 0, [],
@@ -1050,7 +1147,7 @@ custom_battle_check_victory_condition = (
   1, 60, ti_once,
   [
     (store_mission_timer_a,reg(1)),
-    (ge,reg(1),10),
+    (ge,reg1,10),
     (all_enemies_defeated, 2),
     (neg|main_hero_fallen, 0),
     (set_mission_result,1),
@@ -1218,7 +1315,7 @@ common_siege_attacker_reinforcement_check = (
     (store_mission_timer_a,":mission_time"),
     (ge,":mission_time",10),
     (store_normalized_team_count,":num_attackers",1),
-    (lt,":num_attackers",6)
+    (lt,":num_attackers",6),
     ],
   [
     (add_reinforcements_to_entry, 1, 8),
@@ -1369,6 +1466,7 @@ common_siege_assign_men_to_belfry = (
 
 
 tournament_triggers = [
+  weather, ##BEAN - Weather
   (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest"),
                                        (assign, "$g_arena_training_num_agents_spawned", 0)]),
   (ti_inventory_key_pressed, 0, 0, [(display_message, "str_cant_use_inventory_arena", color_neutral_news)], []), ##BEAN - Color Coded Messages
@@ -1398,7 +1496,7 @@ tournament_triggers = [
       (eq, "$g_mt_mode", abm_visit),
       (call_script, "script_music_set_situation_with_culture", mtf_sit_travel),
       (store_current_scene, reg(1)),
-      (scene_set_slot, reg(1), slot_scene_visited, 1),
+      (scene_set_slot, reg1, slot_scene_visited, 1),
       (mission_enable_talk),
       (get_player_agent_no, ":player_agent"),
       (assign, ":team_set", 0),
@@ -1581,7 +1679,7 @@ tournament_triggers = [
 
   (0, 0, 0,
    [
-       (eq, "$g_mt_mode", abm_training)
+       (eq, "$g_mt_mode", abm_training),
        ],
     [
        (assign, ":max_teams", 6),
@@ -1673,6 +1771,7 @@ mission_templates = [
      (31,mtef_visitor_source,af_override_horse,0,1,[]),
      ],
      [
+      weather, ##BEAN - Weather
       (1, 0, ti_once, [],
       [
         (store_current_scene, ":cur_scene"),
@@ -1696,7 +1795,7 @@ mission_templates = [
 
       (ti_inventory_key_pressed, 0, 0,
       [
-        (set_trigger_result,1)
+        (set_trigger_result,1),
       ], []),
 
       #tavern - belligerent drunk leaving/fading out
@@ -1847,7 +1946,7 @@ mission_templates = [
       ],
       [
 	  (jump_to_menu, "mnu_lost_tavern_duel"),
-	  (finish_mission,0)
+	  (finish_mission,0),
 
 	  ]),
 
@@ -1953,6 +2052,7 @@ mission_templates = [
 	 (47,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
      ],
     [
+      weather, ##BEAN - Weather
       (ti_on_agent_spawn, 0, 0, [],
       [
         (store_trigger_param_1, ":agent_no"),
@@ -1998,7 +2098,7 @@ mission_templates = [
       (ti_before_mission_start, 0, 0,
       [],
       [
-        (call_script, "script_change_banners_and_chest")
+        (call_script, "script_change_banners_and_chest"),
       ]),
 
       (ti_inventory_key_pressed, 0, 0,
@@ -2062,13 +2162,13 @@ mission_templates = [
 
 	(3, 0, 0,
 	[
-	  (call_script, "script_tick_town_walkers")
+	  (call_script, "script_tick_town_walkers"),
 	],
 	[]),
 
     (2, 0, 0,
     [
-      (call_script, "script_center_ambiance_sounds")
+      (call_script, "script_center_ambiance_sounds"),
     ],
     []),
 
@@ -2165,7 +2265,7 @@ mission_templates = [
      (jump_to_menu,"mnu_sneak_into_town_caught_ran_away"),
 
      (mission_enable_talk),
-     (finish_mission,0)
+     (finish_mission,0),
    ]),
 
    (ti_on_agent_killed_or_wounded, 0, 0, [],
@@ -2212,6 +2312,7 @@ mission_templates = [
      (40,mtef_visitor_source,af_override_horse,0,1,[]),(41,mtef_visitor_source,af_override_horse,0,1,[]),(42,mtef_visitor_source,af_override_horse,0,1,[]),(43,mtef_visitor_source,af_override_horse,0,1,[]),(44,mtef_visitor_source,af_override_horse,0,1,[]),(45,mtef_visitor_source,af_override_horse,0,1,[]),(46,mtef_visitor_source,af_override_horse,0,1,[]),(47,mtef_visitor_source,af_override_horse,0,1,[]),
      ],
     [
+      weather, ##BEAN - Weather
       (1, 0, ti_once, [], [
           (store_current_scene, ":cur_scene"),
           (scene_set_slot, ":cur_scene", slot_scene_visited, 1),
@@ -2288,6 +2389,7 @@ mission_templates = [
      (44,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),(45,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),(46,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),(47,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
      ],
     [
+      weather, ##BEAN - Weather
       (ti_on_agent_spawn, 0, 0, [],
        [
          (store_trigger_param_1, ":agent_no"),
@@ -2325,7 +2427,7 @@ mission_templates = [
          (store_mission_timer_a,":cur_time"),
          (ge, ":cur_time", 5),
          (this_or_next|main_hero_fallen),
-         (num_active_teams_le,1)
+         (num_active_teams_le,1),
          ],
        [
          (try_begin),
@@ -2347,6 +2449,7 @@ mission_templates = [
      (4,mtef_visitor_source|mtef_team_1,af_override_everything,aif_start_alarmed,1,[itm_practice_staff, itm_practice_boots]),
      ],
     [
+      weather, ##BEAN - Weather
       (ti_before_mission_start, 0, 0, [],
        [
          (assign, "$g_train_peasants_against_bandits_training_succeeded", 0),
@@ -2367,7 +2470,7 @@ mission_templates = [
       (1, 4, ti_once,
        [
          (this_or_next|main_hero_fallen),
-         (num_active_teams_le, 1)
+         (num_active_teams_le, 1),
          ],
        [
          (try_begin),
@@ -2429,14 +2532,14 @@ mission_templates = [
 
       (ti_inventory_key_pressed, 0, 0,
       [
-        (set_trigger_result,1)
+        (set_trigger_result,1),
       ], []),
 
 	  #adjust for prison break
       (ti_tab_pressed, 0, 0,
 	  [
 	    (neq, "$talk_context", tc_prison_break),
-	    (set_trigger_result,1)
+	    (set_trigger_result,1),
 	  ], []),
 
       (ti_on_leave_area, 0, 0,
@@ -2481,6 +2584,7 @@ mission_templates = [
       common_move_deathcam,
       common_rotate_deathcam,
       ##BEAN END - Deathcam
+      weather, ##BEAN - Weather
 
       common_inventory_not_available,
       (ti_tab_pressed, 0, 0, [(display_message,"str_cannot_leave_now", color_neutral_news)], []), ##BEAN - Color Coded Messages
@@ -2554,6 +2658,7 @@ mission_templates = [
       common_move_deathcam,
       common_rotate_deathcam,
       ##BEAN END - Deathcam
+      weather, ##BEAN - Weather
 
       common_inventory_not_available,
 
@@ -2605,6 +2710,7 @@ mission_templates = [
       common_move_deathcam,
       common_rotate_deathcam,
       ##BEAN END - Deathcam
+      weather, ##BEAN - Weather
 
       (ti_on_agent_spawn, 0, 0, [],
        [
@@ -2826,6 +2932,7 @@ mission_templates = [
       common_move_deathcam,
       common_rotate_deathcam,
       ##BEAN END - Deathcam
+      weather, ##BEAN - Weather
 
       common_battle_tab_press,
       common_battle_init_banner,
@@ -2900,6 +3007,7 @@ mission_templates = [
       common_move_deathcam,
       common_rotate_deathcam,
       ##BEAN END - Deathcam
+      weather, ##BEAN - Weather
 
       common_battle_tab_press,
       common_battle_init_banner,
@@ -3172,6 +3280,7 @@ mission_templates = [
       common_move_deathcam,
       common_rotate_deathcam,
       ##BEAN END - Deathcam
+      weather, ##BEAN - Weather
 
       (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
 
@@ -3250,6 +3359,7 @@ mission_templates = [
       common_move_deathcam,
       common_rotate_deathcam,
       ##BEAN END - Deathcam
+      weather, ##BEAN - Weather
 
       (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
 
@@ -3324,6 +3434,7 @@ mission_templates = [
       common_move_deathcam,
       common_rotate_deathcam,
       ##BEAN END - Deathcam
+      weather, ##BEAN - Weather
 
       (ti_on_agent_spawn, 0, 0, [],
        [
@@ -3382,7 +3493,7 @@ mission_templates = [
       common_battle_check_friendly_kills,
 
       (1, 60, ti_once, [(store_mission_timer_a, reg(1)),
-                        (ge, reg(1), 10),
+                        (ge, reg1, 10),
                         (all_enemies_defeated, 2),
                         (neg|main_hero_fallen,0),
                         (set_mission_result,1),
@@ -3448,6 +3559,7 @@ mission_templates = [
       common_move_deathcam,
       common_rotate_deathcam,
       ##BEAN END - Deathcam
+      weather, ##BEAN - Weather
 
       common_battle_mission_start,
       common_battle_tab_press,
@@ -3535,6 +3647,7 @@ mission_templates = [
       common_move_deathcam,
       common_rotate_deathcam,
       ##BEAN END - Deathcam
+      weather, ##BEAN - Weather
 
       common_battle_mission_start,
       common_battle_tab_press,
@@ -3848,6 +3961,7 @@ mission_templates = [
       (6,mtef_scene_source|mtef_team_0,0,0,1,[]),
     ],
     [
+      weather, ##BEAN - Weather
       (ti_before_mission_start, 0, 0, [],
        [
          (call_script, "script_change_banners_and_chest"),
@@ -3886,6 +4000,7 @@ mission_templates = [
       (20, mtef_visitor_source,0,0,1,[]),
     ],
     [
+      weather, ##BEAN - Weather
       (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
 
       common_arena_fight_tab_press,
@@ -3947,6 +4062,7 @@ mission_templates = [
       (15,mtef_visitor_source,af_override_weapons|af_override_horse|af_override_head,0,1,[]),
     ],
     [
+      weather, ##BEAN - Weather
       (ti_before_mission_start, 0, 0, [],
        [
          (assign, "$g_last_destroyed_gourds", 0),
@@ -4058,7 +4174,7 @@ mission_templates = [
        [
          (eq, "$g_mt_mode", ctm_melee),
          (this_or_next|main_hero_fallen),
-         (num_active_teams_le, 1)
+         (num_active_teams_le, 1),
          ],
        [
          (try_begin),
@@ -4226,6 +4342,7 @@ mission_templates = [
       common_move_deathcam,
       common_rotate_deathcam,
       ##BEAN END - Deathcam
+      weather, ##BEAN - Weather
 
       (ti_before_mission_start, 0, 0, [],
       [
@@ -4369,6 +4486,7 @@ mission_templates = [
 #     (4,mtef_enemy_party|mtef_reverse_order,0,aif_start_alarmed,0,[]),
      ],
     [
+      weather, ##BEAN - Weather
 #      (ti_before_mission_start, 0, 0, [], [(set_rain, 1,100), (set_fog_distance, 10)]),
       (ti_tab_pressed, 0, 0, [],
        [(finish_mission,0)]),
@@ -4482,6 +4600,7 @@ mission_templates = [
       (58, mtef_visitor_source|mtef_team_2, 0, aif_start_alarmed, 1, []),
     ],
     [
+      weather, ##BEAN - Weather
       common_inventory_not_available,
       (ti_tab_pressed, 0, 0, [(display_message, "str_cannot_leave_now", color_neutral_news)], []), ##BEAN - Color Coded Messages
       (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
@@ -4550,6 +4669,7 @@ mission_templates = [
 	  (16, mtef_visitor_source|mtef_team_1,af_override_all,aif_start_alarmed,1,[itm_sword_medieval_a,itm_arena_tunic_blue]),
     ],
     [
+      weather, ##BEAN - Weather
       common_inventory_not_available,
       (ti_tab_pressed, 0, 0, [(display_message, "str_cannot_leave_now", color_neutral_news)], []), ##BEAN - Color Coded Messages
       (ti_before_mission_start, 0, 0, [], [(call_script, "script_change_banners_and_chest")]),
@@ -5262,6 +5382,7 @@ mission_templates = [
       (64,mtef_visitor_source|mtef_team_0,af_override_weapons,aif_start_alarmed,1,[itm_practice_bow, itm_practice_arrows]),
       ],
     [
+      weather, ##BEAN - Weather
       (ti_tab_pressed, 0, 0, [],
        [(try_begin),
          (lt, "$g_tutorial_training_ground_state", 20),
@@ -6774,6 +6895,7 @@ mission_templates = [
         (0,mtef_leader_only,af_override_everything,0,1,[itm_tutorial_shield,itm_tutorial_sword,itm_tutorial_short_bow,itm_tutorial_arrows,itm_leather_jerkin,itm_leather_boots]), #af_override_weapons
      ],
     [
+      weather, ##BEAN - Weather
       (ti_tab_pressed, 0, 0, [],
        [(try_begin),
          (lt, "$tutorial_1_state", 5),
@@ -6984,6 +7106,7 @@ mission_templates = [
         (4,mtef_visitor_source|mtef_team_1,0,0,1,[]),
      ],
     [
+      weather, ##BEAN - Weather
       (ti_tab_pressed, 0, 0, [],
        [(try_begin),
          (lt, "$tutorial_2_state", 9),
@@ -7269,6 +7392,7 @@ mission_templates = [
         (5,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
      ],
     [
+      weather, ##BEAN - Weather
       (ti_tab_pressed, 0, 0, [],
        [(try_begin),
          (lt, "$tutorial_3_state", 12),
@@ -7526,6 +7650,7 @@ mission_templates = [
         (6,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
      ],
     [
+      weather, ##BEAN - Weather
       (ti_tab_pressed, 0, 0, [],
        [(try_begin),
          (lt, "$tutorial_3_state", 5),
@@ -7678,6 +7803,7 @@ mission_templates = [
         (0,mtef_leader_only|mtef_team_0,af_override_everything,0,1,[itm_tutorial_sword,itm_tutorial_short_bow,itm_tutorial_arrows,itm_leather_jerkin,itm_leather_boots]), #af_override_weapons
      ],
     [
+      weather, ##BEAN - Weather
       (ti_tab_pressed, 0, 0, [],
        [(try_begin),
          (lt, "$tutorial_4_state", 11),
@@ -7904,6 +8030,7 @@ mission_templates = [
         (16,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
      ],
     [
+      weather, ##BEAN - Weather
       (ti_tab_pressed, 0, 0, [],
        [(try_begin),
          (lt, "$tutorial_5_state", 5),
@@ -8130,6 +8257,13 @@ mission_templates = [
       (31,mtef_visitor_source|mtef_team_1,0,aif_start_alarmed,1,[]),
      ],
     [
+      ##BEAN BEGIN - Deathcam
+      common_init_deathcam,
+      common_start_deathcam,
+      common_move_deathcam,
+      common_rotate_deathcam,
+      ##BEAN END - Deathcam
+      weather, ##BEAN - Weather
       common_custom_battle_tab_press,
       common_custom_battle_question_answered,
       common_inventory_not_available,
@@ -8219,6 +8353,7 @@ mission_templates = [
       common_move_deathcam,
       common_rotate_deathcam,
       ##BEAN END - Deathcam
+      weather, ##BEAN - Weather
 
       common_battle_mission_start,
       common_battle_init_banner,
@@ -13916,6 +14051,7 @@ mission_templates = [
       common_move_deathcam,
       common_rotate_deathcam,
       ##BEAN END - Deathcam
+      weather, ##BEAN - Weather
 
       common_battle_init_banner,
 
@@ -14307,6 +14443,7 @@ mission_templates = [
       common_move_deathcam,
       common_rotate_deathcam,
       ##BEAN END - Deathcam
+      weather, ##BEAN - Weather
 
       common_battle_init_banner,
 
@@ -14654,6 +14791,13 @@ mission_templates = [
 	  (47,mtef_visitor_source|mtef_team_1,af_override_horse,aif_start_alarmed,1,[]),
     ],
     [
+      ##BEAN BEGIN - Deathcam
+      common_init_deathcam,
+      common_start_deathcam,
+      common_move_deathcam,
+      common_rotate_deathcam,
+      ##BEAN END - Deathcam
+      weather, ##BEAN - Weather
       common_battle_init_banner,
 
       (ti_on_agent_spawn, 0, 0, [],
@@ -14799,20 +14943,20 @@ mission_templates = [
       (3, 0, 0,
       [
         (lt, "$merchant_sign_count", 8),
-  	    (call_script, "script_tick_town_walkers")
+  	    (call_script, "script_tick_town_walkers"),
   	  ],
 	  []),
 
       (2, 0, 0,
       [
-        (call_script, "script_center_ambiance_sounds")
+        (call_script, "script_center_ambiance_sounds"),
       ],
       []),
 
       (ti_before_mission_start, 0, 0,
       [],
       [
-        (call_script, "script_change_banners_and_chest")
+        (call_script, "script_change_banners_and_chest"),
       ]),
 
       (1, 4, ti_once,
