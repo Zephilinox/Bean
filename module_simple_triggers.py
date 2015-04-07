@@ -4042,6 +4042,31 @@ simple_triggers = [
     ##BEAN END - Extra Trade Goods
 
    ]),
+
+  ##BEAN BEGIN - Dynamic Arrays
+  # array Garbage Collection.  Will delete all arrays marked for deletion (-ve value for owner), or if their owner (party) is no longer active
+  (1, [
+      #(display_log_message, "@array GC"),
+
+      (try_for_parties, ":array"),
+          (call_script, "script_cf_array_is_array", ":array"),
+          (call_script, "script_array_get_owner", ":array"),
+          (assign, ":owner", reg0),
+          (try_begin),
+              (this_or_next|eq, ":owner", 0), # no GC
+              (party_is_active, ":owner"),
+              #(display_log_message, "@array GC: owner active or is 0"),
+          (else_try),
+              (assign, reg21, ":array"),
+              #(display_log_message, "@array GC: removing {reg21}"),
+              # do garbage collection
+              (call_script, "script_array_destroy", ":array"),
+          (try_end),
+
+      (try_end),
+  ]),
+  ##BEAN END - Dynamic Arrays
+
   (24,
    []),
   (24,
@@ -4060,4 +4085,5 @@ simple_triggers = [
    []),
   (24,
    []),
+
 ]

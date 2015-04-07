@@ -1,5 +1,5 @@
 itemsfile version 3
-588
+589
  itm_no_item INVALID_ITEM INVALID_ITEM 1  invalid_item 0  12582914 9223388529554358287 3 0 1.500000 100 0 0 0 0 0 103 0 90 0 522 528
  0
 0
@@ -305,6 +305,10 @@ itemsfile version 3
 0
 
  itm_book_surgery_reference The_Great_Book_of_Surgery The_Great_Book_of_Surgery 1  book_c 0  20 0 3500 0 2.000000 100 0 0 0 0 0 0 0 0 0 0 0
+ 0
+0
+
+ itm_book_trade_ledger Merchant's_Ledger Merchant's_Ledger 1  book_open 0  20 0 3500 0 2.000000 100 0 0 0 0 0 0 0 0 0 0 0
  0
 0
 

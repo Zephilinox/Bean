@@ -1156,6 +1156,43 @@ troop_tree_left    = 60
 
 battle_ratio_multiple = 200 ##BEAN - Overhauled Morale
 
+##BEAN BEGIN - Dynamic Arrays
+array_signature     = 0xFFFE # Just a magic number.  But should not be changed if desire to be compativle with older save-games
+array_version       = 1 # marks the current structure version of array, possibly allowing graceful upgrading of older versions of arrays in existing savegame
+array_slot_offset   = 1000 # start of array values.  Shifted up by 1000 to avoid clash with other party slots
+
+slot_array_0        = array_slot_offset  # first element
+
+# generate constants from slot_array_1 to slot_array_99, the lazy fashion
+try:
+    import sys
+    module = sys.modules[__name__]
+    for i in range(1,100):
+      setattr(module, "slot_array_%d"%(i), eval("slot_array_%d+1" %(i-1)))
+except:
+    raise
+
+
+slot_array_size     = 999 # stores current size of array
+slot_array_owner    = 998 #(if 0, array will never be cleaned up, otherwise, this is the party id that owns the array, and when party no longer exists, the array can be cleaned up)
+slot_array_signature= 997 # a special slot that will contain a magic value (array_signature) that identifies that this is array
+slot_array_version  = 996 # see array_version
+##BEAN END - Dynamic Arrays
+
+##BEAN BEGIN - Trade Ledger
+spt_array = -1
+slot_troop_trade_ledger = 155
+#sub-array party ID storage as ledger array element:
+date_array        = 0
+town_array        = 1
+item_array        = 2
+destination_array = 3
+profit_array      = 4
+num_ledger_sub_arrays = profit_array - date_array + 1
+#custom assess items list
+custom_assess_begin = num_ledger_sub_arrays
+##BEAN END - Trade Ledger
+
 ########################################################
 rel_enemy   = 0
 rel_neutral = 1

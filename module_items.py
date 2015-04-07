@@ -149,6 +149,8 @@ items = [
  ["book_wound_treatment_reference","The Book of Healing", [("book_c",0)], itp_type_book, 0, 3500,weight(2)|abundance(100),imodbits_none],
  ["book_training_reference","Manual of Arms", [("book_open",0)], itp_type_book, 0, 3500,weight(2)|abundance(100),imodbits_none],
  ["book_surgery_reference","The Great Book of Surgery", [("book_c",0)], itp_type_book, 0, 3500,weight(2)|abundance(100),imodbits_none],
+ ["book_trade_ledger","Merchant's Ledger", [("book_open",0)], itp_type_book, 0, 3500,weight(2)|abundance(100),imodbits_none], ##BEAN - Trade Ledger
+
 
   ##BEAN BEGIN - Improved Trade Goods
   # Common trade goods

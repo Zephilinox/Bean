@@ -878,10 +878,10 @@ troops = [
 # Tavern traveler.
   ["tavern_bookseller_1","Book_Merchant","Book_Merchant",tf_hero|tf_is_merchant|tf_randomize_face, 0, reserved, fac_commoners,[itm_fur_coat,itm_hide_boots,
                itm_book_tactics, itm_book_persuasion, itm_book_wound_treatment_reference, itm_book_leadership,
-               itm_book_intelligence, itm_book_training_reference, itm_book_surgery_reference],def_attrib|level(5),wp(20),knows_common,merchant_face_1,merchant_face_2],
+               itm_book_intelligence, itm_book_training_reference, itm_book_surgery_reference,itm_book_trade_ledger],def_attrib|level(5),wp(20),knows_common,merchant_face_1,merchant_face_2],
   ["tavern_bookseller_2","Book_Merchant","Book_Merchant",tf_hero|tf_is_merchant|tf_randomize_face, 0, reserved, fac_commoners,[itm_fur_coat,itm_hide_boots,
                itm_book_wound_treatment_reference, itm_book_leadership, itm_book_intelligence, itm_book_trade,
-               itm_book_engineering, itm_book_weapon_mastery],def_attrib|level(5),wp(20),knows_common,merchant_face_1, merchant_face_2],
+               itm_book_engineering, itm_book_weapon_mastery,itm_book_trade_ledger],def_attrib|level(5),wp(20),knows_common,merchant_face_1, merchant_face_2],
 
 # Tavern minstrel.
   ["tavern_minstrel_1","Wandering Minstrel","Minstrel",tf_hero|tf_randomize_face|tf_guarantee_shield|tf_guarantee_armor|tf_guarantee_boots, 0, reserved, fac_commoners,[itm_leather_jacket, itm_hide_boots, itm_lute],def_attrib|level(5),wp(20),knows_common,merchant_face_1,merchant_face_2], #lute

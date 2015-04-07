@@ -564,6 +564,35 @@ game_menus = [
       ),
       ##BEAN END - View All Items
 
+      ##BEAN BEGIN - Trade Ledger
+      ("action_view_trade_ledger",
+          [
+              (store_item_kind_count, reg0, "itm_book_trade_ledger"),
+              (ge, reg0, 1),
+              #Ensure it has been written to:
+              (assign, reg60, 0),
+              (troop_slot_ge, "trp_player", slot_troop_trade_ledger, 1),
+              (troop_get_slot, ":ledger", "trp_player", slot_troop_trade_ledger),
+              (call_script, "script_cf_array_is_array", ":ledger"),
+              (call_script, "script_array_get_element", ":ledger", date_array),
+              (call_script, "script_array_get_size", reg0),
+              (ge, reg0, 1),
+              (assign, reg60, 1),
+          ],"View Your Trade Ledger.",
+          [
+              (assign, reg60, 0), #begin in Default view
+              (start_presentation, "prsnt_trade_ledger_basic"),
+          ]),
+      ("action_view_trade_ledger_denied",
+          [
+          #Only show this when the player owns a ledger, but has not written to it yet
+              (store_item_kind_count, reg0, "itm_book_trade_ledger"),
+              (ge, reg0, 1),
+              (eq, reg60, 0), #from above; hasn't been written to
+              (disable_menu_option),
+          ], "Assess Items to start your Trade Ledger.", []),
+      ##BEAN END - Trade Ledger
+
       ("view_character_report",[],"View character report.",
        [(jump_to_menu, "mnu_character_report"),
         ]
@@ -947,7 +976,13 @@ game_menus = [
   ("start_game_1",menu_text_color(0xFF000000)|mnf_disable_all_keys,
     "Select your character's gender.",
     "none",
-    [],
+    [
+      ##BEAN BEGIN - Trade Ledger
+      (set_show_messages, 0),
+      (troop_add_item, "trp_player", "itm_book_trade_ledger"),
+      (set_show_messages, 1),
+      ##BEAN END - Trade Ledger
+    ],
     [
       ("start_male",[],"Male",
        [
@@ -11421,6 +11456,70 @@ game_menus = [
          (str_store_party_name, s5, ":best_result_1_town"),
          (str_store_string, s3, "@^Buying {s4} here and selling it at {s5} would bring a profit of {reg6} denars per item.{s3}"),
        (try_end),
+        #BEAN BEGIN - Trade Ledger
+        (try_begin),
+            (gt, ":num_best_results", 0),
+            (store_item_kind_count, reg0, "itm_book_trade_ledger"),
+            (ge, reg0, 1),
+            (assign, ":num_to_write", ":num_best_results"), ##To deal with maximum of 15 script arguments had to break into 2 "write" operations
+            (val_min, ":num_to_write", 3),
+            (call_script, "script_trade_ledger_write", ":num_to_write", "trp_player", ":best_result_1_item", ":best_result_1_town", ":best_result_1_profit", ":best_result_2_item", ":best_result_2_town", ":best_result_2_profit", ":best_result_3_item", ":best_result_3_town", ":best_result_3_profit"),
+            (gt, ":num_best_results", ":num_to_write"),
+            (store_sub, ":num_to_write", ":num_best_results", ":num_to_write"),
+            (call_script, "script_trade_ledger_write", ":num_to_write", "trp_player", ":best_result_4_item", ":best_result_4_town", ":best_result_4_profit", ":best_result_5_item", ":best_result_5_town", ":best_result_5_profit"),
+        (try_end),
+        (try_begin),
+            (troop_slot_ge, "trp_player", slot_troop_trade_ledger, 1),
+            (troop_get_slot, ":ledger", "trp_player", slot_troop_trade_ledger),
+            (call_script, "script_cf_array_is_array", ":ledger"),
+            (call_script, "script_array_get_size", ":ledger"),
+            (gt, reg0, custom_assess_begin), #There are items slotted to assess
+            (assign, ":ledger_length", reg0),
+            (try_for_range, ":i", custom_assess_begin, ":ledger_length"),
+                (call_script, "script_cf_array_get_element", ":ledger", ":i"),
+                (is_between, reg0, trade_goods_begin, trade_goods_end),
+                (neq, ":best_result_1_item", reg0),
+                (neq, ":best_result_2_item", reg0),
+                (neq, ":best_result_3_item", reg0),
+                (neq, ":best_result_4_item", reg0),
+                (neq, ":best_result_5_item", reg0), #Not already included in the standard run of "assess prices"
+                (assign, ":trade_good", reg0),
+                #Check if it can be bought
+                (party_get_slot, ":merchant", "$current_town", slot_town_merchant),
+                (store_item_kind_count, reg0, ":trade_good", ":merchant"),
+                (ge, reg0, 1), #The merchant carries it
+                (store_mul, ":max_iteration", ":num_towns", ":max_skill"),
+                (val_div, ":max_iteration", 10),
+                (assign, ":profit", 0),
+                (assign, ":dest_town", -1),
+                (try_for_range, ":unused", 0, ":max_iteration"),
+                    (store_random_in_range, ":random_town", towns_begin, towns_end),
+                    (neq, ":random_town", ":dest_town"),
+                    (store_item_value, ":trade_good_price", ":trade_good"),
+                    (assign, "$g_encountered_party", ":org_encountered_party"),
+                    (call_script, "script_game_get_item_buy_price_factor", ":trade_good"),
+                    (store_mul, ":trade_good_buy_price", ":trade_good_price", reg0),
+                    (val_div, ":trade_good_buy_price", 100),
+                    (val_max, ":trade_good_buy_price", 1),
+                    (assign, "$g_encountered_party", ":random_town"),
+                    (call_script, "script_game_get_item_sell_price_factor", ":trade_good"),
+                    (store_mul, ":trade_good_sell_price", ":trade_good_price", reg0),
+                    (val_div, ":trade_good_sell_price", 100),
+                    (val_max, ":trade_good_sell_price", 1),
+                    (store_sub, ":difference", ":trade_good_sell_price", ":trade_good_buy_price"),
+                    (gt, ":difference", ":profit"),
+                    (assign, ":dest_town", ":random_town"),
+                    (assign, ":profit", ":difference"),
+                (try_end), #Best price loop
+                (neq, ":dest_town", -1),
+                (str_store_item_name, s4, ":trade_good"),
+                (str_store_party_name, s5, ":dest_town"),
+                (str_store_string, s3, "@^Buying {s4} here and selling it at {s5} would bring a profit of {reg6} denars per item.{s3}"),
+                (call_script, "script_trade_ledger_write", 1, "trp_player", ":trade_good", ":dest_town", ":profit"),
+            (try_end), #Custom Item loop
+            (assign, "$g_encountered_party", ":org_encountered_party"),
+        (try_end),
+        #BEAN END - Trade Ledger
        (str_store_string, s2, "@{reg3?You find:{s1} finds} out the following:^{s3}"),
      (try_end),
      ],

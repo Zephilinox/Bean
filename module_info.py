@@ -11,7 +11,7 @@ export_dir = "Bean/"
 
 #write_id_files = "ID_%s.py"    # default vanilla-compatible option
 #write_id_files = "ID/ID_%s.py" # will put ID_* files in ID/ subfolder of module system's folder
-write_id_files = None          # will suppress generation of ID_*.py files
+#write_id_files = None          # will suppress generation of ID_*.py files
 
 
 # Set to True to display compiler performance information at the end of compilation. Set to False to suppress.
