@@ -1119,3 +1119,4 @@ deathcam_keyboard_rotation_x
 deathcam_keyboard_rotation_y
 deathcam_flip_y_multiplier
 deathcam_player_team
+battle_ratio
