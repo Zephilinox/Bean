@@ -6337,25 +6337,25 @@ scripts = [
       (item_set_slot, "itm_pork", slot_item_desert_demand, -1),
 
       ##BEAN BEGIN - Extra Trade Goods
-      #(item_set_slot, "itm_carpet", slot_item_urban_demand, 3),
-      #(item_set_slot, "itm_carpet", slot_item_rural_demand, 1),
-      #(item_set_slot, "itm_carpet", slot_item_desert_demand, 2),
+      #(item_set_slot, "itm_carpet", slot_item_urban_demand, 9),
+      #(item_set_slot, "itm_carpet", slot_item_rural_demand, 3),
+      #(item_set_slot, "itm_carpet", slot_item_desert_demand, 6),
 
-      #(item_set_slot, "itm_rug", slot_item_urban_demand, 3),
-      #(item_set_slot, "itm_rug", slot_item_rural_demand, 1),
-      #(item_set_slot, "itm_rug", slot_item_desert_demand, 2),
+      #(item_set_slot, "itm_rug", slot_item_urban_demand, 9),
+      #(item_set_slot, "itm_rug", slot_item_rural_demand, 3),
+      #(item_set_slot, "itm_rug", slot_item_desert_demand, 6),
 
-      #(item_set_slot, "itm_mattress", slot_item_urban_demand, 3),
-      #(item_set_slot, "itm_mattress", slot_item_rural_demand, 1),
-      #(item_set_slot, "itm_mattress", slot_item_desert_demand, 1),
+      #(item_set_slot, "itm_mattress", slot_item_urban_demand, 9),
+      #(item_set_slot, "itm_mattress", slot_item_rural_demand, 3),
+      #(item_set_slot, "itm_mattress", slot_item_desert_demand, 3),
 
-      #(item_set_slot, "itm_lyre_renowned", slot_item_urban_demand, 4),
-      #(item_set_slot, "itm_lyre_renowned", slot_item_rural_demand, 2),
-      #(item_set_slot, "itm_lyre_renowned", slot_item_desert_demand, 3),
+      #(item_set_slot, "itm_lyre_renowned", slot_item_urban_demand, 8),
+      #(item_set_slot, "itm_lyre_renowned", slot_item_rural_demand, 4),
+      #(item_set_slot, "itm_lyre_renowned", slot_item_desert_demand, 6),
 
-      #(item_set_slot, "itm_lute_renowned", slot_item_urban_demand, 4),
-      #(item_set_slot, "itm_lute_renowned", slot_item_rural_demand, 2),
-      #(item_set_slot, "itm_lute_renowned", slot_item_desert_demand, 3),
+      #(item_set_slot, "itm_lute_renowned", slot_item_urban_demand, 8),
+      #(item_set_slot, "itm_lute_renowned", slot_item_rural_demand, 4),
+      #(item_set_slot, "itm_lute_renowned", slot_item_desert_demand, 6),
 
       #(item_set_slot, "itm_roast_fish", slot_item_urban_demand, 16),
       #(item_set_slot, "itm_roast_fish", slot_item_rural_demand, 16),
