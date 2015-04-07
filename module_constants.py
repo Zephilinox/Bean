@@ -1154,6 +1154,8 @@ troop_tree_space_y = 140#170
 troop_tree_left    = 60
 ##BEAN END - Dynamic Kingdom Troop Tree
 
+battle_ratio_multiple = 200 ##BEAN - Overhauled Morale
+
 ########################################################
 rel_enemy   = 0
 rel_neutral = 1

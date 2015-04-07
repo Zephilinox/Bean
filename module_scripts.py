@@ -26119,7 +26119,7 @@ scripts = [
       (try_end),
   ]), #ozan
 
-
+  ##BEAN BEGIN - Overhauled Morale
   # script_apply_death_effect_on_courage_scores
   # Input: dead agent id, killer agent id
   # Output: none
@@ -26159,7 +26159,8 @@ scripts = [
 
           (try_begin),
             (eq, ":is_dead_agent_ally", ":is_agent_ally"),
-            (val_add, ":number_of_near_allies_to_dead_agent", 1), # (number_of_near_allies_to_dead_agent) is counted because if there are
+            (val_add, ":number_of_near_allies_to_dead_agent", 1), #was 1
+                                  # (number_of_near_allies_to_dead_agent) is counted because if there are
           (try_end),                                              # many allies of dead agent around him, negative courage effect become less.
         (try_end),
 
@@ -26176,24 +26177,27 @@ scripts = [
 
           (try_begin), # each agent is effected by a killed agent positively if he is rival or negatively if he is ally.
             (neq, ":is_dead_agent_ally", ":is_agent_ally"),
-            (assign, ":agent_delta_courage_score", 10),  # if killed agent is agent of rival side, add points to fear score
+            (assign, ":agent_delta_courage_score", 1),  # if killed agent is agent of rival side, add points to fear score #was 10
           (else_try),
-            (assign, ":agent_delta_courage_score", -15), # if killed agent is agent of our side, decrease points from fear score
+            (assign, ":agent_delta_courage_score", -4), # if killed agent is agent of our side, decrease points from fear score
+#was -15, fear score
             (val_add, ":agent_delta_courage_score", ":number_of_near_allies_to_dead_agent"), # ":number_of_near_allies_to_dead_agent" is added because if there are many
             (try_begin),                                                                     # allies of dead agent around him, negative courage effect become less.
-              (gt, ":agent_delta_courage_score", -5),
-              (assign, ":agent_delta_courage_score", -5),
+              (gt, ":agent_delta_courage_score", -2), #was -5
+              (assign, ":agent_delta_courage_score", -2), #was -5
             (try_end),
 
             (agent_get_slot, ":dead_agent_was_running_away_or_not", ":dead_agent_no",  slot_agent_is_running_away), #look dead agent was running away or not.
             (try_begin),
               (eq, ":dead_agent_was_running_away_or_not", 1),
-              (val_div, ":agent_delta_courage_score", 3),  # if killed agent was running away his negative effect on ally courage scores become very less. This added because
+              (val_div, ":agent_delta_courage_score", 3), #was 3 # if killed agent was running away his negative effect on ally courage scores become very less. This added because
             (try_end),                                     # running away agents are easily killed and courage scores become very in a running away group after a time, and
           (try_end),                                       # they do not stop running away althought they pass near a new powerfull ally party.
           (agent_get_position, pos1, ":agent_no"),
           (get_distance_between_positions, ":dist", pos0, pos1),
 
+#if selected agent is the one who killed dead agent, multiply effect by 20
+#BEGIN
           (try_begin),
             (eq, ":killer_agent_no", ":agent_no"),
             (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
@@ -26201,17 +26205,27 @@ scripts = [
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
             (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           (try_end),
+#END
+
+#caps courage at 10,000; prevents unbreakable morale issue
+#BEGIN
+          (try_begin),
+            (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
+      (ge, ":agent_courage_score", 10000),
+            (agent_set_slot, ":agent_no", slot_agent_courage_score, 10000),
+          (try_end),
+#END
 
           (try_begin),
             (lt, ":dist", 100), #0-1 meters
             (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
-            (val_mul, ":agent_delta_courage_score", 150),
+            (val_mul, ":agent_delta_courage_score", 100), #was 150
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
             (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           (else_try),
             (lt, ":dist", 200), #2 meters
             (agent_get_slot, ":agent_courage_score", ":agent_no", slot_agent_courage_score),
-            (val_mul, ":agent_delta_courage_score", 120),
+            (val_mul, ":agent_delta_courage_score", 100), #was 120
             (val_add, ":agent_courage_score", ":agent_delta_courage_score"),
             (agent_set_slot, ":agent_no", slot_agent_courage_score, ":agent_courage_score"),
           (else_try),
@@ -26287,6 +26301,7 @@ scripts = [
       (store_script_param, ":cur_agent", 1),
       (store_script_param, ":mission_time", 2),
 
+    #this section handles troops that have been ordered to retreat BEGIN
       (assign, ":force_retreat", 0),
       (agent_get_team, ":agent_team", ":cur_agent"),
       (agent_get_division, ":agent_division", ":cur_agent"),
@@ -26296,26 +26311,54 @@ scripts = [
         (eq, ":agent_movement_order", mordr_retreat),
         (assign, ":force_retreat", 1),
       (try_end),
+    #this section handles troops that have been ordered to retreat END
 
+    #this section handles decides whether agents should rout BEGIN
       (agent_get_slot, ":is_cur_agent_running_away", ":cur_agent", slot_agent_is_running_away),
       (try_begin),
         (eq, ":is_cur_agent_running_away", 0),
         (try_begin),
           (eq, ":force_retreat", 1),
+
           (agent_start_running_away, ":cur_agent"),
           (agent_set_slot, ":cur_agent",  slot_agent_is_running_away, 1),
         (else_try),
-          (ge, ":mission_time", 45), #first 45 seconds anyone does not run away whatever happens.
+          (ge, ":mission_time", 4), #first 4 seconds anyone does not run away whatever happens.
           (agent_get_slot, ":agent_courage_score", ":cur_agent",  slot_agent_courage_score),
           (store_agent_hit_points, ":agent_hit_points", ":cur_agent"),
           (val_mul, ":agent_hit_points", 4),
-          (try_begin),
+    #jacobhinds edit: measure battle ratio begin
+    (store_add, ":enemy_dead", "$g_battle_enemies_wounded", "$g_battle_enemies_dead"),
+    (val_add, ":enemy_dead", "$g_battle_us_ready"),
+
+    (val_add, ":enemy_dead", "$g_battle_allies_ready"),
+
+    (store_add, ":ally_dead", "$g_battle_us_dead", "$g_battle_allies_dead"),
+    (val_add, ":ally_dead", "$g_battle_us_wounded"),
+    (val_add, ":ally_dead", "$g_battle_allies_wounded"),
+
+    (val_add, ":ally_dead", "$g_battle_enemies_ready"),
+
+    (try_begin),
+      (ge, ":enemy_dead", 1),
+      (ge, ":ally_dead", 1),  #prevents a divide by zero situation
+      (try_begin),
+            (neg|agent_is_ally, ":cur_agent"),
+      (store_div, "$battle_ratio", ":enemy_dead", ":ally_dead"), #enemy dead/ally dead -- positive value favours ally
+          (else_try),
             (agent_is_ally, ":cur_agent"),
-            (val_sub, ":agent_hit_points", 100), #ally agents will be more tend to run away, to make game more funnier/harder
+      (store_div, "$battle_ratio", ":ally_dead", ":enemy_dead"), #ally dead/enemy dead -- positive value favours enemy
           (try_end),
+    (try_end),
+
+      (try_begin),
+      (store_mul, ":courage_malus", "$battle_ratio", battle_ratio_multiple), #courage multiple
+      (val_add, ":agent_hit_points", ":courage_malus"),
+      (try_end),
+    #jacobhinds edit: measure battle ratio end
           (val_mul, ":agent_hit_points", 10),
-          (store_sub, ":start_running_away_courage_score_limit", 3500, ":agent_hit_points"),
-          (lt, ":agent_courage_score", ":start_running_away_courage_score_limit"), #if (courage score < 3500 - (agent hit points * 40)) and (agent is not running away) then start running away, average hit points : 50, average running away limit = 1500
+          (store_sub, ":start_running_away_courage_score_limit", 1700, ":agent_hit_points"), #was 3500
+          (lt, ":agent_courage_score", ":start_running_away_courage_score_limit"),
 
           (agent_get_troop_id, ":troop_id", ":cur_agent"), #for now do not let heroes to run away from battle
           (neg|troop_is_hero, ":troop_id"),
@@ -26323,22 +26366,53 @@ scripts = [
           (agent_start_running_away, ":cur_agent"),
           (agent_set_slot, ":cur_agent",  slot_agent_is_running_away, 1),
         (try_end),
+    #this section handles decides whether agents should rout END
+
+    #this section handles decides whether routing agents should return to the battle BEGIN
       (else_try),
         (neq, ":force_retreat", 1),
         (agent_get_slot, ":agent_courage_score", ":cur_agent",  slot_agent_courage_score),
         (store_agent_hit_points, ":agent_hit_points", ":cur_agent"),
         (val_mul, ":agent_hit_points", 4),
-        (try_begin),
-          (agent_is_ally, ":cur_agent"),
-          (val_sub, ":agent_hit_points", 100), #ally agents will be more tend to run away, to make game more funnier/harder
-        (try_end),
+
+    #jacobhinds edit: measure battle ratio begin
+    (store_add, ":enemy_dead", "$g_battle_enemies_wounded", "$g_battle_enemies_dead"),
+    (val_add, ":enemy_dead", "$g_battle_us_ready"),
+
+    (val_add, ":enemy_dead", "$g_battle_allies_ready"),
+
+    (store_add, ":ally_dead", "$g_battle_us_dead", "$g_battle_allies_dead"),
+    (val_add, ":ally_dead", "$g_battle_us_wounded"),
+    (val_add, ":ally_dead", "$g_battle_allies_wounded"),
+
+    (val_add, ":ally_dead", "$g_battle_enemies_ready"),
+
+    (try_begin),
+      (ge, ":enemy_dead", 1),
+      (ge, ":ally_dead", 1),  #prevents a divide by zero situation
+      (try_begin),
+            (neg|agent_is_ally, ":cur_agent"),
+      (store_div, "$battle_ratio", ":enemy_dead", ":ally_dead"), #enemy dead/ally dead -- positive value favours ally
+          (else_try),
+            (agent_is_ally, ":cur_agent"),
+      (store_div, "$battle_ratio", ":ally_dead", ":enemy_dead"), #ally dead/enemy dead -- positive value favours enemy
+          (try_end),
+    (try_end),
+
+      (try_begin),
+      (store_mul, ":courage_malus", "$battle_ratio", battle_ratio_multiple), #courage multiple
+      (val_add, ":agent_hit_points", ":courage_malus"),
+      (try_end),
+      #jacobhinds edit: measure battle ratio end
         (val_mul, ":agent_hit_points", 10),
-        (store_sub, ":stop_running_away_courage_score_limit", 3700, ":agent_hit_points"),
-        (ge, ":agent_courage_score", ":stop_running_away_courage_score_limit"), #if (courage score > 3700 - agent hit points) and (agent is running away) then stop running away, average hit points : 50, average running away limit = 1700
+        (store_sub, ":stop_running_away_courage_score_limit", 2000, ":agent_hit_points"),
+        (ge, ":agent_courage_score", ":stop_running_away_courage_score_limit"),
         (agent_stop_running_away, ":cur_agent"),
         (agent_set_slot, ":cur_agent",  slot_agent_is_running_away, 0),
       (try_end),
+      #this section handles decides whether routing agents should return to the battle END
   ]), #ozan
+  ##BEAN END - Overhauled Morale
 
   # script_battle_tactic_apply
   # Input: none
@@ -48228,4 +48302,21 @@ scripts = [
   # rubik's CC scripts END
   ##BEAN END - Dynamic Faction Troop Tree
 
+  ##BEAN BEGIN - Overhauled Morale
+  #script_all_enemies_routed
+  # This script checks that all enemies are routed or killed.
+  # INPUT: none
+  # OUTPUT: reg0 = enemies routed 0 or 1
+  ("all_enemies_routed",
+    [
+        (try_for_agents, ":agent"),
+        (neg|agent_is_ally, ":agent"),
+        (agent_is_alive, ":agent"),
+        (agent_get_slot, ":routing", ":agent", slot_agent_is_running_away),
+        (eq, ":routing", 0),
+        (val_add, reg0, 1),
+         (try_end),
+    ]
+  ),
+  ##BEAN END - Overhauled Morale
 ]

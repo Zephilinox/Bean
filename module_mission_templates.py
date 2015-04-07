@@ -1347,9 +1347,13 @@ common_battle_check_victory_condition = (
   1, 60, ti_once,
   [
     (store_mission_timer_a, reg(1)),
-    (ge, reg(1), 10),
-    (all_enemies_defeated, 5),
-    #(neg|main_hero_fallen, 0),
+    (ge, reg1, 10),
+    ##BEAN BEGIN - Overhauled Morale
+    #(all_enemies_defeated, 5),
+    (call_script, "script_all_enemies_routed"),
+    (eq, reg0, 0),
+    ##BEAN END - Overhauled Morale
+    #(neg|main_hero_fallen, 0), ##BEAN - Deathcam
     (set_mission_result, 1),
     (display_message, "str_msg_battle_won", color_great_news), ##BEAN - Color Coded Messages
     (assign, "$g_battle_won",1),
@@ -2889,9 +2893,11 @@ mission_templates = [
         #(call_script, "script_battle_calculate_initial_powers"), #deciding run away method changed and that line is erased
         ]),
 
-      (3, 0, 0, [
-          (call_script, "script_apply_effect_of_other_people_on_courage_scores"),
-              ], []), #calculating and applying effect of people on others courage scores
+      ##BEAN BEGIN - Overhauled Morale
+      #(3, 0, 0, [
+      #    (call_script, "script_apply_effect_of_other_people_on_courage_scores"),
+      #        ], []), #calculating and applying effect of people on others courage scores
+      ##BEAN END - Overhauled Morale
 
       (3, 0, 0, [
           (try_for_agents, ":agent_no"),
@@ -3046,7 +3052,7 @@ mission_templates = [
       (1, 60, ti_once,
        [
          (store_mission_timer_a,reg(1)),
-         (ge,reg(1),10),
+         (ge,reg1,10),
          (all_enemies_defeated, 5),
          (neg|main_hero_fallen, 0),
          (set_mission_result,1),
