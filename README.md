@@ -39,9 +39,7 @@ jacobhinds              Overhauled Morale & Routing                     ##BEAN -
 sphere, Caba`drin       Dynamic Arrays                                  plugin_dynamic_arrays.py
 Caba`drin               Merchant Trade Ledger                           ##BEAN - Trade Ledger
 rubik                   Sort Party Troops                               ##BEAN - Sort Party Troops
-```
 
-```
 Zephilinox              Enabled Native Custom Banners                   ##BEAN - Custom Banners
 Zephilinox              Extra Trade Goods                               ##BEAN - Extra Trade Goods
 Zephilinox              Weather                                         ##BEAN - Weather
