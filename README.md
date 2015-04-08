@@ -10,3 +10,4 @@ Openshaw    Expanded Horizons
 rubik       View All Items
 sphere      Dynamic Arrays
 Caba`drin   Merchant Trade Ledger
+rubik       Sort Party Troops

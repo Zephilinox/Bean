@@ -607,3 +607,5 @@ script_trade_ledger_write = 605
 script_cf_trade_ledger_trim_entries = 606
 script_cf_trade_ledger_custom_assess_item = 607
 script_cf_trade_ledger_custom_assess_duplicates = 608
+script_sort_party_by_troop_level = 609
+script_initialize_bean = 610

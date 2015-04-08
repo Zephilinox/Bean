@@ -216,3 +216,5 @@ mnu_start_phase_4 = 214
 mnu_lost_tavern_duel = 215
 mnu_establish_court = 216
 mnu_notification_relieved_as_marshal = 217
+mnu_camp_bean = 218
+mnu_camp_bean_sort_party_options = 219
