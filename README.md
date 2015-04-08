@@ -23,9 +23,7 @@ If I've missed anything please get in touch so I can credit that person properly
 
 ```
 Author					Modification									Source
-```
 
-```
 Lav                     WRECK                                           compile.bat, compile.py, compiler.py
 Lav                     Improved 1.166 headers                          headers_*.py
 Zephilinox, MadVader    Perfectly Smooth Mouse-Enabled Deathcam         ##BEAN - Deathcam
