@@ -1157,6 +1157,7 @@ troop_tree_left    = 60
 battle_ratio_multiple = 200 ##BEAN - Overhauled Morale
 
 ##BEAN BEGIN - Dynamic Arrays
+array_debug         = 0
 array_signature     = 0xFFFE # Just a magic number.  But should not be changed if desire to be compativle with older save-games
 array_version       = 1 # marks the current structure version of array, possibly allowing graceful upgrading of older versions of arrays in existing savegame
 array_slot_offset   = 1000 # start of array values.  Shifted up by 1000 to avoid clash with other party slots

@@ -578,7 +578,7 @@ game_menus = [
               (call_script, "script_array_get_size", reg0),
               (ge, reg0, 1),
               (assign, reg60, 1),
-          ],"View Your Trade Ledger.",
+          ],"View trade ledger.",
           [
               (assign, reg60, 0), #begin in Default view
               (start_presentation, "prsnt_trade_ledger_basic"),
@@ -590,7 +590,7 @@ game_menus = [
               (ge, reg0, 1),
               (eq, reg60, 0), #from above; hasn't been written to
               (disable_menu_option),
-          ], "Assess Items to start your Trade Ledger.", []),
+          ], "Assess Items to start your trade ledger.", []),
       ##BEAN END - Trade Ledger
 
       ("view_character_report",[],"View character report.",
@@ -3091,7 +3091,7 @@ game_menus = [
         ],
        ),
       ##BEAN BEGIN - Options
-      ("camp_goto_bean",[],"Bean Options",
+      ("camp_goto_bean",[],"Bean Options.",
         [
           (jump_to_menu, "mnu_camp_bean"),
         ]
