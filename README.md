@@ -1,4 +1,13 @@
+##Description
+
 A M&B Warband mod to enhance, simplify and improve the game play experience of Native.
+
+
+##Changelog
+
+Will be added when the second version is released.
+
+##Credits
 
 Here's a list of all authors, modifications, and how to find those modifications in the source code.
 
@@ -12,13 +21,9 @@ To the people on this list: thank you for releasing your code and/or resources a
 
 If I've missed anything please get in touch so I can credit that person properly.
 
-`################################################################################################`
-
 ```
 Author					Modification									Source
 ```
-
-`################################################################################################`
 
 ```
 Lav                     WRECK                                           compile.bat, compile.py, compiler.py
@@ -36,8 +41,6 @@ Caba`drin               Merchant Trade Ledger                           ##BEAN -
 rubik                   Sort Party Troops                               ##BEAN - Sort Party Troops
 ```
 
-`#################################################################################################`
-
 ```
 Zephilinox              Enabled Native Custom Banners                   ##BEAN - Custom Banners
 Zephilinox              Extra Trade Goods                               ##BEAN - Extra Trade Goods
@@ -45,5 +48,3 @@ Zephilinox              Weather                                         ##BEAN -
 Zephilinox              Bean Initialization                             ##BEAN - Initialize
 Zephilinox              Bean Options                                    ##BEAN - Options
 ```
-
-`#################################################################################################`
