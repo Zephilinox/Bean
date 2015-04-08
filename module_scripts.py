@@ -3171,8 +3171,12 @@ scripts = [
                 (gt, reg0, 0),
                 #(troop_set_slot, ":cur_troop_id", slot_troop_is_prisoner, 1),
                 (troop_set_slot, ":cur_troop_id", slot_troop_prisoner_of_party, ":nonempty_winner_party"),
-                (display_log_message, "str_hero_taken_prisoner", color_terrible_news), ##BEAN - Color Coded Messages
 
+                ##BEAN BEGIN - Color Coded Messages
+                (call_script, "script_get_message_color", news_lord_captured, ":cur_troop_id"),
+                (display_log_message, "str_hero_taken_prisoner", reg20),
+                ##BEAN END - Color Coded Messages
+                
                 (try_begin),
                   (call_script, "script_cf_prisoner_offered_parole", ":cur_troop_id"),
 
@@ -3224,7 +3228,10 @@ scripts = [
                (str_store_troop_name_link, s1, ":cur_troop_id"),
                (str_store_faction_name_link, s2, ":faction_receiving_prisoners"),
                (str_store_faction_name_link, s3, ":cur_troop_faction"),
-               (display_log_message, "str_hero_freed", color_great_news), ##BEAN - Color Coded Messages
+                ##BEAN BEGIN - Color Coded Messages
+                (call_script, "script_get_message_color", news_lord_freed, ":cur_troop_id"),
+                (display_log_message, "str_hero_freed", reg20),
+                ##BEAN END - Color Coded Messages
              (try_end),
 
              (try_begin),
@@ -3257,7 +3264,7 @@ scripts = [
                (str_store_faction_name, s2, ":winner_faction"),
                (str_store_faction_name, s3, ":defeated_faction"),
                 ##BEAN BEGIN - Color Coded Messages
-                (call_script, "script_get_message_color", news_center_captured, ":root_defeated_party"),
+               (call_script, "script_get_message_color", news_center_captured, ":root_defeated_party"),
                (display_log_message, "str_center_captured", reg20),
                 ##BEAN END - Color Coded Messages
 
@@ -13250,10 +13257,11 @@ scripts = [
 
           ##BEAN BEGIN - Improved Trade Goods
           (try_begin),
-            (ge, reg1, 0),
+            (gt, reg1, 0),
             (set_result_string, "@+{reg1} to party morale"),
-            (set_trigger_result, 0x2266FF),
+            (set_trigger_result, 0x3388FF),
           (else_try),
+            (lt, reg1, 0),
             (set_result_string, "@{reg1} to party morale"),
             (set_trigger_result, 0xFF4444),
           (try_end),
@@ -13265,17 +13273,18 @@ scripts = [
           (eq, ":extra_text_id", 0),
           (item_get_slot, reg1, ":item_no", slot_item_intelligence_requirement),
           (set_result_string, "@Requires {reg1} intelligence to read"),
-          (set_trigger_result, 0xFFEEDD),
+          (set_trigger_result, color_cream),
         (else_try),
           (eq, ":extra_text_id", 1),
           (item_get_slot, ":progress", ":item_no", slot_item_book_reading_progress),
           (val_div, ":progress", 10),
           (assign, reg1, ":progress"),
           (set_result_string, "@Reading Progress: {reg1}%"),
-          (set_trigger_result, 0xFFEEDD),
+          (set_trigger_result, color_cream),
         (try_end),
       (else_try),
         (is_between, ":item_no", reference_books_begin, reference_books_end),
+        (neq, ":item_no", "itm_book_trade_ledger"), ##BEAN - Trade Ledger | Fix Extra Text For Trade Ledger
         (try_begin),
           (eq, ":extra_text_id", 0),
           (try_begin),
@@ -21639,8 +21648,11 @@ scripts = [
                (party_stack_get_troop_id, ":raid_leader", ":looter_party", 0),
                (ge, ":raid_leader", 0),
                (str_store_party_name, s2, ":looter_party"),
-               (display_log_message, "@The village of {s1} has been looted by {s2}.", color_quest_and_faction_news), ##BEAN - Color Coded Messages
-
+               ##BEAN BEGIN - Color Coded Messages
+               (call_script, "script_get_message_color", news_village_looted, ":village_no"),
+               (display_log_message, "@The village of {s1} has been looted by {s2}.", reg20),
+               ##BEAN END - Color Coded Messages
+               
                (try_begin),
                  (party_get_slot, ":village_lord", ":village_no", slot_town_lord),
                  (is_between, ":village_lord", active_npcs_begin, active_npcs_end),
@@ -47558,7 +47570,7 @@ scripts = [
 		(troop_get_type, reg4, ":troop_no"),
 		(str_store_string, s9, "str_by_order_of_s6_s4_of_the_s5_has_been_indicted_for_treason_the_lord_has_been_stripped_of_all_reg4herhis_properties_and_has_fled_for_reg4herhis_life_he_is_rumored_to_have_gone_into_exile_s11"),
 	(try_end),
-	(display_message, "@{!}{s9}"),
+	(display_message, "@{!}{s9}", color_neutral_news), ##BEAN - Color Coded Messages
 
 	#Indictments, cont: Remove party
 	(troop_get_slot, ":led_party", ":troop_no", slot_troop_leaded_party),
@@ -47886,7 +47898,7 @@ scripts = [
     (store_script_param, ":entity", 2),   # The troop or town in question
 
     # Set a default color
-    (assign, reg20, 0xFFFFFFFF),
+    (assign, reg20, color_neutral_news),
     (assign, ":color", reg20),
 
     # Get the player's faction
@@ -48016,7 +48028,7 @@ scripts = [
         (eq, ":center_lord", "trp_player"),
         (assign, ":color", color_good_news),
       (else_try),
-        (assign, ":color", 0xFFFFFFFF),
+        (assign, ":color", color_neutral_news),
       (try_end),
 
     (try_end),

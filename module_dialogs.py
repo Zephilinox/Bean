@@ -5744,7 +5744,7 @@ dialogs = [
             (troop_set_slot, "$supported_pretender", slot_troop_cur_center, 0),
             (troop_set_auto_equip, "$supported_pretender",0),
             (str_store_troop_name_link, s6, "$supported_pretender"),
-            (display_message, "@{s6} has joined your party.", color_hero_news),
+            (display_message, "@{s6} has joined your party.", color_hero_news), ##BEAN - Color Coded Messages
 
 #            (faction_get_slot, ":location", "$g_talk_troop_faction", slot_faction_inactive_leader_location),
 #            (faction_set_slot, "$g_talk_troop_faction", slot_faction_inactive_leader_location, 0),

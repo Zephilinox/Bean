@@ -1111,7 +1111,7 @@ common_battle_tab_press = (
             (call_script, "script_cf_check_enemies_nearby"),
             (question_box, "str_do_you_want_to_retreat"),
         (else_try),
-            (display_message, "str_can_not_retreat", color_neutral_news), ##BEAN - Color Coded Messages
+            (display_message, "str_can_not_retreat", color_bad_news), ##BEAN - Color Coded Messages
         (try_end),
     ]
 )

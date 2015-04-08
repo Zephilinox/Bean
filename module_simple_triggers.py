@@ -2508,7 +2508,10 @@ simple_triggers = [
           (str_store_troop_name, s1, ":stack_troop"),
           (str_store_faction_name, s2, ":faction_no"),
           (str_store_faction_name, s3, ":troop_faction"),
-          (display_log_message, "@{s1} of {s3} has been released from captivity."),
+          ##BEAN BEGIN - Color Coded Messages
+          (call_script, "script_get_message_color", news_lord_freed, ":stack_troop"),
+          (display_log_message, "@{s1} of {s3} has been released from captivity.", reg20),
+          ##BEAN END - Color Coded Messages
         (try_end),
       (try_end),
     (try_end),
@@ -2568,7 +2571,7 @@ simple_triggers = [
       (try_begin),
         (party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
         (str_store_party_name, s4, ":center_no"),
-        (display_log_message, "@Building of {s0} in {s4} has been completed."),
+        (display_log_message, "@Building of {s0} in {s4} has been completed.", color_hero_news), ##BEAN - Color Coded Messages
       (try_end),
       (try_begin),
         (is_between, ":center_no", villages_begin, villages_end),
