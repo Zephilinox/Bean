@@ -36,7 +36,7 @@ Lav                     Improved Trade Goods                            ##BEAN -
 jacobhinds              Overhauled Morale & Routing                     ##BEAN - Overhauled Morale
 sphere, Caba`drin       Dynamic Arrays                                  plugin_dynamic_arrays.py
 Caba`drin               Merchant Trade Ledger                           ##BEAN - Trade Ledger
-rubik                   Sort Party Troops                               ##BEAN - Sort Party Troops
+rubik                   Sort Party Troops                               plugin_sort_party_troops.py
 
 Zephilinox              Enabled Native Custom Banners                   ##BEAN - Custom Banners
 Zephilinox              Extra Trade Goods                               ##BEAN - Extra Trade Goods
