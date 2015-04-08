@@ -1,5 +1,5 @@
 itemsfile version 3
-589
+599
  itm_no_item INVALID_ITEM INVALID_ITEM 1  invalid_item 0  12582914 9223388529554358287 3 0 1.500000 100 0 0 0 0 0 103 0 90 0 522 528
  0
 0
@@ -380,6 +380,26 @@ itemsfile version 3
  0
 0
 
+ itm_carpet Carpet Carpet 3  carpet_d.14 0  carpet_e.15 0  carpet_f.16 0  65547 0 400 65211904 60.000000 900 0 0 0 0 0 0 0 0 0 0 0
+ 0
+0
+
+ itm_rug Rug Rug 1  mat_b.21 0  65547 0 500 65211904 60.000000 700 0 0 0 0 0 0 0 0 0 0 0
+ 0
+0
+
+ itm_mattress Mattress Mattress 1  bed_d.24 0  65547 0 800 65211904 80.000000 500 0 0 0 0 0 0 0 0 0 0 0
+ 0
+0
+
+ itm_lyre_renowned Renowned_Lyre Renowned_Lyre 1  lyre 0  65547 0 700 16977408 30.000000 400 0 0 0 0 0 0 0 0 0 0 0
+ 0
+0
+
+ itm_lute_renowned Renowned_Lute Renowned_Lute 1  lute 0  65547 0 600 16977408 20.000000 600 0 0 0 0 0 0 0 0 0 0 0
+ 0
+0
+
  itm_wine Wine Wine 1  amphora_slim 0  33619979 0 220 537464320 60.000000 60 0 0 0 0 0 0 0 0 100 0 0
  0
 0
@@ -424,7 +444,7 @@ itemsfile version 3
  0
 0
 
- itm_grain Grain Grain 1  wheat_sack 0  33619979 0 60 4398046578176 60.000000 150 100 0 0 0 0 0 0 0 50 0 0
+ itm_grain Grain Grain 1  wheat_sack 0  33619979 0 60 4398046578176 60.000000 75 100 0 0 0 0 0 0 0 100 0 0
  0
 0
 
@@ -432,19 +452,39 @@ itemsfile version 3
  0
 0
 
- itm_bread Bread Bread 1  bread_a 0  34144267 0 100 69120 60.000000 125 100 0 0 0 0 0 0 0 100 0 0
+ itm_bread Bread Bread 1  bread_a 0  34144267 0 100 69120 60.000000 50 100 0 0 0 0 0 0 0 100 0 0
  0
 0
 
- itm_chicken Roast_Chicken Roast_Chicken 1  chicken 0  34144267 0 200 0 20.000000 110 100 0 0 0 0 0 0 0 100 0 0
+ itm_chicken Roast_Chicken Roast_Chicken 1  chicken 0  34144267 0 200 0 20.000000 110 100 0 0 0 0 0 0 0 80 0 0
  0
 0
 
- itm_pork Pork Pork 1  pork 0  34144267 0 150 0 39.000000 100 100 0 0 0 0 0 0 0 100 0 0
+ itm_pork Pork Pork 1  pork 0  34144267 0 150 0 39.000000 100 100 0 0 0 0 0 0 0 90 0 0
  0
 0
 
- itm_butter Butter Butter 1  butter_pot 0  34144267 0 300 69120 12.000000 200 100 0 0 0 0 0 0 0 60 0 0
+ itm_butter Butter Butter 1  butter_pot 0  34144267 0 300 69120 12.000000 100 100 0 0 0 0 0 0 0 60 0 0
+ 0
+0
+
+ itm_roast_fish Roasted_Fish Roasted_Fish 1  fish_roasted_a_inventory 0  34144267 0 130 69120 15.000000 1000 100 0 0 0 0 0 0 0 100 0 0
+ 0
+0
+
+ itm_gourd Gourd Gourd 1  gourd_inventory 0  34144267 0 100 67072 20.000000 1500 100 0 0 0 0 0 0 0 100 0 0
+ 0
+0
+
+ itm_corn Corn Corn 1  maize_b 0  34144267 0 80 67072 20.000000 1500 100 0 0 0 0 0 0 0 100 0 0
+ 0
+0
+
+ itm_stew Stew Stew 1  plate_b 0  34144267 0 200 69120 40.000000 400 100 0 0 0 0 0 0 0 20 0 0
+ 0
+0
+
+ itm_turkey Roast_Turkey Roast_Turkey 1  chicken_roasted 0  34144267 0 300 0 30.000000 600 100 0 0 0 0 0 0 0 70 0 0
  0
 0
 
