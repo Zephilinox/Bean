@@ -1193,6 +1193,11 @@ num_ledger_sub_arrays = profit_array - date_array + 1
 custom_assess_begin = num_ledger_sub_arrays
 ##BEAN END - Trade Ledger
 
+##BEAN BEGIN - Sort Party Troops
+bandit_party_template_begin = "pt_steppe_bandits"
+bandit_party_template_end = "pt_deserters"
+##BEAN END - Sort Party Troops
+
 ########################################################
 rel_enemy   = 0
 rel_neutral = 1

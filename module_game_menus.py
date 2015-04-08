@@ -3090,6 +3090,13 @@ game_menus = [
        [(jump_to_menu, "mnu_camp_cheat"),
         ],
        ),
+      ##BEAN BEGIN - Options
+      ("camp_goto_bean",[],"Bean Options",
+        [
+          (jump_to_menu, "mnu_camp_bean"),
+        ]
+      ),
+      ##BEAN END - Options
       ("resume_travelling",[],"Resume travelling.",
        [
            (change_screen_return),
@@ -14645,8 +14652,115 @@ game_menus = [
     ]
   ),
 
+  ##BEAN BEGIN - Bean Options
+  ("camp_bean",0,
+  "Bean Options",
+  "none",
+    [
+    ],
 
+    [
+      ("camp_bean_sort_party",
+        [
+        ], "Sort Party Options",
+        [
+          (jump_to_menu, "mnu_camp_bean_sort_party_options"),
+        ]
+      ),
 
+      ("camp_bean_back",
+        [
+        ], "Back to Camp.",
+        [
+          (jump_to_menu, "mnu_camp"),
+        ]
+      ),
+    ]
+  ),
 
+  ("camp_bean_sort_party_options", 0,
+  "Bean Options - Sort Party",
+  "none",
+    [
+    ],
+
+    [
+      ("camp_bean_sort_party",
+        [
+          (try_begin),
+            (eq, "$bean_options_sort_party", 1),
+            (str_store_string, s10, "@Toggle All Party Sorting (Currently Enabled)"),
+          (else_try),
+            (str_store_string, s10, "@Toggle All Party Sorting (Currently Disabled)"),
+          (try_end),
+        ], "{s10}",
+        [
+          (try_begin),
+            (eq, "$bean_options_sort_party", 1),
+            (assign, "$bean_options_sort_party", 0),
+          (else_try),
+            (assign, "$bean_options_sort_party", 1),
+          (try_end),
+        ]
+      ),
+
+      ("camp_bean_sort_player_party",
+        [
+          (try_begin),
+            (eq, "$bean_options_sort_party", 0),
+            (disable_menu_option),
+          (end_try),
+
+          (try_begin),
+            (eq, "$bean_options_sort_player_party", 1),
+            (str_store_string, s10, "@Toggle Player Party Sorting (Currently Enabled)"),
+          (else_try),
+            (str_store_string, s10, "@Toggle Player Party Sorting (Currently Disabled)"),
+          (try_end),
+        ], "{s10}",
+        [
+          (try_begin),
+            (eq, "$bean_options_sort_player_party", 1),
+            (assign, "$bean_options_sort_player_party", 0),
+          (else_try),
+            (assign, "$bean_options_sort_player_party", 1),
+          (try_end),
+        ]
+      ),
+
+      ("camp_bean_sort_player_fiefs",
+        [
+          (try_begin),
+            (eq, "$bean_options_sort_party", 0),
+            (disable_menu_option),
+          (end_try),
+
+          (try_begin),
+            (eq, "$bean_options_sort_player_fiefs", 1),
+            (str_store_string, s10, "@Toggle Player Fief Sorting (Currently Enabled)"),
+          (else_try),
+            (str_store_string, s10, "@Toggle Player Fief Sorting (Currently Disabled)"),
+          (try_end),
+        ], "{s10}",
+        [
+          (try_begin),
+            (eq, "$bean_options_sort_player_fiefs", 1),
+            (assign, "$bean_options_sort_player_fiefs", 0),
+          (else_try),
+            (assign, "$bean_options_sort_player_fiefs", 1),
+          (try_end),
+        ]
+      ),
+
+      ("camp_bean_sort_party_back",
+        [
+        ], "Go Back",
+        [
+          (jump_to_menu, "mnu_camp_bean"),
+        ]
+      ),
+    ]
+  ),
+  ##BEAN END - Bean Options
 
  ]
