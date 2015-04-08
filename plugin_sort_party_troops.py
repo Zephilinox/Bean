@@ -1,5 +1,5 @@
 from compiler import *
-register_plugin()
+register_plugin("Sort Party Troops")
 
 ##Constants Begin
 bandit_party_template_begin = "pt_steppe_bandits"

@@ -154,7 +154,7 @@ try:
 # +
 # |
 
-	print 'Loading plugins...',
+	print 'Loading plugins...\n',
 
 	try:
 		# Check plugin requirements
@@ -175,11 +175,11 @@ try:
 				for inj_name, inj_elements in injections.iteritems():
 					WRECK.injections.setdefault(inj_name, []).extend(inj_elements)
 					#WRECK.warnings.append('Injection: %d elements for `%s` in `%s`' % (len(inj_elements), inj_name, plugin))
+			print "\t" + plugin + "{2} DONE.{0}".format(*COLORAMA)
 	except Exception, e:
 		print '{1}FAILED.\nPLUGIN `{module!s}` ERROR:\n{error!s}{0}'.format(*COLORAMA, module = plugin, error = (e.formatted() if isinstance(e, MSException) else formatted_exception()))
 		WRECK.time_plugins = gettime()
 		raise MSException()
-	print '{2}DONE.{0}'.format(*COLORAMA)
 	WRECK.time_plugins = gettime()
 
 # |

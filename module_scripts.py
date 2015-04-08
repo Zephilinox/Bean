@@ -3176,7 +3176,7 @@ scripts = [
                 (call_script, "script_get_message_color", news_lord_captured, ":cur_troop_id"),
                 (display_log_message, "str_hero_taken_prisoner", reg20),
                 ##BEAN END - Color Coded Messages
-                
+
                 (try_begin),
                   (call_script, "script_cf_prisoner_offered_parole", ":cur_troop_id"),
 
@@ -13223,8 +13223,8 @@ scripts = [
           (try_begin),
             (this_or_next|eq, ":item_no", "itm_cattle_meat"),
             (this_or_next|eq, ":item_no", "itm_pork"),
-				(eq, ":item_no", "itm_chicken"),
-
+				    (this_or_next|eq, ":item_no", "itm_chicken"),
+            (eq, ":item_no", "itm_turkey"), ##BEAN - Extra Trade Goods
             (eq, ":item_modifier", imod_rotten),
             (assign, ":continue", 0),
           (try_end),
@@ -13298,7 +13298,7 @@ scripts = [
             (str_store_string, s1, "@surgery"),
           (try_end),
           (set_result_string, "@+1 to {s1} while in inventory"),
-          (set_trigger_result, 0xFFEEDD),
+          (set_trigger_result, color_cream),
         (try_end),
       (try_end),
   ]),
@@ -21652,7 +21652,7 @@ scripts = [
                (call_script, "script_get_message_color", news_village_looted, ":village_no"),
                (display_log_message, "@The village of {s1} has been looted by {s2}.", reg20),
                ##BEAN END - Color Coded Messages
-               
+
                (try_begin),
                  (party_get_slot, ":village_lord", ":village_no", slot_town_lord),
                  (is_between, ":village_lord", active_npcs_begin, active_npcs_end),
