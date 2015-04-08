@@ -24,3 +24,4 @@ show_performance_data = False
 #import plugin_ms_extension
 #import plugin_presentations
 import plugin_dynamic_arrays
+import plugin_sort_party_troops

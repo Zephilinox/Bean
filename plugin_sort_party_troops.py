@@ -52,25 +52,26 @@ scripts = [
             (store_troop_faction, ":troop_faction", ":cur_troop"),
             (try_begin),
               (neg|is_between, ":troop_faction", npc_kingdoms_begin, npc_kingdoms_end),
-              (assign, ":faction_bonuse", 7000), # for non-kingdom troops
+              (assign, ":faction_bonuse", 1000), # for non-kingdom troops
+              (val_add, ":faction_bonuse", ":troop_faction"), ##BEAN - Break Ties
             (else_try),
               (eq, ":troop_faction", "fac_kingdom_1"),
-              (assign, ":faction_bonuse", 6000),
+              (assign, ":faction_bonuse", 2000),
             (else_try),
               (eq, ":troop_faction", "fac_kingdom_2"),
-              (assign, ":faction_bonuse", 5000),
+              (assign, ":faction_bonuse", 3000),
             (else_try),
               (eq, ":troop_faction", "fac_kingdom_3"),
               (assign, ":faction_bonuse", 4000),
             (else_try),
               (eq, ":troop_faction", "fac_kingdom_4"),
-              (assign, ":faction_bonuse", 3000),
+              (assign, ":faction_bonuse", 5000),
             (else_try),
               (eq, ":troop_faction", "fac_kingdom_5"),
-              (assign, ":faction_bonuse", 2000),
+              (assign, ":faction_bonuse", 6000),
             (else_try),
               (eq, ":troop_faction", "fac_kingdom_6"),
-              (assign, ":faction_bonuse", 1000),
+              (assign, ":faction_bonuse", 7000),
             (try_end),
             (try_begin),
               (party_slot_eq, ":party_no", slot_party_type, spt_kingdom_hero_party),
@@ -114,23 +115,25 @@ scripts = [
     ]
   ),
   
-  ("sort_troops_in_parties",
+  ("sort_parties_by_troop_level",
     [
-      (eq, "$bean_options_sort_party", 1), ##BEAN - Options
-      (try_for_parties, ":party_no"),
-        ##BEAN BEGIN - Options | Check to see if the player disabled sorting for their party, if so, skip it
-        (assign, ":exit", 0), 
-        (try_begin),
-        (eq, ":party_no", "p_main_party"),
-        (eq, "$bean_options_sort_player_party", 0),
-          (assign, ":exit", 1),
-        (try_end),
-        (eq, ":exit", 0),
-        ##BEAN END - Options
-        
+      (eq, "$bean_options_sort_party", 1), ##BEAN - Options | Party Sorting
+      (try_for_parties, ":party_no"),       
         (neq, ":party_no", "p_temp_party"),
         (assign, ":continue", 0),
+        ##BEAN BEGIN - Options | Player Sorting
         (try_begin),
+          (eq, ":party_no", "p_main_party"),
+          (try_begin),
+            (eq, "$bean_options_sort_player_party", 1),
+            (assign, ":continue", 1),
+            (assign, ":first_stack", 1),
+            #(display_message, "@Sorting Player Party"),
+          #(else_try),
+          #  (display_message, "@Player Party Sorting Disabled"),
+          (try_end),
+        ##BEAN END - Options | Player Sorting
+        (else_try),
           (this_or_next|party_slot_eq, ":party_no", slot_party_type, spt_kingdom_hero_party),
           (party_slot_eq, ":party_no", slot_party_type, spt_kingdom_caravan),
           (party_is_active, ":party_no"),
@@ -146,17 +149,22 @@ scripts = [
         (else_try),
           (this_or_next|party_slot_eq, ":party_no", slot_party_type, spt_castle),
           (party_slot_eq, ":party_no", slot_party_type, spt_town),
-          ##BEAN BEGIN - Options | Check to see if the player has fief sorting for himself enabled
+          #BEAN BEGIN - Options | Player Fief Sorting
           (try_begin),
             (party_slot_eq, ":party_no", slot_town_lord, "trp_player"),
-            (eq, "$bean_options_sort_player_fiefs", 1),
-            (assign, ":first_stack", 0),
-            (assign, ":continue", 1),
+            (try_begin),
+              (eq, "$bean_options_sort_player_fiefs", 1),
+              (assign, ":first_stack", 0),
+              (assign, ":continue", 1),
+              #(display_message, "@Sorting Player Fied"),
+            #(else_try),
+            #  (display_message, "@Player Fief Sorting Disabled"),
+            (try_end),
           (else_try),
             (assign, ":first_stack", 0),
             (assign, ":continue", 1),
           (try_end),
-          ##BEAN End - Options | Check to see if the player has fief sorting for himself enabled
+          ##BEAN END - Options | Player Fief Sorting
         (else_try),
           (party_get_template_id, ":party_template", ":party_no"),
           (this_or_next|eq, ":party_template", "pt_looters"),
@@ -180,7 +188,7 @@ scripts = [
 simple_triggers = [
   (8,
     [
-      (call_script, "sort_troops_in_parties"),
+      (call_script, "script_sort_parties_by_troop_level"),
     ]
   ),
 ]
