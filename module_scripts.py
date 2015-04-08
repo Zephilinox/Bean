@@ -6058,11 +6058,11 @@ scripts = [
       (item_set_slot, "itm_ale", slot_item_food_bonus, 4),
 
     ##BEAN BEGIN - Extra Trade Goods
-      #(item_set_slot, "itm_roast_fish", slot_item_food_bonus, 5),
-      #(item_set_slot, "itm_gourd", slot_item_food_bonus, 4),
-      #(item_set_slot, "itm_corn", slot_item_food_bonus, 3),
-      #(item_set_slot, "itm_stew", slot_item_food_bonus, 10),
-      #(item_set_slot, "itm_turkey", slot_item_food_bonus, 9),
+      (item_set_slot, "itm_roast_fish", slot_item_food_bonus, 5),
+      (item_set_slot, "itm_gourd", slot_item_food_bonus, 4),
+      (item_set_slot, "itm_corn", slot_item_food_bonus, 3),
+      (item_set_slot, "itm_stew", slot_item_food_bonus, 10),
+      (item_set_slot, "itm_turkey", slot_item_food_bonus, 9),
     ##BEAN END - Extra Trade Goods
 
 	  #Item economic settings
@@ -6337,51 +6337,51 @@ scripts = [
       (item_set_slot, "itm_pork", slot_item_desert_demand, -1),
 
       ##BEAN BEGIN - Extra Trade Goods
-      #(item_set_slot, "itm_carpet", slot_item_urban_demand, 9),
-      #(item_set_slot, "itm_carpet", slot_item_rural_demand, 3),
-      #(item_set_slot, "itm_carpet", slot_item_desert_demand, 6),
+      (item_set_slot, "itm_carpet", slot_item_urban_demand, 9),
+      (item_set_slot, "itm_carpet", slot_item_rural_demand, 3),
+      (item_set_slot, "itm_carpet", slot_item_desert_demand, 6),
 
-      #(item_set_slot, "itm_rug", slot_item_urban_demand, 9),
-      #(item_set_slot, "itm_rug", slot_item_rural_demand, 3),
-      #(item_set_slot, "itm_rug", slot_item_desert_demand, 6),
+      (item_set_slot, "itm_rug", slot_item_urban_demand, 9),
+      (item_set_slot, "itm_rug", slot_item_rural_demand, 3),
+      (item_set_slot, "itm_rug", slot_item_desert_demand, 6),
 
-      #(item_set_slot, "itm_mattress", slot_item_urban_demand, 9),
-      #(item_set_slot, "itm_mattress", slot_item_rural_demand, 3),
-      #(item_set_slot, "itm_mattress", slot_item_desert_demand, 3),
+      (item_set_slot, "itm_mattress", slot_item_urban_demand, 9),
+      (item_set_slot, "itm_mattress", slot_item_rural_demand, 3),
+      (item_set_slot, "itm_mattress", slot_item_desert_demand, 3),
 
-      #(item_set_slot, "itm_lyre_renowned", slot_item_urban_demand, 8),
-      #(item_set_slot, "itm_lyre_renowned", slot_item_rural_demand, 4),
-      #(item_set_slot, "itm_lyre_renowned", slot_item_desert_demand, 6),
+      (item_set_slot, "itm_lyre_renowned", slot_item_urban_demand, 8),
+      (item_set_slot, "itm_lyre_renowned", slot_item_rural_demand, 4),
+      (item_set_slot, "itm_lyre_renowned", slot_item_desert_demand, 6),
 
-      #(item_set_slot, "itm_lute_renowned", slot_item_urban_demand, 8),
-      #(item_set_slot, "itm_lute_renowned", slot_item_rural_demand, 4),
-      #(item_set_slot, "itm_lute_renowned", slot_item_desert_demand, 6),
+      (item_set_slot, "itm_lute_renowned", slot_item_urban_demand, 8),
+      (item_set_slot, "itm_lute_renowned", slot_item_rural_demand, 4),
+      (item_set_slot, "itm_lute_renowned", slot_item_desert_demand, 6),
 
-      #(item_set_slot, "itm_roast_fish", slot_item_urban_demand, 16),
-      #(item_set_slot, "itm_roast_fish", slot_item_rural_demand, 16),
-      #(item_set_slot, "itm_roast_fish", slot_item_desert_demand, 16),
-      #(item_set_slot, "itm_roast_fish", slot_item_production_slot, slot_center_fishing_fleet),
-      #(item_set_slot, "itm_roast_fish", slot_item_production_string, "str_boats"),
+      (item_set_slot, "itm_roast_fish", slot_item_urban_demand, 16),
+      (item_set_slot, "itm_roast_fish", slot_item_rural_demand, 16),
+      (item_set_slot, "itm_roast_fish", slot_item_desert_demand, 16),
+      (item_set_slot, "itm_roast_fish", slot_item_production_slot, slot_center_fishing_fleet),
+      (item_set_slot, "itm_roast_fish", slot_item_production_string, "str_boats"),
 
-      #(item_set_slot, "itm_gourd", slot_item_urban_demand, 9),
-      #(item_set_slot, "itm_gourd", slot_item_rural_demand, 9),
-      #(item_set_slot, "itm_gourd", slot_item_desert_demand, 9),
-      #(item_set_slot, "itm_gourd", slot_item_production_slot, slot_center_household_gardens),
-      #(item_set_slot, "itm_gourd", slot_item_production_string, "str_gardens"),
+      (item_set_slot, "itm_gourd", slot_item_urban_demand, 9),
+      (item_set_slot, "itm_gourd", slot_item_rural_demand, 9),
+      (item_set_slot, "itm_gourd", slot_item_desert_demand, 9),
+      (item_set_slot, "itm_gourd", slot_item_production_slot, slot_center_household_gardens),
+      (item_set_slot, "itm_gourd", slot_item_production_string, "str_gardens"),
 
-      #(item_set_slot, "itm_corn", slot_item_urban_demand, 8),
-      #(item_set_slot, "itm_corn", slot_item_rural_demand, 8),
-      #(item_set_slot, "itm_corn", slot_item_desert_demand, 8),
-      #(item_set_slot, "itm_corn", slot_item_production_slot, slot_center_household_gardens),
-      #(item_set_slot, "itm_corn", slot_item_production_string, "str_gardens"),
+      (item_set_slot, "itm_corn", slot_item_urban_demand, 8),
+      (item_set_slot, "itm_corn", slot_item_rural_demand, 8),
+      (item_set_slot, "itm_corn", slot_item_desert_demand, 8),
+      (item_set_slot, "itm_corn", slot_item_production_slot, slot_center_household_gardens),
+      (item_set_slot, "itm_corn", slot_item_production_string, "str_gardens"),
 
-      #(item_set_slot, "itm_stew", slot_item_urban_demand, 30),
-      #(item_set_slot, "itm_stew", slot_item_rural_demand, 30),
-      #(item_set_slot, "itm_stew", slot_item_desert_demand, -1),
+      (item_set_slot, "itm_stew", slot_item_urban_demand, 30),
+      (item_set_slot, "itm_stew", slot_item_rural_demand, 30),
+      (item_set_slot, "itm_stew", slot_item_desert_demand, -1),
 
-      #(item_set_slot, "itm_turkey", slot_item_urban_demand, 60),
-      #(item_set_slot, "itm_turkey", slot_item_rural_demand, 15),
-      #(item_set_slot, "itm_turkey", slot_item_desert_demand, -1),
+      (item_set_slot, "itm_turkey", slot_item_urban_demand, 60),
+      (item_set_slot, "itm_turkey", slot_item_rural_demand, 15),
+      (item_set_slot, "itm_turkey", slot_item_desert_demand, -1),
       ##BEAN END - Extra Trade Goods
 
       # Setting book intelligence requirements
@@ -47703,8 +47703,11 @@ scripts = [
       (store_troop_gold, ":cur_gold",":cur_merchant"),
 
       ##BEAN BEGIN - Improved Trade Goods
-      (lt, ":cur_gold", 15000),
-      (store_random_in_range, ":new_gold", 5000, 10000),
+      (store_mul, ":gold_limit", 300, ":town_prosperity"), ##300 * 100 = 30,000
+      (store_mul, ":gold_min", 75, ":town_prosperity"), ##75 * 100 = 7,500
+      (store_mul, ":gold_max", 225, ":town_prosperity"), ##225 * 100 = 22,500
+      (lt, ":cur_gold", ":gold_limit"),
+      (store_random_in_range, ":new_gold", ":gold_min", ":gold_max"),
       ##BEAN END - Improved Trade Goods
 
       (call_script, "script_troop_add_gold", ":cur_merchant", ":new_gold"),
@@ -47727,9 +47730,17 @@ scripts = [
 	  (troop_add_merchandise_with_faction, ":cur_merchant", ":cur_faction", itp_type_hand_armor, 4),
 	  (troop_ensure_inventory_space, ":cur_merchant", merchant_inventory_space),
 	  (troop_sort_inventory, ":cur_merchant"),
-	  (store_troop_gold, reg6, ":cur_merchant"),
-	  (lt, reg6, 1000),
-	  (store_random_in_range, ":new_gold", 250, 500),
+    (store_troop_gold, ":cur_gold",":cur_merchant"),
+
+    ##BEAN BEGIN - Improved Trade Goods
+    (party_get_slot, ":town_prosperity", ":cur_town", slot_town_prosperity),
+    (store_mul, ":gold_limit", 300, ":town_prosperity"), ##300 * 100 = 30,000
+    (store_mul, ":gold_min", 75, ":town_prosperity"), ##75 * 100 = 7,500
+    (store_mul, ":gold_max", 225, ":town_prosperity"), ##225 * 100 = 22,500
+    (lt, ":cur_gold", ":gold_limit"),
+    (store_random_in_range, ":new_gold", ":gold_min", ":gold_max"),
+    ##BEAN END - Improved Trade Goods
+
 	  (call_script, "script_troop_add_gold", ":cur_merchant", ":new_gold"),
     (end_try),
   ]),
@@ -47755,9 +47766,17 @@ scripts = [
       (troop_add_merchandise_with_faction, ":cur_merchant", ":cur_faction", itp_type_bolts, 2),
       (troop_ensure_inventory_space, ":cur_merchant", merchant_inventory_space),
       (troop_sort_inventory, ":cur_merchant"),
-      (store_troop_gold, reg6, ":cur_merchant"),
-      (lt, reg6, 1000),
-      (store_random_in_range, ":new_gold", 250, 500),
+      (store_troop_gold, ":cur_gold",":cur_merchant"),
+
+      ##BEAN BEGIN - Improved Trade Goods
+      (party_get_slot, ":town_prosperity", ":cur_town", slot_town_prosperity),
+      (store_mul, ":gold_limit", 300, ":town_prosperity"), ##300 * 100 = 30,000
+      (store_mul, ":gold_min", 75, ":town_prosperity"), ##75 * 100 = 7,500
+      (store_mul, ":gold_max", 225, ":town_prosperity"), ##225 * 100 = 22,500
+      (lt, ":cur_gold", ":gold_limit"),
+      (store_random_in_range, ":new_gold", ":gold_min", ":gold_max"),
+      ##BEAN END - Improved Trade Goods
+
       (call_script, "script_troop_add_gold", ":cur_merchant", ":new_gold"),
     (try_end),
   ]),
@@ -47775,9 +47794,17 @@ scripts = [
       (troop_add_merchandise_with_faction, ":cur_merchant", ":cur_faction", itp_type_horse, 5),
       (troop_ensure_inventory_space, ":cur_merchant", 65),
       (troop_sort_inventory, ":cur_merchant"),
-      (store_troop_gold, ":cur_gold", ":cur_merchant"),
-      (lt, ":cur_gold", 600),
-      (store_random_in_range, ":new_gold", 250, 500),
+      (store_troop_gold, ":cur_gold",":cur_merchant"),
+
+      ##BEAN BEGIN - Improved Trade Goods
+      (party_get_slot, ":town_prosperity", ":cur_town", slot_town_prosperity),
+      (store_mul, ":gold_limit", 300, ":town_prosperity"), ##300 * 100 = 30,000
+      (store_mul, ":gold_min", 75, ":town_prosperity"), ##75 * 100 = 7,500
+      (store_mul, ":gold_max", 225, ":town_prosperity"), ##225 * 100 = 22,500
+      (lt, ":cur_gold", ":gold_limit"),
+      (store_random_in_range, ":new_gold", ":gold_min", ":gold_max"),
+      ##BEAN END - Improved Trade Goods
+
       (call_script, "script_troop_add_gold", ":cur_merchant", ":new_gold"),
     (try_end),
   ]),

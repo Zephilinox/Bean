@@ -4034,11 +4034,11 @@ simple_triggers = [
       (item_set_slot, "itm_ale", slot_item_food_bonus, 4),
 
     ##BEAN BEGIN - Extra Trade Goods
-      #(item_set_slot, "itm_roast_fish", slot_item_food_bonus, 5),
-      #(item_set_slot, "itm_gourd", slot_item_food_bonus, 3),
-      #(item_set_slot, "itm_corn", slot_item_food_bonus, 2),
-      #(item_set_slot, "itm_stew", slot_item_food_bonus, 10),
-      #(item_set_slot, "itm_turkey", slot_item_food_bonus, 9),
+      (item_set_slot, "itm_roast_fish", slot_item_food_bonus, 5),
+      (item_set_slot, "itm_gourd", slot_item_food_bonus, 3),
+      (item_set_slot, "itm_corn", slot_item_food_bonus, 2),
+      (item_set_slot, "itm_stew", slot_item_food_bonus, 10),
+      (item_set_slot, "itm_turkey", slot_item_food_bonus, 9),
     ##BEAN END - Extra Trade Goods
 
    ]),

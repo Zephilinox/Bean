@@ -1,8 +1,11 @@
 from module_constants import *
 from ID_factions import *
+from ID_meshes import *
 from header_items import  *
 from header_operations import *
 from header_triggers import *
+from header_meshes import *
+from module_meshes import *
 from compiler import *
 
 ####################################################################################################################
@@ -172,11 +175,11 @@ items = [
   ["raw_date_fruit","Date Fruit", [("date_inventory",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 240,weight(80)|food_quality(10)|max_ammo(20),imodbit_cheap|imodbit_fine|imodbit_exquisite],
   ["furs","Furs", [("fur_pack",0)], itp_merchandise|itp_type_goods, 0, 391,weight(40)|abundance(90),imodbit_cheap|imodbit_fine|imodbit_exquisite|imodbit_tattered|imodbit_ragged|imodbit_sturdy|imodbit_thick],
   ##BEAN BEGIN - Extra Trade Goods
-  #["carpet","Carpet", [("carpet_d.14",0), ("carpet_e.15",0), ("carpet_f.16",0), ], itp_merchandise|itp_type_goods, 0, 400, weight(60)|abundance(90),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite|imodbit_masterwork|imodbit_tattered|imodbit_ragged|imodbit_rough|imodbit_sturdy|imodbit_thick],
-  #["rug","Rug", [("mat_b.21",0)], itp_merchandise|itp_type_goods, 0, 500, weight(60)|abundance(70),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite|imodbit_masterwork|imodbit_tattered|imodbit_ragged|imodbit_rough|imodbit_sturdy|imodbit_thick],
-  #["mattress","Mattress", [("bed_d.24",0)], itp_merchandise|itp_type_goods, 0, 800, weight(80)|abundance(50),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite|imodbit_masterwork|imodbit_tattered|imodbit_ragged|imodbit_rough|imodbit_sturdy|imodbit_thick],
-  #["lyre_renowned","Renowned Lyre", [("lyre",0)], itp_merchandise|itp_type_goods, 0, 700, weight(30)|abundance(40),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite|imodbit_masterwork|imodbit_sturdy],
-  #["lute_renowned","Renowned Lute", [("lute",0)], itp_merchandise|itp_type_goods, 0, 600, weight(20)|abundance(60),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite|imodbit_masterwork|imodbit_sturdy],
+  ["carpet","Carpet", [("carpet_d.14",0), ("carpet_e.15",0), ("carpet_f.16",0), ], itp_merchandise|itp_type_goods, 0, 400, weight(60)|abundance(900),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite|imodbit_masterwork|imodbit_tattered|imodbit_ragged|imodbit_rough|imodbit_sturdy|imodbit_thick],
+  ["rug","Rug", [("mat_b.21",0)], itp_merchandise|itp_type_goods, 0, 500, weight(60)|abundance(700),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite|imodbit_masterwork|imodbit_tattered|imodbit_ragged|imodbit_rough|imodbit_sturdy|imodbit_thick],
+  ["mattress","Mattress", [("bed_d.24",0)], itp_merchandise|itp_type_goods, 0, 800, weight(80)|abundance(500),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite|imodbit_masterwork|imodbit_tattered|imodbit_ragged|imodbit_rough|imodbit_sturdy|imodbit_thick],
+  ["lyre_renowned","Renowned Lyre", [("lyre",0)], itp_merchandise|itp_type_goods, 0, 700, weight(30)|abundance(400),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite|imodbit_masterwork|imodbit_sturdy],
+  ["lute_renowned","Renowned Lute", [("lute",0)], itp_merchandise|itp_type_goods, 0, 600, weight(20)|abundance(600),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite|imodbit_masterwork|imodbit_sturdy],
   ##BEAN END - Extra Trade Goods
 
   # Drinking consumables
@@ -193,20 +196,20 @@ items = [
   ["fruit","Fruit", [("apple_basket",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 88,weight(40)|abundance(100)|food_quality(100)|max_ammo(100),imodbit_cheap|imodbit_fine|imodbit_exquisite],
   ["raw_grapes","Grapes", [("grapes_inventory",0)], itp_merchandise|itp_consumable|itp_type_goods, 0, 100,weight(80)|abundance(100)|food_quality(100)|max_ammo(20),imodbit_cheap|imodbit_fine|imodbit_exquisite],
   ["raw_olives","Olives", [("olive_inventory",0)], itp_merchandise|itp_consumable|itp_type_goods, 0, 150,weight(80)|abundance(100)|food_quality(100)|max_ammo(20),imodbit_cheap|imodbit_fine|imodbit_exquisite],
-  ["grain","Grain", [("wheat_sack",0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 60,weight(60)|abundance(150)|food_quality(100)|max_ammo(50),imodbit_cheap|imodbit_fine|imodbit_exquisite|imodbit_large_bag],
+  ["grain","Grain", [("wheat_sack",0)], itp_merchandise|itp_type_goods|itp_consumable, 0, 60,weight(60)|abundance(75)|food_quality(100)|max_ammo(100),imodbit_cheap|imodbit_fine|imodbit_exquisite|imodbit_large_bag],
   ["cattle_meat","Beef", [("raw_meat",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 160,weight(40)|abundance(100)|food_quality(100)|max_ammo(100),imodbits_none],
-  ["bread","Bread", [("bread_a",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 100,weight(60)|abundance(125)|food_quality(100)|max_ammo(100),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite],
-  ["chicken","Roast Chicken", [("chicken",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 200,weight(20)|abundance(110)|food_quality(100)|max_ammo(100),imodbits_none],
-  ["pork","Pork", [("pork",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 150,weight(39)|abundance(100)|food_quality(100)|max_ammo(100),imodbits_none],
-  ["butter","Butter", [("butter_pot",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 300,weight(12)|abundance(200)|food_quality(100)|max_ammo(60),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite],
+  ["bread","Bread", [("bread_a",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 100,weight(60)|abundance(50)|food_quality(100)|max_ammo(100),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite],
+  ["chicken","Roast Chicken", [("chicken",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 200,weight(20)|abundance(110)|food_quality(100)|max_ammo(80),imodbits_none],
+  ["pork","Pork", [("pork",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 150,weight(39)|abundance(100)|food_quality(100)|max_ammo(90),imodbits_none],
+  ["butter","Butter", [("butter_pot",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 300,weight(12)|abundance(100)|food_quality(100)|max_ammo(60),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite],
   ##BEAN END - Improved Trade Goods
 
   ##BEAN BEGIN - Extra Trade Goods
-  #["roast_fish","Roasted Fish", [("fish_roasted_a",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 130,weight(15)|abundance(100)|food_quality(100)|max_ammo(100),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite],
-  #["gourd","Gourd", [("gourd",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 100,weight(20)|abundance(150)|food_quality(100)|max_ammo(100),imodbit_cheap|imodbit_fine|imodbit_exquisite],
-  #["corn","Corn", [("maize_b",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 80,weight(20)|abundance(150)|food_quality(100)|max_ammo(100),imodbit_cheap|imodbit_fine|imodbit_exquisite],
-  #["stew","Stew", [("plate_b",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 200,weight(40)|abundance(40)|food_quality(100)|max_ammo(20),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite],
-  #["turkey","Roast Turkey", [("chicken_roasted",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 300,weight(30)|abundance(60)|food_quality(100)|max_ammo(100),imodbits_none],
+  ["roast_fish","Roasted Fish", [("fish_roasted_a_inventory",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 130,weight(15)|abundance(1000)|food_quality(100)|max_ammo(100),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite],
+  ["gourd","Gourd", [("gourd_inventory",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 100,weight(20)|abundance(1500)|food_quality(100)|max_ammo(100),imodbit_cheap|imodbit_fine|imodbit_exquisite],
+  ["corn","Corn", [("maize_b",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 80,weight(20)|abundance(1500)|food_quality(100)|max_ammo(100),imodbit_cheap|imodbit_fine|imodbit_exquisite],
+  ["stew","Stew", [("plate_b",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 200,weight(40)|abundance(400)|food_quality(100)|max_ammo(20),imodbit_cheap|imodbit_fine|imodbit_well_made|imodbit_exquisite],
+  ["turkey","Roast Turkey", [("chicken_roasted",0)], itp_merchandise|itp_type_goods|itp_consumable|itp_food, 0, 300,weight(30)|abundance(600)|food_quality(100)|max_ammo(70),imodbits_none],
   ##BEAN END - Extra Trade Goods
 
 #Would like to remove flour altogether and reduce chicken, pork and butter (perishables) to non-trade items. Apples could perhaps become a generic "fruit", also representing dried fruit and grapes
