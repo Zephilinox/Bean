@@ -609,3 +609,5 @@ script_array_remove = 607
 script_array_remove_n = 608
 script_array_destroy_sub_arrays = 609
 script_array_p_shift_range = 610
+script_sort_party_by_troop_level = 611
+script_sort_parties_by_troop_level = 612

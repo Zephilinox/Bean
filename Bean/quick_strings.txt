@@ -1,4 +1,4 @@
-760
+765
 qstr_Next_Page Next_Page
 qstr_Game_Rules:^ Game_Rules:^
 qstr_0 0
@@ -759,3 +759,8 @@ qstr_Toggle_All_Party_Sort Toggle_All_Party_Sorting_(Currently_Disabled)
 qstr_Toggle_Player_Fief_So Toggle_Player_Fief_Sorting_(Currently_Disabled)
 qstr_hmm hmm
 qstr_array_GC:_owner_activ array_GC:_owner_active,_an_array_or_is_0
+qstr_Player_Party_in_Sort Player_Party_in_Sorting_Detected
+qstr_Sorting_Player_Party Sorting_Player_Party
+qstr_Player_Party_Sorting Player_Party_Sorting_Disabled
+qstr_Sorting_Player_Fied Sorting_Player_Fied
+qstr_Player_Fief_Sorting_ Player_Fief_Sorting_Disabled
