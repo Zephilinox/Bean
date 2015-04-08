@@ -13259,11 +13259,11 @@ scripts = [
           (try_begin),
             (gt, reg1, 0),
             (set_result_string, "@+{reg1} to party morale"),
-            (set_trigger_result, 0x3388FF),
+            (set_trigger_result, color_blue),
           (else_try),
             (lt, reg1, 0),
             (set_result_string, "@{reg1} to party morale"),
-            (set_trigger_result, 0xFF4444),
+            (set_trigger_result, color_red),
           (try_end),
           ##BEAN END - Improved Trade Goods
         (try_end),
