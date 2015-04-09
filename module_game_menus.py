@@ -998,6 +998,17 @@ game_menus = [
          (jump_to_menu, "mnu_start_character_1"),
        ]
        ),
+
+      ##BEAN BEGIN - Skip Start
+      ("start_dev",[],"Developer",
+        [
+          (troop_set_type, "trp_player", 0),
+          (assign, "$character_gender", tf_male),
+          (change_screen_return),
+        ]
+      ),
+      ##BEAN END - Skip Start
+
 	  ("go_back",[],"Go back",
        [
 	     (jump_to_menu,"mnu_start_game_0"),
@@ -3078,10 +3089,9 @@ game_menus = [
              (try_end),
            (try_end),
 
-           (rest_for_hours_interactive, 24 * 365, 5, 1), #rest while attackable
+           (rest_for_hours_interactive, 24 * 365, 6, 1), #rest while attackable
 
            (change_screen_return),
-           (start_presentation, "prsnt_custom_banner"),
         ]
        ),
       ("camp_cheat",
@@ -14473,11 +14483,14 @@ game_menus = [
     [
       ("continue",[], "Continue...",
        [
+          ##BEAN BEGIN - Disable Start Quest
          (assign, "$g_starting_town", "$current_town"),
-         (call_script, "script_player_arrived"),
+         #(call_script, "script_player_arrived"),
          (party_set_morale, "p_main_party", 100),
-         (set_encountered_party, "$current_town"),
-         (call_script, "script_prepare_alley_to_fight"),
+         #(set_encountered_party, "$current_town"),
+         #(call_script, "script_prepare_alley_to_fight"),
+         (change_screen_return),
+         ##BEAN END - Disable Start Quest
        ]),
     ]
   ),
