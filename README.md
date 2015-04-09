@@ -37,6 +37,7 @@ jacobhinds              Overhauled Morale & Routing                     ##BEAN -
 sphere, Caba`drin       Dynamic Arrays                                  plugin_dynamic_arrays.py
 Caba`drin               Merchant Trade Ledger                           ##BEAN - Trade Ledger
 rubik                   Sort Party Troops                               plugin_sort_party_troops.py
+painbringer             World Map HD
 
 Zephilinox              Enabled Native Custom Banners                   ##BEAN - Custom Banners
 Zephilinox              Extra Trade Goods                               ##BEAN - Extra Trade Goods
