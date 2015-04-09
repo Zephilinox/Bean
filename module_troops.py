@@ -543,6 +543,7 @@ troops = [
   # [itm_ashwood_pike,itm_battle_fork,itm_battle_axe,itm_fighting_axe,itm_tab_shield_round_d,itm_tab_shield_round_e,itm_mail_hauberk,itm_heraldic_mail_with_tabard,itm_mail_chausses,itm_iron_greaves,itm_nordic_helmet,itm_nordic_helmet,itm_nordic_helmet,itm_spiked_helmet,itm_leather_gloves],
   # def_attrib|level(24),wp(130),knows_athletics_3|knows_shield_2|knows_ironflesh_3,nord_face_middle_1, nord_face_older_2],
 
+  ##BEAN BEGIN - Nord Troop Tree
   [
     "nord_recruit", "Nord Recruit", "Nord Recruits",
     tf_guarantee_boots | tf_guarantee_armor,
@@ -553,14 +554,14 @@ troops = [
       itm_blue_tunic, itm_coarse_tunic,
       itm_hide_boots, itm_nomad_boots
     ],
-    ATTR(6, 6, 6, 6, 5),
-    wp_one_handed(30) | wp_two_handed(30) | wp_throwing(15),
-    SKILLS(power_strike = 1, ironflesh = 1, athletics = 1),
+    ATTR(6, 6, 7, 6, 5),
+    wp_one_handed(60) | wp_two_handed(45) | wp_polearm(15) | wp_archery(15) | wp_crossbow(15) | wp_throwing(15),
+    SKILLS(power_strike = 2, power_throw = 2, shield = 2, ironflesh = 2, athletics = 2, weapon_master = 2),
     nord_face_younger_1, nord_face_old_2,
   ],
 
   [
-    "nord_footman", "Nord Militia", "Nord Militia",
+    "nord_militia", "Nord Militia", "Nord Militia",
     tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield,
     0, 0, fac_kingdom_4,
     [
@@ -578,7 +579,7 @@ troops = [
   ],
 
   [
-    "nord_trained_footman", "Nord Warrior", "Nord Warriors",
+    "nord_warrior", "Nord Warrior", "Nord Warriors",
     tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield | tf_guarantee_helmet,
     0, 0, fac_kingdom_4,
     [
@@ -595,7 +596,7 @@ troops = [
   ],
 
   [
-    "nord_warrior", "Nord Berserker", "Nord Berserkers",
+    "nord_berserker", "Nord Berserker", "Nord Berserkers",
     tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield | tf_guarantee_helmet,
     0, 0, fac_kingdom_4,
     [
@@ -613,7 +614,7 @@ troops = [
   ],
 
   [
-    "nord_veteran", "Nord Champion", "Nord Champion",
+    "nord_champion", "Nord Champion", "Nord Champion",
     tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield | tf_guarantee_helmet,
     0, 0, fac_kingdom_4,
     [
@@ -632,7 +633,7 @@ troops = [
   ],
 
   [
-    "nord_champion", "Nord Huscarl", "Nord Huscarls",
+    "nord_huscarl", "Nord Huscarl", "Nord Huscarls",
     tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield | tf_guarantee_helmet,
     0, 0, fac_kingdom_4,
     [
@@ -644,12 +645,12 @@ troops = [
       itm_mail_boots, itm_mail_chausses,
       itm_mail_mittens,
     ],
-    ATTR(21, 15, 6, 8, 30),
+    ATTR(21, 15, 7, 7, 30),
     wp_one_handed(215) | wp_two_handed(215) | wp_polearm(15) | wp_archery(15) | wp_crossbow(15) | wp_throwing(65),
     SKILLS(power_strike = 7, power_throw = 7, shield = 5, ironflesh = 7, athletics = 5, weapon_master = 5),
     nord_face_middle_1, nord_face_older_2,
   ],
-
+  ##BEAN END - Nord Troop Tree
   #[
   #  "nord_champion", "Nord Beserker", "Nord Beserkers",
   #  tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield | tf_guarantee_helmet,
@@ -2313,13 +2314,15 @@ upgrade(troops,"khergit_skirmisher","khergit_horseman")
 upgrade2(troops,"khergit_horseman","khergit_lancer","khergit_horse_archer")
 upgrade(troops,"khergit_horse_archer","khergit_veteran_horse_archer")
 
-upgrade2(troops,"nord_recruit","nord_footman","nord_huntsman")
-upgrade(troops,"nord_footman","nord_trained_footman")
-upgrade(troops,"nord_trained_footman","nord_warrior")
-upgrade(troops,"nord_warrior","nord_veteran")
-upgrade(troops,"nord_veteran","nord_champion")
-upgrade(troops,"nord_huntsman","nord_archer")
-upgrade(troops,"nord_archer","nord_veteran_archer")
+##BEAN BEGIN - Nord Troop Tree
+upgrade2(troops, "nord_recruit", "nord_militia", "nord_huntsman")
+upgrade(troops, "nord_militia", "nord_warrior")
+upgrade(troops, "nord_warrior", "nord_berserker")
+upgrade(troops, "nord_berserker", "nord_champion")
+upgrade(troops, "nord_champion", "nord_huscarl")
+##BEAN END - Nord Troop Tree
+upgrade(troops, "nord_huntsman", "nord_archer")
+upgrade(troops, "nord_archer", "nord_veteran_archer")
 
 upgrade2(troops,"rhodok_tribesman","rhodok_spearman","rhodok_crossbowman")
 upgrade(troops,"rhodok_spearman","rhodok_trained_spearman")

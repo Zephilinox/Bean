@@ -85,35 +85,36 @@ particle_systems = [
 ##     0.5                        #rotation damping
 ##    ),
 ##
-    ##BEAN BEGIN - Cinematic Compilation
+    ##BEAN BEGIN - Blood Enhancement Tweak #4
     ("game_blood", psf_billboard_3d |psf_randomize_size|psf_randomize_rotation,  "prt_mesh_blood_1",
-     500, 0.65, 3.5, 0.6, 0, 0,        #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
-     (0.0, 0.7), (0.7, 0.7),          #alpha keys
-     (0.1, 0.2), (1, 0.2),      #red keys
-     (0.1, 0.2), (1, 0.2),       #green keys
-     (0.1, 0.2), (1, 0.2),      #blue keys
-     (0.0, 0.015),   (0.5, 0.3),  #scale keys
-     (0, 0.05, 0),               #emit box size
-     (1.5, 0.4, 0.9),                #emit velocity
-     0.9,                       #emit dir randomness
-     120,                         #rotation speed
-
+     5000, 5.65, 3, 0.9, 10, 10,#num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
+     (0, 1), (1, 1),            #alpha keys
+     (0.1, 0.9), (1, 0.9),      #red keys
+     (0.1, 0.7), (1, 0.7),      #green keys
+     (0.1, 0.7), (1, 0.7),      #blue keys
+     (0.1, 0.02),   (1, 0.15),  #scale keys
+     (0, 0.05, 0),              #emit box size
+     (0.6, 1.1, 1.2),           #emit velocity
+     0,                         #emit dir randomness
+     0,                         #rotation speed
      0,                         #rotation damping
     ),
+
     ("game_blood_2", psf_billboard_3d | psf_randomize_size|psf_randomize_rotation ,  "prt_mesh_blood_3",
-     2000, 0.6, 3.5, 0.5, 0, 0,        #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
-     (0.0, 0.25), (0.7, 0.1),        #alpha keys
-     (0.1, 0.2), (1, 0.2),      #red keys
-     (0.1, 0.2), (1, 0.2),       #green keys
-     (0.1, 0.2), (1, 0.2),      #blue keys
-     (0.0, 0.15),   (0.5, 0.45),    #scale keys
-     (0.01, 0.2, 0.01),             #emit box size
-     (1.4, 1.4, 0.2),                 #emit velocity
-     0.3,                         #emit dir randomness
-     150,                       #rotation speed
-     0,                       #rotation damping
-     ),
-     ##BEAN END - Cinematic Compilation
+     5000, 1.9, 3, 1, 10, 10,   #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
+     (0.1, 0.15), (1, 0.01),    #alpha keys
+     (0.1, 0.6), (1, 0.7),      #red keys
+     (0.1, 0.6), (1, 0.7),      #green keys
+     (0.1, 0.6), (1, 0.7),      #blue keys
+     (0.1, 0.3),   (1, 0.75),   #scale keys
+     (0, 0.05, 0),              #emit box size
+     (0.9, 0.1, 1.2 ),          #emit velocity
+     0.5,                       #emit dir randomness
+     0,                         #rotation speed
+     0,                         #rotation damping
+    ),
+    ##BEAN END - Blood Enhancement Tweak #4
+
  #   ("game_hoof_dust", psf_billboard_3d|psf_randomize_size|psf_randomize_rotation, "prtcl_dust_a",
  #    50, 1.0, 0.95, -0.1, 10.0, 0.0,     #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
  #    (0.0, 0.5), (1, 0.0),        #alpha keys
@@ -127,7 +128,7 @@ particle_systems = [
  #    100,                       #rotation speed
  #    0.5                        #rotation damping
  #   ),
- 
+
     ##BEAN BEGIN - Cinematic Compilation
     ("game_hoof_dust", psf_billboard_3d|psf_randomize_size|psf_randomize_rotation|psf_2d_turbulance, "prt_mesh_dust_1",#prt_mesh_dust_1
     6, 3.0,  10, 0.02, 12.0, 39.0, #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
@@ -143,7 +144,7 @@ particle_systems = [
     0.5                        #rotation damping
     ),
     ##BEAN END - Cinematic Compilation
-    
+
     ("game_hoof_dust_snow", psf_billboard_3d|psf_randomize_size, "prt_mesh_snow_dust_1",#prt_mesh_dust_1
      6, 2, 3.5, 1, 10.0, 0.0, #num_particles, life, damping, gravity_strength, turbulance_size, turbulance_strength
      (0.2, 1), (1, 1),        #alpha keys

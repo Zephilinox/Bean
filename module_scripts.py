@@ -117,10 +117,10 @@ scripts = [
       (faction_set_slot, "fac_culture_3", slot_faction_tier_5_troop, "trp_khergit_veteran_horse_archer"),
 
       (faction_set_slot, "fac_culture_4", slot_faction_tier_1_troop, "trp_nord_recruit"),
-      (faction_set_slot, "fac_culture_4", slot_faction_tier_2_troop, "trp_nord_footman"),
-      (faction_set_slot, "fac_culture_4", slot_faction_tier_3_troop, "trp_nord_trained_footman"),
-      (faction_set_slot, "fac_culture_4", slot_faction_tier_4_troop, "trp_nord_warrior"),
-      (faction_set_slot, "fac_culture_4", slot_faction_tier_5_troop, "trp_nord_veteran"),
+      (faction_set_slot, "fac_culture_4", slot_faction_tier_2_troop, "trp_nord_militia"),
+      (faction_set_slot, "fac_culture_4", slot_faction_tier_3_troop, "trp_nord_warrior"),
+      (faction_set_slot, "fac_culture_4", slot_faction_tier_4_troop, "trp_nord_berserker"),
+      (faction_set_slot, "fac_culture_4", slot_faction_tier_5_troop, "trp_nord_champion"),
 
       (faction_set_slot, "fac_culture_5", slot_faction_tier_1_troop, "trp_rhodok_tribesman"),
       (faction_set_slot, "fac_culture_5", slot_faction_tier_2_troop, "trp_rhodok_spearman"),
@@ -48350,13 +48350,15 @@ scripts = [
   # OUTPUT: reg0 = enemies routed 0 or 1
   ("all_enemies_routed",
     [
-        (try_for_agents, ":agent"),
+      (assign, reg0, 0), ##BEAN - BugFix | reg0 would sometimes have a value and cause inability to win fights
+      (try_for_agents, ":agent"),
         (neg|agent_is_ally, ":agent"),
         (agent_is_alive, ":agent"),
+        (agent_is_human, ":agent"), ##BEAN - BugFix | Battles could not be won due to enemy horses not routing
         (agent_get_slot, ":routing", ":agent", slot_agent_is_running_away),
         (eq, ":routing", 0),
         (val_add, reg0, 1),
-         (try_end),
+      (try_end),
     ]
   ),
   ##BEAN END - Overhauled Morale

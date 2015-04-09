@@ -1116,14 +1116,17 @@ color_cream = 0xFFEEDD
 color_red = 0xFF3333
 color_light_red = 0xFF6666
 
-color_green = 0x44FF44
-color_light_green = 0x33FF33
+color_green = 0x91FF00
+color_light_green = 0xC2FF73
 
 color_blue = 0x3388FF
 color_light_blue = 0x66CCFF
 
 color_orange = 0xFFA400
 color_light_orange = 0xFFA444
+
+color_yellow = 0xFFE419
+color_light_yellow = 0xFFED66
 
 color_great_news = color_green
 color_good_news = color_light_green
@@ -1132,7 +1135,7 @@ color_bad_news = color_light_red
 color_terrible_news = color_red
 
 color_quest_and_faction_news = color_light_blue
-color_hero_news = color_light_orange
+color_hero_news = color_yellow
 
 ########################################################
 ##  NEWS TYPES              ############################

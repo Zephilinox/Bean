@@ -72,7 +72,7 @@ common_init_deathcam = (
 )
 
 common_start_deathcam = (
-    0, 1, ti_once, #1 second delay before the camera activates
+    0, 2, ti_once, #2 second delay before the camera activates
     [
         (main_hero_fallen),
         (eq, "$deathcam_on", 0),
@@ -1172,7 +1172,7 @@ custom_battle_check_defeat_condition = (
     ])
 
 common_battle_victory_display = (
-  10, 0, 0, [],
+  11, 0, 0, [],
   [
     (eq,"$g_battle_won",1),
     (display_message,"str_msg_battle_won", color_great_news), ##BEAN - Color Coded Messages
@@ -1367,13 +1367,6 @@ common_battle_check_victory_condition = (
 )
 
 ##BEAN END - Deathcam
-
-common_battle_victory_display = (
-  10, 0, 0, [],
-  [
-    (eq,"$g_battle_won",1),
-    (display_message,"str_msg_battle_won", color_great_news), ##BEAN - Color Coded Messages
-    ])
 
 common_siege_refill_ammo = (
   120, 0, 0, [],
