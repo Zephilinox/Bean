@@ -548,8 +548,10 @@ troops = [
     tf_guarantee_boots | tf_guarantee_armor,
     0, 0, fac_kingdom_4,
     [
-      itm_axe,itm_hatchet, itm_spear, itm_tab_shield_round_a, itm_tab_shield_round_a,
-      itm_blue_tunic, itm_coarse_tunic, itm_hide_boots, itm_nomad_boots
+      itm_axe, itm_hatchet, itm_spear,
+      itm_tab_shield_round_a, itm_tab_shield_round_a,
+      itm_blue_tunic, itm_coarse_tunic,
+      itm_hide_boots, itm_nomad_boots
     ],
     ATTR(6, 6, 6, 6, 5),
     wp_one_handed(30) | wp_two_handed(30) | wp_throwing(15),
@@ -562,8 +564,12 @@ troops = [
     tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield,
     0, 0, fac_kingdom_4,
     [
-      itm_fighting_axe, itm_one_handed_war_axe_a, itm_spear, itm_tab_shield_round_a, itm_tab_shield_round_b, itm_javelin, itm_throwing_axes,
-      itm_leather_cap, itm_skullcap, itm_nomad_vest, itm_leather_boots, itm_nomad_boots,
+      itm_fighting_axe, itm_one_handed_war_axe_a, itm_spear,
+      itm_tab_shield_round_a, itm_tab_shield_round_b,
+      itm_javelin, itm_throwing_axes,
+      itm_leather_cap, itm_skullcap,
+      itm_nomad_vest,
+      itm_leather_boots, itm_nomad_boots,
     ],
     ATTR(9, 6, 6, 6, 10),
     wp_one_handed(60) | wp_two_handed(60) | wp_throwing(30),
@@ -572,12 +578,15 @@ troops = [
   ],
 
   [
-    "nord_trained_footman", "Nord Footman", "Nord Footmen",
+    "nord_trained_footman", "Nord Warrior", "Nord Warriors",
     tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield | tf_guarantee_helmet,
     0, 0, fac_kingdom_4,
     [
-      itm_one_handed_war_axe_a, itm_one_handed_war_axe_b, itm_one_handed_battle_axe_a, itm_tab_shield_round_b,
-      itm_skullcap, itm_nasal_helmet, itm_nordic_footman_helmet, itm_byrnie, itm_studded_leather_coat, itm_leather_boots,
+      itm_one_handed_war_axe_a, itm_one_handed_war_axe_b, itm_one_handed_battle_axe_a,
+      itm_tab_shield_round_b,
+      itm_skullcap, itm_nasal_helmet, itm_nordic_footman_helmet,
+      itm_byrnie, itm_studded_leather_coat,
+      itm_leather_boots,
     ],
     ATTR(12, 9, 9, 6, 15),
     wp_one_handed(90) | wp_two_handed(90) | wp_throwing(45),
@@ -586,12 +595,16 @@ troops = [
   ],
 
   [
-    "nord_warrior", "Nord Infantry", "Nord Infantry",
+    "nord_warrior", "Nord Berserker", "Nord Berserkers",
     tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield | tf_guarantee_helmet,
     0, 0, fac_kingdom_4,
     [
-      itm_sword_viking_1, itm_one_handed_war_axe_b, itm_one_handed_battle_axe_a, itm_tab_shield_round_c, itm_javelin,
-      itm_nordic_footman_helmet, itm_nordic_fighter_helmet, itm_mail_shirt, itm_studded_leather_coat, itm_hunter_boots, itm_leather_boots,
+      itm_sword_viking_1, itm_one_handed_war_axe_b, itm_one_handed_battle_axe_a,
+      itm_tab_shield_round_c,
+      itm_javelin,
+      itm_nordic_footman_helmet, itm_nordic_fighter_helmet,
+      itm_mail_shirt, itm_studded_leather_coat,
+      itm_hunter_boots, itm_leather_boots,
     ],
     ATTR(15, 9, 9, 6, 20),
     wp_one_handed(120) | wp_two_handed(120) | wp_throwing(60),
@@ -600,12 +613,17 @@ troops = [
   ],
 
   [
-    "nord_veteran","Nord Warrior","Nord Warriors",
+    "nord_veteran", "Nord Champion", "Nord Champion",
     tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield | tf_guarantee_helmet,
     0, 0, fac_kingdom_4,
     [
-      itm_sword_viking_2, itm_sword_viking_2_small, itm_one_handed_battle_axe_b, itm_spiked_mace, itm_tab_shield_round_d, itm_javelin, itm_throwing_axes,
-      itm_nordic_helmet, itm_nordic_fighter_helmet, itm_mail_hauberk, itm_mail_shirt, itm_splinted_leather_greaves, itm_leather_boots, itm_leather_gloves,
+      itm_sword_viking_2, itm_sword_viking_2_small, itm_one_handed_battle_axe_b, itm_spiked_mace,
+      itm_tab_shield_round_d,
+      itm_javelin, itm_throwing_axes,
+      itm_nordic_helmet, itm_nordic_fighter_helmet,
+      itm_mail_hauberk, itm_mail_shirt,
+      itm_splinted_leather_greaves, itm_leather_boots,
+      itm_leather_gloves,
     ],
     ATTR(18, 9, 9, 6, 25),
     wp_one_handed(120) | wp_two_handed(120) | wp_throwing(60),
@@ -614,18 +632,37 @@ troops = [
   ],
 
   [
-    "nord_champion", "Nord Beserker", "Nord Beserkers",
+    "nord_champion", "Nord Huscarl", "Nord Huscarls",
     tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield | tf_guarantee_helmet,
     0, 0, fac_kingdom_4,
     [
-      itm_sword_viking_3, itm_sword_viking_3_small, itm_great_axe, itm_one_handed_battle_axe_c, itm_tab_shield_round_e, itm_throwing_spears, itm_heavy_throwing_axes, itm_heavy_throwing_axes,
-      itm_nordic_huscarl_helmet, itm_nordic_warlord_helmet, itm_banded_armor, itm_mail_boots, itm_mail_chausses, itm_mail_mittens,
+      itm_sword_viking_3, itm_sword_viking_3_small, itm_great_axe, itm_one_handed_battle_axe_c,
+      itm_tab_shield_round_e,
+      itm_throwing_spears, itm_heavy_throwing_axes, itm_heavy_throwing_axes,
+      itm_nordic_huscarl_helmet, itm_nordic_warlord_helmet,
+      itm_banded_armor,
+      itm_mail_boots, itm_mail_chausses,
+      itm_mail_mittens,
     ],
-    ATTR(21, 15, 9, 6, 30),
-    wp_one_handed(150) | wp_two_handed(150) | wp_throwing(75),
-    SKILLS(power_strike = 6, power_throw = 5, shield = 5, ironflesh = 5, athletics = 5),
+    ATTR(21, 15, 6, 8, 30),
+    wp_one_handed(215) | wp_two_handed(215) | wp_polearm(15) | wp_archery(15) | wp_crossbow(15) | wp_throwing(65),
+    SKILLS(power_strike = 7, power_throw = 7, shield = 5, ironflesh = 7, athletics = 5, weapon_master = 5),
     nord_face_middle_1, nord_face_older_2,
   ],
+
+  #[
+  #  "nord_champion", "Nord Beserker", "Nord Beserkers",
+  #  tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield | tf_guarantee_helmet,
+  #  0, 0, fac_kingdom_4,
+  #  [
+  #    itm_sword_viking_3, itm_sword_viking_3_small, itm_great_axe, itm_one_handed_battle_axe_c, itm_tab_shield_round_e, itm_throwing_spears, itm_heavy_throwing_axes, itm_heavy_throwing_axes,
+  #    itm_nordic_huscarl_helmet, itm_nordic_warlord_helmet, itm_banded_armor, itm_mail_boots, itm_mail_chausses, itm_mail_mittens,
+  #  ],
+  #  ATTR(21, 15, 9, 6, 30),
+  #  wp_one_handed(150) | wp_two_handed(150) | wp_throwing(75),
+  #  SKILLS(power_strike = 6, power_throw = 5, shield = 5, ironflesh = 5, athletics = 5),
+  #  nord_face_middle_1, nord_face_older_2,
+  #],
 
   ["nord_huntsman","Nord Huntsman","Nord Huntsmen",tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_kingdom_4,
    [itm_arrows,itm_rawhide_coat,itm_hatchet,itm_hunting_bow,itm_hide_boots],
