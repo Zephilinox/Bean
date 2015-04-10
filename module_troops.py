@@ -496,53 +496,6 @@ troops = [
    [itm_sword_khergit_4,itm_tab_shield_small_round_b,itm_tab_shield_small_round_a,itm_lamellar_vest_khergit,itm_lamellar_armor,itm_khergit_leather_boots,itm_iron_greaves,itm_khergit_guard_helmet,itm_khergit_cavalry_helmet,itm_leather_warrior_cap],
    def_attrib|level(24),wp(130),knows_athletics_5|knows_shield_2|knows_ironflesh_5,khergit_face_middle_1, khergit_face_older_2],
 
-
-  #["nord_recruit","Nord Recruit","Nord Recruits",tf_guarantee_boots|tf_guarantee_armor,0,0,fac_kingdom_4,
-  # [itm_axe,itm_hatchet,itm_spear,itm_tab_shield_round_a,itm_tab_shield_round_a,
-  #  itm_blue_tunic,itm_coarse_tunic,itm_hide_boots,itm_nomad_boots],
-  # def_attrib|level(6),wp(50),knows_power_strike_1|knows_power_throw_1|knows_riding_1|knows_athletics_1,nord_face_younger_1, nord_face_old_2],
-  #["nord_footman","Nord Footman","Nord Footmen",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield,0,0,fac_kingdom_4,
-  # [itm_fighting_axe,itm_one_handed_war_axe_a,itm_spear,itm_tab_shield_round_a,itm_tab_shield_round_b,itm_javelin,itm_throwing_axes,
-  #  itm_leather_cap,itm_skullcap,itm_nomad_vest,itm_leather_boots,itm_nomad_boots],
-  # def_attrib|level(10),wp(70),knows_ironflesh_2|knows_power_strike_2|knows_power_throw_2|knows_riding_2|knows_athletics_2|knows_shield_1,nord_face_young_1, nord_face_old_2],
-  #["nord_trained_footman","Nord Trained Footman","Nord Trained Footmen",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield|tf_guarantee_helmet,0,0,fac_kingdom_4,
-  # [itm_one_handed_war_axe_a,itm_one_handed_war_axe_b,itm_one_handed_battle_axe_a,itm_tab_shield_round_b,
-  #  itm_skullcap,itm_nasal_helmet,itm_nordic_footman_helmet,itm_byrnie,itm_studded_leather_coat,itm_leather_boots],
-  # def_attrib|level(14),wp(100),knows_ironflesh_3|knows_power_strike_3|knows_power_throw_2|knows_riding_2|knows_athletics_3|knows_shield_2,nord_face_young_1, nord_face_old_2],
-  #["nord_warrior","Nord Warrior","Nord Warriors",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield|tf_guarantee_helmet,0,0,fac_kingdom_4,
-  # [itm_sword_viking_1,itm_one_handed_war_axe_b,itm_one_handed_battle_axe_a,itm_tab_shield_round_c,itm_javelin,
-  #  itm_nordic_footman_helmet,itm_nordic_fighter_helmet,itm_mail_shirt,itm_studded_leather_coat,itm_hunter_boots,itm_leather_boots],
-  # def_attrib|level(19),wp(115),knows_ironflesh_4|knows_power_strike_4|knows_power_throw_3|knows_riding_2|knows_athletics_4|knows_shield_3,nord_face_young_1, nord_face_older_2],
-  #["nord_veteran","Nord Veteran","Nord Veterans",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield|tf_guarantee_helmet,0,0,fac_kingdom_4,
-  # [itm_sword_viking_2,itm_sword_viking_2_small,itm_one_handed_battle_axe_b,itm_spiked_mace,itm_tab_shield_round_d,itm_javelin,itm_throwing_axes,
-  #  itm_nordic_helmet,itm_nordic_fighter_helmet,itm_mail_hauberk,itm_mail_shirt,itm_splinted_leather_greaves,itm_leather_boots,itm_leather_gloves],
-  # def_attrib|level(24),wp(145),knows_ironflesh_5|knows_power_strike_5|knows_power_throw_4|knows_riding_3|knows_athletics_5|knows_shield_4,nord_face_young_1, nord_face_older_2],
-  #["nord_champion","Nord Huscarl","Nord Huscarls",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield|tf_guarantee_helmet,0,0,fac_kingdom_4,
-  # [itm_sword_viking_3,itm_sword_viking_3_small,itm_great_axe,itm_one_handed_battle_axe_c,itm_tab_shield_round_e,itm_throwing_spears,itm_heavy_throwing_axes,itm_heavy_throwing_axes,
-  #  itm_nordic_huscarl_helmet,itm_nordic_warlord_helmet,itm_banded_armor,itm_mail_boots,itm_mail_chausses,itm_mail_mittens],
-  # def_attrib|level(28),wp(170),knows_ironflesh_7|knows_power_strike_7|knows_power_throw_5|knows_riding_2|knows_athletics_7|knows_shield_6,nord_face_middle_1, nord_face_older_2],
-  #["nord_huntsman","Nord Huntsman","Nord Huntsmen",tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_kingdom_4,
-  # [itm_arrows,itm_rawhide_coat,itm_hatchet,itm_hunting_bow,itm_hide_boots],
-  # str_10 | agi_5 | int_4 | cha_4|level(11),wp_one_handed (60) | wp_two_handed (60) | wp_polearm (60) | wp_archery (70) | wp_crossbow (60) | wp_throwing (60),knows_ironflesh_1|knows_power_draw_1|knows_athletics_2,nord_face_young_1, nord_face_old_2],
-  #["nord_archer","Nord Archer","Nord Archers",tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_kingdom_4,
-  # [itm_arrows,itm_axe,itm_short_bow,itm_padded_leather,itm_leather_jerkin,itm_padded_leather,itm_leather_boots,itm_nasal_helmet,itm_nordic_archer_helmet,itm_leather_cap],
-  # str_11 | agi_5 | int_4 | cha_4|level(15),wp_one_handed (80) | wp_two_handed (80) | wp_polearm (80) | wp_archery (95) | wp_crossbow (80) | wp_throwing (80),knows_ironflesh_2|knows_power_draw_3|knows_athletics_5,nord_face_young_1, nord_face_old_2],
-  #["nord_veteran_archer","Nord Veteran Archer","Nord Veteran Archers",tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_kingdom_4,
-  # [itm_bodkin_arrows,itm_sword_viking_2,itm_fighting_axe,itm_two_handed_axe,itm_long_bow,itm_mail_shirt,itm_mail_shirt,itm_byrnie,itm_leather_boots,itm_nordic_archer_helmet,itm_nordic_veteran_archer_helmet],
-  # str_12 | agi_5 | int_4 | cha_4|level(19),wp_one_handed (95) | wp_two_handed (95) | wp_polearm (95) | wp_archery (120) | wp_crossbow (95) | wp_throwing (95),knows_power_strike_3|knows_ironflesh_4|knows_power_draw_5|knows_athletics_7,nord_face_middle_1, nord_face_older_2],
-  #["nord_messenger","Nord Messenger","Nord Messengers",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_horse|tf_guarantee_ranged,0,0,fac_kingdom_4,
-  # [itm_sword_viking_2,itm_leather_jerkin,itm_leather_boots,itm_courser,itm_leather_gloves,itm_short_bow,itm_arrows],
-  # str_7 | agi_21 | int_4 | cha_4|level(25),wp(130),knows_common|knows_riding_7|knows_horse_archery_5|knows_power_draw_5,nord_face_young_1, nord_face_older_2],
-  #["nord_deserter","Nord Deserter","Nord Deserters",tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_deserters,
-  # [itm_arrows,itm_spiked_mace,itm_axe,itm_falchion,itm_short_bow,itm_short_bow,itm_hunting_bow,itm_javelin,itm_javelin,itm_steppe_cap,itm_nomad_cap,itm_leather_vest,itm_leather_vest,itm_nomad_armor,itm_nomad_boots],
-  # str_10 | agi_5 | int_4 | cha_4|level(14),wp(80),knows_ironflesh_1|knows_power_draw_1,nord_face_young_1, nord_face_older_2],
-  #["nord_prison_guard","Prison Guard","Prison Guards", tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet,0,0,fac_kingdom_4,
-  # [itm_ashwood_pike,itm_battle_fork,itm_battle_axe,itm_fighting_axe,itm_tab_shield_round_d,itm_mail_hauberk,itm_mail_chausses,itm_iron_greaves,itm_nordic_helmet,itm_nordic_helmet,itm_nordic_helmet,itm_spiked_helmet,itm_leather_gloves],
-  # def_attrib|level(24),wp(130),knows_athletics_3|knows_shield_2|knows_ironflesh_3,nord_face_middle_1, nord_face_older_2],
-  #["nord_castle_guard","Castle Guard","Castle Guards", tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet,0,0,fac_kingdom_4,
-  # [itm_ashwood_pike,itm_battle_fork,itm_battle_axe,itm_fighting_axe,itm_tab_shield_round_d,itm_tab_shield_round_e,itm_mail_hauberk,itm_heraldic_mail_with_tabard,itm_mail_chausses,itm_iron_greaves,itm_nordic_helmet,itm_nordic_helmet,itm_nordic_helmet,itm_spiked_helmet,itm_leather_gloves],
-  # def_attrib|level(24),wp(130),knows_athletics_3|knows_shield_2|knows_ironflesh_3,nord_face_middle_1, nord_face_older_2],
-
   ##BEAN BEGIN - Nord Troop Tree
   [
     "nord_recruit", "Nord Recruit", "Nord Recruits",
@@ -646,22 +599,87 @@ troops = [
       itm_mail_mittens,
     ],
     ATTR(24, 15, 6, 4, 30),
-    wp_one_handed(220) | wp_two_handed(220) | wp_polearm(15) | wp_archery(15) | wp_crossbow(15) | wp_throwing(55),
+    wpex(220, 220, 15, 15, 15, 55),
     SKILLS(ironflesh = 7, power_strike = 8, power_throw = 5, shield = 5, athletics = 5, weapon_master = 5),
     nord_face_middle_1, nord_face_older_2,
   ],
-  
-  ##BEAN END - Nord Troop Tree
 
-  ["nord_huntsman","Nord Huntsman","Nord Huntsmen",tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_kingdom_4,
-   [itm_arrows,itm_rawhide_coat,itm_hatchet,itm_hunting_bow,itm_hide_boots],
-   str_10 | agi_5 | int_4 | cha_4|level(11),wp_one_handed (60) | wp_two_handed (60) | wp_polearm (60) | wp_archery (70) | wp_crossbow (60) | wp_throwing (60),knows_ironflesh_1|knows_power_draw_1|knows_athletics_2,nord_face_young_1, nord_face_old_2],
-  ["nord_archer","Nord Archer","Nord Archers",tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_kingdom_4,
-   [itm_arrows,itm_axe,itm_short_bow,itm_padded_leather,itm_leather_jerkin,itm_padded_leather,itm_leather_boots,itm_nasal_helmet,itm_nordic_archer_helmet,itm_leather_cap],
-   str_11 | agi_5 | int_4 | cha_4|level(15),wp_one_handed (80) | wp_two_handed (80) | wp_polearm (80) | wp_archery (95) | wp_crossbow (80) | wp_throwing (80),knows_ironflesh_2|knows_power_draw_3|knows_athletics_5,nord_face_young_1, nord_face_old_2],
-  ["nord_veteran_archer","Nord Veteran Archer","Nord Veteran Archers",tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_kingdom_4,
-   [itm_bodkin_arrows,itm_sword_viking_2,itm_fighting_axe,itm_two_handed_axe,itm_long_bow,itm_mail_shirt,itm_mail_shirt,itm_byrnie,itm_leather_boots,itm_nordic_archer_helmet,itm_nordic_veteran_archer_helmet],
-   str_12 | agi_5 | int_4 | cha_4|level(19),wp_one_handed (95) | wp_two_handed (95) | wp_polearm (95) | wp_archery (120) | wp_crossbow (95) | wp_throwing (95),knows_power_strike_3|knows_ironflesh_4|knows_power_draw_5|knows_athletics_7,nord_face_middle_1, nord_face_older_2],
+  [
+    "nord_hunter", "Nord Hunter", "Nord Hunters",
+    tf_guarantee_ranged | tf_guarantee_boots | tf_guarantee_armor,
+    0, 0, fac_kingdom_4,
+    [
+      itm_bolts,
+      itm_rawhide_coat,
+      itm_hatchet,
+      itm_crossbow,
+      itm_tab_shield_pavise_a,
+      itm_hide_boots,
+    ],
+    ATTR(12, 9, 4, 4, 10),
+    wpex(80, 15, 15, 15, 100, 15),
+    SKILLS(ironflesh = 3, power_strike = 1, power_draw = 4, shield = 1, athletics = 2, weapon_master = 2),
+    nord_face_young_1, nord_face_old_2
+  ],
+
+  [
+    "nord_veteran_hunter", "Nord Veteran Hunter", "Nord Veteran Hunters",
+    tf_guarantee_ranged | tf_guarantee_boots | tf_guarantee_armor,
+    0, 0, fac_kingdom_4,
+    [
+      itm_bolts,
+      itm_axe,
+      itm_crossbow,
+      itm_tab_shield_pavise_a,
+      itm_padded_leather, itm_leather_jerkin, itm_padded_leather,
+      itm_leather_boots,
+      itm_nasal_helmet, itm_nordic_archer_helmet, itm_leather_cap
+    ],
+    ATTR(15, 11, 4, 4, 15),
+    wpex(115, 15, 15, 15, 140, 15),
+    SKILLS(ironflesh = 3, power_strike = 2, power_draw = 5, shield = 2, athletics = 3, weapon_master = 3),
+    nord_face_young_1, nord_face_old_2
+  ],
+
+  [
+    "nord_master_hunter", "Nord Master Hunter", "Nord Master Hunters",
+    tf_guarantee_ranged | tf_guarantee_boots | tf_guarantee_armor,
+    0, 0, fac_kingdom_4,
+    [
+      itm_bolts,
+      itm_sword_viking_2, itm_fighting_axe, itm_two_handed_axe,
+      itm_crossbow,
+      itm_tab_shield_pavise_a,
+      itm_mail_shirt, itm_mail_shirt,itm_byrnie,
+      itm_leather_boots,
+      itm_nordic_archer_helmet, itm_nordic_veteran_archer_helmet
+    ],
+    ATTR(18, 13, 4, 4, 20),
+    wpex(150, 15, 15, 15, 180, 15),
+    SKILLS(ironflesh = 4, power_strike = 3, power_draw = 6, shield = 2, athletics = 4, weapon_master = 4),
+    nord_face_young_1, nord_face_old_2
+  ],
+
+  [
+    "nord_champion_hunter", "Nord Champion Hunter", "Nord Champion Hunters",
+    tf_guarantee_ranged | tf_guarantee_boots | tf_guarantee_armor,
+    0, 0, fac_kingdom_4,
+    [
+      itm_bolts,
+      itm_sword_viking_2, itm_fighting_axe, itm_two_handed_axe,
+      itm_crossbow,
+      itm_tab_shield_pavise_a,
+      itm_mail_shirt, itm_mail_shirt,itm_byrnie,
+      itm_leather_boots,
+      itm_nordic_archer_helmet, itm_nordic_veteran_archer_helmet
+    ],
+    ATTR(21, 15, 4, 4, 25),
+    wpex(185, 15, 15, 15, 220, 15),
+    SKILLS(ironflesh = 5, power_strike = 4, power_draw = 7, shield = 3, athletics = 4, weapon_master = 5),
+    nord_face_young_1, nord_face_old_2
+  ],
+  ##BEAN END - Nord Troop Tree
+  
   ["nord_messenger","Nord Messenger","Nord Messengers",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_horse|tf_guarantee_ranged,0,0,fac_kingdom_4,
    [itm_sword_viking_2,itm_leather_jerkin,itm_leather_boots,itm_courser,itm_leather_gloves,itm_short_bow,itm_arrows],
    str_7 | agi_21 | int_4 | cha_4|level(25),wp(130),knows_common|knows_riding_7|knows_horse_archery_5|knows_power_draw_5,nord_face_young_1, nord_face_older_2],
@@ -674,7 +692,7 @@ troops = [
   ["nord_castle_guard","Castle Guard","Castle Guards", tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet,0,0,fac_kingdom_4,
    [itm_ashwood_pike,itm_battle_fork,itm_battle_axe,itm_fighting_axe,itm_tab_shield_round_d,itm_tab_shield_round_e,itm_mail_hauberk,itm_heraldic_mail_with_tabard,itm_mail_chausses,itm_iron_greaves,itm_nordic_helmet,itm_nordic_helmet,itm_nordic_helmet,itm_spiked_helmet,itm_leather_gloves],
    def_attrib|level(24),wp(130),knows_athletics_3|knows_shield_2|knows_ironflesh_3,nord_face_middle_1, nord_face_older_2],
-
+  
 
   ["rhodok_tribesman","Rhodok Tribesman","Rhodok Tribesmen",tf_guarantee_boots|tf_guarantee_armor,0,0,fac_kingdom_5,
    [itm_pitch_fork,itm_tab_shield_pavise_a,
@@ -2303,14 +2321,15 @@ upgrade2(troops,"khergit_horseman","khergit_lancer","khergit_horse_archer")
 upgrade(troops,"khergit_horse_archer","khergit_veteran_horse_archer")
 
 ##BEAN BEGIN - Nord Troop Tree
-upgrade2(troops, "nord_recruit", "nord_militia", "nord_huntsman")
+upgrade2(troops, "nord_recruit", "nord_militia", "nord_hunter")
 upgrade(troops, "nord_militia", "nord_warrior")
 upgrade(troops, "nord_warrior", "nord_berserker")
 upgrade(troops, "nord_berserker", "nord_champion")
 upgrade(troops, "nord_champion", "nord_huscarl")
+upgrade(troops, "nord_hunter", "nord_veteran_hunter")
+upgrade(troops, "nord_veteran_hunter", "nord_master_hunter")
+upgrade(troops, "nord_master_hunter", "nord_champion_hunter")
 ##BEAN END - Nord Troop Tree
-upgrade(troops, "nord_huntsman", "nord_archer")
-upgrade(troops, "nord_archer", "nord_veteran_archer")
 
 upgrade2(troops,"rhodok_tribesman","rhodok_spearman","rhodok_crossbowman")
 upgrade(troops,"rhodok_spearman","rhodok_trained_spearman")
