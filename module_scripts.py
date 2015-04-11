@@ -34603,6 +34603,7 @@ scripts = [
      (store_script_param, ":escape_chance", 2),
      (assign, ":quest_troop_1", -1),
      (assign, ":quest_troop_2", -1),
+     (assign, ":escaped_stack_troop", 0), ##BEAN - Color Coded Messages
      (try_begin),
        (check_quest_active, "qst_rescue_lord_by_replace"),
        (quest_get_slot, ":quest_troop_1", "qst_rescue_lord_by_replace", slot_quest_target_troop),
@@ -34621,6 +34622,7 @@ scripts = [
        (store_random_in_range, ":random_no", 0, 1000),
        (lt, ":random_no", ":escape_chance"),
        (party_remove_prisoners, ":party_no", ":stack_troop", 1),
+       (assign, ":escaped_stack_troop", ":stack_troop"), ##BEAN - Color Coded Messages
        (call_script, "script_remove_troop_from_prison", ":stack_troop"),
        (str_store_troop_name_link, s1, ":stack_troop"),
        (try_begin),
@@ -34637,7 +34639,16 @@ scripts = [
        (try_end),
        (store_troop_faction, ":troop_faction", ":stack_troop"),
        (str_store_faction_name_link, s3, ":troop_faction"),
-       (display_message, "@{reg0?One of your prisoners, :}{s1} of {s3} has escaped from captivity!", color_terrible_news), ##BEAN - Color Coded Messages
+       ##BEAN BEGIN - Color Coded Messages
+       (try_begin),
+         (eq, reg0, 1),
+         (display_message, "@One of your prisoners, : {s1} of {s3} has escaped from captivity!", color_terrible_news),
+       (else_try),
+         (call_script, "script_get_message_color", news_lord_escaped, ":escaped_stack_troop"),
+         (display_message, "@{s1} of {s3} has escaped from captivity!", reg20),
+       (try_end),
+       ##BEAN BEGIN - Color Coded Messages
+       
      (try_end),
      ]),
 
@@ -47946,7 +47957,7 @@ scripts = [
       (else_try),
         (store_relation, ":relation", ":lord_faction", ":player_faction"),
         (lt, ":relation", 0),
-        (assign, ":color", color_terrible_news),
+        (assign, ":color", color_bad_news),
       (else_try),
         (assign, ":color", color_neutral_news),
       (try_end),
@@ -47954,7 +47965,18 @@ scripts = [
     (else_try),
       # news_lord_escaped = 4
       (eq, ":news_type", news_lord_escaped),
-
+      (store_troop_faction, ":lord_faction", ":entity"),
+      (try_begin),
+        (eq, ":lord_faction", ":player_faction"),
+        (assign, ":color", color_great_news),
+      (else_try),
+        (store_relation, ":relation", ":lord_faction", ":player_faction"),
+        (lt, ":relation", 0),
+        (assign, ":color", color_bad_news),
+      (else_try),
+        (assign, ":color", color_neutral_news),
+      (try_end),
+      
     (else_try),
       # news_village_looted = 5
       # ":entity" is the village number
