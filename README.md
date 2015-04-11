@@ -38,6 +38,7 @@ sphere, Caba`drin       Dynamic Arrays                                  plugin_d
 Caba`drin               Merchant Trade Ledger                           ##BEAN - Trade Ledger
 rubik                   Sort Party Troops                               plugin_sort_party_troops.py
 painbringer             World Map HD
+gameweb                 HD Textures
 
 Zephilinox              Enabled Native Custom Banners                   ##BEAN - Custom Banners
 Zephilinox              Extra Trade Goods                               ##BEAN - Extra Trade Goods
@@ -48,5 +49,11 @@ Zephilinox              Bean Options                                    ##BEAN -
 
 ##Issues
 ```
+HD map is ruining battle textures, like snow ground and invisible trees, remove it.
+```
+
+##TODO
+```
+Add ability to mass-sell all prisoners
 
 ```
