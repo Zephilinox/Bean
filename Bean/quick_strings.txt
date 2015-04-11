@@ -1,4 +1,4 @@
-770
+771
 qstr_Next_Page Next_Page
 qstr_Game_Rules:^ Game_Rules:^
 qstr_0 0
@@ -769,3 +769,4 @@ qstr_Damage_Type:_{reg1} Damage_Type:_{reg1}
 qstr_{reg0}_enemies_left. {reg0}_enemies_left.
 qstr_One_of_your_prisoner One_of_your_prisoners,_:_{s1}_of_{s3}_has_escaped_from_captivity!
 qstr_{s1}_of_{s3}_has_esc {s1}_of_{s3}_has_escaped_from_captivity!
+qstr_One_of_your_prisoners One_of_your_prisoners,_{s1}_of_{s3}_has_escaped_from_captivity!

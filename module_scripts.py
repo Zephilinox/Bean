@@ -34642,7 +34642,7 @@ scripts = [
        ##BEAN BEGIN - Color Coded Messages
        (try_begin),
          (eq, reg0, 1),
-         (display_message, "@One of your prisoners, : {s1} of {s3} has escaped from captivity!", color_terrible_news),
+         (display_message, "@One of your prisoners, {s1} of {s3} has escaped from captivity!", color_terrible_news),
        (else_try),
          (call_script, "script_get_message_color", news_lord_escaped, ":escaped_stack_troop"),
          (display_message, "@{s1} of {s3} has escaped from captivity!", reg20),
