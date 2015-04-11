@@ -45,11 +45,12 @@ Zephilinox              Extra Trade Goods                               ##BEAN -
 Zephilinox              Weather                                         ##BEAN - Weather
 Zephilinox              Bean Initialization                             ##BEAN - Initialize
 Zephilinox              Bean Options                                    ##BEAN - Options
+Zephilinox              Speak With                                      ##BEAN - Speak With
 ```
 
 ##Issues
 ```
-HD map is ruining battle textures, like snow ground and invisible trees, remove it.
+
 ```
 
 ##TODO
