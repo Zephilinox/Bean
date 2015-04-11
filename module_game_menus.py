@@ -7666,6 +7666,33 @@ game_menus = [
            (change_screen_mission),
          (try_end),
         ],"Door to the village center."),
+      ##BEAN BEGIN - Speak With
+      ("village_speak_village_elder",
+        [
+          (neg|party_slot_eq, "$current_town", slot_village_state, svs_looted),
+          (neg|party_slot_eq, "$current_town", slot_village_state, svs_being_raided),
+          (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
+        ]
+        ,"Speak with the Village Elder.",
+        [
+          (try_begin),
+            (call_script, "script_cf_enter_center_location_bandit_check"),
+          (else_try),
+            (party_get_slot, ":village_scene", "$current_town", slot_castle_exterior),
+            (modify_visitors_at_site, ":village_scene"),
+            (reset_visitors),
+            (party_get_slot, ":village_elder_troop", "$current_town", slot_town_elder),
+            (set_visitor, 11, ":village_elder_troop"),
+
+            (set_jump_mission, "mt_village_center"),
+            (jump_to_scene, ":village_scene"),
+            (change_screen_mission),
+            (change_screen_map_conversation, ":village_elder_troop"),
+          (try_end),
+        ],
+      ),
+      ##BEAN END - Speak With
+
       ("village_buy_food",[(party_slot_eq, "$current_town", slot_village_state, 0),
                            (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
                            ],"Buy supplies from the peasants.",
@@ -9677,7 +9704,7 @@ game_menus = [
 
       ("trade_with_merchants",
        [
-           (party_slot_eq,"$current_town",slot_party_type, spt_town)
+           (party_slot_eq,"$current_town",slot_party_type, spt_town),
         ],
          "Go to the marketplace.",
          [
@@ -9687,6 +9714,27 @@ game_menus = [
              (jump_to_menu,"mnu_town_trade"),
            (try_end),
           ]),
+
+      ##BEAN BEGIN - Speak With
+      ("speak_guild_master",
+        [
+          (party_slot_eq, "$current_town", slot_party_type, spt_town),
+        ]
+        ,"Speak with the Guild Master.",
+        [
+          (party_get_slot, ":town_scene", "$current_town", slot_castle_exterior),
+          (modify_visitors_at_site, ":town_scene"),
+          (reset_visitors),
+          (party_get_slot, ":guild_master_troop", "$current_town", slot_town_elder),
+          (set_visitor, 11, ":guild_master_troop"),
+
+          (set_jump_mission, "mt_town_center"),
+          (jump_to_scene, ":town_scene"),
+          (change_screen_mission),
+          (change_screen_map_conversation, ":guild_master_troop"),
+        ],
+      ),
+      ##BEAN END - Speak With
 
       ("walled_center_manage",
       [
