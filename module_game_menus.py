@@ -5069,32 +5069,28 @@ game_menus = [
         (str_store_party_name, 2,"$g_encountered_party_2"),
       ],
     [
+      ##BEAN BEGIN - Attack Relations
       ("pre_join_help_attackers",[
           (store_faction_of_party, ":attacker_faction", "$g_encountered_party_2"),
           (store_relation, ":attacker_relation", ":attacker_faction", "fac_player_supporters_faction"),
-          (store_faction_of_party, ":defender_faction", "$g_encountered_party"),
-          (store_relation, ":defender_relation", ":defender_faction", "fac_player_supporters_faction"),
-          (ge, ":attacker_relation", 0),
-          (lt, ":defender_relation", 0),
+          (assign, reg20, ":attacker_relation"),
           ],
-          "Move in to help the {s2}.",[
+          "Join {s2}. (Faction Relation: {reg20})",[
               (select_enemy,0),
               (assign,"$g_enemy_party","$g_encountered_party"),
               (assign,"$g_ally_party","$g_encountered_party_2"),
               (jump_to_menu,"mnu_join_battle")]),
       ("pre_join_help_defenders",[
-          (store_faction_of_party, ":attacker_faction", "$g_encountered_party_2"),
-          (store_relation, ":attacker_relation", ":attacker_faction", "fac_player_supporters_faction"),
           (store_faction_of_party, ":defender_faction", "$g_encountered_party"),
           (store_relation, ":defender_relation", ":defender_faction", "fac_player_supporters_faction"),
-          (ge, ":defender_relation", 0),
-          (lt, ":attacker_relation", 0),
+          (assign, reg20, ":defender_relation"),
           ],
-          "Rush to the aid of the {s1}.",[
+          "Defend {s1}. (Faction Relation: {reg20})",[
               (select_enemy,1),
               (assign,"$g_enemy_party","$g_encountered_party_2"),
               (assign,"$g_ally_party","$g_encountered_party"),
               (jump_to_menu,"mnu_join_battle")]),
+      ##BEAN END - Attack Relations
       ("pre_join_leave",[],"Don't get involved.",[(leave_encounter),(change_screen_return)]),
     ]
   ),
@@ -5192,7 +5188,7 @@ game_menus = [
         (jump_to_menu,"mnu_join_order_attack"),
       ]),
 
-      ("join_leave",[],"Leave.",
+      ("join_leave",[],"Retreat.", ##BEAN | Make it more clear that it is a retreat
       [
         (try_begin),
            (neg|troop_is_wounded, "trp_player"),
@@ -5427,12 +5423,12 @@ game_menus = [
         (try_end),
     ],
     [
-      ("approach_besiegers",[(store_faction_of_party, ":faction_no", "$g_encountered_party_2"),
+      ("approach_besiegers",[
+                             ##BEAN BEGIN - Attack Relations
+                             (store_faction_of_party, ":faction_no", "$g_encountered_party_2"),
                              (store_relation, ":relation", ":faction_no", "fac_player_supporters_faction"),
                              (ge, ":relation", 0),
-                             (store_faction_of_party, ":faction_no", "$g_encountered_party"),
-                             (store_relation, ":relation", ":faction_no", "fac_player_supporters_faction"),
-                             (lt, ":relation", 0),
+                             ##BEAN BEGIN - Attack Relations
                              ],"Approach the siege camp.",[
           (jump_to_menu, "mnu_besiegers_camp_with_allies"),
                                 ]),
@@ -5845,13 +5841,13 @@ game_menus = [
 
       ("castle_start_siege",
        [
+           ##BEAN BEGIN - Attack Relations
            (this_or_next|party_slot_eq, "$g_encountered_party", slot_center_is_besieged_by, -1),
-           (             party_slot_eq, "$g_encountered_party", slot_center_is_besieged_by, "p_main_party"),
-           (store_relation, ":reln", "$g_encountered_party_faction", "fac_player_supporters_faction"),
-           (lt, ":reln", 0),
+           (party_slot_eq, "$g_encountered_party", slot_center_is_besieged_by, "p_main_party"),
            (lt, "$g_encountered_party_2", 1),
            (call_script, "script_party_count_fit_for_battle","p_main_party"),
-           (gt, reg(0), 5),
+           (gt, reg0, 1),
+           ##BEAN END - Attack Relations
            (try_begin),
              (party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
              (assign, reg6, 1),
@@ -7830,11 +7826,9 @@ game_menus = [
        [
            (jump_to_menu, "mnu_village_steal_cattle_confirm")
         ]),
+      ##BEAN BEGIN - Attack Relations
       ("village_loot",[(party_slot_eq, "$current_town", slot_village_state, 0),
                        (neg|party_slot_ge, "$current_town", slot_village_infested_by_bandits, 1),
-                       (store_faction_of_party, ":center_faction", "$current_town"),
-                       (store_relation, ":reln", "fac_player_supporters_faction", ":center_faction"),
-                       (lt, ":reln", 0),
                        ],
        "Loot and burn this village.",
        [
@@ -7842,6 +7836,7 @@ game_menus = [
 #           (party_add_template, "$current_town", "pt_villagers_in_raid"),
            (jump_to_menu, "mnu_village_start_attack"),
            ]),
+      ##BEAN END - Attack Relations
       ("forget_it",[],
       "Forget it.",[(jump_to_menu,"mnu_village")]),
     ],
