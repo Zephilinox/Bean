@@ -103,36 +103,48 @@ scripts = [
       (faction_set_slot, "fac_culture_1",  slot_faction_tier_3_troop, "trp_swadian_footman"),
       (faction_set_slot, "fac_culture_1",  slot_faction_tier_4_troop, "trp_swadian_infantry"),
       (faction_set_slot, "fac_culture_1",  slot_faction_tier_5_troop, "trp_swadian_knight"),
+      (faction_set_slot, "fac_culture_1",  slot_faction_tier_6_troop, "trp_swadian_knight"), ##BEAN - Troop Tiers
+      (faction_set_slot, "fac_culture_1",  slot_faction_tier_7_troop, "trp_swadian_knight"), ##BEAN - Troop Tiers
 
       (faction_set_slot, "fac_culture_2", slot_faction_tier_1_troop, "trp_vaegir_recruit"),
       (faction_set_slot, "fac_culture_2", slot_faction_tier_2_troop, "trp_vaegir_footman"),
       (faction_set_slot, "fac_culture_2", slot_faction_tier_3_troop, "trp_vaegir_veteran"),
       (faction_set_slot, "fac_culture_2", slot_faction_tier_4_troop, "trp_vaegir_infantry"),
       (faction_set_slot, "fac_culture_2", slot_faction_tier_5_troop, "trp_vaegir_knight"),
+      (faction_set_slot, "fac_culture_2", slot_faction_tier_6_troop, "trp_vaegir_knight"), ##BEAN - Troop Tiers
+      (faction_set_slot, "fac_culture_2", slot_faction_tier_7_troop, "trp_vaegir_knight"), ##BEAN - Troop Tiers
 
       (faction_set_slot, "fac_culture_3", slot_faction_tier_1_troop, "trp_khergit_tribesman"),
       (faction_set_slot, "fac_culture_3", slot_faction_tier_2_troop, "trp_khergit_skirmisher"),
       (faction_set_slot, "fac_culture_3", slot_faction_tier_3_troop, "trp_khergit_horseman"),
       (faction_set_slot, "fac_culture_3", slot_faction_tier_4_troop, "trp_khergit_horse_archer"),
       (faction_set_slot, "fac_culture_3", slot_faction_tier_5_troop, "trp_khergit_veteran_horse_archer"),
+      (faction_set_slot, "fac_culture_3", slot_faction_tier_6_troop, "trp_khergit_veteran_horse_archer"), ##BEAN - Troop Tiers
+      (faction_set_slot, "fac_culture_3", slot_faction_tier_7_troop, "trp_khergit_veteran_horse_archer"), ##BEAN - Troop Tiers
 
       (faction_set_slot, "fac_culture_4", slot_faction_tier_1_troop, "trp_nord_recruit"),
       (faction_set_slot, "fac_culture_4", slot_faction_tier_2_troop, "trp_nord_militia"),
       (faction_set_slot, "fac_culture_4", slot_faction_tier_3_troop, "trp_nord_warrior"),
       (faction_set_slot, "fac_culture_4", slot_faction_tier_4_troop, "trp_nord_berserker"),
       (faction_set_slot, "fac_culture_4", slot_faction_tier_5_troop, "trp_nord_champion"),
+      (faction_set_slot, "fac_culture_4", slot_faction_tier_6_troop, "trp_nord_huscarl"), ##BEAN - Troop Tiers
+      (faction_set_slot, "fac_culture_4", slot_faction_tier_7_troop, "trp_nord_knight"), ##BEAN - Troop Tiers
 
       (faction_set_slot, "fac_culture_5", slot_faction_tier_1_troop, "trp_rhodok_tribesman"),
       (faction_set_slot, "fac_culture_5", slot_faction_tier_2_troop, "trp_rhodok_spearman"),
       (faction_set_slot, "fac_culture_5", slot_faction_tier_3_troop, "trp_rhodok_trained_spearman"),
       (faction_set_slot, "fac_culture_5", slot_faction_tier_4_troop, "trp_rhodok_veteran_spearman"),
       (faction_set_slot, "fac_culture_5", slot_faction_tier_5_troop, "trp_rhodok_sergeant"),
+      (faction_set_slot, "fac_culture_5", slot_faction_tier_6_troop, "trp_rhodok_sergeant"), ##BEAN - Troop Tiers
+      (faction_set_slot, "fac_culture_5", slot_faction_tier_7_troop, "trp_rhodok_sergeant"), ##BEAN - Troop Tiers
 
       (faction_set_slot, "fac_culture_6", slot_faction_tier_1_troop, "trp_sarranid_recruit"),
       (faction_set_slot, "fac_culture_6", slot_faction_tier_2_troop, "trp_sarranid_footman"),
       (faction_set_slot, "fac_culture_6", slot_faction_tier_3_troop, "trp_sarranid_archer"),
       (faction_set_slot, "fac_culture_6", slot_faction_tier_4_troop, "trp_sarranid_horseman"),
       (faction_set_slot, "fac_culture_6", slot_faction_tier_5_troop, "trp_sarranid_mamluke"),
+      (faction_set_slot, "fac_culture_6", slot_faction_tier_6_troop, "trp_sarranid_mamluke"), ##BEAN - Troop Tiers
+      (faction_set_slot, "fac_culture_6", slot_faction_tier_7_troop, "trp_sarranid_mamluke"), ##BEAN - Troop Tiers
 
       (faction_set_slot, "fac_culture_1", slot_faction_town_walker_male_troop, "trp_town_walker_1"),
       (faction_set_slot, "fac_culture_1", slot_faction_town_walker_female_troop, "trp_town_walker_2"),
@@ -5963,6 +5975,12 @@ scripts = [
         (faction_set_slot, ":faction_no",  slot_faction_tier_4_troop, ":troop"),
         (faction_get_slot, ":troop", ":culture",  slot_faction_tier_5_troop),
         (faction_set_slot, ":faction_no",  slot_faction_tier_5_troop, ":troop"),
+        ##BEAN BEGIN - Troop Tiers
+        (faction_get_slot, ":troop", ":culture",  slot_faction_tier_6_troop),
+        (faction_set_slot, ":faction_no",  slot_faction_tier_6_troop, ":troop"),
+        (faction_get_slot, ":troop", ":culture",  slot_faction_tier_7_troop),
+        (faction_set_slot, ":faction_no",  slot_faction_tier_7_troop, ":troop"),
+        ##BEAN END - Troop Tiers
 
         (try_begin),
           (faction_slot_eq, ":faction_no", slot_faction_culture, "fac_culture_1"),
@@ -45404,7 +45422,7 @@ scripts = [
 			(store_troop_count_companions, ":number", ":troop_type", "$g_encountered_party"),
 			(eq, ":number", 0),
 			(assign, ":troop_type", 0),
-			(try_for_range, ":new_tier", slot_faction_tier_1_troop, slot_faction_tier_5_troop),
+			(try_for_range, ":new_tier", slot_faction_tier_1_troop, slot_faction_tier_7_troop), ##BEAN - Troop Tiers
 			(faction_get_slot, ":troop_type", "$g_encountered_party_faction", ":new_tier"),
 				(faction_get_slot, ":new_troop_type", "$g_encountered_party_faction", ":new_tier"),
 				(store_troop_count_companions, ":number", ":new_troop_type", "$g_encountered_party"),

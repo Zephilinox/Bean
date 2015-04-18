@@ -678,6 +678,26 @@ troops = [
     SKILLS(ironflesh = 5, power_strike = 4, power_draw = 7, shield = 3, athletics = 4, weapon_master = 5),
     nord_face_young_1, nord_face_old_2
   ],
+  
+   [
+    "nord_knight", "Nord Knight", "Nord Knights",
+    tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield | tf_guarantee_helmet | tf_guarantee_horse,
+    0, 0, fac_kingdom_4,
+    [
+      itm_great_axe, itm_one_handed_battle_axe_c,
+      itm_tab_shield_round_e,
+      itm_throwing_spears, itm_heavy_throwing_axes, itm_heavy_throwing_axes,
+      itm_nordic_warlord_helmet,
+      itm_banded_armor,
+      itm_mail_boots, itm_mail_chausses,
+      itm_mail_mittens,
+      itm_warhorse,
+    ],
+    ATTR(27, 18, 9, 5, 40),
+    wpex(260, 260, 15, 15, 15, 125),
+    SKILLS(ironflesh = 9, power_strike = 9, power_throw = 8, shield = 6, athletics = 5, riding = 5, weapon_master = 6),
+    nord_face_middle_1, nord_face_older_2,
+  ],
   ##BEAN END - Nord Troop Tree
   
   ["nord_messenger","Nord Messenger","Nord Messengers",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_horse|tf_guarantee_ranged,0,0,fac_kingdom_4,

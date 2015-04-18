@@ -127,6 +127,8 @@ slot_faction_tier_2_troop         = 42
 slot_faction_tier_3_troop         = 43
 slot_faction_tier_4_troop         = 44
 slot_faction_tier_5_troop         = 45
+slot_faction_tier_6_troop         = 46
+slot_faction_tier_7_troop         = 47
 
 slot_faction_deserter_troop       = 48
 slot_faction_guard_troop          = 49
