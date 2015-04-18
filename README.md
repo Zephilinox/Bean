@@ -52,9 +52,10 @@ Zephilinox              Speak With                                      ##BEAN -
 ```
 
 ```
-
+F
 ##TODO
 ```
 Add ability to mass-sell all prisoners
-
+Horse dust in arena (vaegir) is broken?
+Trade with caravans
 ```
