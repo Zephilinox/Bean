@@ -735,7 +735,7 @@ simple_triggers = [
 
          (store_skill_level, ":trainer_level", skl_trainer, ":troop_no"),
          (val_add, ":trainer_level", 5), #average trainer level is 3 for npc lords, worst : 0, best : 6
-         (store_mul, ":xp_gain", ":trainer_level", 1000), #xp gain in two days of period for each lord, average : 8000.
+         (store_mul, ":xp_gain", ":trainer_level", 2000), #xp gain in two days of period for each lord, average : 8000. ##BEAN | was 1000
 
          (assign, ":max_accepted_random_value", 30),
          (try_begin),
@@ -765,7 +765,7 @@ simple_triggers = [
          (party_get_slot, ":center_lord", ":center_no", slot_town_lord),
          (neq, ":center_lord", "trp_player"),
 
-         (assign, ":xp_gain", 3000), #xp gain in two days of period for each center, average : 3000.
+         (assign, ":xp_gain", 6000), #xp gain in two days of period for each center, average : 3000. ##BEAN | was 3000
 
          (assign, ":max_accepted_random_value", 30),
          (try_begin),

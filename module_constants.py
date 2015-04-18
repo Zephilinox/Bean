@@ -1156,7 +1156,7 @@ news_center_prosperity_changed = 9
 ########################################################
 ##BEAN END - Color Coded Messages
 
-##BEAN BEGIN - Dynamic Kingdom Troop Tree
+##BEAN BEGIN - Dynamic Faction Troop Tree
 # Presentations Constants
 title_pos_x   = 500
 title_pos_y   = 650
@@ -1173,10 +1173,10 @@ smaller_size  = 600
 tinny_size    = 450
 troop_tree_size_x  = 375
 troop_tree_size_y  = 500
-troop_tree_space_x = 170
-troop_tree_space_y = 140#170
+troop_tree_space_x = 160
+troop_tree_space_y = 170#170
 troop_tree_left    = 60
-##BEAN END - Dynamic Kingdom Troop Tree
+##BEAN END - Dynamic Faction Troop Tree
 
 battle_ratio_multiple = 200 ##BEAN - Overhauled Morale
 

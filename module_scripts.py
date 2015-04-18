@@ -103,24 +103,24 @@ scripts = [
       (faction_set_slot, "fac_culture_1",  slot_faction_tier_3_troop, "trp_swadian_footman"),
       (faction_set_slot, "fac_culture_1",  slot_faction_tier_4_troop, "trp_swadian_infantry"),
       (faction_set_slot, "fac_culture_1",  slot_faction_tier_5_troop, "trp_swadian_knight"),
-      (faction_set_slot, "fac_culture_1",  slot_faction_tier_6_troop, "trp_swadian_knight"), ##BEAN - Troop Tiers
-      (faction_set_slot, "fac_culture_1",  slot_faction_tier_7_troop, "trp_swadian_knight"), ##BEAN - Troop Tiers
+      (faction_set_slot, "fac_culture_1",  slot_faction_tier_6_troop, "trp_player"), ##BEAN - Troop Tiers
+      (faction_set_slot, "fac_culture_1",  slot_faction_tier_7_troop, "trp_player"), ##BEAN - Troop Tiers
 
       (faction_set_slot, "fac_culture_2", slot_faction_tier_1_troop, "trp_vaegir_recruit"),
       (faction_set_slot, "fac_culture_2", slot_faction_tier_2_troop, "trp_vaegir_footman"),
       (faction_set_slot, "fac_culture_2", slot_faction_tier_3_troop, "trp_vaegir_veteran"),
       (faction_set_slot, "fac_culture_2", slot_faction_tier_4_troop, "trp_vaegir_infantry"),
       (faction_set_slot, "fac_culture_2", slot_faction_tier_5_troop, "trp_vaegir_knight"),
-      (faction_set_slot, "fac_culture_2", slot_faction_tier_6_troop, "trp_vaegir_knight"), ##BEAN - Troop Tiers
-      (faction_set_slot, "fac_culture_2", slot_faction_tier_7_troop, "trp_vaegir_knight"), ##BEAN - Troop Tiers
+      (faction_set_slot, "fac_culture_2", slot_faction_tier_6_troop, "trp_player"), ##BEAN - Troop Tiers
+      (faction_set_slot, "fac_culture_2", slot_faction_tier_7_troop, "trp_player"), ##BEAN - Troop Tiers
 
       (faction_set_slot, "fac_culture_3", slot_faction_tier_1_troop, "trp_khergit_tribesman"),
       (faction_set_slot, "fac_culture_3", slot_faction_tier_2_troop, "trp_khergit_skirmisher"),
       (faction_set_slot, "fac_culture_3", slot_faction_tier_3_troop, "trp_khergit_horseman"),
       (faction_set_slot, "fac_culture_3", slot_faction_tier_4_troop, "trp_khergit_horse_archer"),
       (faction_set_slot, "fac_culture_3", slot_faction_tier_5_troop, "trp_khergit_veteran_horse_archer"),
-      (faction_set_slot, "fac_culture_3", slot_faction_tier_6_troop, "trp_khergit_veteran_horse_archer"), ##BEAN - Troop Tiers
-      (faction_set_slot, "fac_culture_3", slot_faction_tier_7_troop, "trp_khergit_veteran_horse_archer"), ##BEAN - Troop Tiers
+      (faction_set_slot, "fac_culture_3", slot_faction_tier_6_troop, "trp_player"), ##BEAN - Troop Tiers
+      (faction_set_slot, "fac_culture_3", slot_faction_tier_7_troop, "trp_player"), ##BEAN - Troop Tiers
 
       (faction_set_slot, "fac_culture_4", slot_faction_tier_1_troop, "trp_nord_recruit"),
       (faction_set_slot, "fac_culture_4", slot_faction_tier_2_troop, "trp_nord_militia"),
@@ -135,16 +135,16 @@ scripts = [
       (faction_set_slot, "fac_culture_5", slot_faction_tier_3_troop, "trp_rhodok_trained_spearman"),
       (faction_set_slot, "fac_culture_5", slot_faction_tier_4_troop, "trp_rhodok_veteran_spearman"),
       (faction_set_slot, "fac_culture_5", slot_faction_tier_5_troop, "trp_rhodok_sergeant"),
-      (faction_set_slot, "fac_culture_5", slot_faction_tier_6_troop, "trp_rhodok_sergeant"), ##BEAN - Troop Tiers
-      (faction_set_slot, "fac_culture_5", slot_faction_tier_7_troop, "trp_rhodok_sergeant"), ##BEAN - Troop Tiers
+      (faction_set_slot, "fac_culture_5", slot_faction_tier_6_troop, "trp_player"), ##BEAN - Troop Tiers
+      (faction_set_slot, "fac_culture_5", slot_faction_tier_7_troop, "trp_player"), ##BEAN - Troop Tiers
 
       (faction_set_slot, "fac_culture_6", slot_faction_tier_1_troop, "trp_sarranid_recruit"),
       (faction_set_slot, "fac_culture_6", slot_faction_tier_2_troop, "trp_sarranid_footman"),
       (faction_set_slot, "fac_culture_6", slot_faction_tier_3_troop, "trp_sarranid_archer"),
       (faction_set_slot, "fac_culture_6", slot_faction_tier_4_troop, "trp_sarranid_horseman"),
       (faction_set_slot, "fac_culture_6", slot_faction_tier_5_troop, "trp_sarranid_mamluke"),
-      (faction_set_slot, "fac_culture_6", slot_faction_tier_6_troop, "trp_sarranid_mamluke"), ##BEAN - Troop Tiers
-      (faction_set_slot, "fac_culture_6", slot_faction_tier_7_troop, "trp_sarranid_mamluke"), ##BEAN - Troop Tiers
+      (faction_set_slot, "fac_culture_6", slot_faction_tier_6_troop, "trp_player"), ##BEAN - Troop Tiers
+      (faction_set_slot, "fac_culture_6", slot_faction_tier_7_troop, "trp_player"), ##BEAN - Troop Tiers
 
       (faction_set_slot, "fac_culture_1", slot_faction_town_walker_male_troop, "trp_town_walker_1"),
       (faction_set_slot, "fac_culture_1", slot_faction_town_walker_female_troop, "trp_town_walker_2"),
@@ -696,19 +696,19 @@ scripts = [
         (try_end),
         ## ADD some XP initially
         (store_div, ":xp_rounds", ":garrison_strength", 5),
-        (val_add, ":xp_rounds", 2),
+        (val_add, ":xp_rounds", 3), ##BEAN | was 2
 
         (game_get_reduce_campaign_ai, ":reduce_campaign_ai"),
 
         (try_begin), #hard
           (eq, ":reduce_campaign_ai", 0),
-          (assign, ":xp_addition_for_centers", 7500),
+          (assign, ":xp_addition_for_centers", 12000), ##BEAN | was 7500
         (else_try), #moderate
           (eq, ":reduce_campaign_ai", 1),
-          (assign, ":xp_addition_for_centers", 5000),
+          (assign, ":xp_addition_for_centers", 8000), ##BEAN | was 5000
         (else_try), #easy
           (eq, ":reduce_campaign_ai", 2),
-          (assign, ":xp_addition_for_centers", 2500),
+          (assign, ":xp_addition_for_centers", 4000), ##BEAN | was 2500
         (try_end),
 
         (try_for_range, ":unused", 0, ":xp_rounds"),
@@ -13162,7 +13162,7 @@ scripts = [
         (store_faction_of_party, ":faction_id", ":party_no"),
 
         #default limit is 10 for kingdom lords
-        (assign, ":limit", 10),
+        (assign, ":limit", 30), ##BEAN | was 10
 
         #each (leadership level) gives 5 to limit
         (store_skill_level, ":skill", "skl_leadership", ":party_leader"),
@@ -13175,19 +13175,19 @@ scripts = [
 
         #each (25 renown) gives 1 to limit
         (troop_get_slot, ":troop_renown", ":party_leader", slot_troop_renown),
-        (store_div, ":renown_bonus", ":troop_renown", 25),
+        (store_div, ":renown_bonus", ":troop_renown", 20), ##BEAN | was 25
         (val_add, ":limit", ":renown_bonus"),
 
         #if this party is faction leader it takes additional 100 limit
         (try_begin),
           (faction_slot_eq, ":faction_id", slot_faction_leader, ":party_leader"),
-          (val_add, ":limit", 100),
+          (val_add, ":limit", 150), ##BEAN | was 100
         (try_end),
 
         #if this party is faction marshall it takes additional 20 limit
         (try_begin),
           (faction_slot_eq, ":faction_id", slot_faction_marshall, ":party_leader"),
-          (val_add, ":limit", 20),
+          (val_add, ":limit", 50), ##BEAN | was 20
         (try_end),
 
         #party takes additional 20 limit per each castle it's party leader owns
@@ -21159,7 +21159,7 @@ scripts = [
         (try_begin),
           (store_troop_faction, ":troop_kingdom", ":troop_no"),
           (faction_slot_eq, ":troop_kingdom", slot_faction_leader, ":troop_no"),
-          (assign, ":num_tries", 50),
+          (assign, ":num_tries", 100), ##BEAN | was 50
         (try_end),
 
         #(str_store_troop_name, s0, ":troop_no"),
@@ -21178,20 +21178,30 @@ scripts = [
           (assign, ":xp_rounds", 0),
         (else_try),
           (eq, ":reduce_campaign_ai", 0), #hard
-          (assign, ":xp_rounds", 2),
+          (assign, ":xp_rounds", 3), ##BEAN | was 2
         (else_try),
           (eq, ":reduce_campaign_ai", 1), #moderate
-          (assign, ":xp_rounds", 1),
+          (assign, ":xp_rounds", 2), ##BEAN | was 1
         (else_try),
           (eq, ":reduce_campaign_ai", 2), #easy
-          (assign, ":xp_rounds", 0),
+          (assign, ":xp_rounds", 1), ##BEAN | was 0
         (try_end),
 
         (troop_get_slot, ":renown", ":troop_no", slot_troop_renown),
-        (store_div, ":renown_xp_rounds", ":renown", 100),
+        (store_div, ":renown_xp_rounds", ":renown", 75), ##BEAN | was 100
         (val_add, ":xp_rounds", ":renown_xp_rounds"),
+        
+        ##BEAN BEGIN - King Troop XP
+        (try_begin),
+          (faction_slot_eq, ":troop_kingdom", slot_faction_leader, ":troop_no"),
+          (assign, ":hero_xp", 8000),
+        (else_try),
+          (assign, ":hero_xp", 4000),
+        (try_end),
+        ##BEAN END - King Troop XP
+        
         (try_for_range, ":unused", 0, ":xp_rounds"),
-          (call_script, "script_upgrade_hero_party", "$pout_party", 4000),
+          (call_script, "script_upgrade_hero_party", "$pout_party", ":hero_xp"), ##BEAN - King Troop XP | was hardcoded at 4000
         (try_end),
       (try_end),
   ]),
@@ -48101,9 +48111,13 @@ scripts = [
     #try-else block here to get 'troop-no' (or above) for non-kingdom trees
     (faction_get_slot, ":troop_no", ":culture", slot_faction_tier_1_troop),
     # lowest troop tiers initialization BEGIN
-    (troop_set_slot, "trp_temp_array_a", 0, 1),           # Number of Lowest Tier Troop
+    (troop_set_slot, "trp_temp_array_a", 0, 2),           # Number of Lowest Tier Troop
     (troop_set_slot, "trp_temp_array_a", 1, 1),           # 1 for 1st troop
     (troop_set_slot, "trp_temp_array_b", 1, ":troop_no"), # 1st troop id
+    (troop_set_slot, "trp_temp_array_a", 2, 1),           
+    (faction_get_slot, ":troop_no", ":culture", slot_faction_tier_7_troop),
+    (troop_set_slot, "trp_temp_array_b", 2, ":troop_no"),
+    
     # lowest troop tiers initialization END
     (assign, ":max_tier", 0), (assign, ":no_tier", 0),
     ## Calculates number of tiers--":max_tiers" and number of branches (more or less)
@@ -48289,13 +48303,13 @@ scripts = [
        (store_sub, ":size", ":pos_y1", ":pos_y2"),
        (val_abs, ":size"),
        (val_min, ":pos_y1", ":pos_y2"),
-       (call_script, "script_prsnt_lines", 4, ":size", ":pos_x1", ":pos_y1", ":color"),
+       (call_script, "script_prsnt_lines", 2, ":size", ":pos_x1", ":pos_y1", ":color"),
     (else_try),
        (eq, ":pos_y1", ":pos_y2"),
        (store_sub, ":size", ":pos_x1", ":pos_x2"),
        (val_abs, ":size"),
        (val_min, ":pos_x1", ":pos_x2"),
-       (call_script, "script_prsnt_lines", ":size", 5, ":pos_x1", ":pos_y1", ":color"),
+       (call_script, "script_prsnt_lines", ":size", 3, ":pos_x1", ":pos_y1", ":color"),
     (else_try),
        (store_add, ":pos_x", ":pos_x1", ":pos_x2"), (val_div, ":pos_x", 2), (val_sub, ":pos_x", 6),
        (call_script, "script_prsnt_lines_to", ":pos_x1", ":pos_y1", ":pos_x",  ":pos_y1", ":color"),
