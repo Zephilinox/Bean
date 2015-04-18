@@ -20869,6 +20869,61 @@ scripts = [
         (gt, ":party_template", 0),
         (party_add_template, ":party_no", ":party_template"),
       (try_end),
+      
+      ##BEAN BEGIN - Knights
+      (try_begin),
+        (eq, ":party_type", spt_kingdom_hero_party),
+        (party_stack_get_troop_id, ":leader", ":party_no", 0),
+        (troop_is_hero, ":leader"), ##Make sure party leader is a lord
+        
+        (assign, ":max_knights", 0),
+        
+        ##Add knights based on lord status
+        (try_begin),
+          (faction_get_slot, ":faction_leader", ":party_faction", slot_faction_leader),
+          (eq, ":faction_leader", ":leader"),
+          (val_add, ":max_knights", 5),
+        (else_try),
+          (faction_get_slot, ":faction_marshal", ":party_faction", slot_faction_marshall),
+          (eq, ":faction_marshal", ":leader"),
+          (val_add, ":max_knights", 1),
+        (try_end),
+        
+        ##Add knights based on lord fiefs
+        (try_for_range, ":center_no", centers_begin, centers_end),
+          (party_get_slot, ":center_lord", ":center_no", slot_town_lord),
+          (eq, ":center_lord", ":leader"),
+          (party_get_slot, ":center_type", ":center_no", slot_party_type),
+          
+          (try_begin),
+            (eq, ":center_type", spt_village),
+            (val_add, ":max_knights", 1),
+          (else_try),
+            (eq, ":center_type", spt_castle),
+            (val_add, ":max_knights", 2),
+          (else_try),
+            (eq, ":center_type", spt_town),
+            (val_add, ":max_knights", 3),
+          (try_end),
+        (try_end),
+        
+        (try_begin),
+          (faction_get_slot, ":knight_trp", ":party_faction", slot_faction_tier_7_troop),
+          (gt, ":knight_trp", 0), ##valid
+          (party_count_members_of_type, ":cur_knights", ":party_no", ":knight_trp"),
+          
+          (try_begin), ##Add knights to reach max limit
+            (lt, ":cur_knights", ":max_knights"),
+            (store_sub, ":new_knights", ":max_knights", ":cur_knights"),
+            (party_add_members, ":party_no", ":knight_trp", ":new_knights"),
+          (else_try), ##Remove knights to reach max limit
+            (gt, ":cur_knights", ":max_knights"),
+            (store_sub, ":surplus_knights", ":cur_knights", ":max_knights"),
+            (party_remove_members, ":party_no", ":knight_trp", ":surplus_knights"),
+          (try_end),
+        (try_end),
+      (try_end),
+      ##BEAN END - Knights
   ]),
 
   # script_hire_men_to_kingdom_hero_party
