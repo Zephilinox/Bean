@@ -46,16 +46,19 @@ Zephilinox              Weather                                         ##BEAN -
 Zephilinox              Bean Initialization                             ##BEAN - Initialize
 Zephilinox              Bean Options                                    ##BEAN - Options
 Zephilinox              Speak With                                      ##BEAN - Speak With
+Zephilinox              Extra XP for King                               ##BEAN - King Troop XP
+Zephilinox              Special Lord Unit                               ##BEAN - Knights
 ```
 
 ##Issues
 ```
 
 ```
-F
+
 ##TODO
 ```
 Add ability to mass-sell all prisoners
 Horse dust in arena (vaegir) is broken?
 Trade with caravans
+Allow players to recruit knights from castles and towns up to their max limit
 ```
