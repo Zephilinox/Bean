@@ -5814,7 +5814,7 @@ game_menus = [
           (try_end),
 
           (eq, "$entry_to_town_forbidden", 1),
-          (eq, "$cant_sneak_into_town", 0)
+          (eq, "$cant_sneak_into_town", 0),
         ],
        "Disguise yourself and try to sneak into the {s7}",
        [
@@ -9105,6 +9105,22 @@ game_menus = [
            (change_screen_mission),
          (try_end),
       ],"Door to the town center."),
+
+      ##BEAN BEGIN - Knights
+      ("recruit_center_knights",
+        [
+          (call_script, "script_calculate_max_knights", "trp_player"),
+          (gt, reg0, 0), ##Hide menu if player is not allowed to recruit any knights
+
+          (store_faction_of_party, ":party_faction", "$current_town"),
+          (eq, ":party_faction", "$players_kingdom"), ##Hide menu if player faction is not same as town faction
+        ],
+        "Recruit Knights",
+        [
+          (jump_to_menu, "mnu_recruit_knights"),
+        ],
+      ),
+      ##BEAN END - Knights
 
       ("town_tavern",[
           (party_slot_eq,"$current_town",slot_party_type, spt_town),
@@ -14818,5 +14834,125 @@ game_menus = [
     ]
   ),
   ##BEAN END - Bean Options
+
+  ##BEAN BEGIN - Knights
+  (
+    "recruit_knights", 0,
+    "{s18}",
+    "none",
+    [
+      (store_faction_of_party, ":culture", "$current_town"),
+
+      (try_begin), ##Handle player faction so it uses original faction culture
+        (eq, ":culture", "fac_player_supporters_faction"),
+        (party_get_slot, ":culture", "$current_town", slot_center_original_faction),
+      (try_end),
+
+      (faction_get_slot, ":knight_trp", ":culture", slot_faction_tier_7_troop),
+
+      ##get max knights player can recruit based on their gold
+      (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
+      (store_troop_gold, ":gold", "trp_player"),
+      (store_div, ":gold_capacity", ":gold", 1000),
+      (assign, ":party_capacity", ":free_capacity"),
+      (val_min, ":party_capacity", ":gold_capacity"),
+
+      ##calc players max knight allowed
+      (call_script, "script_calculate_max_knights", "trp_player"),
+      (assign, ":max_knights", reg0),
+      (display_message, "@Max knights of {reg0}"),
+      (val_add, reg0, 1), ##Due to random being max-1
+      (store_random_in_range, ":knight_amount", 0, reg0),
+
+      (try_begin),
+        (gt, ":party_capacity", 0),
+        (val_min, ":knight_amount", ":party_capacity"),
+      (try_end),
+
+      (try_begin),
+        (party_count_members_of_type, ":cur_knights", "p_main_party", ":knight_trp"),
+        (store_sub, ":allowed_knights", ":max_knights", ":cur_knights"), ##Store difference between how many are in the party and how many can be in the party
+        (val_min, ":knight_amount", ":allowed_knights"), ##Don't let the player recruit more than the difference
+      (try_end),
+
+      (try_begin), ##In case the faction does not have a tier 7 troop (knight) set
+        (le, ":knight_trp", 0),
+        (assign, ":knight_amount", 0),
+      (try_end),
+
+      (assign, reg5, ":knight_amount"),
+      (assign, reg7, 0),
+
+      (try_begin),
+        (gt, ":knight_amount", ":gold_capacity"),
+        (assign, reg7, 1), #not enough money
+      (try_end),
+      (try_begin),
+        (eq, ":allowed_knights", 0), ##Difference was negative, so there are too many.
+        (str_store_string, s18, "@You cannot recruit any more knights to your party."),
+      (else_try),
+        (lt, ":allowed_knights", 0), ##Difference was negative, so there are too many.
+        (str_store_string, s18, "@You have too many knights in your party as it is."),
+      (else_try),
+        (eq, ":knight_amount", 0),
+        (str_store_string, s18, "@There are no knights here who will follow you."),
+      (else_try),
+        (store_mul, reg6, ":knight_amount", 1000),
+        (str_store_troop_name_by_count, s3, ":knight_trp", ":knight_amount"),
+        (try_begin),
+          (eq, reg5, 1),
+          (str_store_string, s18, "@One {s3} will follow you."),
+        (else_try),
+          (str_store_string, s18, "@{reg5} {s3} will follow you."),
+        (try_end),
+        (set_background_mesh, "mesh_pic_recruits"),
+      (try_end),
+    ],
+    [
+      (
+        "continue_not_enough_gold",
+        [
+          (eq, reg7, 1),
+        ],
+        "I don't have enough money...",
+        [
+          (jump_to_menu, "mnu_town"),
+        ]
+      ),
+
+      (
+        "recruit_them",
+        [
+          (eq, reg7, 0),
+          (gt, reg5, 0),
+        ],
+        "Recruit them ({reg6} denars).",
+        [
+          (store_faction_of_party, ":culture", "$current_town"),
+          (try_begin), ##Handle player faction so it uses original faction culture
+            (eq, ":culture", "fac_player_supporters_faction"),
+            (party_get_slot, ":culture", "$current_town", slot_center_original_faction),
+          (try_end),
+
+          (faction_get_slot, ":knight_trp", ":culture", slot_faction_tier_7_troop),
+          (party_add_members, "p_main_party", ":knight_trp", reg5),
+          (troop_remove_gold, "trp_player", reg6),
+          (jump_to_menu, "mnu_town"),
+        ]
+      ),
+
+      (
+        "nevermind",
+        [
+          (eq, reg7, 0),
+        ],
+        "Nevermind.",
+        [
+          (jump_to_menu, "mnu_town"),
+        ]
+      ),
+    ],
+  ),
+  ##BEAN END - Knights
 
  ]

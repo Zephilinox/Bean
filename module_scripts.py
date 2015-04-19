@@ -20876,36 +20876,8 @@ scripts = [
         (party_stack_get_troop_id, ":leader", ":party_no", 0),
         (troop_is_hero, ":leader"), ##Make sure party leader is a lord
 
-        (assign, ":max_knights", 0),
-
-        ##Add knights based on lord status
-        (try_begin),
-          (faction_get_slot, ":faction_leader", ":party_faction", slot_faction_leader),
-          (eq, ":faction_leader", ":leader"),
-          (val_add, ":max_knights", 5),
-        (else_try),
-          (faction_get_slot, ":faction_marshal", ":party_faction", slot_faction_marshall),
-          (eq, ":faction_marshal", ":leader"),
-          (val_add, ":max_knights", 1),
-        (try_end),
-
-        ##Add knights based on lord fiefs
-        (try_for_range, ":center_no", centers_begin, centers_end),
-          (party_get_slot, ":center_lord", ":center_no", slot_town_lord),
-          (eq, ":center_lord", ":leader"),
-          (party_get_slot, ":center_type", ":center_no", slot_party_type),
-
-          (try_begin),
-            (eq, ":center_type", spt_village),
-            (val_add, ":max_knights", 1),
-          (else_try),
-            (eq, ":center_type", spt_castle),
-            (val_add, ":max_knights", 2),
-          (else_try),
-            (eq, ":center_type", spt_town),
-            (val_add, ":max_knights", 3),
-          (try_end),
-        (try_end),
+        (call_script, "script_calculate_max_knights", ":leader"),
+        (assign, ":max_knights", reg0),
 
         (try_begin),
           (faction_get_slot, ":knight_trp", ":party_faction", slot_faction_tier_7_troop),
@@ -31456,8 +31428,6 @@ scripts = [
 	   (try_end),
      (try_end),
      ]),
-
-
 
   #script_update_mercenary_units_of_towns
   # INPUT: none
@@ -48674,4 +48644,56 @@ scripts = [
     ]
   ),
   ##BEAN END - Initialize
+
+  ##BEAN BEGIN - Knights
+  #first param is lord troop
+  #returns max knights as reg0
+  ("calculate_max_knights",
+    [
+      (store_script_param_1, ":lord"),
+      (assign, ":max_knights", 0),
+
+      (try_begin),
+        (eq, ":lord", "trp_player"),
+        (assign, ":faction", "$players_kingdom"),
+      (else_try),
+        (store_troop_faction, ":faction", ":lord"),
+      (try_end),
+
+      ##Add knights based on player status
+      (try_begin),
+        (faction_get_slot, ":faction_leader", ":faction", slot_faction_leader),
+        (eq, ":faction_leader", ":lord"),
+        (val_add, ":max_knights", 5),
+      (try_end),
+
+      (try_begin),
+        (faction_get_slot, ":faction_marshal", ":faction", slot_faction_marshall),
+        (eq, ":faction_marshal", ":lord"),
+        (val_add, ":max_knights", 1),
+      (try_end),
+
+      ##Add knights based on player fiefs
+      (try_for_range, ":center_no", centers_begin, centers_end),
+        (party_is_active, ":center_no"),
+
+        (party_get_slot, ":center_lord", ":center_no", slot_town_lord),
+        (eq, ":center_lord", ":lord"),
+        (party_get_slot, ":center_type", ":center_no", slot_party_type),
+
+        (try_begin),
+          (eq, ":center_type", spt_village),
+          (val_add, ":max_knights", 1),
+        (else_try),
+          (eq, ":center_type", spt_castle),
+          (val_add, ":max_knights", 2),
+        (else_try),
+          (eq, ":center_type", spt_town),
+          (val_add, ":max_knights", 3),
+        (try_end),
+      (try_end),
+
+      (assign, reg0, ":max_knights"),
+    ]
+  ),
 ]
