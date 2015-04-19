@@ -1,4 +1,4 @@
-774
+788
 qstr_Next_Page Next_Page
 qstr_Game_Rules:^ Game_Rules:^
 qstr_0 0
@@ -773,3 +773,17 @@ qstr_One_of_your_prisoners One_of_your_prisoners,_{s1}_of_{s3}_has_escaped_from_
 qstr_Knights! Knights!
 qstr_Adding_Knights! Adding_Knights!
 qstr_Removing_Knights! Removing_Knights!
+qstr_There_are_no_knights There_are_no_knights_who_will_follow_you.
+qstr_One_{s3}_will_follow One_{s3}_will_follow_you.
+qstr_{reg5}_{s3}_will_fol {reg5}_{s3}_will_follow_you.
+qstr_A_maximum_of_{reg0}_ A_maximum_of_{reg0}_knights_can_follow_you_at_any_one_time.
+qstr_Lord_can_recruit_max Lord_can_recruit_max_of_{reg0}_knights
+qstr_There_are_no_knights_ There_are_no_knights_here_who_will_follow_you.
+qstr_You_cannot_recruit_a You_cannot_recruit_any_more_knights_to_your_party.
+qstr_You_have_too_many_kn You_have_too_many_knights_in_your_party_as_it_is.
+qstr_Max_knights_of_{reg0 Max_knights_of_{reg0}
+qstr_+5_from_leader +5_from_leader
+qstr_+1_from_marshal +1_from_marshal
+qstr_+1_from_village +1_from_village
+qstr_+2_from_castle +2_from_castle
+qstr_+3_from_town +3_from_town

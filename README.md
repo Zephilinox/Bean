@@ -15,12 +15,13 @@ More Trade Goods
 More Food
 Weather
 Speak with Elder/Guild Master
-More higher quality troops for kings
+More higher quality troops in general, but especially for kings
 Revamped Troops (Nords Only)
 Revamped Items (TODO)
 Special Faction Knights for Faction Lords
-Recruit Faction Knights from castles and towns
+Recruit Faction Knights from castles and towns (TODO)
 Loot villages, join sieges, and fight on any side of a battle regardless of relationships
+Persuation is now based on charisma instead of intelligence
 
 ##Changelog
 
@@ -29,8 +30,6 @@ Will be added when the second version is released.
 ##Credits
 
 Here's a list of all authors, modifications, and how to find those modifications in the source code.
-
-Some minor modifications have not been tagged.
 
 Modifications I've made to OSP's such as Sort Party Troops may or may not be tagged.
 
@@ -78,7 +77,7 @@ Zephilinox              Special Lord Unit                               ##BEAN -
 
 ##Issues
 ```
-
+Horse dust in arena (vaegir) is broken?
 ```
 
 ##TODO
@@ -88,9 +87,6 @@ Revamp every item
 Add new items to fill gaps
 Modify Troops to use revamped items
 Add ability to mass-sell all prisoners
-Horse dust in arena (vaegir) is broken?
 Trade with caravans
-Allow players to recruit knights from castles and towns up to their max limit
 Guild Master talking from menu lags even once loaded
-Sort all parties on initialization
 ```
