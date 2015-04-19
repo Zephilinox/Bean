@@ -1013,13 +1013,13 @@ scripts = [
       (faction_set_slot, "fac_kingdom_1", slot_faction_quick_battle_tier_2_cavalry, "trp_swadian_knight"),
       (faction_set_slot, "fac_kingdom_2", slot_faction_quick_battle_tier_1_infantry, "trp_vaegir_marksman"),
       (faction_set_slot, "fac_kingdom_2", slot_faction_quick_battle_tier_2_infantry, "trp_vaegir_marksman"),
-      (faction_set_slot, "fac_kingdom_2", slot_faction_quick_battle_tier_1_archer, "trp_vaegir_skirmisher"),
-      (faction_set_slot, "fac_kingdom_2", slot_faction_quick_battle_tier_2_archer, "trp_vaegir_archer"),
+      (faction_set_slot, "fac_kingdom_2", slot_faction_quick_battle_tier_1_archer, "trp_vaegir_marksman"),
+      (faction_set_slot, "fac_kingdom_2", slot_faction_quick_battle_tier_2_archer, "trp_vaegir_marksman"),
       (faction_set_slot, "fac_kingdom_2", slot_faction_quick_battle_tier_1_cavalry, "trp_vaegir_knight"),
       (faction_set_slot, "fac_kingdom_2", slot_faction_quick_battle_tier_2_cavalry, "trp_vaegir_knight"),
       (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_1_infantry, "trp_khergit_dismounted_lancer_multiplayer_ai"),
       (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_2_infantry, "trp_khergit_dismounted_lancer_multiplayer_ai"),
-      (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_1_archer, "trp_khergit_horse_archer"),
+      (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_1_archer, "trp_khergit_veteran_horse_archer"),
       (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_2_archer, "trp_khergit_veteran_horse_archer"),
       (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_1_cavalry, "trp_khergit_lancer"),
       (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_2_cavalry, "trp_khergit_lancer"),
@@ -1029,17 +1029,17 @@ scripts = [
       (faction_set_slot, "fac_kingdom_4", slot_faction_quick_battle_tier_2_archer, "trp_nord_champion_hunter"),
       (faction_set_slot, "fac_kingdom_4", slot_faction_quick_battle_tier_1_cavalry, "trp_nord_knight"),
       (faction_set_slot, "fac_kingdom_4", slot_faction_quick_battle_tier_2_cavalry, "trp_nord_knight"),
-      (faction_set_slot, "fac_kingdom_5", slot_faction_quick_battle_tier_1_infantry, "trp_rhodok_veteran_spearman"),
+      (faction_set_slot, "fac_kingdom_5", slot_faction_quick_battle_tier_1_infantry, "trp_rhodok_sergeant"),
       (faction_set_slot, "fac_kingdom_5", slot_faction_quick_battle_tier_2_infantry, "trp_rhodok_sergeant"),
-      (faction_set_slot, "fac_kingdom_5", slot_faction_quick_battle_tier_1_archer, "trp_rhodok_crossbowman"),
+      (faction_set_slot, "fac_kingdom_5", slot_faction_quick_battle_tier_1_archer, "trp_rhodok_veteran_crossbowman"),
       (faction_set_slot, "fac_kingdom_5", slot_faction_quick_battle_tier_2_archer, "trp_rhodok_veteran_crossbowman"),
       (faction_set_slot, "fac_kingdom_5", slot_faction_quick_battle_tier_1_cavalry, "trp_rhodok_scout_multiplayer_ai"),
       (faction_set_slot, "fac_kingdom_5", slot_faction_quick_battle_tier_2_cavalry, "trp_rhodok_scout_multiplayer_ai"),
-      (faction_set_slot, "fac_kingdom_6", slot_faction_quick_battle_tier_1_infantry, "trp_sarranid_veteran_footman"),
+      (faction_set_slot, "fac_kingdom_6", slot_faction_quick_battle_tier_1_infantry, "trp_sarranid_infantry"),
       (faction_set_slot, "fac_kingdom_6", slot_faction_quick_battle_tier_2_infantry, "trp_sarranid_infantry"),
-      (faction_set_slot, "fac_kingdom_6", slot_faction_quick_battle_tier_1_archer, "trp_sarranid_skirmisher"),
+      (faction_set_slot, "fac_kingdom_6", slot_faction_quick_battle_tier_1_archer, "trp_sarranid_archer"),
       (faction_set_slot, "fac_kingdom_6", slot_faction_quick_battle_tier_2_archer, "trp_sarranid_archer"),
-      (faction_set_slot, "fac_kingdom_6", slot_faction_quick_battle_tier_1_cavalry, "trp_sarranid_horseman"),
+      (faction_set_slot, "fac_kingdom_6", slot_faction_quick_battle_tier_1_cavalry, "trp_sarranid_mamluke"),
       (faction_set_slot, "fac_kingdom_6", slot_faction_quick_battle_tier_2_cavalry, "trp_sarranid_mamluke"),
 
       #for multiplayer mode
@@ -20869,15 +20869,15 @@ scripts = [
         (gt, ":party_template", 0),
         (party_add_template, ":party_no", ":party_template"),
       (try_end),
-      
+
       ##BEAN BEGIN - Knights
       (try_begin),
         (eq, ":party_type", spt_kingdom_hero_party),
         (party_stack_get_troop_id, ":leader", ":party_no", 0),
         (troop_is_hero, ":leader"), ##Make sure party leader is a lord
-        
+
         (assign, ":max_knights", 0),
-        
+
         ##Add knights based on lord status
         (try_begin),
           (faction_get_slot, ":faction_leader", ":party_faction", slot_faction_leader),
@@ -20888,13 +20888,13 @@ scripts = [
           (eq, ":faction_marshal", ":leader"),
           (val_add, ":max_knights", 1),
         (try_end),
-        
+
         ##Add knights based on lord fiefs
         (try_for_range, ":center_no", centers_begin, centers_end),
           (party_get_slot, ":center_lord", ":center_no", slot_town_lord),
           (eq, ":center_lord", ":leader"),
           (party_get_slot, ":center_type", ":center_no", slot_party_type),
-          
+
           (try_begin),
             (eq, ":center_type", spt_village),
             (val_add, ":max_knights", 1),
@@ -20906,12 +20906,12 @@ scripts = [
             (val_add, ":max_knights", 3),
           (try_end),
         (try_end),
-        
+
         (try_begin),
           (faction_get_slot, ":knight_trp", ":party_faction", slot_faction_tier_7_troop),
           (gt, ":knight_trp", 0), ##valid
           (party_count_members_of_type, ":cur_knights", ":party_no", ":knight_trp"),
-          
+
           (try_begin), ##Add knights to reach max limit
             (lt, ":cur_knights", ":max_knights"),
             (store_sub, ":new_knights", ":max_knights", ":cur_knights"),
@@ -21245,7 +21245,7 @@ scripts = [
         (troop_get_slot, ":renown", ":troop_no", slot_troop_renown),
         (store_div, ":renown_xp_rounds", ":renown", 75), ##BEAN | was 100
         (val_add, ":xp_rounds", ":renown_xp_rounds"),
-        
+
         ##BEAN BEGIN - King Troop XP
         (try_begin),
           (faction_slot_eq, ":troop_kingdom", slot_faction_leader, ":troop_no"),
@@ -21254,7 +21254,7 @@ scripts = [
           (assign, ":hero_xp", 4000),
         (try_end),
         ##BEAN END - King Troop XP
-        
+
         (try_for_range, ":unused", 0, ":xp_rounds"),
           (call_script, "script_upgrade_hero_party", "$pout_party", ":hero_xp"), ##BEAN - King Troop XP | was hardcoded at 4000
         (try_end),
@@ -34731,7 +34731,7 @@ scripts = [
          (display_message, "@{s1} of {s3} has escaped from captivity!", reg20),
        (try_end),
        ##BEAN BEGIN - Color Coded Messages
-       
+
      (try_end),
      ]),
 
@@ -48059,7 +48059,7 @@ scripts = [
       (else_try),
         (assign, ":color", color_neutral_news),
       (try_end),
-      
+
     (else_try),
       # news_village_looted = 5
       # ":entity" is the village number
@@ -48169,10 +48169,10 @@ scripts = [
     (troop_set_slot, "trp_temp_array_a", 0, 2),           # Number of Lowest Tier Troop
     (troop_set_slot, "trp_temp_array_a", 1, 1),           # 1 for 1st troop
     (troop_set_slot, "trp_temp_array_b", 1, ":troop_no"), # 1st troop id
-    (troop_set_slot, "trp_temp_array_a", 2, 1),           
+    (troop_set_slot, "trp_temp_array_a", 2, 1),
     (faction_get_slot, ":troop_no", ":culture", slot_faction_tier_7_troop),
     (troop_set_slot, "trp_temp_array_b", 2, ":troop_no"),
-    
+
     # lowest troop tiers initialization END
     (assign, ":max_tier", 0), (assign, ":no_tier", 0),
     ## Calculates number of tiers--":max_tiers" and number of branches (more or less)
@@ -48669,6 +48669,8 @@ scripts = [
       (assign, "$bean_options_sort_party", 1),
       (assign, "$bean_options_sort_player_party", 1),
       (assign, "$bean_options_sort_player_fiefs", 1),
+
+      (call_script, "script_sort_parties_by_troop_level"),
     ]
   ),
   ##BEAN END - Initialize
