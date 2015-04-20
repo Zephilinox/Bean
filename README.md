@@ -88,5 +88,4 @@ Add new items to fill gaps
 Modify Troops to use revamped items
 Add ability to mass-sell all prisoners
 Trade with caravans
-Guild Master talking from menu lags even once loaded
 ```

@@ -1,4 +1,4 @@
-788
+789
 qstr_Next_Page Next_Page
 qstr_Game_Rules:^ Game_Rules:^
 qstr_0 0
@@ -787,3 +787,4 @@ qstr_+1_from_marshal +1_from_marshal
 qstr_+1_from_village +1_from_village
 qstr_+2_from_castle +2_from_castle
 qstr_+3_from_town +3_from_town
+qstr_You_do_not_have_enou You_do_not_have_enough_room_to_recruit_knights_to_your_party.
