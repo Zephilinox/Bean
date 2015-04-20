@@ -1475,12 +1475,27 @@ triggers = [
 				(neg|main_party_has_troop, ":npc"),
 				(eq, ":occupation", slto_player_companion),
 
-
 				(troop_get_slot, ":days_on_mission", ":npc", slot_troop_days_on_mission),
+
+                (try_begin), #debug
+                    (eq, "$cheat_mode", 1),
+                    (str_store_troop_name, s10, ":npc"),
+                    (assign, reg0, ":days_on_mission"),
+                    (display_message, "@Checking rejoin of {s10} days on mission: {reg0}"),
+                (try_end),
+
 				(try_begin),
 					(gt, ":days_on_mission", 0),
 					(val_sub, ":days_on_mission", 1),
 					(troop_set_slot, ":npc", slot_troop_days_on_mission, ":days_on_mission"),
+				##diplomacy begin
+                (else_try),
+                  (troop_slot_eq, ":npc", slot_troop_current_mission, dplmc_npc_mission_spy_request), #spy mission
+                  (troop_slot_ge, ":npc", dplmc_slot_troop_mission_diplomacy, 1), #caught
+
+                  (troop_set_slot, "trp_hired_blade", slot_troop_mission_object, ":npc"),
+                  (assign, "$npc_to_rejoin_party", "trp_hired_blade"),
+                ##diplomacy end
 				(else_try),
 					(troop_slot_ge, ":npc", slot_troop_current_mission, 1),
 
@@ -1524,8 +1539,135 @@ triggers = [
    ),
 
 
+##diplomacy begin
+  # Appoint chamberlain
+   (24 , 0, 24 * 12,
+   [],
+   [
+    (assign, ":has_fief", 0),
+    (try_for_range, ":center_no", centers_begin, centers_end),
+      (party_get_slot,  ":lord_troop_id", ":center_no", slot_town_lord),
+      (eq, ":lord_troop_id", "trp_player"),
+      (assign, ":has_fief", 1),
+    (try_end),
+    (eq, ":has_fief", 1),
 
+    (try_begin), #debug
+      (eq, "$cheat_mode", 1),
+      (assign, reg0, "$g_player_chamberlain"),
+      (display_message, "@{!}DEBUG : chamberlain: {reg0}"),
+    (try_end),
 
+    (assign, ":notification", 0),
+    (try_begin),
+      (eq, "$g_player_chamberlain", 0),
+      (assign, ":notification", 1),
+    (else_try),
+      (neq, "$g_player_chamberlain", -1),
+      (neq, "$g_player_chamberlain", "trp_dplmc_chamberlain"),
+      (assign, ":notification", 1),
+    (try_end),
+
+    (try_begin),
+      (eq, ":notification", 1),
+      (call_script, "script_add_notification_menu", "mnu_dplmc_notification_appoint_chamberlain", 0, 0),
+    (try_end),]
+   ),
+
+  # Appoint constable
+   (24 , 0, 24 * 13,
+   [],
+   [
+    (assign, ":has_fief", 0),
+    (try_for_range, ":center_no", walled_centers_begin, walled_centers_end),
+      (party_get_slot,  ":lord_troop_id", ":center_no", slot_town_lord),
+      (eq, ":lord_troop_id", "trp_player"),
+      (assign, ":has_fief", 1),
+    (try_end),
+    (eq, ":has_fief", 1),
+
+    (try_begin), #debug
+      (eq, "$cheat_mode", 1),
+      (assign, reg0, "$g_player_constable"),
+      (display_message, "@{!}DEBUG : constable: {reg0}"),
+    (try_end),
+
+    (assign, ":notification", 0),
+    (try_begin),
+      (eq, "$g_player_constable", 0),
+      (assign, ":notification", 1),
+    (else_try),
+      (neq, "$g_player_constable", -1),
+      (neq, "$g_player_constable", "trp_dplmc_constable"),
+      (assign, ":notification", 1),
+    (try_end),
+
+    (try_begin),
+      (eq, ":notification", 1),
+      (call_script, "script_add_notification_menu", "mnu_dplmc_notification_appoint_constable", 0, 0),
+    (try_end),
+    ]
+   ),
+
+  # Appoint chancellor
+   (24 , 0, 24 * 14,
+   [],
+   [
+   (assign, ":has_fief", 0),
+    (try_for_range, ":center_no", towns_begin, towns_end),
+      (party_get_slot,  ":lord_troop_id", ":center_no", slot_town_lord),
+      (eq, ":lord_troop_id", "trp_player"),
+      (assign, ":has_fief", 1),
+    (try_end),
+    (eq, ":has_fief", 1),
+
+    (try_begin), #debug
+      (eq, "$cheat_mode", 1),
+      (assign, reg0, "$g_player_chancellor"),
+      (display_message, "@{!}DEBUG : chancellor: {reg0}"),
+    (try_end),
+
+    (assign, ":notification", 0),
+    (try_begin),
+      (eq, "$g_player_chancellor", 0),
+      (assign, ":notification", 1),
+    (else_try),
+      (neq, "$g_player_chancellor", -1),
+      (neq, "$g_player_chancellor", "trp_dplmc_chancellor"),
+      (assign, ":notification", 1),
+    (try_end),
+
+    (try_begin),
+      (eq, ":notification", 1),
+      (call_script, "script_add_notification_menu", "mnu_dplmc_notification_appoint_chancellor", 0, 0),
+    (try_end),
+    ]),
+
+  #initialize autoloot feature if you have a chamberlain
+  ##diplomacy start+
+  #Disable this: autoloot gets initialized elsewhere.
+  (24, 0, ti_once,
+  [
+	  ##NEW:
+	  (eq, 0, 1),
+	  ##OLD:
+      #(store_skill_level, ":inv_skill", "skl_inventory_management", "trp_player"),
+      #(gt, "$g_player_chamberlain", 0),
+      #(ge, ":inv_skill", 3),
+  ],
+  [
+	##NEW:
+	#This doesn't ever get called, but if it did here's what should happen"
+	(call_script, "script_dplmc_initialize_autoloot", 1),#argument "1" forces this to make changes
+	##OLD:
+    #(call_script, "script_dplmc_init_item_difficulties"),
+    #(call_script, "script_dplmc_init_item_base_score"),
+    #(assign, "$g_autoloot", 1),
+  ]),
+
+  (0.1, 0.5, 0, [(map_free,0),(eq,"$g_move_fast", 1)], [(assign,"$g_move_fast", 0)]),
+
+##diplomacy end
 
 
 ]
