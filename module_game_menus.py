@@ -7680,7 +7680,7 @@ game_menus = [
             (party_get_slot, ":village_elder_troop", "$current_town", slot_town_elder),
             (set_visitor, 11, ":village_elder_troop"),
 
-            (set_jump_mission, "mt_village_center"),
+            (set_jump_mission, "mt_simple_visit"),
             (jump_to_scene, ":village_scene"),
             (change_screen_mission),
             (change_screen_map_conversation, ":village_elder_troop"),
@@ -9739,7 +9739,7 @@ game_menus = [
           (party_get_slot, ":guild_master_troop", "$current_town", slot_town_elder),
           (set_visitor, 11, ":guild_master_troop"),
 
-          (set_jump_mission, "mt_town_center"),
+          (set_jump_mission, "mt_simple_visit"),
           (jump_to_scene, ":town_scene"),
           (change_screen_mission),
           (change_screen_map_conversation, ":guild_master_troop"),
@@ -14860,12 +14860,13 @@ game_menus = [
       ##calc players max knight allowed
       (call_script, "script_calculate_max_knights", "trp_player"),
       (assign, ":max_knights", reg0),
-      (display_message, "@Max knights of {reg0}"),
-      (val_add, reg0, 1), ##Due to random being max-1
-      (store_random_in_range, ":knight_amount", 0, reg0),
+      #(display_message, "@Max knights of {reg0}"),
+      #(val_add, reg0, 1), ##Due to random being max-1
+      #(store_random_in_range, ":knight_amount", 0, reg0),
+      (assign, ":knight_amount", ":max_knights"),
 
       (try_begin),
-        (gt, ":party_capacity", 0),
+        (ge, ":party_capacity", 0),
         (val_min, ":knight_amount", ":party_capacity"),
       (try_end),
 
@@ -14893,6 +14894,9 @@ game_menus = [
       (else_try),
         (lt, ":allowed_knights", 0), ##Difference was negative, so there are too many.
         (str_store_string, s18, "@You have too many knights in your party as it is."),
+      (else_try),
+        (eq, ":party_capacity", 0), ##No Space! place before knight amount eq 0 check because if this is 0 then so will that
+        (str_store_string, s18, "@You do not have enough room to recruit knights to your party."),
       (else_try),
         (eq, ":knight_amount", 0),
         (str_store_string, s18, "@There are no knights here who will follow you."),

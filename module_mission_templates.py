@@ -2289,6 +2289,29 @@ mission_templates = [
    ]),
   ]),
 
+  ##BEAN BEGIN - Speak with | This is used so that the menu action works smoother
+  (
+    "simple_visit", 0, -1,
+    "Simple visit",
+    [
+      (0,mtef_scene_source|mtef_team_0,af_override_horse,0,1,pilgrim_disguise),
+      (1,mtef_scene_source|mtef_team_0,0,0,1,[]),
+      (2,mtef_scene_source|mtef_team_0,af_override_horse,0,1,pilgrim_disguise),
+      (3,mtef_scene_source|mtef_team_0,af_override_horse,0,1,pilgrim_disguise),
+      (4,mtef_scene_source|mtef_team_0,af_override_horse,0,1,pilgrim_disguise),
+      (5,mtef_scene_source|mtef_team_0,af_override_horse,0,1,pilgrim_disguise),
+      (6,mtef_scene_source|mtef_team_0,af_override_horse,0,1,pilgrim_disguise),
+      (7,mtef_scene_source|mtef_team_0,af_override_horse,0,1,pilgrim_disguise),
+      (8,mtef_visitor_source,af_override_horse,0,1,[]),
+      (9,mtef_visitor_source,af_override_horse,0,1,[]),
+      (10,mtef_visitor_source,af_override_horse,0,1,[]),
+      (11,mtef_visitor_source,af_override_horse,0,1,[]),
+    ],
+    [
+   	]
+  ),
+  ##BEAN END - Speak with
+
   (
     "village_center",0,-1,
     "village center",
