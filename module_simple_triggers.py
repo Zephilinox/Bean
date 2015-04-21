@@ -4317,7 +4317,13 @@ simple_triggers = [
         (party_slot_eq, ":cur_center_no", slot_town_lord, ":troop_no"),
 
         #checking if the party is away from his original faction parties
-        (assign, ":end_cond", active_npcs_end),
+		##diplomacy start+
+		##Add support for promoted kingdom lades.
+		##OLD:
+        #(assign, ":end_cond", active_npcs_end),
+		##NEW:
+        (assign, ":end_cond", heroes_end),
+		##diplomacy end+
         (try_for_range, ":enemy_troop_no", active_npcs_begin, ":end_cond"),
 		  (troop_slot_eq, ":enemy_troop_no", slot_troop_occupation, slto_kingdom_hero),
           (troop_get_slot, ":enemy_party_no", ":enemy_troop_no", slot_troop_leaded_party),
