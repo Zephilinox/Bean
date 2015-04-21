@@ -104,7 +104,10 @@ slot_faction_temp_slot                  = 12
 ##slot_faction_vassal_of            = 11
 slot_faction_banner                     = 15
 
-slot_faction_number_of_parties    = 20
+##diplomacy start+
+slot_faction_number_of_parties    = 20#Deprecated, use slot_faction_num_parties instead
+slot_faction_num_parties          = slot_faction_number_of_parties
+##diplomacy end+
 slot_faction_state                = 21
 
 slot_faction_adjective            = 22
@@ -1193,96 +1196,6 @@ scene_prop_next_entry_point_id      = 4 #for belfries only
 scene_prop_belfry_platform_moved    = 5 #for belfries only
 scene_prop_slots_end                = 6
 
-##BEAN BEGIN - Color Coded Messages
-########################################################
-##  COLOR CODES             ############################
-########################################################
-color_white = 0xFCFCFC
-color_light_grey = 0xCDCDCD
-color_dark_grey = 0x898989
-color_black = 0x3c3c3c
-
-color_cream = 0xFFEEDD
-
-color_red = 0xFF3333
-color_light_red = 0xFF6666
-
-color_green = 0x91FF00
-color_light_green = 0xC2FF73
-
-color_blue = 0x3388FF
-color_light_blue = 0x66CCFF
-
-color_orange = 0xFFA400
-color_light_orange = 0xFFA444
-
-color_yellow = 0xFFE419
-color_light_yellow = 0xFFED66
-
-color_great_news = color_green
-color_good_news = color_light_green
-color_neutral_news = color_cream
-color_bad_news = color_light_red
-color_terrible_news = color_red
-
-color_quest_and_faction_news = color_light_blue
-color_hero_news = color_yellow
-
-########################################################
-##  NEWS TYPES              ############################
-########################################################
-news_lord_defeated = 1
-news_lord_captured = 2
-news_lord_freed = 3
-news_lord_escaped = 4
-
-news_village_looted = 5
-
-news_center_captured = 6
-news_center_under_siege = 7
-news_center_siege_lifted = 8
-news_center_prosperity_changed = 9
-########################################################
-##BEAN END - Color Coded Messages
-
-##BEAN BEGIN - Dynamic Faction Troop Tree
-# Presentations Constants
-title_pos_x   = 500
-title_pos_y   = 650
-title_size    = 2000
-title_black   = 0x000000
-title_red     = 0xFF0000
-title_yellow  = 0xFFFF00
-working_pos_y = 550
-large_size    = 1500
-medium_size   = 1200
-normal_size   = 1000
-small_size    = 800
-smaller_size  = 600
-tinny_size    = 450
-troop_tree_size_x  = 375
-troop_tree_size_y  = 500
-troop_tree_space_x = 160
-troop_tree_space_y = 170#170
-troop_tree_left    = 60
-##BEAN END - Dynamic Faction Troop Tree
-
-battle_ratio_multiple = 200 ##BEAN - Overhauled Morale
-
-##BEAN BEGIN - Trade Ledger
-spt_array = -1
-slot_troop_trade_ledger = 155
-#sub-array party ID storage as ledger array element:
-date_array        = 0
-town_array        = 1
-item_array        = 2
-destination_array = 3
-profit_array      = 4
-num_ledger_sub_arrays = profit_array - date_array + 1
-#custom assess items list
-custom_assess_begin = num_ledger_sub_arrays
-##BEAN END - Trade Ledger
-
 ########################################################
 rel_enemy   = 0
 rel_neutral = 1
@@ -2315,6 +2228,96 @@ DPLMC_CURRENT_VERSION_CODE = 120922
 DPLMC_VERSION_LOW_7_BITS = 68 #Number that comes after the rest of the version code
 
 DPLMC_DIPLOMACY_VERSION_STRING = "4.3 (Sept 22, 2012)"
+
+##BEAN BEGIN - Color Coded Messages
+########################################################
+##  COLOR CODES             ############################
+########################################################
+color_white = 0xFCFCFC
+color_light_grey = 0xCDCDCD
+color_dark_grey = 0x898989
+color_black = 0x3c3c3c
+
+color_cream = 0xFFEEDD
+
+color_red = 0xFF3333
+color_light_red = 0xFF6666
+
+color_green = 0x91FF00
+color_light_green = 0xC2FF73
+
+color_blue = 0x3388FF
+color_light_blue = 0x66CCFF
+
+color_orange = 0xFFA400
+color_light_orange = 0xFFA444
+
+color_yellow = 0xFFE419
+color_light_yellow = 0xFFED66
+
+color_great_news = color_green
+color_good_news = color_light_green
+color_neutral_news = color_cream
+color_bad_news = color_light_red
+color_terrible_news = color_red
+
+color_quest_and_faction_news = color_light_blue
+color_hero_news = color_yellow
+
+########################################################
+##  NEWS TYPES              ############################
+########################################################
+news_lord_defeated = 1
+news_lord_captured = 2
+news_lord_freed = 3
+news_lord_escaped = 4
+
+news_village_looted = 5
+
+news_center_captured = 6
+news_center_under_siege = 7
+news_center_siege_lifted = 8
+news_center_prosperity_changed = 9
+########################################################
+##BEAN END - Color Coded Messages
+
+##BEAN BEGIN - Dynamic Faction Troop Tree
+# Presentations Constants
+title_pos_x   = 500
+title_pos_y   = 650
+title_size    = 2000
+title_black   = 0x000000
+title_red     = 0xFF0000
+title_yellow  = 0xFFFF00
+working_pos_y = 550
+large_size    = 1500
+medium_size   = 1200
+normal_size   = 1000
+small_size    = 800
+smaller_size  = 600
+tinny_size    = 450
+troop_tree_size_x  = 375
+troop_tree_size_y  = 500
+troop_tree_space_x = 160
+troop_tree_space_y = 170#170
+troop_tree_left    = 60
+##BEAN END - Dynamic Faction Troop Tree
+
+battle_ratio_multiple = 200 ##BEAN - Overhauled Morale
+
+##BEAN BEGIN - Trade Ledger
+spt_array = -1
+slot_troop_trade_ledger = 155
+#sub-array party ID storage as ledger array element:
+date_array        = 0
+town_array        = 1
+item_array        = 2
+destination_array = 3
+profit_array      = 4
+num_ledger_sub_arrays = profit_array - date_array + 1
+#custom assess items list
+custom_assess_begin = num_ledger_sub_arrays
+##BEAN END - Trade Ledger
 
 #Perform a check to make sure constants are defined in a reasonable way.
 def _validate_constants(verbose=False):
