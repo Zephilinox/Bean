@@ -55,6 +55,7 @@ Caba`drin               Merchant Trade Ledger                           ##BEAN -
 rubik                   Sort Party Troops                               plugin_sort_party_troops.py
 painbringer             World Map HD
 gameweb                 HD Textures
+Waihti, Somebody, etc.  Diplomacy for 1.165                             ##diplomacy
 ```
 
 ##Modifications

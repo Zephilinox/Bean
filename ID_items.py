@@ -596,4 +596,5 @@ itm_heraldic_mail_with_surcoat_for_tableau = 594
 itm_mail_boots_for_tableau = 595
 itm_warhorse_sarranid = 596
 itm_warhorse_steppe = 597
-itm_items_end = 598
+itm_dplmc_coat_of_plates_red_constable = 598
+itm_items_end = 599
