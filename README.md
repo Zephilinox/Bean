@@ -55,7 +55,7 @@ Caba`drin               Merchant Trade Ledger                           ##BEAN -
 rubik                   Sort Party Troops                               plugin_sort_party_troops.py
 painbringer             World Map HD
 gameweb                 HD Textures
-Waihti, Somebody, etc.  Diplomacy for 1.165                             ##diplomacy
+Waihti, Somebody, etc.  Diplomacy for 1.165                             ##diplomacy, ##BEAN - Diplomacy
 ```
 
 ##Modifications
@@ -74,12 +74,15 @@ Zephilinox              Speak With                                      ##BEAN -
 Zephilinox              No limit to attacking based on relations        ##BEAN - Attack Relations
 Zephilinox              Extra XP for King                               ##BEAN - King Troop XP
 Zephilinox              Special Lord Unit                               ##BEAN - Knights
+Zephilinox              Diplomacy culture when recruiting               ##BEAN - Recruit Culture
 ```
 
 ##Issues
 ```
 Horse dust in arena (vaegir) is broken?
 Custom battles deathcam
+Calculate max knights by also checking all fiefs as the player can garrison them there for infinite numbers
+Use village code for towns when recruiting knights?
 ```
 
 ##TODO

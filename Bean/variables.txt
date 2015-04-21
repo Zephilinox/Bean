@@ -1792,3 +1792,4 @@ g_jrider_character_portrait
 g_jrider_faction_coat_of_arms
 dplmc_return_menu
 inventory_menu_offset
+g_players_culture
