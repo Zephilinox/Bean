@@ -35874,11 +35874,10 @@ scripts = [
   # OUTPUT: none
   ("update_volunteer_troops_in_village",
     [
-       (store_script_param, ":center_no", 1),
-       (party_get_slot, ":player_relation", ":center_no", slot_center_player_relation),
-       (party_get_slot, ":center_culture", ":center_no", slot_center_culture),
-
-
+      (store_script_param, ":center_no", 1),
+      (party_get_slot, ":player_relation", ":center_no", slot_center_player_relation),
+      (party_get_slot, ":center_culture", ":center_no", slot_center_culture),
+      
 ##	   (try_begin),
 ##		(eq, "$cheat_mode", 2),
 ##	    (str_store_party_name, s4, ":center_no"),
@@ -35886,34 +35885,45 @@ scripts = [
 ##	    (display_message, "str_updating_volunteers_for_s4_faction_is_s5"),
 ##	   (try_end),
 
-       (faction_get_slot, ":volunteer_troop", ":center_culture", slot_faction_tier_1_troop),
-       (assign, ":volunteer_troop_tier", 1),
-       (store_div, ":tier_upgrades", ":player_relation", 10),
-       (try_for_range, ":unused", 0, ":tier_upgrades"),
-         (store_random_in_range, ":random_no", 0, 100),
-         (lt, ":random_no", 10),
-         (store_random_in_range, ":random_no", 0, 2),
-         (troop_get_upgrade_troop, ":upgrade_troop_no", ":volunteer_troop", ":random_no"),
-         (try_begin),
-           (le, ":upgrade_troop_no", 0),
-           (troop_get_upgrade_troop, ":upgrade_troop_no", ":volunteer_troop", 0),
-         (try_end),
-         (gt, ":upgrade_troop_no", 0),
-         (val_add, ":volunteer_troop_tier", 1),
-         (assign, ":volunteer_troop", ":upgrade_troop_no"),
-       (try_end),
+      ##BEAN BEGIN - Recruit Culture
+      (store_faction_of_party, ":center_faction", ":center_no"),
+      
+      (try_begin),
+        (neq, "$g_player_culture", 0), ##Use the original culture of the fief as we have no preference
+        (call_script, "script_dplmc_get_troop_standing_in_faction", "trp_player", ":center_faction"),
+        (ge, reg0, DPLMC_FACTION_STANDING_LEADER_SPOUSE), ##Make sure we are co-ruler or ruler of center faction
+        (assign, ":center_culture", "$g_player_culture"),
+      (try_end),
+      ##BEAN END - Recruit Culture
+      
+      (faction_get_slot, ":volunteer_troop", ":center_culture", slot_faction_tier_1_troop),
+      
+      (assign, ":volunteer_troop_tier", 1),
+      (store_div, ":tier_upgrades", ":player_relation", 10),
+      (try_for_range, ":unused", 0, ":tier_upgrades"),
+        (store_random_in_range, ":random_no", 0, 100),
+        (lt, ":random_no", 10),
+        (store_random_in_range, ":random_no", 0, 2),
+        (troop_get_upgrade_troop, ":upgrade_troop_no", ":volunteer_troop", ":random_no"),
+        (try_begin),
+          (le, ":upgrade_troop_no", 0),
+          (troop_get_upgrade_troop, ":upgrade_troop_no", ":volunteer_troop", 0),
+        (try_end),
+        (gt, ":upgrade_troop_no", 0),
+        (val_add, ":volunteer_troop_tier", 1),
+        (assign, ":volunteer_troop", ":upgrade_troop_no"),
+      (try_end),
 
-       (assign, ":upper_limit", 8),
-       (try_begin),
-         (ge, ":player_relation", 4),
-         (assign, ":upper_limit", ":player_relation"),
-         (val_div, ":upper_limit", 2),
-         (val_add, ":upper_limit", 6),
-       (else_try),
-         (lt, ":player_relation", 0),
-         (assign, ":upper_limit", 0),
-       (try_end),
-
+      (assign, ":upper_limit", 8),
+      (try_begin),
+        (ge, ":player_relation", 4),
+        (assign, ":upper_limit", ":player_relation"),
+        (val_div, ":upper_limit", 2),
+        (val_add, ":upper_limit", 6),
+      (else_try),
+        (lt, ":player_relation", 0),
+        (assign, ":upper_limit", 0),
+      (try_end),
 
 ##diplomacy begin
       (assign, ":percent", 100),
@@ -35959,47 +35969,59 @@ scripts = [
 
 ##diplomacy end
 
+      (val_mul, ":upper_limit", 3),
+      (store_add, ":amount_random_divider", 2, ":volunteer_troop_tier"),
+      (val_div, ":upper_limit", ":amount_random_divider"),
 
-       (val_mul, ":upper_limit", 3),
-       (store_add, ":amount_random_divider", 2, ":volunteer_troop_tier"),
-       (val_div, ":upper_limit", ":amount_random_divider"),
-
-       (store_random_in_range, ":amount", 0, ":upper_limit"),
-       (party_set_slot, ":center_no", slot_center_volunteer_troop_type, ":volunteer_troop"),
-       (party_set_slot, ":center_no", slot_center_volunteer_troop_amount, ":amount"),
-     ]),
+      (store_random_in_range, ":amount", 0, ":upper_limit"),
+      (party_set_slot, ":center_no", slot_center_volunteer_troop_type, ":volunteer_troop"),
+      (party_set_slot, ":center_no", slot_center_volunteer_troop_amount, ":amount"),
+    ]
+  ),
 
   #script_update_npc_volunteer_troops_in_village
   # INPUT: arg1 = center_no
   # OUTPUT: none
   ("update_npc_volunteer_troops_in_village",
     [
-       (store_script_param, ":center_no", 1),
-       (party_get_slot, ":center_culture", ":center_no", slot_center_culture),
-       (faction_get_slot, ":volunteer_troop", ":center_culture", slot_faction_tier_1_troop),
-       (assign, ":volunteer_troop_tier", 1),
-       (try_for_range, ":unused", 0, 5),
-         (store_random_in_range, ":random_no", 0, 100),
-         (lt, ":random_no", 10),
-         (store_random_in_range, ":random_no", 0, 2),
-         (troop_get_upgrade_troop, ":upgrade_troop_no", ":volunteer_troop", ":random_no"),
-         (try_begin),
-           (le, ":upgrade_troop_no", 0),
-           (troop_get_upgrade_troop, ":upgrade_troop_no", ":volunteer_troop", 0),
-         (try_end),
-         (gt, ":upgrade_troop_no", 0),
-         (val_add, ":volunteer_troop_tier", 1),
-         (assign, ":volunteer_troop", ":upgrade_troop_no"),
-       (try_end),
+      (store_script_param, ":center_no", 1),
+      (party_get_slot, ":center_culture", ":center_no", slot_center_culture),
+       
+      ##BEAN BEGIN - Recruit Culture
+      (store_faction_of_party, ":center_faction", ":center_no"),
+      
+      (try_begin),
+        (neq, "$g_player_culture", 0), ##Use the original culture of the fief as we have no preference
+        (call_script, "script_dplmc_get_troop_standing_in_faction", "trp_player", ":center_faction"),
+        (ge, reg0, DPLMC_FACTION_STANDING_LEADER_SPOUSE), ##Make sure we are co-ruler or ruler of center faction
+        (assign, ":center_culture", "$g_player_culture"),
+      (try_end),
+      ##BEAN END - Recruit Culture
+      
+      (faction_get_slot, ":volunteer_troop", ":center_culture", slot_faction_tier_1_troop),
+      (assign, ":volunteer_troop_tier", 1),
+      (try_for_range, ":unused", 0, 5),
+        (store_random_in_range, ":random_no", 0, 100),
+        (lt, ":random_no", 10),
+        (store_random_in_range, ":random_no", 0, 2),
+        (troop_get_upgrade_troop, ":upgrade_troop_no", ":volunteer_troop", ":random_no"),
+        (try_begin),
+          (le, ":upgrade_troop_no", 0),
+          (troop_get_upgrade_troop, ":upgrade_troop_no", ":volunteer_troop", 0),
+        (try_end),
+        (gt, ":upgrade_troop_no", 0),
+        (val_add, ":volunteer_troop_tier", 1),
+        (assign, ":volunteer_troop", ":upgrade_troop_no"),
+      (try_end),
 
-       (assign, ":upper_limit", 12),
+      (assign, ":upper_limit", 12),
 
-       (store_add, ":amount_random_divider", 2, ":volunteer_troop_tier"),
-       (val_div, ":upper_limit", ":amount_random_divider"),
+      (store_add, ":amount_random_divider", 2, ":volunteer_troop_tier"),
+      (val_div, ":upper_limit", ":amount_random_divider"),
 
-       (store_random_in_range, ":amount", 0, ":upper_limit"),
-       (party_set_slot, ":center_no", slot_center_npc_volunteer_troop_type, ":volunteer_troop"),
-       (party_set_slot, ":center_no", slot_center_npc_volunteer_troop_amount, ":amount"),
+      (store_random_in_range, ":amount", 0, ":upper_limit"),
+      (party_set_slot, ":center_no", slot_center_npc_volunteer_troop_type, ":volunteer_troop"),
+      (party_set_slot, ":center_no", slot_center_npc_volunteer_troop_amount, ":amount"),
      ]),
 
   #script_update_companion_candidates_in_taverns

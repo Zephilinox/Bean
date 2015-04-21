@@ -4335,7 +4335,8 @@ Please, take this as some small repayment for your noble deed.", "rescue_prisone
 ##select kingdom culture
 [anyone|plyr, "dplmc_chancellor_domestic_policy_options",
 [
-(is_between, "$g_player_minister", active_npcs_begin, kingdom_ladies_end),
+(this_or_next|is_between, "$g_player_minister", active_npcs_begin, kingdom_ladies_end),
+(ge, "$cheat_mode", 1),
 ],
 ##diplomacy start+ add apostrophe
 "I wish to select the kingdom's culture.", "dplmc_chancellor_kingdom_culture_ask",
@@ -4436,7 +4437,11 @@ Please, take this as some small repayment for your noble deed.", "rescue_prisone
 (str_store_string, s11, ":offset"),
 (str_store_string, s11, "@Kingdom culture: {s11}"),
 (try_end),
-(display_message, "@{s11}")
+(display_message, "@{s11}"),
+(try_for_parties, ":party_no"),
+  (party_is_active, ":party_no"),
+  (call_script, "script_update_volunteer_troops_in_village", ":party_no"),
+(try_end),
 ]],
 
 ##select kingdom culture
@@ -4446,7 +4451,12 @@ Please, take this as some small repayment for your noble deed.", "rescue_prisone
 #"None.", "dplmc_chancellor_pretalk",
 "Favor no culture over others.", "dplmc_chancellor_pretalk",
 ##diplomacy end+
-[(assign, "$g_player_culture", 0),
+[
+(assign, "$g_player_culture", 0),
+(try_for_parties, ":party_no"),
+  (party_is_active, ":party_no"),
+  (call_script, "script_update_volunteer_troops_in_village", ":party_no"),
+(try_end),
 ]],
 
 ##diplomacy start+
@@ -4532,13 +4542,14 @@ Please, take this as some small repayment for your noble deed.", "rescue_prisone
 (store_current_hours, ":current_hours"),
 ##zParsifal 2011-10-07: Change the policy change interval from always 30 days to (Centralization * 5) + 30 days.
 (faction_get_slot, ":policy_time", "fac_player_supporters_faction", dplmc_slot_faction_centralization),
-(val_mul, ":policy_time", -5),
-(val_add, ":policy_time", 30),
-(val_clamp, ":policy_time", 15, 46),#This line should be unnecessary
+(val_mul, ":policy_time", -1), ##BEAN - Diplomacy | Weekly
+(val_add, ":policy_time", 7), ##BEAN - Diplomacy | Weekly
+#(val_clamp, ":policy_time", 15, 46),#This line should be unnecessary ##BEAN - Diplomacy | Weekly
 (val_mul, ":policy_time", 24),
 (val_sub, ":current_hours", ":policy_time"),
 (faction_get_slot, ":policy_time", "fac_player_supporters_faction", dplmc_slot_faction_policy_time),
-(ge, ":current_hours", ":policy_time"),
+(this_or_next|ge, ":current_hours", ":policy_time"),
+(eq, "$cheat_mode", 1),
 
 (assign, ":string", "str_dplmc_neither_centralize_nor_decentralized"),
 (faction_get_slot, ":centralization", "fac_player_supporters_faction", dplmc_slot_faction_centralization),
@@ -4610,9 +4621,9 @@ Please, take this as some small repayment for your noble deed.", "rescue_prisone
 
 (store_current_hours, ":current_hours"),
 ##zParsifal 2011-10-07: Change the policy change interval from always 30 days to (Centralization * 5) + 30 days.
-(store_mul, reg1, ":centralization", -5),#Use reg1 for the number of days you have to wait, to display further below.
-(val_add, reg1, 30),
-(val_clamp, reg1, 15, 46),#This line should be unnecessary
+(store_mul, reg1, ":centralization", -1),#Use reg1 for the number of days you have to wait, to display further below. ##BEAN - Diplomacy | Weekly
+(val_add, reg1, 7), ##BEAN - Diplomacy | Weekly
+#(val_clamp, reg1, 15, 46),#This line should be unnecessary ##BEAN - Diplomacy | Weekly
 (store_mul, ":policy_time", reg1, 24),
 (val_sub, ":current_hours", ":policy_time"),
 (faction_get_slot, ":policy_time", "fac_player_supporters_faction", dplmc_slot_faction_policy_time),
