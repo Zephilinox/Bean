@@ -4657,7 +4657,6 @@ scripts = [
          (troop_slot_eq, ":cur_companion", slot_troop_occupation, slto_kingdom_hero),
 		 ##diplomacy start+
          #(troop_get_type, ":troop_type", ":cur_companion"), #just to make sure
-         (eq, ":troop_type", 0), #male
          #(eq, ":troop_type", 0), #male
 		 (call_script, "script_dplmc_store_troop_is_female", ":cur_companion"),
 		 (this_or_next|eq, reg0, 0),
@@ -46013,7 +46012,7 @@ scripts = [
       (assign, ":center", ":cur_residence"),
     (try_end),
     (is_between, ":center",  walled_centers_begin, walled_centers_end),
-
+    ##diplomacy end
 	(else_try),
 		(try_for_range, ":walled_center", walled_centers_begin, walled_centers_end),
 			(store_faction_of_party, ":walled_center_faction", ":walled_center"),
@@ -51809,8 +51808,6 @@ scripts = [
 	  (try_begin),
 	    (eq, ":new_faction", -1),
 	    (assign, ":score_to_beat", 0),
-        (try_for_range, ":troop_id", original_kingdom_heroes_begin, active_npcs_end),
-          (store_troop_faction, ":faction_of_troop", ":troop_id"),
 	     #diplomacy start+
 	     #If AI changes are explicitly enabled, slightly ease the requirements for entry.
 	     (try_begin),
@@ -64034,7 +64031,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
      ]),
      ###
 
-  ##BEAN BEGIN - Color Codded Messages
+  ##BEAN BEGIN - Color Coded Messages
   ("get_message_color", [
     (store_script_param, ":news_type", 1),  # See News Types in module_constants
     (store_script_param, ":entity", 2),   # The troop or town in question
