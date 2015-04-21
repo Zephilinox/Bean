@@ -36,6 +36,42 @@ from compiler import *
 pilgrim_disguise = [itm_pilgrim_hood,itm_pilgrim_disguise,itm_practice_staff, itm_throwing_daggers]
 af_castle_lord = af_override_horse | af_override_weapons| af_require_civilian
 
+##diplomacy begin
+from header_skills import *
+
+dplmc_horse_speed = (
+  1, 0, 0, [],
+  [
+  (eq, "$g_dplmc_horse_speed", 0),
+  (try_for_agents, ":agent_no"),
+    (agent_is_alive, ":agent_no"),
+    (agent_is_human, ":agent_no"),
+    (agent_get_horse, ":horse_agent", ":agent_no"),
+    (try_begin),
+      (ge, ":horse_agent", 0),
+      (store_agent_hit_points, ":horse_hp",":horse_agent"),
+      (store_sub, ":lost_hp", 100, ":horse_hp"),
+      (try_begin),
+        (le, ":lost_hp", 15),
+        (val_div, ":lost_hp", 2),
+        (store_add, ":speed_factor", 100, ":lost_hp"),
+      (else_try),
+        (val_mul, ":lost_hp", 2),
+        (val_div, ":lost_hp", 3),
+        (store_sub, ":speed_factor", 115, ":lost_hp"),
+      (try_end),
+      (agent_get_troop_id, ":agent_troop", ":agent_no"),
+      (store_skill_level, ":skl_level", skl_riding, ":agent_troop"),
+      (store_mul, ":speed_multi", ":skl_level", 2),
+      (val_add, ":speed_multi", 100),
+      (val_mul, ":speed_factor", ":speed_multi"),
+      (val_div, ":speed_factor", 100),
+      (agent_set_horse_speed_factor, ":agent_no", ":speed_factor"),
+    (try_end),
+  (try_end),
+  ])
+##diplomacy end
+
 ##BEAN BEGIN - Deathcam
 common_init_deathcam = (
    0, 0, ti_once,
@@ -488,6 +524,12 @@ weather = (
 )
 
 ##BEAN END - Weather
+
+##diplomacy begin
+dplmc_battle_mode_triggers = [
+    dplmc_horse_speed,
+  ]
+##diplomacy end
 
 multiplayer_server_check_belfry_movement = (
   0, 0, 0, [],
@@ -1098,15 +1140,15 @@ common_battle_tab_press = (
             (call_script, "script_count_mission_casualties_from_agents"),
             (finish_mission, 0),
         (else_try),
+        (eq, "$deathcam_on", 1),
+            (question_box,"str_do_you_want_to_retreat"),
+        (else_try),
         (eq, "$pin_player_fallen", 1),
             (call_script, "script_simulate_retreat", 0, 0, 0),
             (assign, "$g_battle_result", -1),
             (set_mission_result, -1),
             (call_script, "script_count_mission_casualties_from_agents"),
             (finish_mission, 0),
-        (else_try),
-        (eq, "$deathcam_on", 1),
-            (question_box,"str_do_you_want_to_retreat"),
         (else_try),
             (call_script, "script_cf_check_enemies_nearby"),
             (question_box, "str_do_you_want_to_retreat"),
@@ -1969,7 +2011,22 @@ mission_templates = [
       ],
       [
 		(party_get_slot, ":tavernkeeper", "$g_encountered_party", slot_town_tavernkeeper),
+		##diplomacy start+
+		#Turn of this !@#$%ing obnoxious and totally illogical restriction provided:
+		(try_begin),
+			#1) there is an actual fight
+			(gt, "$g_main_attacker_agent", 0),
+			(agent_is_alive, "$g_main_attacker_agent"),
+			(neg|agent_is_wounded, "$g_main_attacker_agent"),
+			#2) the player is the lord of this town, a mercenary captain in the kingdom's employ, or ruler of this kingdom
+			(store_faction_of_party , ":center_faction", "$g_encountered_party"),
+			(this_or_next|eq, ":center_faction", "$players_kingdom"),
+				(eq, ":center_faction", "fac_player_supporters_faction"),
+		(else_try),
+		#Else, original behavior:
 		(start_mission_conversation, ":tavernkeeper"),
+		(try_end),
+		##diplomacy stop+
 	  ]),
 
 	  #Check for weapon in hand of attacker, also, everyone gets out of the way
@@ -2936,7 +2993,10 @@ mission_templates = [
       common_battle_order_panel,
       common_battle_order_panel_tick,
 
-    ],
+    ]
+    ##diplomacy begin
+    + dplmc_battle_mode_triggers,
+    ##diplomacy end
   ),
 
   (
@@ -3008,7 +3068,10 @@ mission_templates = [
       common_battle_order_panel,
       common_battle_order_panel_tick,
 
-    ],
+    ]
+    ##diplomacy begin
+    + dplmc_battle_mode_triggers,
+    ##diplomacy end
   ),
 
 
@@ -3121,7 +3184,10 @@ mission_templates = [
 ##          (store_mission_timer_a,reg(1)),(ge,reg(1),4),
 ##          (call_script, "script_battle_tactic_apply"),
 ##          ], []),
-    ],
+    ]
+    ##diplomacy begin
+    + dplmc_battle_mode_triggers,
+    ##diplomacy end
   ),
 
 
@@ -3358,7 +3424,10 @@ mission_templates = [
       common_battle_order_panel,
       common_battle_order_panel_tick,
       common_battle_inventory,
-    ],
+    ]
+    ##diplomacy begin
+    + dplmc_battle_mode_triggers,
+    ##diplomacy end
   ),
 
   (
@@ -3437,7 +3506,10 @@ mission_templates = [
       common_battle_order_panel,
       common_battle_order_panel_tick,
       common_battle_inventory,
-    ],
+    ]
+    ##diplomacy begin
+    + dplmc_battle_mode_triggers,
+    ##diplomacy end
   ),
 
   (
@@ -3551,7 +3623,10 @@ mission_templates = [
       common_battle_order_panel,
       common_battle_order_panel_tick,
       common_battle_inventory,
-    ],
+    ]
+    ##diplomacy begin
+    + dplmc_battle_mode_triggers,
+    ##diplomacy end
   ),
 
 
@@ -3641,7 +3716,10 @@ mission_templates = [
       common_siege_move_belfry,
       common_siege_rotate_belfry,
       common_siege_assign_men_to_belfry,
-    ],
+    ]
+    ##diplomacy begin
+    + dplmc_battle_mode_triggers,
+    ##diplomacy end
   ),
 
   (
@@ -3764,7 +3842,10 @@ mission_templates = [
 ##         (try_end),
 ##         ],
 ##       []),
-    ],
+    ]
+    ##diplomacy begin
+    + dplmc_battle_mode_triggers,
+    ##diplomacy end
   ),
 
 
@@ -8307,7 +8388,10 @@ mission_templates = [
       custom_battle_check_victory_condition,
       common_battle_victory_display,
       custom_battle_check_defeat_condition,
-    ],
+    ]
+	##diplomacy begin
+	+ dplmc_battle_mode_triggers,
+	##diplomacy end
   ),
 
   (
