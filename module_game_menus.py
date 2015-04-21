@@ -1027,6 +1027,7 @@ game_menus = [
       (troop_add_item, "trp_player", "itm_book_trade_ledger"),
       (set_show_messages, 1),
       ##BEAN END - Trade Ledger
+      (assign, "$g_disable_condescending_comments", 0), ##diplomacy
     ],
     [
       ("start_male",[],"Male",
@@ -13238,7 +13239,9 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 
   (
     "enemy_offer_ransom_for_prisoner",0,
-    "{s2} offers you a sum of {reg12} denars in silver if you are willing to sell him {s1}.",
+##diplomacy start+ Since s2 is the name of a kingdom rather than a person, change "sell him" to "sell them"
+    "{s2} offers you a sum of {reg12} denars in silver if you are willing to sell them {s1}.",
+##diplomacy end+
     "none",
     [(call_script, "script_calculate_ransom_amount_for_troop", "$g_ransom_offer_troop"),
      (assign, reg12, reg0),
