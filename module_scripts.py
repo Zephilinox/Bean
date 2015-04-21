@@ -25798,7 +25798,6 @@ scripts = [
 	 ##diplomacy start+ add support for promoted kingdom ladies
      (try_for_range, ":troop_no", heroes_begin, heroes_end),#<- change active_npcs to heroes
 	 ##diplomacy end+
-     (try_for_range, ":troop_no", active_npcs_begin, active_npcs_end),
        (troop_slot_eq, ":troop_no", slot_troop_occupation, slto_kingdom_hero),
        (neg|troop_slot_ge, ":troop_no", slot_troop_prisoner_of_party, 0),
        (troop_get_slot, ":party_no", ":troop_no", slot_troop_leaded_party),
@@ -33181,7 +33180,7 @@ scripts = [
 
 	(else_try),
 		(eq, ":item", "itm_fruit"),
-		(str_store_string, s14, "str_trade_explanation_fruit"),
+		(str_store_string, s14, "str_trade_explanation_apples"),
 		(assign, ":check_for_good_price", 1),
 
 	(try_end),
@@ -51523,7 +51522,7 @@ scripts = [
 	(store_script_param, ":attrition_rate", 2),
 #	(store_script_param, ":attrition_type", 3), #1 = desertion, 2 = sickness
 ##diplomacy start+
-	(store_script_param, ":unused", 3), #1 = desertion, 2 = sickness
+	#(store_script_param, ":unused", 3), #1 = desertion, 2 = sickness
 ##diplomacy end+
 
     (party_clear, "p_temp_casualties"),
@@ -55539,29 +55538,6 @@ scripts = [
 	(val_add, ":upg", "str_dplmc_hero_wpn_slot_none"),
 	(str_store_string, s1, ":upg"),
 	(str_store_string, s0, "@{s0}^{s1}"),
-]),
-
-################################
-# Copy this troop's upgrade options to everyone
-
-("dplmc_copy_upgrade_to_all_heroes", [
-	(store_script_param_1, ":troop"),
-
-	(troop_get_slot,":upg_armor", ":troop",dplmc_slot_upgrade_armor),
-	(troop_get_slot,":upg_horse",":troop",dplmc_slot_upgrade_horse),
-	(troop_get_slot,":upg_wpn0",":troop",dplmc_slot_upgrade_wpn_0),
-	(troop_get_slot,":upg_wpn1",":troop",dplmc_slot_upgrade_wpn_1),
-	(troop_get_slot,":upg_wpn2",":troop",dplmc_slot_upgrade_wpn_2),
-	(troop_get_slot,":upg_wpn3",":troop",dplmc_slot_upgrade_wpn_3),
-
-	(try_for_range, ":hero", companions_begin, companions_end),
-		(troop_set_slot,":hero",dplmc_slot_upgrade_armor,":upg_armor"),
-		(troop_set_slot,":hero",dplmc_slot_upgrade_horse,":upg_horse"),
-		(troop_set_slot,":hero",dplmc_slot_upgrade_wpn_0,":upg_wpn0"),
-		(troop_set_slot,":hero",dplmc_slot_upgrade_wpn_1,":upg_wpn1"),
-		(troop_set_slot,":hero",dplmc_slot_upgrade_wpn_2,":upg_wpn2"),
-		(troop_set_slot,":hero",dplmc_slot_upgrade_wpn_3,":upg_wpn3"),
-	(try_end),
 ]),
 
 ####################################

@@ -78,6 +78,7 @@ Zephilinox              Special Lord Unit                               ##BEAN -
 ##Issues
 ```
 Horse dust in arena (vaegir) is broken?
+Custom battles deathcam
 ```
 
 ##TODO

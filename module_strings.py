@@ -2871,7 +2871,6 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ("trade_explanation_flax", "I sew and harvest linseed, and rot the stems to make flax fibers. That's the source of your fine linens, {s0} -- a rotting pit on the edge of a field."),
 ##diplomacy end+
   ("trade_explanation_dates", "I tend to a grove of date palms. I hope you don't mind me saying so, but it takes great skill to tend them, as we must climb to the tops of the palms to ensure that the trees will flower. We export the fruit far and wide, as they keep for many months when properly dried. As sweet as honey, and they grant the eater health and strength."),
-  ("trade_explanation_dates", "I tend to a grove of date palms. We grow them using well-water, and export the fruit far and wide, as they keep for many months when properly dried. As sweet as honey, and they grant the eater health and vigor."),
   ("trade_explanation_olives", "I tend to a grove of olive trees. You can eat the fruit or preserve it in brine, but we end up sending most of it to be pressed, to be made into oil."),
 
 
@@ -4193,7 +4192,6 @@ We apologize sincerely if you contributed your suggestions and feedback but were
   ##diplomacy end+
   ("attempting_to_rejoin_party", "Attempting to rejoin party,"),
   ("separated_from_party", "Separated from party,"),
-  ("whereabouts_unknown", "whereabouts unknown"),
 
   ("none_yet_gathered", "{!}None yet gathered"),
 
@@ -4478,4 +4476,5 @@ We apologize sincerely if you contributed your suggestions and feedback but were
  ("dplmc_s0_and_s1",   "{s0} and {s1}"),
  ("dplmc_s0_newline_s1", "{!}{s0}^{s1}"),
  ##diplomacy end+
+  ("faction_troop_tree", "Faction Troop Tree"),
 ]

@@ -2318,29 +2318,3 @@ num_ledger_sub_arrays = profit_array - date_array + 1
 #custom assess items list
 custom_assess_begin = num_ledger_sub_arrays
 ##BEAN END - Trade Ledger
-
-#Perform a check to make sure constants are defined in a reasonable way.
-def _validate_constants(verbose=False):
-    """Makes sure begin/end pairs have length of at least zero."""
-    d = globals()
-    for from_key in d:
-        if not from_key.endswith("_begin"):
-            continue
-        to_key = from_key[:-len("_begin")]+"_end"
-        if not to_key in d:
-            if verbose:
-                print "%s has no matching %s" % (from_key, to_key)
-            continue
-        from_value = d[from_key]
-        to_value = d[to_key]
-        if not type(from_value) in (int, float, long):
-            continue
-        if not from_value <= to_value:
-            raise Exception("ERROR, condition %s <= %s failed [not true that %s <= %s]" % (from_key, to_key, str(from_value), str(to_value)))
-        elif verbose:
-            print "%s <= %s [%s <= %s]" % (from_key, to_key, str(from_value), str(to_value))
-
-#Automatically run this on module import, so errors are detected
-#during building.
-_validate_constants(verbose=(__name__=="__main__"))
-##diplomacy end+
