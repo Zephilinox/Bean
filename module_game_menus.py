@@ -135,7 +135,7 @@ game_menus = [
          (party_add_members, "p_main_party", "trp_swadian_knight", 10),
          (party_add_members, "p_main_party", "trp_vaegir_knight", 10),
          (party_add_members, "p_main_party", "trp_vaegir_archer", 10),
-         (party_add_members, "p_main_party", "trp_swadian_sharpshooter", 10),
+         (party_add_members, "p_main_party", "trp_swadian_champion_hunter", 10),
          (troop_add_item, "trp_player","itm_scale_armor",0),
          (troop_add_item, "trp_player","itm_full_helm",0),
 
@@ -691,7 +691,7 @@ game_menus = [
            # Jrider -
         ]
        ),
-       
+
      ("dplmc_show_economic_report",[],"View prosperity report.",
        [
            (jump_to_menu, "mnu_dplmc_economic_report"),
@@ -2451,14 +2451,14 @@ game_menus = [
 				(try_begin),
 					(check_quest_active, "qst_lend_companion"),
 					(quest_slot_eq, "qst_lend_companion", slot_quest_target_troop, ":companion"),
-					(str_store_string, s8, "@On loan,"), 
+					(str_store_string, s8, "@On loan,"),
 				(else_try),
 					(check_quest_active, "qst_lend_surgeon"),
 					(quest_slot_eq, "qst_lend_surgeon", slot_quest_target_troop, ":companion"),
-					(str_store_string, s8, "@On loan,"), 
+					(str_store_string, s8, "@On loan,"),
 				(else_try),
 					(troop_set_slot, ":companion", slot_troop_current_mission, npc_mission_rejoin_when_possible),
-					(str_store_string, s8, "str_attempting_to_rejoin_party"),                  
+					(str_store_string, s8, "str_attempting_to_rejoin_party"),
 				(try_end),
 				(str_store_string, s5, "str_whereabouts_unknown"),
 
@@ -5124,7 +5124,7 @@ game_menus = [
                 (assign, "$talk_context", tc_give_center_to_fief),
                 (change_screen_return),
 
-                (assign, ":best_troop", "trp_swadian_sharpshooter"),
+                (assign, ":best_troop", "trp_swadian_champion_hunter"),
 				##diplomacy start+
 				#Trivial aesthetic change, change the default troop to be appropriate to the
 				#culture of the player kingdom (instead of defaulting always to a Swadian troop).
@@ -6406,13 +6406,13 @@ game_menus = [
       ("cheat_castle_start_siege",
        [
          (eq, "$cheat_mode", 1),
+         ##BEAN BEGIN - Attack Relations
          (this_or_next|party_slot_eq, "$g_encountered_party", slot_center_is_besieged_by, -1),
-         (             party_slot_eq, "$g_encountered_party", slot_center_is_besieged_by, "p_main_party"),
-         (store_relation, ":reln", "$g_encountered_party_faction", "fac_player_supporters_faction"),
-         (ge, ":reln", 0),
+         (party_slot_eq, "$g_encountered_party", slot_center_is_besieged_by, "p_main_party"),
          (lt, "$g_encountered_party_2", 1),
-         (call_script, "script_party_count_fit_for_battle","p_main_party"),
-         (gt, reg(0), 1),
+         #(call_script, "script_party_count_fit_for_battle","p_main_party"),
+         #(ge, reg0, 1),
+         ##BEAN END - Attack Relations
          (try_begin),
            (party_slot_eq, "$g_encountered_party", slot_party_type, spt_town),
            (assign, reg6, 1),
@@ -18149,7 +18149,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
        ]),
     ]
   ),
-  
+
   ##Economic report, currently just for debugging purposes
   ("dplmc_economic_report",0,
    "{s0}",
@@ -18167,7 +18167,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
 
        (this_or_next|eq, ":faction", 0),
        (faction_slot_eq, ":faction", slot_faction_state, sfs_active),
-       
+
        (try_begin),
           (eq, ":faction", 0),
           (str_store_string, s1, "@Total"),
@@ -18187,7 +18187,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
        (assign, ":q_2", 0),
        (assign, ":q_1", 0),
        (assign, ":num", 0),
-       
+
        (try_for_range, ":center_no", towns_begin, towns_end),
           (store_faction_of_party, reg0, ":center_no"),
           (this_or_next|eq, ":faction", 0),
@@ -18211,7 +18211,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
              (val_add, ":q_5", 1),
           (try_end),
        (try_end),
-       
+
        (assign, reg0, ":num"),
        (val_max, reg0, 1),
        (store_div, reg0, ":sum", reg0),
@@ -18246,7 +18246,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
           (gt, reg0, 0),
           (str_store_string, s0, "@{s0}^{s1} towns with prosperity 0-19: {reg0}"),
        (try_end),
-       
+
        (str_store_string, s0, "@{!}{s0}^"),
 
        ##(2) Faction Prosperity, villages
@@ -18257,7 +18257,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
        (assign, ":q_2", 0),
        (assign, ":q_1", 0),
        (assign, ":num", 0),
-       
+
        (try_for_range, ":center_no", villages_begin, villages_end),
           (store_faction_of_party, reg0, ":center_no"),
           (this_or_next|eq, ":faction", 0),
@@ -18281,7 +18281,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
              (val_add, ":q_5", 1),
           (try_end),
        (try_end),
-       
+
        (assign, reg0, ":num"),
        (val_max, reg0, 1),
        (store_div, reg0, ":sum", reg0),

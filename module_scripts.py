@@ -150,12 +150,12 @@ scripts = [
 
 	  # Cultures:
       (faction_set_slot, "fac_culture_1",  slot_faction_tier_1_troop, "trp_swadian_recruit"),
-      (faction_set_slot, "fac_culture_1",  slot_faction_tier_2_troop, "trp_swadian_militia"),
-      (faction_set_slot, "fac_culture_1",  slot_faction_tier_3_troop, "trp_swadian_footman"),
-      (faction_set_slot, "fac_culture_1",  slot_faction_tier_4_troop, "trp_swadian_infantry"),
-      (faction_set_slot, "fac_culture_1",  slot_faction_tier_5_troop, "trp_swadian_knight"),
-      (faction_set_slot, "fac_culture_1",  slot_faction_tier_6_troop, "trp_player"), ##BEAN - Troop Tiers
-      (faction_set_slot, "fac_culture_1",  slot_faction_tier_7_troop, "trp_player"), ##BEAN - Troop Tiers
+      (faction_set_slot, "fac_culture_1",  slot_faction_tier_2_troop, "trp_swadian_maceman"),
+      (faction_set_slot, "fac_culture_1",  slot_faction_tier_3_troop, "trp_swadian_veteran_cavalry"),
+      (faction_set_slot, "fac_culture_1",  slot_faction_tier_4_troop, "trp_swadian_master_cavalry"),
+      (faction_set_slot, "fac_culture_1",  slot_faction_tier_5_troop, "trp_swadian_champion_cavalry"),
+      (faction_set_slot, "fac_culture_1",  slot_faction_tier_6_troop, "trp_swadian_legendary_cavalry"), ##BEAN - Troop Tiers
+      (faction_set_slot, "fac_culture_1",  slot_faction_tier_7_troop, "trp_swadian_knight"), ##BEAN - Troop Tiers
 
       (faction_set_slot, "fac_culture_2", slot_faction_tier_1_troop, "trp_vaegir_recruit"),
       (faction_set_slot, "fac_culture_2", slot_faction_tier_2_troop, "trp_vaegir_footman"),
@@ -1267,10 +1267,10 @@ scripts = [
       (faction_set_slot, "fac_outlaws", slot_faction_quick_battle_tier_2_archer, "trp_taiga_bandit"),
       (faction_set_slot, "fac_outlaws", slot_faction_quick_battle_tier_1_cavalry, "trp_steppe_bandit"),
       (faction_set_slot, "fac_outlaws", slot_faction_quick_battle_tier_2_cavalry, "trp_desert_bandit"),
-      (faction_set_slot, "fac_kingdom_1", slot_faction_quick_battle_tier_1_infantry, "trp_swadian_sergeant"),
-      (faction_set_slot, "fac_kingdom_1", slot_faction_quick_battle_tier_2_infantry, "trp_swadian_sergeant"),
-      (faction_set_slot, "fac_kingdom_1", slot_faction_quick_battle_tier_1_archer, "trp_swadian_sharpshooter"),
-      (faction_set_slot, "fac_kingdom_1", slot_faction_quick_battle_tier_2_archer, "trp_swadian_sharpshooter"),
+      (faction_set_slot, "fac_kingdom_1", slot_faction_quick_battle_tier_1_infantry, "trp_swadian_champion_maceman"),
+      (faction_set_slot, "fac_kingdom_1", slot_faction_quick_battle_tier_2_infantry, "trp_swadian_champion_maceman"),
+      (faction_set_slot, "fac_kingdom_1", slot_faction_quick_battle_tier_1_archer, "trp_swadian_champion_hunter"),
+      (faction_set_slot, "fac_kingdom_1", slot_faction_quick_battle_tier_2_archer, "trp_swadian_champion_hunter"),
       (faction_set_slot, "fac_kingdom_1", slot_faction_quick_battle_tier_1_cavalry, "trp_swadian_knight"),
       (faction_set_slot, "fac_kingdom_1", slot_faction_quick_battle_tier_2_cavalry, "trp_swadian_knight"),
       (faction_set_slot, "fac_kingdom_2", slot_faction_quick_battle_tier_1_infantry, "trp_vaegir_marksman"),
@@ -7100,7 +7100,7 @@ scripts = [
           (faction_slot_eq, ":faction_no", slot_faction_culture, "fac_culture_1"),
 
           (faction_set_slot, ":faction_no",  slot_faction_deserter_troop, "trp_swadian_deserter"),
-          (faction_set_slot, ":faction_no",  slot_faction_guard_troop, "trp_swadian_sergeant"),
+          (faction_set_slot, ":faction_no",  slot_faction_guard_troop, "trp_swadian_veteran_maceman"),
           (faction_set_slot, ":faction_no",  slot_faction_messenger_troop, "trp_swadian_messenger"),
           (faction_set_slot, ":faction_no",  slot_faction_prison_guard_troop, "trp_swadian_prison_guard"),
           (faction_set_slot, ":faction_no",  slot_faction_castle_guard_troop, "trp_swadian_castle_guard"),

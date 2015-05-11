@@ -97,9 +97,28 @@ party_templates = [
   # med-modernised templates are generally includes 5-10 troops in total,
   # high-modernised templates are generally includes 3-6 troops in total
 
-  ("kingdom_1_reinforcements_a", "{!}kingdom_1_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_swadian_recruit,5,10),(trp_swadian_militia,2,4)]),
-  ("kingdom_1_reinforcements_b", "{!}kingdom_1_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_swadian_footman,3,6),(trp_swadian_skirmisher,2,4)]),
-  ("kingdom_1_reinforcements_c", "{!}kingdom_1_reinforcements_c", 0, 0, fac_commoners, 0, [(trp_swadian_man_at_arms,2,4),(trp_swadian_crossbowman,1,2)]), #Swadians are a bit less-powered thats why they have a bit more troops in their modernised party template (3-6, others 3-5)
+  ("kingdom_1_reinforcements_a", "{!}kingdom_1_reinforcements_a", 0, 0, fac_commoners, 0,
+    [
+      (trp.swadian_maceman, 4, 8),
+      (trp.swadian_hunter, 3, 6),
+    ]
+  ),
+
+  ("kingdom_1_reinforcements_b", "{!}kingdom_1_reinforcements_b", 0, 0, fac_commoners, 0,
+    [
+      (trp.swadian_veteran_maceman, 2, 4),
+      (trp.swadian_veteran_hunter, 2, 4),
+      (trp.swadian_veteran_cavalry, 1, 2),
+    ]
+  ),
+
+  ("kingdom_1_reinforcements_c", "{!}kingdom_1_reinforcements_c", 0, 0, fac_commoners, 0,
+    [
+      (trp.swadian_master_maceman, 1, 2),
+      (trp.swadian_master_hunter, 1, 2),
+      (trp.swadian_master_cavalry, 1, 2),
+    ]
+  ),
 
   ("kingdom_2_reinforcements_a", "{!}kingdom_2_reinforcements_a", 0, 0, fac_commoners, 0, [(trp_vaegir_recruit,5,10),(trp_vaegir_footman,2,4)]),
   ("kingdom_2_reinforcements_b", "{!}kingdom_2_reinforcements_b", 0, 0, fac_commoners, 0, [(trp_vaegir_veteran,2,4),(trp_vaegir_skirmisher,2,4),(trp_vaegir_footman,1,2)]),
@@ -111,15 +130,15 @@ party_templates = [
 
   ("kingdom_4_reinforcements_a", "{!}kingdom_4_reinforcements_a", 0, 0, fac_commoners, 0,
     [
-      (trp.nord_axeman, 5, 10),
-      (trp.nord_hunter, 2, 4),
+      (trp.nord_axeman, 4, 8),
+      (trp.nord_hunter, 3, 6),
     ]
   ),
 
   ("kingdom_4_reinforcements_b", "{!}kingdom_4_reinforcements_b", 0, 0, fac_commoners, 0,
     [
-      (trp.nord_veteran_axeman, 4, 8),
-      (trp.nord_veteran_hunter, 1, 2),
+      (trp.nord_veteran_axeman, 3, 6),
+      (trp.nord_veteran_hunter, 2, 4),
     ]
   ),
 

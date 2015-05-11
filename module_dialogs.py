@@ -233,7 +233,7 @@ dialogs = [
                   (talk_info_show, 1),
                   (call_script, "script_setup_talk_info"),
 ##diplomacy start+
-##Allow wife to join as companion, by Lathrael (modified) 
+##Allow wife to join as companion, by Lathrael (modified)
 ##Show morale bar
               (else_try),
                   (troop_is_hero, "$g_talk_troop"),
@@ -7014,11 +7014,11 @@ What kind of recruits do you want?", "dplmc_constable_recruit_select",
 [
  (store_party_size_wo_prisoners, ":garrison_size", "p_main_party"),
  (le, ":garrison_size", 0),
- (party_add_members, "p_main_party", "trp_swadian_militia", 1),				#zerilius included otherwise gives errors
+ (party_add_members, "p_main_party", "trp_swadian_maceman", 1),				#zerilius included otherwise gives errors
 ],
 "You didn't choose any soldiers. Seems like you changed your mind.", "dplmc_constable_pretalk",
 [
-(party_remove_members, "p_main_party", "trp_swadian_militia", 1),
+(party_remove_members, "p_main_party", "trp_swadian_maceman", 1),
 (call_script, "script_party_add_party", "p_main_party", "p_temp_party"),
 (assign, "$g_move_heroes", 0),
 ]],
@@ -28381,7 +28381,7 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
   [anyone|plyr,"spouse_talk", [
   (check_quest_active, "qst_offer_gift"),
     (quest_slot_eq, "qst_offer_gift", slot_quest_giver_troop, "$g_talk_troop"),
-  
+
     (quest_get_slot, ":target_troop", "qst_offer_gift", slot_quest_target_troop),
   (str_store_troop_name, s4, ":target_troop"),
   (player_has_item, "itm_furs"),
@@ -36602,21 +36602,21 @@ I suppose there are plenty of bounty hunters around to get the job done . . .", 
  I can help you find a job if you are looking for some honest work.", "mayor_info_talk",[(assign, "$mayor_info_lord_told",0)]],
 
   [anyone|plyr,"mayor_info_talk",[(eq, "$mayor_info_lord_told",0)], "Who rules this town?", "mayor_info_lord",[]],
-  
+
 ##diplomacy start+ make gender correct
   [anyone, "mayor_info_lord", #moto fix
 	[
 	(party_get_slot, ":town_lord","$current_town",slot_town_lord),
-    (try_begin), 
-        (eq, ":town_lord", "trp_player"), 
-        (str_store_string, s10, "str_your_excellency"), 
-    (else_try), 
-        (is_between, ":town_lord", active_npcs_begin, active_npcs_end), 
+    (try_begin),
+        (eq, ":town_lord", "trp_player"),
+        (str_store_string, s10, "str_your_excellency"),
+    (else_try),
+        (is_between, ":town_lord", active_npcs_begin, active_npcs_end),
 		(str_store_troop_name, s10, ":town_lord"),
-    (else_try), 
-        (faction_get_slot, ":faction_leader", "$g_encountered_party_faction", slot_faction_leader), 
-		(str_store_troop_name, s10, ":faction_leader"), 
-   (try_end), 
+    (else_try),
+        (faction_get_slot, ":faction_leader", "$g_encountered_party_faction", slot_faction_leader),
+		(str_store_troop_name, s10, ":faction_leader"),
+   (try_end),
    (call_script, "script_dplmc_store_troop_is_female", ":town_lord"),],#Next line, He -> {reg0?She:He}
    "Our town's lord and protector is {s10}. {reg0?She:He} owns the castle and sometimes resides there, and collects taxes from the town.\
  However we regulate ourselves in most of the matters that concern ourselves.\

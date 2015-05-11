@@ -351,47 +351,265 @@ troops = [
    [],
    def_attrib|level(4),wp(60),knows_common,mercenary_face_1, mercenary_face_2],
 
-#peasant - retainer - footman - man-at-arms -  knight
-  ["swadian_recruit","Swadian Recruit","Swadian Recruits",tf_guarantee_armor,0,0,fac_kingdom_1,
-   [itm_scythe,itm_hatchet,itm_pickaxe,itm_club,itm_stones,itm_tab_shield_heater_a,itm_leather_cap,itm_felt_hat,itm_felt_hat,
-    itm_shirt,itm_coarse_tunic,itm_leather_apron,itm_nomad_boots,itm_wrapping_boots],
-   def_attrib|level(4),wp(60),knows_common,swadian_face_younger_1, swadian_face_middle_2],
-  ["swadian_militia","Swadian Militia","Swadian Militia",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield,0,0,fac_kingdom_1,
-   [itm_bolts,itm_spiked_club,itm_fighting_pick,itm_boar_spear,itm_hunting_crossbow,itm_tab_shield_heater_a,
-    itm_padded_cloth,itm_red_gambeson,itm_arming_cap,itm_arming_cap,itm_ankle_boots,itm_wrapping_boots],
-   def_attrib|level(9),wp(75),knows_common,swadian_face_young_1, swadian_face_old_2],
-  ["swadian_footman","Swadian Footman","Swadian Footmen",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield,0,0,fac_kingdom_1,
-   [itm_spear,itm_fighting_pick,itm_sword_medieval_b_small,itm_sword_medieval_a,itm_tab_shield_heater_b,
-    itm_mail_with_tunic_red,itm_ankle_boots,itm_mail_coif,itm_norman_helmet],
-   def_attrib|level(14),wp_melee(85),knows_common|knows_ironflesh_2|knows_shield_2|knows_athletics_2|knows_power_strike_2,swadian_face_young_1, swadian_face_old_2],
-  ["swadian_infantry","Swadian Infantry","Swadian Infantry",tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet,0,0,fac_kingdom_1,
-   [itm_pike,itm_fighting_pick,itm_bastard_sword_a,itm_sword_medieval_a,itm_sword_medieval_b_small,itm_tab_shield_heater_c,
-    itm_mail_with_surcoat,itm_haubergeon,itm_mail_chausses,itm_leather_boots,itm_segmented_helmet,itm_flat_topped_helmet,itm_helmet_with_neckguard],
-   def_attrib|level(20),wp_melee(105),knows_common|knows_riding_3|knows_ironflesh_2|knows_power_strike_2|knows_shield_3|knows_athletics_3,swadian_face_middle_1, swadian_face_old_2],
-  ["swadian_sergeant","Swadian Sergeant","Swadian Sergeants",tf_mounted|tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet,0,0,fac_kingdom_1,
-   [itm_awlpike,itm_bastard_sword_b,itm_morningstar,itm_sword_medieval_c,itm_tab_shield_heater_d,
-    itm_coat_of_plates,itm_brigandine_red,itm_mail_boots,itm_iron_greaves,itm_flat_topped_helmet,itm_guard_helmet,itm_mail_mittens,itm_gauntlets],
-   def_attrib|level(25),wp_melee(135),knows_common|knows_shield_4|knows_ironflesh_4|knows_power_strike_4|knows_athletics_4,swadian_face_middle_1, swadian_face_older_2],
-  ["swadian_skirmisher","Swadian Skirmisher","Swadian Skirmishers",tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_kingdom_1,
-   [itm_bolts,itm_light_crossbow,itm_hunting_crossbow,itm_club,itm_voulge,itm_tab_shield_heater_a,
-    itm_red_gambeson,itm_padded_cloth,itm_ankle_boots,itm_arming_cap,itm_arming_cap],
-   def_attrib|level(14),wp(80),knows_common|knows_riding_2|knows_ironflesh_1,swadian_face_young_1, swadian_face_middle_2],
-  ["swadian_crossbowman","Swadian Crossbowman","Swadian Crossbowmen",tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_kingdom_1,
-   [itm_bolts,itm_crossbow,itm_light_crossbow,itm_fighting_pick,itm_sword_medieval_a,itm_voulge,itm_tab_shield_heater_b,
-    itm_leather_jerkin,itm_red_gambeson,itm_leather_boots,itm_ankle_boots,itm_norman_helmet,itm_segmented_helmet],
-   def_attrib|level(19),wp_one_handed (90) | wp_two_handed (90) | wp_polearm (90) | wp_archery (90) | wp_crossbow (100) | wp_throwing (90),knows_common|knows_riding_2|knows_ironflesh_1|knows_athletics_1,swadian_face_young_1, swadian_face_old_2],
-  ["swadian_sharpshooter","Swadian Sharpshooter","Swadian Sharpshooters",tf_guarantee_ranged|tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet,0,0,fac_kingdom_1,
-   [itm_bolts,itm_arrows,itm_crossbow,itm_crossbow,itm_heavy_crossbow,itm_sword_medieval_b_small,itm_sword_medieval_a,itm_voulge,itm_tab_shield_heater_c,
-    itm_haubergeon,itm_arena_armor_red,itm_leather_boots,itm_mail_chausses,itm_kettle_hat,itm_helmet_with_neckguard,itm_leather_gloves],
-   str_14 | agi_10 | int_4 | cha_4|level(24),wp_one_handed (100) | wp_two_handed (100) | wp_polearm (100) | wp_archery (100) | wp_crossbow (120) | wp_throwing (100),knows_common|knows_power_draw_3|knows_ironflesh_1|knows_power_strike_1|knows_athletics_2,swadian_face_middle_1, swadian_face_older_2],
-  ["swadian_man_at_arms","Swadian Man at Arms","Swadian Men at Arms",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield,0,0,fac_kingdom_1,
-   [itm_lance,itm_fighting_pick,itm_bastard_sword_b,itm_sword_medieval_b,itm_sword_medieval_c_small,itm_tab_shield_heater_cav_a,
-    itm_haubergeon,itm_mail_with_surcoat,itm_mail_chausses,itm_norman_helmet,itm_mail_coif,itm_flat_topped_helmet,itm_helmet_with_neckguard,itm_warhorse,itm_warhorse,itm_hunter],
-   def_attrib|level(21),wp_melee(100),knows_common|knows_riding_4|knows_ironflesh_2|knows_shield_2|knows_power_strike_3,swadian_face_young_1, swadian_face_old_2],
-  ["swadian_knight","Swadian Knight","Swadian Knights",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield,0,0,fac_kingdom_1,
-   [itm_heavy_lance,itm_sword_two_handed_b,itm_sword_medieval_d_long,itm_morningstar,itm_morningstar,itm_sword_medieval_d_long,itm_tab_shield_heater_cav_b,
-    itm_coat_of_plates_red,itm_cuir_bouilli,itm_plate_boots,itm_guard_helmet,itm_great_helmet,itm_bascinet,itm_charger,itm_warhorse,itm_gauntlets,itm_mail_mittens],
-   def_attrib|level(28),wp_one_handed (150) | wp_two_handed (130) | wp_polearm (130) | wp_archery (75) | wp_crossbow (75) | wp_throwing (75),knows_common|knows_riding_5|knows_shield_5|knows_ironflesh_5|knows_power_strike_5,swadian_face_middle_1, swadian_face_older_2],
+   ##BEAN BEGIN - Swadian Troop Tree
+  [
+    "swadian_recruit", "Swadian Recruit", "Swadian Recruits",
+    tf_guarantee_armor,
+    0, 0, fac_kingdom_1,
+    [
+      itm_scythe, itm_hatchet, itm_pickaxe, itm_club,
+      itm_stones,
+      itm_tab_shield_heater_a,
+      itm_leather_cap, itm_felt_hat,
+      itm_felt_hat,
+      itm_shirt, itm_coarse_tunic, itm_leather_apron,
+      itm_nomad_boots, itm_wrapping_boots,
+    ],
+    ATTR(9, 6, 5, 4, 5),
+    wpex(60, 45, 15, 15, 15, 15),
+    SKILLS(ironflesh = 2, power_strike = 3, shield = 2, athletics = 1, weapon_master = 1),
+    swadian_face_younger_1, swadian_face_middle_2,
+  ],
+
+  [
+    "swadian_maceman", "Swadian Maceman", "Swadian Macemen",
+    tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield,
+    0, 0, fac_kingdom_1,
+    [
+      itm_bolts,
+      itm_spiked_club, itm_fighting_pick, itm_boar_spear,
+      itm_hunting_crossbow,
+      itm_tab_shield_heater_a,
+      itm_padded_cloth, itm_red_gambeson,
+      itm_arming_cap, itm_arming_cap,
+      itm_ankle_boots, itm_wrapping_boots,
+    ],
+    ATTR(12, 8, 5, 4, 10),
+    wpex(100, 80, 15, 15, 15, 15),
+    SKILLS(ironflesh = 4, power_strike = 4, shield = 2, athletics = 2, weapon_master = 2),
+    swadian_face_young_1, swadian_face_old_2,
+  ],
+
+  [
+    "swadian_veteran_maceman", "Swadian Veteran Maceman", "Swadian Macemen",
+    tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield,
+    0, 0, fac_kingdom_1,
+    [
+      itm_spear, itm_fighting_pick, itm_sword_medieval_b_small, itm_sword_medieval_a,
+      itm_tab_shield_heater_b,
+      itm_mail_with_tunic_red,
+      itm_ankle_boots,
+      itm_mail_coif, itm_norman_helmet,
+    ],
+    ATTR(15, 10, 5, 4, 15),
+    wpex(140, 115, 15, 15, 15, 15),
+    SKILLS(ironflesh = 5, power_strike = 5, shield = 3, athletics = 3, weapon_master = 3),
+    swadian_face_young_1, swadian_face_old_2,
+  ],
+
+  [
+    "swadian_master_maceman", "Swadian Master Maceman", "Swadian Master Macemen",
+    tf_guarantee_shield | tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_helmet,
+    0, 0, fac_kingdom_1,
+    [
+      itm_pike, itm_fighting_pick, itm_bastard_sword_a, itm_sword_medieval_a, itm_sword_medieval_b_small,
+      itm_tab_shield_heater_c,
+      itm_mail_with_surcoat, itm_haubergeon, itm_mail_chausses,
+      itm_leather_boots,
+      itm_segmented_helmet, itm_flat_topped_helmet, itm_helmet_with_neckguard,
+    ],
+    ATTR(18, 12, 5, 4, 20),
+    wpex(190, 150, 15, 15, 15, 15),
+    SKILLS(ironflesh = 6, power_strike = 6, shield = 4, athletics = 4, weapon_master = 4),
+    swadian_face_middle_1, swadian_face_old_2,
+  ],
+
+  [
+    "swadian_champion_maceman", "Swadian Champion Maceman", "Swadian Champion Macemen",
+    tf_mounted | tf_guarantee_shield | tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_helmet,
+    0, 0, fac_kingdom_1,
+    [
+      itm_awlpike, itm_bastard_sword_b, itm_morningstar, itm_sword_medieval_c,
+      itm_tab_shield_heater_d,
+      itm_coat_of_plates, itm_brigandine_red,
+      itm_mail_boots, itm_iron_greaves,
+      itm_flat_topped_helmet, itm_guard_helmet,
+      itm_mail_mittens, itm_gauntlets,
+    ],
+    ATTR(21, 15, 4, 4, 25),
+    wpex(220, 185, 15, 15, 15, 15),
+    SKILLS(ironflesh = 7, power_strike = 7, shield = 5, athletics = 4, weapon_master = 5),
+    swadian_face_middle_1, swadian_face_older_2,
+  ],
+
+  [
+    "swadian_hunter", "Swadian Hunter", "Swadian Hunters",
+    tf_guarantee_ranged | tf_guarantee_boots | tf_guarantee_armor,
+    0, 0, fac_kingdom_1,
+    [
+      itm_bolts,
+      itm_light_crossbow, itm_hunting_crossbow,
+      itm_club, itm_voulge,
+      itm_tab_shield_heater_a,
+      itm_red_gambeson, itm_padded_cloth,
+      itm_ankle_boots,
+      itm_arming_cap, itm_arming_cap,
+    ],
+    ATTR(12, 9, 4, 4, 10),
+    wpex(80, 15, 15, 15, 100, 15),
+    SKILLS(ironflesh = 2, power_strike = 1, power_draw = 4, shield = 2, athletics = 2, weapon_master = 2),
+    swadian_face_young_1, swadian_face_middle_2,
+  ],
+
+  [
+    "swadian_veteran_hunter", "Swadian Veteran Hunter", "Swadian Veteran Hunters",
+    tf_guarantee_ranged | tf_guarantee_boots | tf_guarantee_armor,
+    0, 0, fac_kingdom_1,
+    [
+      itm_bolts,
+      itm_crossbow, itm_light_crossbow,
+      itm_fighting_pick, itm_sword_medieval_a, itm_voulge,
+      itm_tab_shield_heater_b,
+      itm_leather_jerkin, itm_red_gambeson,
+      itm_leather_boots, itm_ankle_boots,
+      itm_norman_helmet, itm_segmented_helmet,
+    ],
+    ATTR(15, 11, 4, 4, 15),
+    wpex(115, 15, 15, 15, 140, 15),
+    SKILLS(ironflesh = 3, power_strike = 2, power_draw = 5, shield = 2, athletics = 3, weapon_master = 3),
+    swadian_face_young_1, swadian_face_old_2,
+  ],
+
+  [
+    "swadian_master_hunter", "Swadian Master Hunter", "Swadian Master Hunters",
+    tf_guarantee_ranged | tf_mounted | tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_helmet,
+    0, 0, fac_kingdom_1,
+    [
+      itm_bolts,
+      itm_crossbow, itm_crossbow, itm_heavy_crossbow,
+      itm_sword_medieval_b_small, itm_sword_medieval_a, itm_voulge,
+      itm_tab_shield_heater_c,
+      itm_haubergeon, itm_arena_armor_red,
+      itm_leather_boots, itm_mail_chausses,
+      itm_kettle_hat, itm_helmet_with_neckguard,
+      itm_leather_gloves,
+    ],
+    ATTR(18, 13, 4, 4, 20),
+    wpex(150, 15, 15, 15, 180, 15),
+    SKILLS(ironflesh = 4, power_strike = 3, power_draw = 6, shield = 2, athletics = 4, weapon_master = 4),
+    swadian_face_middle_1, swadian_face_older_2,
+  ],
+
+  [
+    "swadian_champion_hunter", "Swadian Champion Hunter", "Swadian Champion Hunters",
+    tf_guarantee_ranged | tf_mounted | tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_helmet,
+    0, 0, fac_kingdom_1,
+    [
+      itm_bolts,
+      itm_crossbow, itm_crossbow, itm_heavy_crossbow,
+      itm_sword_medieval_b_small, itm_sword_medieval_a, itm_voulge,
+      itm_tab_shield_heater_c,
+      itm_haubergeon, itm_arena_armor_red,
+      itm_leather_boots, itm_mail_chausses,
+      itm_kettle_hat, itm_helmet_with_neckguard,
+      itm_leather_gloves,
+    ],
+    ATTR(21, 15, 4, 4, 25),
+    wpex(115, 15, 15, 15, 140, 15),
+    SKILLS(ironflesh = 5, power_strike = 4, power_draw = 7, shield = 3, athletics = 4, weapon_master = 5),
+    swadian_face_middle_1, swadian_face_older_2,
+  ],
+
+  [
+    "swadian_veteran_cavalry", "Swadian Veteran Cavalry", "Swadian Veteran Cavalary",
+    tf_mounted | tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_helmet | tf_guarantee_horse | tf_guarantee_shield,
+    0, 0, fac_kingdom_1,
+    [
+      itm_lance, itm_fighting_pick, itm_bastard_sword_b, itm_sword_medieval_b, itm_sword_medieval_c_small,
+      itm_tab_shield_heater_cav_a,
+      itm_haubergeon, itm_mail_with_surcoat, itm_mail_chausses,
+      itm_norman_helmet, itm_mail_coif, itm_flat_topped_helmet, itm_helmet_with_neckguard,
+      itm_warhorse, itm_warhorse, itm_hunter,
+    ],
+    ATTR(12, 12, 6, 4, 15),
+    wpex(140, 15, 15, 15, 15, 15),
+    SKILLS(ironflesh = 4, power_strike = 4, shield = 2, athletics = 3, riding = 3, weapon_master = 3),
+    swadian_face_young_1, swadian_face_old_2,
+  ],
+
+  [
+    "swadian_master_cavalry", "Swadian Master Cavalry", "Swadian Master Cavalary",
+    tf_mounted | tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_helmet | tf_guarantee_horse | tf_guarantee_shield,
+    0, 0, fac_kingdom_1,
+    [
+      itm_lance, itm_fighting_pick, itm_bastard_sword_b, itm_sword_medieval_b, itm_sword_medieval_c_small,
+      itm_tab_shield_heater_cav_a,
+      itm_haubergeon, itm_mail_with_surcoat, itm_mail_chausses,
+      itm_norman_helmet, itm_mail_coif, itm_flat_topped_helmet, itm_helmet_with_neckguard,
+      itm_warhorse, itm_warhorse, itm_hunter,
+    ],
+    ATTR(16, 13, 6, 4, 20),
+    wpex(180, 15, 15, 15, 15, 15),
+    SKILLS(ironflesh = 5, power_strike = 5, shield = 4, athletics = 3, riding = 4, weapon_master = 4),
+    swadian_face_young_1, swadian_face_old_2,
+  ],
+
+  [
+    "swadian_champion_cavalry", "Swadian Champion Cavalry", "Swadian Champion Cavalary",
+    tf_mounted | tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_helmet | tf_guarantee_horse | tf_guarantee_shield,
+    0, 0, fac_kingdom_1,
+    [
+      itm_lance, itm_fighting_pick, itm_bastard_sword_b, itm_sword_medieval_b, itm_sword_medieval_c_small,
+      itm_tab_shield_heater_cav_a,
+      itm_haubergeon, itm_mail_with_surcoat, itm_mail_chausses,
+      itm_norman_helmet, itm_mail_coif, itm_flat_topped_helmet, itm_helmet_with_neckguard,
+      itm_warhorse, itm_warhorse, itm_hunter,
+    ],
+    ATTR(19, 15, 6, 4, 25),
+    wpex(220, 15, 15, 15, 15, 15),
+    SKILLS(ironflesh = 6, power_strike = 6, shield = 4, athletics = 4, riding = 5, weapon_master = 5),
+    swadian_face_young_1, swadian_face_old_2,
+  ],
+
+  [
+    "swadian_legendary_cavalry","Swadian Legendary Cavalry","Swadian Legendary Cavalry",
+    tf_mounted | tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_gloves | tf_guarantee_helmet | tf_guarantee_horse | tf_guarantee_shield,
+    0, 0, fac_kingdom_1,
+    [
+      itm_heavy_lance, itm_sword_two_handed_b, itm_sword_medieval_d_long, itm_morningstar, itm_morningstar, itm_sword_medieval_d_long,
+      itm_tab_shield_heater_cav_b,
+      itm_coat_of_plates_red, itm_cuir_bouilli,
+      itm_plate_boots,
+      itm_guard_helmet, itm_great_helmet, itm_bascinet,
+      itm_charger, itm_warhorse,
+      itm_gauntlets, itm_mail_mittens,
+    ],
+    ATTR(21, 18, 6, 4, 30),
+    wpex(260, 15, 15, 15, 15, 15),
+    SKILLS(ironflesh = 7, power_strike = 7, shield = 5, athletics = 4, riding = 6, weapon_master = 6),
+    swadian_face_middle_1, swadian_face_older_2
+  ],
+
+  [
+    "swadian_knight","Swadian Knight","Swadian Knight",
+    tf_mounted | tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_gloves | tf_guarantee_helmet | tf_guarantee_horse | tf_guarantee_shield | tf_unmoveable_in_party_window,
+    0, 0, fac_kingdom_1,
+    [
+      itm_heavy_lance, itm_sword_two_handed_b, itm_sword_medieval_d_long, itm_morningstar, itm_morningstar, itm_sword_medieval_d_long,
+      itm_tab_shield_heater_cav_b,
+      itm_coat_of_plates_red, itm_cuir_bouilli,
+      itm_plate_boots,
+      itm_guard_helmet, itm_great_helmet, itm_bascinet,
+      itm_charger, itm_warhorse,
+      itm_gauntlets, itm_mail_mittens,
+    ],
+    ATTR(24, 24, 7, 4, 40),
+    wpex(300, 15, 15, 15, 15, 15),
+    SKILLS(ironflesh = 8, power_strike = 8, shield = 8, athletics = 7, riding = 8, weapon_master = 7),
+    swadian_face_middle_1, swadian_face_older_2
+  ],
+  ##BEAN END - Swadian Troop Tree
+
   ["swadian_messenger","Swadian Messenger","Swadian Messengers",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_horse|tf_guarantee_ranged,0,0,fac_kingdom_1,
    [itm_sword_medieval_a,itm_leather_jerkin,itm_leather_boots,itm_courser,itm_leather_gloves,itm_light_crossbow,itm_bolts],
    str_7 | agi_21 | int_4 | cha_4|level(25),wp(130),knows_common|knows_riding_7|knows_horse_archery_5,swadian_face_young_1, swadian_face_old_2],
@@ -526,7 +744,7 @@ troops = [
       itm_leather_boots, itm_nomad_boots,
     ],
     ATTR(12, 7, 6, 4, 10),
-    wpex(75, 75, 15, 15, 15, 45),
+    wpex(75, 75, 15, 15, 15, 40),
     SKILLS(ironflesh = 3, power_strike = 4, power_throw = 2, shield = 2, athletics = 2, weapon_master = 2),
     nord_face_younger_1, nord_face_old_2,
   ],
@@ -561,7 +779,7 @@ troops = [
       itm_hunter_boots, itm_leather_boots,
     ],
     ATTR(18, 11, 6, 4, 20),
-    wpex(140, 150, 15, 15, 15, 55),
+    wpex(140, 150, 15, 15, 15, 60),
     SKILLS(ironflesh = 6, power_strike = 6, power_throw = 3, shield = 3, athletics = 3, weapon_master = 3),
     nord_face_younger_1, nord_face_old_2,
   ],
@@ -580,7 +798,7 @@ troops = [
       itm_leather_gloves,
     ],
     ATTR(21, 13, 6, 4, 25),
-    wpex(185, 180, 15, 15, 15, 55),
+    wpex(185, 180, 15, 15, 15, 70),
     SKILLS(ironflesh = 7, power_strike = 7, power_throw = 4, shield = 4, athletics = 4, weapon_master = 4),
     nord_face_younger_1, nord_face_old_2,
   ],
@@ -599,7 +817,7 @@ troops = [
       itm_mail_mittens,
     ],
     ATTR(24, 15, 6, 4, 30),
-    wpex(220, 220, 15, 15, 15, 55),
+    wpex(220, 220, 15, 15, 15, 80),
     SKILLS(ironflesh = 7, power_strike = 8, power_throw = 5, shield = 5, athletics = 5, weapon_master = 5),
     nord_face_middle_1, nord_face_older_2,
   ],
@@ -2335,16 +2553,21 @@ upgrade2(troops,"caravan_guard","mercenary_swordsman","mercenary_horseman")
 upgrade(troops,"mercenary_swordsman","hired_blade")
 upgrade(troops,"mercenary_horseman","mercenary_cavalry")
 
-upgrade(troops,"swadian_recruit","swadian_militia")
+##BEAN BEGIN - Swadian Troop Tree
+upgrade2(troops, "swadian_recruit", "swadian_maceman", "swadian_hunter")
 
-upgrade2(troops,"swadian_militia","swadian_footman","swadian_skirmisher")
-upgrade2(troops,"swadian_footman","swadian_man_at_arms","swadian_infantry")
-upgrade(troops,"swadian_infantry","swadian_sergeant")
-upgrade(troops,"swadian_skirmisher","swadian_crossbowman")
+upgrade2(troops, "swadian_maceman", "swadian_veteran_maceman", "swadian_veteran_cavalry")
+upgrade(troops, "swadian_veteran_maceman", "swadian_master_maceman")
+upgrade(troops, "swadian_master_maceman", "swadian_champion_maceman")
 
-upgrade(troops,"swadian_crossbowman","swadian_sharpshooter")
+upgrade(troops,"swadian_hunter", "swadian_veteran_hunter")
+upgrade(troops,"swadian_veteran_hunter", "swadian_master_hunter")
+upgrade(troops,"swadian_master_hunter", "swadian_champion_hunter")
 
-upgrade(troops,"swadian_man_at_arms","swadian_knight")
+upgrade(troops,"swadian_veteran_cavalry", "swadian_master_cavalry")
+upgrade(troops,"swadian_master_cavalry", "swadian_champion_cavalry")
+upgrade(troops,"swadian_champion_cavalry", "swadian_legendary_cavalry")
+##BEAN END - Swadian Troop Tree
 
 upgrade(troops,"vaegir_recruit","vaegir_footman")
 upgrade2(troops,"vaegir_footman","vaegir_veteran","vaegir_skirmisher")
