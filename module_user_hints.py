@@ -14,6 +14,6 @@ user_hints = [
     #("You will pay half wages to your troops while you are staying in a town or castle. Similarly, you will pay half wages to troops you garrison in a castle.", ),
     #("You can leave any location instantly by pressing the tab key.", ),
     #("You can hold down the shift key to zoom-in while aiming at distant enemies.", ),
-    ("You can travel faster by holding Ctrl+Spacebar.",),
+    ("You can travel faster by holding Ctrl + Spacebar.",),
 
 ]

@@ -174,11 +174,11 @@ scripts = [
       (faction_set_slot, "fac_culture_3", slot_faction_tier_7_troop, "trp_player"), ##BEAN - Troop Tiers
 
       (faction_set_slot, "fac_culture_4", slot_faction_tier_1_troop, "trp_nord_recruit"),
-      (faction_set_slot, "fac_culture_4", slot_faction_tier_2_troop, "trp_nord_militia"),
-      (faction_set_slot, "fac_culture_4", slot_faction_tier_3_troop, "trp_nord_warrior"),
-      (faction_set_slot, "fac_culture_4", slot_faction_tier_4_troop, "trp_nord_berserker"),
-      (faction_set_slot, "fac_culture_4", slot_faction_tier_5_troop, "trp_nord_champion"),
-      (faction_set_slot, "fac_culture_4", slot_faction_tier_6_troop, "trp_nord_huscarl"), ##BEAN - Troop Tiers
+      (faction_set_slot, "fac_culture_4", slot_faction_tier_2_troop, "trp_nord_axeman"),
+      (faction_set_slot, "fac_culture_4", slot_faction_tier_3_troop, "trp_nord_veteran_axeman"),
+      (faction_set_slot, "fac_culture_4", slot_faction_tier_4_troop, "trp_nord_master_axeman"),
+      (faction_set_slot, "fac_culture_4", slot_faction_tier_5_troop, "trp_nord_champion_axeman"),
+      (faction_set_slot, "fac_culture_4", slot_faction_tier_6_troop, "trp_nord_legendary_axeman"), ##BEAN - Troop Tiers
       (faction_set_slot, "fac_culture_4", slot_faction_tier_7_troop, "trp_nord_knight"), ##BEAN - Troop Tiers
 
       (faction_set_slot, "fac_culture_5", slot_faction_tier_1_troop, "trp_rhodok_tribesman"),
@@ -1285,8 +1285,8 @@ scripts = [
       (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_2_archer, "trp_khergit_veteran_horse_archer"),
       (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_1_cavalry, "trp_khergit_lancer"),
       (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_2_cavalry, "trp_khergit_lancer"),
-      (faction_set_slot, "fac_kingdom_4", slot_faction_quick_battle_tier_1_infantry, "trp_nord_huscarl"),
-      (faction_set_slot, "fac_kingdom_4", slot_faction_quick_battle_tier_2_infantry, "trp_nord_huscarl"),
+      (faction_set_slot, "fac_kingdom_4", slot_faction_quick_battle_tier_1_infantry, "trp_nord_legendary_axeman"),
+      (faction_set_slot, "fac_kingdom_4", slot_faction_quick_battle_tier_2_infantry, "trp_nord_legendary_axeman"),
       (faction_set_slot, "fac_kingdom_4", slot_faction_quick_battle_tier_1_archer, "trp_nord_champion_hunter"),
       (faction_set_slot, "fac_kingdom_4", slot_faction_quick_battle_tier_2_archer, "trp_nord_champion_hunter"),
       (faction_set_slot, "fac_kingdom_4", slot_faction_quick_battle_tier_1_cavalry, "trp_nord_knight"),
@@ -7133,7 +7133,7 @@ scripts = [
           (faction_slot_eq, ":faction_no", slot_faction_culture, "fac_culture_4"),
 
           (faction_set_slot, ":faction_no", slot_faction_deserter_troop, "trp_nord_deserter"),
-          (faction_set_slot, ":faction_no", slot_faction_guard_troop, "trp_nord_warrior"),
+          (faction_set_slot, ":faction_no", slot_faction_guard_troop, "trp_nord_veteran_axeman"),
           (faction_set_slot, ":faction_no", slot_faction_messenger_troop, "trp_nord_messenger"),
           (faction_set_slot, ":faction_no", slot_faction_prison_guard_troop, "trp_nord_prison_guard"),
           (faction_set_slot, ":faction_no", slot_faction_castle_guard_troop, "trp_nord_castle_guard"),
@@ -35877,7 +35877,7 @@ scripts = [
       (store_script_param, ":center_no", 1),
       (party_get_slot, ":player_relation", ":center_no", slot_center_player_relation),
       (party_get_slot, ":center_culture", ":center_no", slot_center_culture),
-      
+
 ##	   (try_begin),
 ##		(eq, "$cheat_mode", 2),
 ##	    (str_store_party_name, s4, ":center_no"),
@@ -35887,7 +35887,7 @@ scripts = [
 
       ##BEAN BEGIN - Recruit Culture
       (store_faction_of_party, ":center_faction", ":center_no"),
-      
+
       (try_begin),
         (neq, "$g_player_culture", 0), ##Use the original culture of the fief as we have no preference
         (call_script, "script_dplmc_get_troop_standing_in_faction", "trp_player", ":center_faction"),
@@ -35895,9 +35895,9 @@ scripts = [
         (assign, ":center_culture", "$g_player_culture"),
       (try_end),
       ##BEAN END - Recruit Culture
-      
+
       (faction_get_slot, ":volunteer_troop", ":center_culture", slot_faction_tier_1_troop),
-      
+
       (assign, ":volunteer_troop_tier", 1),
       (store_div, ":tier_upgrades", ":player_relation", 10),
       (try_for_range, ":unused", 0, ":tier_upgrades"),
@@ -35986,10 +35986,10 @@ scripts = [
     [
       (store_script_param, ":center_no", 1),
       (party_get_slot, ":center_culture", ":center_no", slot_center_culture),
-       
+
       ##BEAN BEGIN - Recruit Culture
       (store_faction_of_party, ":center_faction", ":center_no"),
-      
+
       (try_begin),
         (neq, "$g_player_culture", 0), ##Use the original culture of the fief as we have no preference
         (call_script, "script_dplmc_get_troop_standing_in_faction", "trp_player", ":center_faction"),
@@ -35997,7 +35997,7 @@ scripts = [
         (assign, ":center_culture", "$g_player_culture"),
       (try_end),
       ##BEAN END - Recruit Culture
-      
+
       (faction_get_slot, ":volunteer_troop", ":center_culture", slot_faction_tier_1_troop),
       (assign, ":volunteer_troop_tier", 1),
       (try_for_range, ":unused", 0, 5),
@@ -45256,7 +45256,7 @@ scripts = [
 	#"same culture, such as a pretender" pt. 2
 	(else_try),
 		(troop_slot_eq, ":troop", slot_troop_original_faction, ":faction"),
-		(assign, ":penalty_for_changing_sides", 10),	
+		(assign, ":penalty_for_changing_sides", 10),
 	##diplomacy end+
 	(else_try), #a liege from a different culture
 		(assign, ":penalty_for_changing_sides", 50),
@@ -60577,7 +60577,7 @@ scripts = [
 		(val_add, reg0, 1),
 		(troop_set_slot, ":troop_no", dplmc_slot_troop_center_points_plus_one, reg0),
           (try_end),
-          (troop_get_slot, reg0, "trp_player", slot_troop_temp_slot), 
+          (troop_get_slot, reg0, "trp_player", slot_troop_temp_slot),
           (val_add, reg0, 1),
           (troop_set_slot, "trp_player", dplmc_slot_troop_center_points_plus_one, reg0),
           #Since the target center was omitted from the point totals, handle it here
@@ -63929,7 +63929,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
      (try_end),
    ]),
 ##diplomacy end+
-    
+
 ##diplomacy end+
 ("cf_dplmc_battle_continuation", [
     (eq, "$g_dplmc_battle_continuation", 0),
@@ -63963,11 +63963,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
   #Equipment cost fix
    ("player_get_value_of_original_items",
     [
-      (store_script_param, ":player_no", 1),  
+      (store_script_param, ":player_no", 1),
       (store_script_param, ":agent_no", 2),
       (store_script_param, ":troop_id", 3),
       (assign, ":total_equipment_cost", 0),
-      (try_for_range, ":i_item_slot", 0, 8), 
+      (try_for_range, ":i_item_slot", 0, 8),
           (neg|player_item_slot_is_picked_up, ":player_no", ":i_item_slot"),
           (agent_get_item_slot, ":item_id", ":agent_no", ":i_item_slot"), #value between 0-7, order is weapon1, weapon2, weapon3, weapon4, head_armor, body_armor, leg_armor, hand_armor
           #(player_get_item_id, ":item_id", ":player_no", ":i_item_slot"), #only for server
@@ -63982,7 +63982,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
           ##
       (try_end),
       (try_for_agents, ":cur_horse"),
-         #Check all horses in the scene and see if one of them is agent_no's bought horse. Won't be enough to just do (agent_get_horse, ":horse", ":agent_no"), 
+         #Check all horses in the scene and see if one of them is agent_no's bought horse. Won't be enough to just do (agent_get_horse, ":horse", ":agent_no"),
          #since you get money back for a bought horse, even if you have dismounted it, if the horse is still alive and has no other rider.
          (agent_is_alive, ":cur_horse"),
          (neg|agent_is_human, ":cur_horse"),  #Spawned agent is horse
@@ -63994,7 +63994,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
              (try_begin),
                  (neq, ":rider_agent_id", -1),
                  (neg|agent_is_non_player, ":rider_agent_id"),
-                 (agent_get_slot, ":agent_no_bought_horse", ":rider_agent_id", slot_agent_bought_horse),          
+                 (agent_get_slot, ":agent_no_bought_horse", ":rider_agent_id", slot_agent_bought_horse),
                  (eq, ":agent_no_bought_horse", ":cur_horse"), #agent_no is mounted on the same horse he bought
                  (assign, ":add_horse_cost_to_equipment_value", 1),
 
@@ -64733,20 +64733,20 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (store_troop_faction, ":faction", ":lord"),
       (try_end),
 
-      ##Add knights based on player status
+      ##Add knights based on lord status
       (try_begin),
         (faction_get_slot, ":faction_leader", ":faction", slot_faction_leader),
         (eq, ":faction_leader", ":lord"),
-        (val_add, ":max_knights", 5),
+        (val_add, ":max_knights", 6),
       (try_end),
 
       (try_begin),
         (faction_get_slot, ":faction_marshal", ":faction", slot_faction_marshall),
         (eq, ":faction_marshal", ":lord"),
-        (val_add, ":max_knights", 1),
+        (val_add, ":max_knights", 2),
       (try_end),
 
-      ##Add knights based on player fiefs
+      ##Add knights based on lord fiefs
       (try_for_range, ":center_no", centers_begin, centers_end),
         (party_is_active, ":center_no"),
 
@@ -64769,4 +64769,6 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (assign, reg0, ":max_knights"),
     ]
   ),
+  ##BEAN END - Knights
+
 ]

@@ -514,7 +514,7 @@ troops = [
   ],
 
   [
-    "nord_militia", "Nord Militia", "Nord Militia",
+    "nord_axeman", "Nord Axeman", "Nord Axemen",
     tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield,
     0, 0, fac_kingdom_4,
     [
@@ -532,7 +532,7 @@ troops = [
   ],
 
   [
-    "nord_warrior", "Nord Warrior", "Nord Warriors",
+    "nord_veteran_axeman", "Nord Veteran Axeman", "Nord Veteran Axemen",
     tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield | tf_guarantee_helmet,
     0, 0, fac_kingdom_4,
     [
@@ -549,7 +549,7 @@ troops = [
   ],
 
   [
-    "nord_berserker", "Nord Berserker", "Nord Berserkers",
+    "nord_master_axeman", "Nord Master Axeman", "Nord Master Axemen",
     tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield | tf_guarantee_helmet,
     0, 0, fac_kingdom_4,
     [
@@ -567,7 +567,7 @@ troops = [
   ],
 
   [
-    "nord_champion", "Nord Champion", "Nord Champion",
+    "nord_champion_axeman", "Nord Champion Axeman", "Nord Champion Axemen",
     tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield | tf_guarantee_helmet,
     0, 0, fac_kingdom_4,
     [
@@ -586,7 +586,7 @@ troops = [
   ],
 
   [
-    "nord_huscarl", "Nord Huscarl", "Nord Huscarls",
+    "nord_legendary_axeman", "Nord Legendary Axeman", "Nord Legendary Axemen",
     tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield | tf_guarantee_helmet,
     0, 0, fac_kingdom_4,
     [
@@ -618,7 +618,7 @@ troops = [
     ],
     ATTR(12, 9, 4, 4, 10),
     wpex(80, 15, 15, 15, 100, 15),
-    SKILLS(ironflesh = 3, power_strike = 1, power_draw = 4, shield = 1, athletics = 2, weapon_master = 2),
+    SKILLS(ironflesh = 3, power_strike = 1, power_draw = 4, shield = 2, athletics = 1, weapon_master = 2),
     nord_face_young_1, nord_face_old_2
   ],
 
@@ -637,7 +637,7 @@ troops = [
     ],
     ATTR(15, 11, 4, 4, 15),
     wpex(115, 15, 15, 15, 140, 15),
-    SKILLS(ironflesh = 3, power_strike = 2, power_draw = 5, shield = 2, athletics = 3, weapon_master = 3),
+    SKILLS(ironflesh = 3, power_strike = 2, power_draw = 5, shield = 3, athletics = 2, weapon_master = 3),
     nord_face_young_1, nord_face_old_2
   ],
 
@@ -656,7 +656,7 @@ troops = [
     ],
     ATTR(18, 13, 4, 4, 20),
     wpex(150, 15, 15, 15, 180, 15),
-    SKILLS(ironflesh = 4, power_strike = 3, power_draw = 6, shield = 2, athletics = 4, weapon_master = 4),
+    SKILLS(ironflesh = 4, power_strike = 3, power_draw = 6, shield = 4, athletics = 2, weapon_master = 4),
     nord_face_young_1, nord_face_old_2
   ],
 
@@ -675,13 +675,13 @@ troops = [
     ],
     ATTR(21, 15, 4, 4, 25),
     wpex(185, 15, 15, 15, 220, 15),
-    SKILLS(ironflesh = 5, power_strike = 4, power_draw = 7, shield = 3, athletics = 4, weapon_master = 5),
+    SKILLS(ironflesh = 5, power_strike = 4, power_draw = 7, shield = 4, athletics = 3, weapon_master = 5),
     nord_face_young_1, nord_face_old_2
   ],
-  
-   [
+
+  [
     "nord_knight", "Nord Knight", "Nord Knights",
-    tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield | tf_guarantee_helmet | tf_guarantee_horse,
+    tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield | tf_guarantee_helmet | tf_guarantee_horse | tf_unmoveable_in_party_window,
     0, 0, fac_kingdom_4,
     [
       itm_fighting_axe,
@@ -694,12 +694,12 @@ troops = [
       itm_charger,
     ],
     ATTR(27, 18, 9, 5, 40),
-    wpex(260, 260, 15, 15, 15, 125),
-    SKILLS(ironflesh = 9, power_strike = 9, power_throw = 8, shield = 6, athletics = 5, riding = 5, weapon_master = 6),
+    wpex(260, 15, 15, 15, 15, 260),
+    SKILLS(ironflesh = 9, power_strike = 9, power_throw = 8, shield = 6, athletics = 3, riding = 4, weapon_master = 6, horse_archery = 3),
     nord_face_middle_1, nord_face_older_2,
   ],
   ##BEAN END - Nord Troop Tree
-  
+
   ["nord_messenger","Nord Messenger","Nord Messengers",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_horse|tf_guarantee_ranged,0,0,fac_kingdom_4,
    [itm_sword_viking_2,itm_leather_jerkin,itm_leather_boots,itm_courser,itm_leather_gloves,itm_short_bow,itm_arrows],
    str_7 | agi_21 | int_4 | cha_4|level(25),wp(130),knows_common|knows_riding_7|knows_horse_archery_5|knows_power_draw_5,nord_face_young_1, nord_face_older_2],
@@ -712,7 +712,7 @@ troops = [
   ["nord_castle_guard","Castle Guard","Castle Guards", tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet,0,0,fac_kingdom_4,
    [itm_ashwood_pike,itm_battle_fork,itm_battle_axe,itm_fighting_axe,itm_tab_shield_round_d,itm_tab_shield_round_e,itm_mail_hauberk,itm_heraldic_mail_with_tabard,itm_mail_chausses,itm_iron_greaves,itm_nordic_helmet,itm_nordic_helmet,itm_nordic_helmet,itm_spiked_helmet,itm_leather_gloves],
    def_attrib|level(24),wp(130),knows_athletics_3|knows_shield_2|knows_ironflesh_3,nord_face_middle_1, nord_face_older_2],
-  
+
 
   ["rhodok_tribesman","Rhodok Tribesman","Rhodok Tribesmen",tf_guarantee_boots|tf_guarantee_armor,0,0,fac_kingdom_5,
    [itm_pitch_fork,itm_tab_shield_pavise_a,
@@ -2292,14 +2292,14 @@ troops = [
   ["looter_leader","Robber","Looters",tf_hero,0,0,fac_outlaws,
    [itm_hatchet,itm_club,itm_butchering_knife,itm_falchion,itm_rawhide_coat,itm_stones,itm_nomad_armor,itm_nomad_armor,itm_woolen_cap,itm_woolen_cap,itm_nomad_boots,itm_wrapping_boots],
    def_attrib|level(4),wp(20),knows_common,0x00000001b80032473ac49738206626b200000000001da7660000000000000000, bandit_face2],
-   
-  ["bandit_leaders_end","bandit_leaders_end","bandit_leaders_end",tf_hero, 0,0, fac_commoners,[],def_attrib|level(2),wp(20),knows_inventory_management_10,0],   
-  
+
+  ["bandit_leaders_end","bandit_leaders_end","bandit_leaders_end",tf_hero, 0,0, fac_commoners,[],def_attrib|level(2),wp(20),knows_inventory_management_10,0],
+
   ["relative_of_merchant", "Merchant's Brother", "{!}Prominent",tf_hero,0,0,fac_kingdom_2,
    [itm_linen_tunic,itm_nomad_boots],
-   def_attrib|level(1),wp_melee(10),knows_athletics_1|knows_ironflesh_2|knows_shield_2, 0x00000000320410022d2595495491afa400000000001d9ae30000000000000000, mercenary_face_2],   
-   
-  ["relative_of_merchants_end","relative_of_merchants_end","relative_of_merchants_end",tf_hero, 0,0, fac_commoners,[],def_attrib|level(2),wp(20),knows_inventory_management_10,0],     
+   def_attrib|level(1),wp_melee(10),knows_athletics_1|knows_ironflesh_2|knows_shield_2, 0x00000000320410022d2595495491afa400000000001d9ae30000000000000000, mercenary_face_2],
+
+  ["relative_of_merchants_end","relative_of_merchants_end","relative_of_merchants_end",tf_hero, 0,0, fac_commoners,[],def_attrib|level(2),wp(20),knows_inventory_management_10,0],
   ##diplomacy begin
   ["dplmc_chamberlain","Chamberlain Aubrey de Vere", "Chamberlains",tf_hero|tf_male,0,0,fac_commoners,[itm_tabard, itm_leather_boots], def_attrib|level(10), wp(40),knows_inventory_management_10,0x0000000dfc0c238838e571c8d469c91b00000000001e39230000000000000000],
 
@@ -2316,8 +2316,8 @@ troops = [
    [itm_sword_medieval_a,itm_leather_jerkin,itm_leather_boots,itm_courser,itm_leather_gloves,itm_light_crossbow,itm_bolts],
    def_attrib|agi_21|int_30|cha_21|level(25),wp(130),knows_common|knows_riding_7|knows_horse_archery_5|knows_leadership_7,man_face_young_1,man_face_old_2],
 
-   
-# recruiter kit begin 
+
+# recruiter kit begin
   ["dplmc_recruiter","Recruiter","Recruiter",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_horse|tf_guarantee_ranged,0,0,fac_neutral,
    [itm_sword_medieval_a,itm_leather_jerkin,itm_leather_boots,itm_courser,itm_leather_gloves,itm_light_crossbow,itm_bolts],
    def_attrib|agi_21|int_30|cha_21|level(25),wp(130),knows_common|knows_riding_7|knows_horse_archery_5|knows_leadership_7,swadian_face_young_1, swadian_face_old_2],
@@ -2364,11 +2364,13 @@ upgrade2(troops,"khergit_horseman","khergit_lancer","khergit_horse_archer")
 upgrade(troops,"khergit_horse_archer","khergit_veteran_horse_archer")
 
 ##BEAN BEGIN - Nord Troop Tree
-upgrade2(troops, "nord_recruit", "nord_militia", "nord_hunter")
-upgrade(troops, "nord_militia", "nord_warrior")
-upgrade(troops, "nord_warrior", "nord_berserker")
-upgrade(troops, "nord_berserker", "nord_champion")
-upgrade(troops, "nord_champion", "nord_huscarl")
+upgrade2(troops, "nord_recruit", "nord_axeman", "nord_hunter")
+
+upgrade(troops, "nord_axeman", "nord_veteran_axeman")
+upgrade(troops, "nord_veteran_axeman", "nord_master_axeman")
+upgrade(troops, "nord_master_axeman", "nord_champion_axeman")
+upgrade(troops, "nord_champion_axeman", "nord_legendary_axeman")
+
 upgrade(troops, "nord_hunter", "nord_veteran_hunter")
 upgrade(troops, "nord_veteran_hunter", "nord_master_hunter")
 upgrade(troops, "nord_master_hunter", "nord_champion_hunter")
