@@ -80,6 +80,7 @@ Zephilinox              Remove ability for player to garrison knights   ##BEAN -
 Zephilinox              Replaced regular_party_strength with normal     party_calculate_regular_strength in module_scripts.py
 Zephilinox              Buffed XP of troops in centers                  game_start and give_center_to_lord and dplmc_player_center_surrender in module_scripts.py
 Zephilinox              Buffed XP from quality by 5x                    upgrade_hero_party in module_scripts.py
+Zephilinox              Buffed XP given to parties regularly            ##BEAN - Increase XP
 ```
 
 ##Issues
