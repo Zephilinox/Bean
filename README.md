@@ -16,12 +16,12 @@ More Food
 Weather
 Speak with Elder/Guild Master
 More higher quality troops in general, but especially for kings
-Revamped Troops (Nords Only)
+Revamped Troops
 Revamped Items (TODO)
 Special Faction Knights for Faction Lords
-Recruit Faction Knights from castles and towns (TODO)
+Recruit Faction Knights from castles and towns
 Loot villages, join sieges, and fight on any side of a battle regardless of relationships
-Persuation is now based on charisma instead of intelligence
+Persuasion is now based on charisma instead of intelligence
 
 ##Changelog
 
@@ -75,13 +75,13 @@ Zephilinox              No limit to attacking based on relations        ##BEAN -
 Zephilinox              Extra XP for King                               ##BEAN - King Troop XP
 Zephilinox              Special Lord Unit                               ##BEAN - Knights
 Zephilinox              Diplomacy culture when recruiting               ##BEAN - Recruit Culture
+Zephilinox              Added cheat to villages to refresh volunteers   ##BEAN BEGIN - Cheat Refresh Volunteers
 ```
 
 ##Issues
 ```
 Horse dust in arena (vaegir) is broken?
 Custom battles deathcam
-Calculate max knights by also checking all fiefs as the player can garrison them there for infinite numbers
 Use village code for towns when recruiting knights?
 ```
 

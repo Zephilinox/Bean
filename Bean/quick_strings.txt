@@ -1,4 +1,4 @@
-1267
+1268
 qstr_Next_Page Next_Page
 qstr_Game_Rules:^ Game_Rules:^
 qstr_0 0
@@ -1266,3 +1266,4 @@ qstr_{s0}^{s1}_villages_wit {s0}^{s1}_villages_with_prosperity_40-59:_{reg0}
 qstr_{s0}^{s1}_villages_with {s0}^{s1}_villages_with_prosperity_20-39:_{reg0}
 qstr_{s0}^{s1}_villages_with_ {s0}^{s1}_villages_with_prosperity_0-19:_{reg0}
 qstr_Lol Lol
+qstr_You_cannot_afford_to You_cannot_afford_to_recruit_any_more_knights.
