@@ -78,6 +78,8 @@ Zephilinox              Diplomacy culture when recruiting               ##BEAN -
 Zephilinox              Added cheat to villages to refresh volunteers   ##BEAN - Cheat Refresh Volunteers
 Zephilinox              Remove ability for player to garrison knights   ##BEAN - Disable Knights From Garrison
 Zephilinox              Replaced regular_party_strength with normal     party_calculate_regular_strength in module_scripts.py
+Zephilinox              Buffed XP of troops in centers                  game_start and give_center_to_lord and dplmc_player_center_surrender in module_scripts.py
+Zephilinox              Buffed XP from quality by 5x                    upgrade_hero_party in module_scripts.py
 ```
 
 ##Issues
