@@ -572,7 +572,7 @@ troops = [
   ],
 
   [
-    "swadian_legendary_cavalry","Swadian Legendary Cavalry","Swadian Legendary Cavalry",
+    "swadian_legendary_cavalry", "Swadian Legendary Cavalry", "Swadian Legendary Cavalry",
     tf_mounted | tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_gloves | tf_guarantee_helmet | tf_guarantee_horse | tf_guarantee_shield,
     0, 0, fac_kingdom_1,
     [
@@ -591,8 +591,8 @@ troops = [
   ],
 
   [
-    "swadian_knight","Swadian Knight","Swadian Knight",
-    tf_mounted | tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_gloves | tf_guarantee_helmet | tf_guarantee_horse | tf_guarantee_shield | tf_unmoveable_in_party_window,
+    "swadian_knight", "Swadian Knight", "Swadian Knights",
+    tf_mounted | tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_gloves | tf_guarantee_helmet | tf_guarantee_horse | tf_guarantee_shield,
     0, 0, fac_kingdom_1,
     [
       itm_heavy_lance, itm_sword_two_handed_b, itm_sword_medieval_d_long, itm_morningstar, itm_morningstar, itm_sword_medieval_d_long,
@@ -899,7 +899,7 @@ troops = [
 
   [
     "nord_knight", "Nord Knight", "Nord Knights",
-    tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield | tf_guarantee_helmet | tf_guarantee_horse | tf_unmoveable_in_party_window,
+    tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield | tf_guarantee_helmet | tf_guarantee_horse,
     0, 0, fac_kingdom_4,
     [
       itm_fighting_axe,

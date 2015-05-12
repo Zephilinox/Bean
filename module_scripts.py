@@ -15818,26 +15818,24 @@ scripts = [
   ("party_calculate_regular_strength",
     [
       (store_script_param_1, ":party"), #Party_id
+      (call_script, "script_party_calculate_strength", ":party"),
 
-      (assign, reg0,0),
-      (party_get_num_companion_stacks, ":num_stacks",":party"),
-      (try_for_range, ":i_stack", 0, ":num_stacks"),
-        (party_stack_get_troop_id, ":stack_troop", ":party", ":i_stack"),
-        (neg|troop_is_hero, ":stack_troop"),
-        (store_character_level, ":stack_strength", ":stack_troop"),
-        (val_add, ":stack_strength", 12),
-        (val_mul, ":stack_strength", ":stack_strength"),
-        (val_div, ":stack_strength", 100),
-        (party_stack_get_size, ":stack_size",":party",":i_stack"),
-        (party_stack_get_num_wounded, ":num_wounded",":party",":i_stack"),
-        (val_sub, ":stack_size", ":num_wounded"),
-        (val_mul, ":stack_strength", ":stack_size"),
-        (val_add,reg0, ":stack_strength"),
-      (try_end),
+      #(assign, reg0,0),
+      #(party_get_num_companion_stacks, ":num_stacks",":party"),
+      #(try_for_range, ":i_stack", 0, ":num_stacks"),
+      #  (party_stack_get_troop_id, ":stack_troop", ":party", ":i_stack"),
+      #  (neg|troop_is_hero, ":stack_troop"),
+      #  (store_character_level, ":stack_strength", ":stack_troop"),
+      #  (val_add, ":stack_strength", 12),
+      #  (val_mul, ":stack_strength", ":stack_strength"),
+      #  (val_div, ":stack_strength", 100),
+      #  (party_stack_get_size, ":stack_size",":party",":i_stack"),
+      #  (party_stack_get_num_wounded, ":num_wounded",":party",":i_stack"),
+      #  (val_sub, ":stack_size", ":num_wounded"),
+      #  (val_mul, ":stack_strength", ":stack_size"),
+      #  (val_add,reg0, ":stack_strength"),
+      #(try_end),
   ]),
-
-
-
 
   #script_party_calculate_strength:
   # INPUT: arg1 = party_id, arg2 = exclude leader
@@ -35876,23 +35874,28 @@ scripts = [
     [
       (store_script_param, ":center_no", 1),
       (party_get_slot, ":player_relation", ":center_no", slot_center_player_relation),
-      (party_get_slot, ":center_culture", ":center_no", slot_center_culture),
 
-##	   (try_begin),
-##		(eq, "$cheat_mode", 2),
-##	    (str_store_party_name, s4, ":center_no"),
-##	    (str_store_faction_name, s5, ":center_culture"),
-##	    (display_message, "str_updating_volunteers_for_s4_faction_is_s5"),
-##	   (try_end),
+      ##	   (try_begin),
+      ##		(eq, "$cheat_mode", 2),
+      ##	    (str_store_party_name, s4, ":center_no"),
+      ##	    (str_store_faction_name, s5, ":center_culture"),
+      ##	    (display_message, "str_updating_volunteers_for_s4_faction_is_s5"),
+      ##	   (try_end),
 
       ##BEAN BEGIN - Recruit Culture
       (store_faction_of_party, ":center_faction", ":center_no"),
+      (faction_get_slot, ":center_culture", ":center_faction", slot_faction_culture),
 
-      (try_begin),
-        (neq, "$g_player_culture", 0), ##Use the original culture of the fief as we have no preference
+      (try_begin), ##If culture is set and player is leading faction, change its culture
+        (gt, "$g_player_culture", 0),
         (call_script, "script_dplmc_get_troop_standing_in_faction", "trp_player", ":center_faction"),
-        (ge, reg0, DPLMC_FACTION_STANDING_LEADER_SPOUSE), ##Make sure we are co-ruler or ruler of center faction
+        (ge, reg0, DPLMC_FACTION_STANDING_LEADER_SPOUSE),
         (assign, ":center_culture", "$g_player_culture"),
+      (else_try), ##If culture is not set and faction is the player faction, use original center culture
+        (le, "$g_player_culture", 0),
+        (eq, ":center_faction", "fac_player_supporters_faction"),
+        (party_get_slot, ":center_faction", ":center_no", slot_center_original_faction),
+        (faction_get_slot, ":center_culture", ":center_faction", slot_faction_culture),
       (try_end),
       ##BEAN END - Recruit Culture
 
@@ -35925,7 +35928,7 @@ scripts = [
         (assign, ":upper_limit", 0),
       (try_end),
 
-##diplomacy begin
+      ##diplomacy begin
       (assign, ":percent", 100),
       (try_begin), #-30% if not owner
         (neg|party_slot_eq, ":center_no", slot_town_lord, "trp_player"),
@@ -35967,7 +35970,7 @@ scripts = [
         (val_div, ":upper_limit", 100),
       (try_end),
 
-##diplomacy end
+      ##diplomacy end
 
       (val_mul, ":upper_limit", 3),
       (store_add, ":amount_random_divider", 2, ":volunteer_troop_tier"),
@@ -35990,15 +35993,21 @@ scripts = [
       ##BEAN BEGIN - Recruit Culture
       (store_faction_of_party, ":center_faction", ":center_no"),
 
-      (try_begin),
-        (neq, "$g_player_culture", 0), ##Use the original culture of the fief as we have no preference
+      (try_begin), ##If culture is set and player is leading faction, change its culture
+        (gt, "$g_player_culture", 0),
         (call_script, "script_dplmc_get_troop_standing_in_faction", "trp_player", ":center_faction"),
-        (ge, reg0, DPLMC_FACTION_STANDING_LEADER_SPOUSE), ##Make sure we are co-ruler or ruler of center faction
+        (ge, reg0, DPLMC_FACTION_STANDING_LEADER_SPOUSE),
         (assign, ":center_culture", "$g_player_culture"),
+      (else_try), ##If culture is not set and faction is the player faction, use original center culture
+        (le, "$g_player_culture", 0),
+        (eq, ":center_faction", "fac_player_supporters_faction"),
+        (party_get_slot, ":center_faction", ":center_no", slot_center_original_faction),
+        (faction_get_slot, ":center_culture", ":center_faction", slot_faction_culture),
       (try_end),
       ##BEAN END - Recruit Culture
 
       (faction_get_slot, ":volunteer_troop", ":center_culture", slot_faction_tier_1_troop),
+
       (assign, ":volunteer_troop_tier", 1),
       (try_for_range, ":unused", 0, 5),
         (store_random_in_range, ":random_no", 0, 100),

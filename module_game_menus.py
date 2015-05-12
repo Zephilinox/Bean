@@ -8903,6 +8903,19 @@ game_menus = [
       ("village_reports",[(eq, "$cheat_mode", 1),], "{!}CHEAT! Show reports.",
        [(jump_to_menu,"mnu_center_reports"),
            ]),
+
+      ##BEAN BEGIN - Cheat Refresh Volunteers
+      ("village_cheat_refresh_volunteers",
+        [
+          (ge, "$cheat_mode", 1),
+        ], "{!}CHEAT! Refresh Volunteers",
+        [
+          (call_script, "script_update_volunteer_troops_in_village", "$current_town"),
+          (call_script, "script_update_npc_volunteer_troops_in_village", "$current_town"),
+        ],
+      ),
+      ##BEAN END - Cheat Refresh Volunteers
+
       ("village_leave",[],"Leave...",[(change_screen_return,0),
 	  ##diplomacy start+
 	  ##Importing auto-purchase of food from rubik's Custom Commander
@@ -11098,6 +11111,12 @@ game_menus = [
 
       ("castle_station_troops",
       [
+        (try_begin),
+          (eq, reg50, 1),
+          (call_script, "script_party_add_party", "p_main_party", "p_temp_party"),
+          (assign, reg50, 0),
+        (try_end),
+
 		(party_get_slot, ":town_lord", "$current_town", slot_town_lord),
 	    (str_clear, s10),
 
@@ -11148,7 +11167,19 @@ game_menus = [
       ],
       "Manage the garrison {s10}",
       [
-        (change_screen_exchange_members,1),
+        (party_clear, "p_temp_party"),
+
+        (try_for_range, ":kingdom_no", kingdoms_begin, kingdoms_end),
+          (faction_get_slot, ":knight_trp", ":kingdom_no", slot_faction_tier_7_troop),
+          (neq, ":knight_trp", "trp_player"),
+          (party_count_members_of_type, ":count", "p_main_party", ":knight_trp"),
+          (party_remove_members, "p_main_party", ":knight_trp", ":count"),
+          (party_add_members, "p_temp_party", ":knight_trp", reg0),
+        (try_end),
+
+        (change_screen_exchange_members, 1),
+
+        (assign, reg50, 1),
       ]),
 	  ##diplomacy start+
 	  #Other option to add troops to garrison
@@ -18446,9 +18477,14 @@ goods, and books will never be sold. ^^You can change some settings here freely.
     [
       (store_faction_of_party, ":culture", "$current_town"),
 
-      (try_begin), ##Handle player faction so it uses original faction culture
+      (try_begin),
         (eq, ":culture", "fac_player_supporters_faction"),
-        (party_get_slot, ":culture", "$current_town", slot_center_original_faction),
+        (party_get_slot, ":culture", "$current_town", slot_center_original_faction), ##Set culture based on previous owner if no valid culture set
+
+        (try_begin), ##Set culture based on diplomacy culture if valid culture set
+          (gt, "$g_player_culture", 0),
+          (assign, ":culture", "$g_player_culture"),
+        (try_end),
       (try_end),
 
       (faction_get_slot, ":knight_trp", ":culture", slot_faction_tier_7_troop),
@@ -18456,7 +18492,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
       ##get max knights player can recruit based on their gold
       (party_get_free_companions_capacity, ":free_capacity", "p_main_party"),
       (store_troop_gold, ":gold", "trp_player"),
-      (store_div, ":gold_capacity", ":gold", 1000),
+      (store_div, ":gold_capacity", ":gold", 2000),
       (assign, ":party_capacity", ":free_capacity"),
       (val_min, ":party_capacity", ":gold_capacity"),
 
@@ -18474,14 +18510,15 @@ goods, and books will never be sold. ^^You can change some settings here freely.
       (try_end),
 
       (try_begin),
-        (party_count_members_of_type, ":cur_knights", "p_main_party", ":knight_trp"),
+        (assign, ":cur_knights", 0),
+        (try_for_range, ":kindgom_no", kingdoms_begin, kingdoms_end), ##Count all knights regardless of culture
+          (faction_get_slot, ":cur_knight_trp", ":kindgom_no", slot_faction_tier_7_troop),
+          (neq, ":cur_knight_trp", "trp_player"), ##Don't count invalid knights
+          (party_count_members_of_type, reg20, "p_main_party", ":cur_knight_trp"),
+          (val_add, ":cur_knights", reg20),
+        (try_end),
         (store_sub, ":allowed_knights", ":max_knights", ":cur_knights"), ##Store difference between how many are in the party and how many can be in the party
         (val_min, ":knight_amount", ":allowed_knights"), ##Don't let the player recruit more than the difference
-      (try_end),
-
-      (try_begin), ##In case the faction does not have a tier 7 troop (knight) set
-        (le, ":knight_trp", 0),
-        (assign, ":knight_amount", 0),
       (try_end),
 
       (assign, reg5, ":knight_amount"),
@@ -18491,6 +18528,7 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (gt, ":knight_amount", ":gold_capacity"),
         (assign, reg7, 1), #not enough money
       (try_end),
+
       (try_begin),
         (eq, ":allowed_knights", 0), ##Difference was negative, so there are too many.
         (str_store_string, s18, "@You cannot recruit any more knights to your party."),
@@ -18498,13 +18536,16 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (lt, ":allowed_knights", 0), ##Difference was negative, so there are too many.
         (str_store_string, s18, "@You have too many knights in your party as it is."),
       (else_try),
-        (eq, ":party_capacity", 0), ##No Space! place before knight amount eq 0 check because if this is 0 then so will that
+        (eq, ":free_capacity", 0), ##No Space! place before knight amount eq 0 check because if this is 0 then so will that
         (str_store_string, s18, "@You do not have enough room to recruit knights to your party."),
+      (else_try),
+        (lt, ":gold", 2000),
+        (str_store_string, s18, "@You cannot afford to recruit any more knights."),
       (else_try),
         (eq, ":knight_amount", 0),
         (str_store_string, s18, "@There are no knights here who will follow you."),
       (else_try),
-        (store_mul, reg6, ":knight_amount", 1000),
+        (store_mul, reg6, ":knight_amount", 2000),
         (str_store_troop_name_by_count, s3, ":knight_trp", ":knight_amount"),
         (try_begin),
           (eq, reg5, 1),
@@ -18512,7 +18553,6 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         (else_try),
           (str_store_string, s18, "@{reg5} {s3} will follow you."),
         (try_end),
-        (set_background_mesh, "mesh_pic_recruits"),
       (try_end),
     ],
     [
@@ -18535,13 +18575,24 @@ goods, and books will never be sold. ^^You can change some settings here freely.
         ],
         "Recruit them ({reg6} denars).",
         [
-          (store_faction_of_party, ":culture", "$current_town"),
-          (try_begin), ##Handle player faction so it uses original faction culture
-            (eq, ":culture", "fac_player_supporters_faction"),
-            (party_get_slot, ":culture", "$current_town", slot_center_original_faction),
-          (try_end),
+          ##BEAN BEGIN - Recruit Culture
+          (store_faction_of_party, ":center_faction", "$current_town"),
+          (faction_get_slot, ":center_culture", ":center_faction", slot_faction_culture),
 
-          (faction_get_slot, ":knight_trp", ":culture", slot_faction_tier_7_troop),
+          (try_begin), ##If culture is set and player is leading faction, change its culture
+            (gt, "$g_player_culture", 0),
+            (call_script, "script_dplmc_get_troop_standing_in_faction", "trp_player", ":center_faction"),
+            (ge, reg0, DPLMC_FACTION_STANDING_LEADER_SPOUSE),
+            (assign, ":center_culture", "$g_player_culture"),
+          (else_try), ##If culture is not set and faction is the player faction, use original center culture
+            (le, "$g_player_culture", 0),
+            (eq, ":center_faction", "fac_player_supporters_faction"),
+            (party_get_slot, ":center_faction", "$current_town", slot_center_original_faction),
+            (faction_get_slot, ":center_culture", ":center_faction", slot_faction_culture),
+          (try_end),
+          ##BEAN END - Recruit Culture
+
+          (faction_get_slot, ":knight_trp", ":center_culture", slot_faction_tier_7_troop),
           (party_add_members, "p_main_party", ":knight_trp", reg5),
           (troop_remove_gold, "trp_player", reg6),
           (jump_to_menu, "mnu_town"),
