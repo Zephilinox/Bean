@@ -11111,11 +11111,13 @@ game_menus = [
 
       ("castle_station_troops",
       [
+        ##BEAN BEGIN - Disable Knights From Garrison
         (try_begin),
           (eq, reg50, 1),
           (call_script, "script_party_add_party", "p_main_party", "p_temp_party"),
           (assign, reg50, 0),
         (try_end),
+        ##BEAN END - Disable Knights From Garrison
 
 		(party_get_slot, ":town_lord", "$current_town", slot_town_lord),
 	    (str_clear, s10),
@@ -11167,6 +11169,7 @@ game_menus = [
       ],
       "Manage the garrison {s10}",
       [
+        ##BEAN BEGIN - Disable Knights From Garrison
         (party_clear, "p_temp_party"),
 
         (try_for_range, ":kingdom_no", kingdoms_begin, kingdoms_end),
@@ -11180,6 +11183,7 @@ game_menus = [
         (change_screen_exchange_members, 1),
 
         (assign, reg50, 1),
+        ##BEAN END - Disable Knights From Garrison
       ]),
 	  ##diplomacy start+
 	  #Other option to add troops to garrison

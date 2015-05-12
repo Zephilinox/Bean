@@ -60,7 +60,7 @@ Waihti, Somebody, etc.  Diplomacy for 1.165                             ##diplom
 
 ##Modifications
 
-Here's a list of all modifications made to native that are not OSP, along with how to find them in the source files
+Here's a list of all modifications made to native that are not OSP, along with how to find them in the source files (Note: may need to search for ##BEAN BEGIN - XYZ instead)
 
 ```
 Author					Modification									Source
@@ -75,14 +75,15 @@ Zephilinox              No limit to attacking based on relations        ##BEAN -
 Zephilinox              Extra XP for King                               ##BEAN - King Troop XP
 Zephilinox              Special Lord Unit                               ##BEAN - Knights
 Zephilinox              Diplomacy culture when recruiting               ##BEAN - Recruit Culture
-Zephilinox              Added cheat to villages to refresh volunteers   ##BEAN BEGIN - Cheat Refresh Volunteers
+Zephilinox              Added cheat to villages to refresh volunteers   ##BEAN - Cheat Refresh Volunteers
+Zephilinox              Remove ability for player to garrison knights   ##BEAN - Disable Knights From Garrison
+Zephilinox              Replaced regular_party_strength with normal     party_calculate_regular_strength in module_scripts.py
 ```
 
 ##Issues
 ```
 Horse dust in arena (vaegir) is broken?
 Custom battles deathcam
-Use village code for towns when recruiting knights?
 ```
 
 ##TODO
