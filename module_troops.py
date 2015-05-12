@@ -351,7 +351,7 @@ troops = [
    [],
    def_attrib|level(4),wp(60),knows_common,mercenary_face_1, mercenary_face_2],
 
-   ##BEAN BEGIN - Swadian Troop Tree
+##BEAN BEGIN - Swadian Troop Tree
   [
     "swadian_recruit", "Swadian Recruit", "Swadian Recruits",
     tf_guarantee_armor,
@@ -608,7 +608,7 @@ troops = [
     SKILLS(ironflesh = 8, power_strike = 8, shield = 8, athletics = 7, riding = 8, weapon_master = 7),
     swadian_face_middle_1, swadian_face_older_2
   ],
-  ##BEAN END - Swadian Troop Tree
+##BEAN END - Swadian Troop Tree
 
   ["swadian_messenger","Swadian Messenger","Swadian Messengers",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_horse|tf_guarantee_ranged,0,0,fac_kingdom_1,
    [itm_sword_medieval_a,itm_leather_jerkin,itm_leather_boots,itm_courser,itm_leather_gloves,itm_light_crossbow,itm_bolts],
@@ -623,45 +623,205 @@ troops = [
    [itm_awlpike,itm_pike,itm_great_sword,itm_morningstar,itm_sword_medieval_b,itm_tab_shield_heater_c,itm_tab_shield_heater_d,itm_coat_of_plates,itm_plate_armor,itm_plate_boots,itm_guard_helmet,itm_helmet_with_neckguard,itm_bascinet,itm_guard_helmet,itm_leather_gloves],
    def_attrib|level(25),wp(130),knows_common|knows_shield_3|knows_ironflesh_3|knows_power_strike_3,swadian_face_young_1, swadian_face_old_2],
 
-# Vaegir watchman?
-  ["vaegir_recruit","Vaegir Recruit","Vaegir Recruits",tf_guarantee_boots|tf_guarantee_armor,0,0,fac_kingdom_2,
-   [itm_scythe,itm_hatchet,itm_cudgel,itm_axe,itm_stones,itm_tab_shield_kite_a, itm_tab_shield_kite_a,
-    itm_linen_tunic, itm_rawhide_coat,itm_nomad_boots],
-   def_attrib|level(4),wp(60),knows_common, vaegir_face_younger_1, vaegir_face_middle_2],
-  ["vaegir_footman","Vaegir Footman","Vaegir Footmen",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield,0,0,fac_kingdom_2,
-   [itm_spiked_club,itm_hand_axe,itm_sword_viking_1,itm_two_handed_axe,itm_tab_shield_kite_a,itm_tab_shield_kite_b,itm_spear,itm_nomad_cap,itm_vaegir_fur_cap,itm_rawhide_coat,itm_nomad_armor,itm_nomad_boots],
-   def_attrib|level(9),wp(75),knows_common, vaegir_face_young_1, vaegir_face_middle_2],
-  ["vaegir_skirmisher","Vaegir Skirmisher","Vaegir Skirmishers",tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_kingdom_2,
-   [itm_arrows,itm_spiked_mace,itm_axe,itm_sword_khergit_1,itm_short_bow,itm_short_bow,itm_hunting_bow,itm_javelin,itm_javelin,itm_steppe_cap,itm_nomad_cap,itm_leather_vest,itm_leather_vest,itm_nomad_armor,itm_nomad_boots],
-   str_10 | agi_5 | int_4 | cha_4|level(14),wp(60),knows_ironflesh_1|knows_power_draw_1|knows_power_throw_1,vaegir_face_young_1, vaegir_face_old_2],
-  ["vaegir_archer","Vaegir Archer","Vaegir Archers",tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_armor,0,0,fac_kingdom_2,
-   [itm_arrows,itm_axe,itm_sword_khergit_1,itm_nomad_bow,itm_nomad_bow,itm_short_bow,
-    itm_leather_jerkin,itm_leather_vest,itm_nomad_boots,itm_vaegir_spiked_helmet,itm_vaegir_fur_helmet,itm_vaegir_fur_cap,itm_nomad_cap],
-   str_12 | agi_5 | int_4 | cha_4|level(19),wp_one_handed (70) | wp_two_handed (70) | wp_polearm (70) | wp_archery (110) | wp_crossbow (70) | wp_throwing (70),knows_ironflesh_1|knows_power_draw_3|knows_athletics_2|knows_power_throw_1,vaegir_face_young_1, vaegir_face_older_2],
-  ["vaegir_marksman","Vaegir Marksman","Vaegir Marksmen",tf_guarantee_ranged|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet,0,0,fac_kingdom_2,
-   [itm_barbed_arrows,itm_axe,itm_voulge,itm_sword_khergit_2,itm_strong_bow,itm_war_bow,itm_strong_bow,
-    itm_leather_vest,itm_studded_leather_coat,itm_leather_boots,itm_vaegir_lamellar_helmet,itm_vaegir_spiked_helmet,itm_vaegir_fur_helmet],
-   str_14 | agi_5 | int_4 | cha_4|level(24),wp_one_handed (80) | wp_two_handed (80) | wp_polearm (80) | wp_archery (140) | wp_crossbow (80) | wp_throwing (80),knows_ironflesh_2|knows_power_draw_5|knows_athletics_3|knows_power_throw_1,vaegir_face_young_1, vaegir_face_older_2],
-  ["vaegir_veteran","Vaegir Veteran","Vaegir Veterans",tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_shield,0,0,fac_kingdom_2,
-   [itm_spiked_mace,itm_two_handed_axe,itm_sword_viking_1,itm_tab_shield_kite_b,itm_tab_shield_kite_c,itm_spear,
-    itm_steppe_cap,itm_vaegir_spiked_helmet,itm_vaegir_fur_helmet,itm_vaegir_fur_cap,itm_leather_jerkin,itm_studded_leather_coat,itm_nomad_boots,itm_saddle_horse],
-   def_attrib|level(14),wp_melee(85),knows_athletics_2|knows_ironflesh_1|knows_power_strike_2|knows_shield_2,vaegir_face_young_1, vaegir_face_old_2],
-  ["vaegir_infantry","Vaegir Infantry","Vaegir Infantries",tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet,0,0,fac_kingdom_2,
-   [itm_pike,itm_battle_axe,itm_sword_viking_2,itm_sword_khergit_2,itm_tab_shield_kite_c,itm_spear,
-    itm_mail_hauberk,itm_lamellar_vest,itm_leather_boots,itm_vaegir_lamellar_helmet,itm_vaegir_spiked_helmet,itm_vaegir_fur_helmet],
-   def_attrib|level(19),wp_melee(100),knows_athletics_3|knows_ironflesh_2|knows_power_strike_3|knows_shield_2,vaegir_face_young_1, vaegir_face_older_2],
-  ["vaegir_guard","Vaegir Guard","Vaegir Guards",tf_mounted|tf_guarantee_shield|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet,0,0,fac_kingdom_2,
-   [itm_ashwood_pike,itm_fighting_axe,itm_bardiche,itm_battle_axe,itm_fighting_axe,itm_tab_shield_kite_d,
-    itm_banded_armor,itm_lamellar_vest,itm_lamellar_armor,itm_mail_chausses,itm_iron_greaves,itm_vaegir_war_helmet,itm_vaegir_war_helmet,itm_vaegir_lamellar_helmet,itm_leather_gloves],
-   def_attrib|level(24),wp_melee(130),knows_riding_2|knows_athletics_4|knows_shield_2|knows_ironflesh_3|knows_power_strike_4,vaegir_face_middle_1, vaegir_face_older_2],
-  ["vaegir_horseman","Vaegir Horseman","Vaegir Horsemen",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield,0,0,fac_kingdom_2,
-   [itm_battle_axe,itm_sword_khergit_2,itm_lance,itm_tab_shield_kite_cav_a,itm_spear,
-    itm_studded_leather_coat,itm_lamellar_vest,itm_leather_boots,itm_vaegir_lamellar_helmet,itm_vaegir_spiked_helmet,itm_vaegir_fur_helmet,itm_steppe_horse,itm_hunter],
-   def_attrib|level(21),wp(100),knows_riding_3|knows_ironflesh_3|knows_power_strike_3,vaegir_face_young_1, vaegir_face_older_2],
-  ["vaegir_knight","Vaegir Knight","Vaegir Knights",tf_mounted|tf_guarantee_boots|tf_guarantee_gloves|tf_guarantee_armor|tf_guarantee_helmet|tf_guarantee_horse|tf_guarantee_shield,0,0,fac_kingdom_2,
-   [itm_bardiche,itm_great_bardiche,itm_war_axe,itm_fighting_axe,itm_lance,itm_lance,itm_tab_shield_kite_cav_b,
-    itm_banded_armor,itm_lamellar_vest,itm_lamellar_armor,itm_mail_boots,itm_plate_boots,itm_vaegir_war_helmet,itm_vaegir_war_helmet,itm_vaegir_lamellar_helmet,itm_hunter, itm_warhorse_steppe,itm_leather_gloves],
-   def_attrib|level(26),wp_one_handed (120) | wp_two_handed (140) | wp_polearm (120) | wp_archery (120) | wp_crossbow (120) | wp_throwing (120),knows_riding_4|knows_shield_2|knows_ironflesh_4|knows_power_strike_4,vaegir_face_middle_1, vaegir_face_older_2],
+##BEAN BEGIN - Vaegir Troop Tree
+  [
+    "vaegir_recruit", "Vaegir Recruit", "Vaegir Recruits",
+    tf_guarantee_boots | tf_guarantee_armor,
+    0, 0, fac_kingdom_2,
+    [
+      itm_scythe,itm_hatchet,itm_cudgel,itm_axe,
+      itm_stones,
+      itm_tab_shield_kite_a, itm_tab_shield_kite_a,
+      itm_linen_tunic, itm_rawhide_coat,
+      itm_nomad_boots,
+    ],
+    ATTR(9, 7, 4, 4, 5),
+    wpex(45, 15, 15, 60, 15, 15),
+    SKILLS(ironflesh = 1, power_strike = 1, power_draw = 3, shield = 1, athletics = 1, weapon_master = 1),
+    vaegir_face_younger_1, vaegir_face_middle_2
+  ],
+
+  [
+    "vaegir_swordsman", "Vaegir Swordsman", "Vaegir Swordsmen",
+    tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield,
+    0, 0, fac_kingdom_2,
+    [
+      itm_spiked_club, itm_hand_axe, itm_sword_viking_1, itm_two_handed_axe, itm_spear,
+      itm_tab_shield_kite_a, itm_tab_shield_kite_b,
+      itm_nomad_cap, itm_vaegir_fur_cap,
+      itm_rawhide_coat, itm_nomad_armor,
+      itm_nomad_boots,
+    ],
+    ATTR(9, 12, 4, 4, 10),
+    wpex(100, 80, 15, 15, 15, 15),
+    SKILLS(ironflesh = 3, power_strike = 3, shield = 2, athletics = 3, weapon_master = 2),
+    vaegir_face_young_1, vaegir_face_middle_2,
+  ],
+
+  [
+    "vaegir_veteran_swordsman", "Vaegir Veteran Swordsman", "Vaegir Veteran Swordsmen",
+    tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_shield,
+    0, 0, fac_kingdom_2,
+    [
+      itm_spiked_mace, itm_two_handed_axe, itm_sword_viking_1, itm_spear,
+      itm_tab_shield_kite_b, itm_tab_shield_kite_c,
+      itm_steppe_cap, itm_vaegir_spiked_helmet, itm_vaegir_fur_helmet, itm_vaegir_fur_cap,
+      itm_leather_jerkin, itm_studded_leather_coat,
+      itm_nomad_boots,
+    ],
+    ATTR(12, 14, 4, 4, 15),
+    wpex(140, 115, 15, 15, 15, 15),
+    SKILLS(ironflesh = 4, power_strike = 4, shield = 3, athletics = 4, weapon_master = 3),
+    vaegir_face_young_1, vaegir_face_old_2,
+  ],
+
+  [
+    "vaegir_master_swordsman", "Vaegir Master Swordsman", "Vaegir Swordsmen",
+    tf_guarantee_shield | tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_helmet,
+    0, 0, fac_kingdom_2,
+    [
+      itm_pike, itm_battle_axe, itm_sword_viking_2, itm_sword_khergit_2, itm_spear,
+      itm_tab_shield_kite_c,
+      itm_mail_hauberk, itm_lamellar_vest,
+      itm_leather_boots,
+      itm_vaegir_lamellar_helmet, itm_vaegir_spiked_helmet, itm_vaegir_fur_helmet,
+    ],
+    ATTR(15, 15, 4, 4, 20),
+    wpex(180, 150, 15, 15, 15, 15),
+    SKILLS(ironflesh = 5, power_strike = 5, shield = 4, athletics = 5, weapon_master = 4),
+    vaegir_face_young_1, vaegir_face_older_2
+  ],
+
+  [
+    "vaegir_champion_swordsman", "Vaegir Champion Swordsman", "Vaegir Champion Swordsman",
+    tf_guarantee_shield | tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_helmet,
+    0, 0, fac_kingdom_2,
+    [
+      itm_ashwood_pike, itm_fighting_axe, itm_bardiche, itm_battle_axe, itm_fighting_axe,
+      itm_tab_shield_kite_d,
+      itm_banded_armor, itm_lamellar_vest, itm_lamellar_armor, itm_mail_chausses,
+      itm_iron_greaves,
+      itm_vaegir_war_helmet, itm_vaegir_war_helmet, itm_vaegir_lamellar_helmet,
+      itm_leather_gloves
+    ],
+    ATTR(18, 18, 4, 4, 25),
+    wpex(220, 185, 15, 15, 15, 15),
+    SKILLS(ironflesh = 6, power_strike = 6, shield = 5, athletics = 6, weapon_master = 5),
+    vaegir_face_middle_1, vaegir_face_older_2,
+  ],
+
+  [
+    "vaegir_archer", "Vaegir Archer", "Vaegir Archers",
+    tf_guarantee_ranged | tf_guarantee_boots | tf_guarantee_armor,
+    0, 0, fac_kingdom_2,
+    [
+      itm_arrows,
+      itm_spiked_mace, itm_axe, itm_sword_khergit_1,
+      itm_short_bow, itm_short_bow, itm_hunting_bow,
+      itm_javelin, itm_javelin,
+      itm_steppe_cap, itm_nomad_cap,
+      itm_leather_vest, itm_leather_vest, itm_nomad_armor,
+      itm_nomad_boots,
+    ],
+    ATTR(12, 9, 4, 4, 10),
+    wpex(80, 15, 15, 100, 15, 15),
+    SKILLS(ironflesh = 1, power_strike = 2, power_draw = 4, shield = 2, athletics = 2, weapon_master = 2),
+    vaegir_face_young_1, vaegir_face_old_2,
+  ],
+
+  [
+    "vaegir_veteran_archer", "Vaegir Veteran Archer", "Vaegir Veteran Archers",
+    tf_guarantee_ranged | tf_guarantee_boots | tf_guarantee_armor,
+    0, 0, fac_kingdom_2,
+    [
+      itm_arrows,
+      itm_axe, itm_sword_khergit_1,
+      itm_nomad_bow, itm_nomad_bow, itm_short_bow,
+      itm_leather_jerkin, itm_leather_vest,
+      itm_nomad_boots,
+      itm_vaegir_spiked_helmet, itm_vaegir_fur_helmet, itm_vaegir_fur_cap, itm_nomad_cap,
+    ],
+    ATTR(15, 11, 4, 4, 15),
+    wpex(115, 15, 15, 140, 15, 15),
+    SKILLS(ironflesh = 2, power_strike = 3, power_draw = 5, shield = 2, athletics = 3, weapon_master = 3),
+    vaegir_face_young_1, vaegir_face_older_2,
+  ],
+
+  [
+    "vaegir_master_archer", "Vaegir Master Archer", "Vaegir Master Archers",
+    tf_guarantee_ranged | tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_helmet,
+    0, 0, fac_kingdom_2,
+    [
+      itm_barbed_arrows,
+      itm_axe, itm_voulge, itm_sword_khergit_2,
+      itm_strong_bow, itm_war_bow, itm_strong_bow,
+      itm_leather_vest, itm_studded_leather_coat,
+      itm_leather_boots,
+      itm_vaegir_lamellar_helmet, itm_vaegir_spiked_helmet, itm_vaegir_fur_helmet,
+    ],
+    ATTR(18, 13, 4, 4, 20),
+    wpex(150, 15, 15, 180, 15, 15),
+    SKILLS(ironflesh = 3, power_strike = 4, power_draw = 6, shield = 3, athletics = 3, weapon_master = 4),
+    vaegir_face_young_1, vaegir_face_older_2,
+  ],
+
+  [
+    "vaegir_champion_archer", "Vaegir Champion Archer", "Vaegir Champion Archers",
+    tf_guarantee_ranged | tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_helmet,
+    0, 0, fac_kingdom_2,
+    [
+      itm_barbed_arrows,
+      itm_axe, itm_voulge, itm_sword_khergit_2,
+      itm_strong_bow, itm_war_bow, itm_strong_bow,
+      itm_leather_vest, itm_studded_leather_coat,
+      itm_leather_boots,
+      itm_vaegir_lamellar_helmet, itm_vaegir_spiked_helmet, itm_vaegir_fur_helmet,
+    ],
+    ATTR(21, 15, 4, 4, 25),
+    wpex(185, 15, 15, 220, 15, 15),
+    SKILLS(ironflesh = 4, power_strike = 4, power_draw = 7, shield = 4, athletics = 4, weapon_master = 5),
+    vaegir_face_young_1, vaegir_face_older_2,
+  ],
+
+  [
+    "vaegir_legendary_archer", "Vaegir Legendary Archer", "Vaegir Legendary Archers",
+    tf_guarantee_ranged | tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_helmet,
+    0, 0, fac_kingdom_2,
+    [
+      itm_barbed_arrows,
+      itm_axe, itm_voulge, itm_sword_khergit_2,
+      itm_strong_bow, itm_war_bow, itm_strong_bow,
+      itm_leather_vest, itm_studded_leather_coat,
+      itm_leather_boots,
+      itm_vaegir_lamellar_helmet, itm_vaegir_spiked_helmet, itm_vaegir_fur_helmet,
+    ],
+    ATTR(21, 18, 6, 4, 30),
+    wpex(220, 15, 15, 260, 15, 15),
+    SKILLS(ironflesh = 6, power_strike = 6, power_draw = 7, shield = 5, athletics = 5, weapon_master = 6),
+    vaegir_face_young_1, vaegir_face_older_2,
+  ],
+
+
+  [
+    "vaegir_knight", "Vaegir Knight", "Vaegir Knights",
+    tf_mounted | tf_guarantee_boots | tf_guarantee_gloves | tf_guarantee_armor | tf_guarantee_helmet | tf_guarantee_horse | tf_guarantee_shield,
+    0, 0, fac_kingdom_2,
+    [
+      itm_bardiche, itm_great_bardiche, itm_war_axe, itm_fighting_axe, itm_lance, itm_lance,
+      itm_tab_shield_kite_cav_b,
+      itm_banded_armor, itm_lamellar_vest, itm_lamellar_armor,
+      itm_mail_boots, itm_plate_boots,
+      itm_vaegir_war_helmet, itm_vaegir_war_helmet, itm_vaegir_lamellar_helmet,
+      itm_hunter, itm_warhorse_steppe,
+      itm_leather_gloves,
+    ],
+    ATTR(27, 18, 10, 4, 40),
+    wpex(260, 15, 15, 260, 15, 15),
+    SKILLS(ironflesh = 7, power_strike = 9, power_draw = 8, shield = 4, athletics = 4, riding = 5, weapon_master = 6, horse_archery = 6),
+    vaegir_face_middle_1, vaegir_face_older_2,
+  ],
+##BEAN END - Vaegir Troop Tree
+
   ["vaegir_messenger","Vaegir Messenger","Vaegir Messengers",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_horse|tf_guarantee_ranged,0,0,fac_kingdom_2,
    [itm_sword_medieval_b,itm_leather_jerkin,itm_leather_boots,itm_courser,itm_leather_gloves,itm_short_bow,itm_arrows],
    str_7 | agi_21 | int_4 | cha_4|level(25),wp(130),knows_common|knows_riding_7|knows_horse_archery_5|knows_power_draw_5,vaegir_face_young_1, vaegir_face_older_2],
@@ -714,7 +874,7 @@ troops = [
    [itm_sword_khergit_4,itm_tab_shield_small_round_b,itm_tab_shield_small_round_a,itm_lamellar_vest_khergit,itm_lamellar_armor,itm_khergit_leather_boots,itm_iron_greaves,itm_khergit_guard_helmet,itm_khergit_cavalry_helmet,itm_leather_warrior_cap],
    def_attrib|level(24),wp(130),knows_athletics_5|knows_shield_2|knows_ironflesh_5,khergit_face_middle_1, khergit_face_older_2],
 
-  ##BEAN BEGIN - Nord Troop Tree
+##BEAN BEGIN - Nord Troop Tree
   [
     "nord_recruit", "Nord Recruit", "Nord Recruits",
     tf_guarantee_boots | tf_guarantee_armor,
@@ -916,7 +1076,7 @@ troops = [
     SKILLS(ironflesh = 9, power_strike = 9, power_throw = 8, shield = 6, athletics = 3, riding = 4, weapon_master = 6, horse_archery = 3),
     nord_face_middle_1, nord_face_older_2,
   ],
-  ##BEAN END - Nord Troop Tree
+##BEAN END - Nord Troop Tree
 
   ["nord_messenger","Nord Messenger","Nord Messengers",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_horse|tf_guarantee_ranged,0,0,fac_kingdom_4,
    [itm_sword_viking_2,itm_leather_jerkin,itm_leather_boots,itm_courser,itm_leather_gloves,itm_short_bow,itm_arrows],
@@ -2569,22 +2729,18 @@ upgrade(troops,"swadian_master_cavalry", "swadian_champion_cavalry")
 upgrade(troops,"swadian_champion_cavalry", "swadian_legendary_cavalry")
 ##BEAN END - Swadian Troop Tree
 
-upgrade(troops,"vaegir_recruit","vaegir_footman")
-upgrade2(troops,"vaegir_footman","vaegir_veteran","vaegir_skirmisher")
+##BEAN BEGIN - Vaegir Troop Tree
+upgrade2(troops, "vaegir_recruit", "vaegir_archer", "vaegir_swordsman"),
 
-upgrade(troops,"vaegir_skirmisher","vaegir_archer")
+upgrade(troops, "vaegir_archer", "vaegir_veteran_archer"),
+upgrade(troops, "vaegir_veteran_archer", "vaegir_master_archer"),
+upgrade(troops, "vaegir_master_archer", "vaegir_champion_archer"),
+upgrade(troops, "vaegir_champion_archer", "vaegir_legendary_archer"),
 
-upgrade(troops,"vaegir_archer","vaegir_marksman")
-
-upgrade2(troops,"vaegir_veteran","vaegir_horseman","vaegir_infantry")
-
-upgrade(troops,"vaegir_infantry","vaegir_guard")
-upgrade(troops,"vaegir_horseman","vaegir_knight")
-
-upgrade(troops,"khergit_tribesman","khergit_skirmisher")
-upgrade(troops,"khergit_skirmisher","khergit_horseman")
-upgrade2(troops,"khergit_horseman","khergit_lancer","khergit_horse_archer")
-upgrade(troops,"khergit_horse_archer","khergit_veteran_horse_archer")
+upgrade(troops, "vaegir_swordsman", "vaegir_veteran_swordsman"),
+upgrade(troops, "vaegir_veteran_swordsman", "vaegir_master_swordsman"),
+upgrade(troops, "vaegir_master_swordsman", "vaegir_champion_swordsman"),
+##BEAN END - Vaegir Troop Tree
 
 ##BEAN BEGIN - Nord Troop Tree
 upgrade2(troops, "nord_recruit", "nord_axeman", "nord_hunter")

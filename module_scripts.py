@@ -158,12 +158,12 @@ scripts = [
       (faction_set_slot, "fac_culture_1",  slot_faction_tier_7_troop, "trp_swadian_knight"), ##BEAN - Troop Tiers
 
       (faction_set_slot, "fac_culture_2", slot_faction_tier_1_troop, "trp_vaegir_recruit"),
-      (faction_set_slot, "fac_culture_2", slot_faction_tier_2_troop, "trp_vaegir_footman"),
-      (faction_set_slot, "fac_culture_2", slot_faction_tier_3_troop, "trp_vaegir_veteran"),
-      (faction_set_slot, "fac_culture_2", slot_faction_tier_4_troop, "trp_vaegir_infantry"),
-      (faction_set_slot, "fac_culture_2", slot_faction_tier_5_troop, "trp_vaegir_knight"),
-      (faction_set_slot, "fac_culture_2", slot_faction_tier_6_troop, "trp_player"), ##BEAN - Troop Tiers
-      (faction_set_slot, "fac_culture_2", slot_faction_tier_7_troop, "trp_player"), ##BEAN - Troop Tiers
+      (faction_set_slot, "fac_culture_2", slot_faction_tier_2_troop, "trp_vaegir_archer"),
+      (faction_set_slot, "fac_culture_2", slot_faction_tier_3_troop, "trp_vaegir_veteran_archer"),
+      (faction_set_slot, "fac_culture_2", slot_faction_tier_4_troop, "trp_vaegir_master_archer"),
+      (faction_set_slot, "fac_culture_2", slot_faction_tier_5_troop, "trp_vaegir_champion_archer"),
+      (faction_set_slot, "fac_culture_2", slot_faction_tier_6_troop, "trp_vaegir_legendary_archer"), ##BEAN - Troop Tiers
+      (faction_set_slot, "fac_culture_2", slot_faction_tier_7_troop, "trp_vaegir_knight"), ##BEAN - Troop Tiers
 
       (faction_set_slot, "fac_culture_3", slot_faction_tier_1_troop, "trp_khergit_tribesman"),
       (faction_set_slot, "fac_culture_3", slot_faction_tier_2_troop, "trp_khergit_skirmisher"),
@@ -1267,36 +1267,42 @@ scripts = [
       (faction_set_slot, "fac_outlaws", slot_faction_quick_battle_tier_2_archer, "trp_taiga_bandit"),
       (faction_set_slot, "fac_outlaws", slot_faction_quick_battle_tier_1_cavalry, "trp_steppe_bandit"),
       (faction_set_slot, "fac_outlaws", slot_faction_quick_battle_tier_2_cavalry, "trp_desert_bandit"),
+
       (faction_set_slot, "fac_kingdom_1", slot_faction_quick_battle_tier_1_infantry, "trp_swadian_champion_maceman"),
       (faction_set_slot, "fac_kingdom_1", slot_faction_quick_battle_tier_2_infantry, "trp_swadian_champion_maceman"),
       (faction_set_slot, "fac_kingdom_1", slot_faction_quick_battle_tier_1_archer, "trp_swadian_champion_hunter"),
       (faction_set_slot, "fac_kingdom_1", slot_faction_quick_battle_tier_2_archer, "trp_swadian_champion_hunter"),
       (faction_set_slot, "fac_kingdom_1", slot_faction_quick_battle_tier_1_cavalry, "trp_swadian_knight"),
       (faction_set_slot, "fac_kingdom_1", slot_faction_quick_battle_tier_2_cavalry, "trp_swadian_knight"),
-      (faction_set_slot, "fac_kingdom_2", slot_faction_quick_battle_tier_1_infantry, "trp_vaegir_marksman"),
-      (faction_set_slot, "fac_kingdom_2", slot_faction_quick_battle_tier_2_infantry, "trp_vaegir_marksman"),
-      (faction_set_slot, "fac_kingdom_2", slot_faction_quick_battle_tier_1_archer, "trp_vaegir_marksman"),
-      (faction_set_slot, "fac_kingdom_2", slot_faction_quick_battle_tier_2_archer, "trp_vaegir_marksman"),
+
+      (faction_set_slot, "fac_kingdom_2", slot_faction_quick_battle_tier_1_infantry, "trp_vaegir_champion_swordsman"),
+      (faction_set_slot, "fac_kingdom_2", slot_faction_quick_battle_tier_2_infantry, "trp_vaegir_champion_swordsman"),
+      (faction_set_slot, "fac_kingdom_2", slot_faction_quick_battle_tier_1_archer, "trp_vaegir_legendary_archer"),
+      (faction_set_slot, "fac_kingdom_2", slot_faction_quick_battle_tier_2_archer, "trp_vaegir_legendary_archer"),
       (faction_set_slot, "fac_kingdom_2", slot_faction_quick_battle_tier_1_cavalry, "trp_vaegir_knight"),
       (faction_set_slot, "fac_kingdom_2", slot_faction_quick_battle_tier_2_cavalry, "trp_vaegir_knight"),
+
       (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_1_infantry, "trp_khergit_dismounted_lancer_multiplayer_ai"),
       (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_2_infantry, "trp_khergit_dismounted_lancer_multiplayer_ai"),
       (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_1_archer, "trp_khergit_veteran_horse_archer"),
       (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_2_archer, "trp_khergit_veteran_horse_archer"),
       (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_1_cavalry, "trp_khergit_lancer"),
       (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_2_cavalry, "trp_khergit_lancer"),
+
       (faction_set_slot, "fac_kingdom_4", slot_faction_quick_battle_tier_1_infantry, "trp_nord_legendary_axeman"),
       (faction_set_slot, "fac_kingdom_4", slot_faction_quick_battle_tier_2_infantry, "trp_nord_legendary_axeman"),
       (faction_set_slot, "fac_kingdom_4", slot_faction_quick_battle_tier_1_archer, "trp_nord_champion_hunter"),
       (faction_set_slot, "fac_kingdom_4", slot_faction_quick_battle_tier_2_archer, "trp_nord_champion_hunter"),
       (faction_set_slot, "fac_kingdom_4", slot_faction_quick_battle_tier_1_cavalry, "trp_nord_knight"),
       (faction_set_slot, "fac_kingdom_4", slot_faction_quick_battle_tier_2_cavalry, "trp_nord_knight"),
+
       (faction_set_slot, "fac_kingdom_5", slot_faction_quick_battle_tier_1_infantry, "trp_rhodok_sergeant"),
       (faction_set_slot, "fac_kingdom_5", slot_faction_quick_battle_tier_2_infantry, "trp_rhodok_sergeant"),
       (faction_set_slot, "fac_kingdom_5", slot_faction_quick_battle_tier_1_archer, "trp_rhodok_veteran_crossbowman"),
       (faction_set_slot, "fac_kingdom_5", slot_faction_quick_battle_tier_2_archer, "trp_rhodok_veteran_crossbowman"),
       (faction_set_slot, "fac_kingdom_5", slot_faction_quick_battle_tier_1_cavalry, "trp_rhodok_scout_multiplayer_ai"),
       (faction_set_slot, "fac_kingdom_5", slot_faction_quick_battle_tier_2_cavalry, "trp_rhodok_scout_multiplayer_ai"),
+
       (faction_set_slot, "fac_kingdom_6", slot_faction_quick_battle_tier_1_infantry, "trp_sarranid_infantry"),
       (faction_set_slot, "fac_kingdom_6", slot_faction_quick_battle_tier_2_infantry, "trp_sarranid_infantry"),
       (faction_set_slot, "fac_kingdom_6", slot_faction_quick_battle_tier_1_archer, "trp_sarranid_archer"),
@@ -7111,7 +7117,7 @@ scripts = [
           (faction_slot_eq, ":faction_no", slot_faction_culture, "fac_culture_2"),
 
           (faction_set_slot, ":faction_no", slot_faction_deserter_troop, "trp_vaegir_deserter"),
-          (faction_set_slot, ":faction_no", slot_faction_guard_troop, "trp_vaegir_guard"),
+          (faction_set_slot, ":faction_no", slot_faction_guard_troop, "trp_vaegir_veteran_swordsman"),
           (faction_set_slot, ":faction_no", slot_faction_messenger_troop, "trp_vaegir_messenger"),
           (faction_set_slot, ":faction_no", slot_faction_prison_guard_troop, "trp_vaegir_prison_guard"),
           (faction_set_slot, ":faction_no", slot_faction_castle_guard_troop, "trp_vaegir_castle_guard"),
@@ -15818,23 +15824,31 @@ scripts = [
   ("party_calculate_regular_strength",
     [
       (store_script_param_1, ":party"), #Party_id
-      (call_script, "script_party_calculate_strength", ":party"),
 
-      #(assign, reg0,0),
-      #(party_get_num_companion_stacks, ":num_stacks",":party"),
-      #(try_for_range, ":i_stack", 0, ":num_stacks"),
-      #  (party_stack_get_troop_id, ":stack_troop", ":party", ":i_stack"),
-      #  (neg|troop_is_hero, ":stack_troop"),
-      #  (store_character_level, ":stack_strength", ":stack_troop"),
-      #  (val_add, ":stack_strength", 12),
-      #  (val_mul, ":stack_strength", ":stack_strength"),
-      #  (val_div, ":stack_strength", 100),
-      #  (party_stack_get_size, ":stack_size",":party",":i_stack"),
-      #  (party_stack_get_num_wounded, ":num_wounded",":party",":i_stack"),
-      #  (val_sub, ":stack_size", ":num_wounded"),
-      #  (val_mul, ":stack_strength", ":stack_size"),
-      #  (val_add,reg0, ":stack_strength"),
-      #(try_end),
+      (assign, reg0,0),
+      (party_get_num_companion_stacks, ":num_stacks", ":party"),
+      (assign, ":first_stack", 0),
+      (try_for_range, ":i_stack", ":first_stack", ":num_stacks"),
+        (party_stack_get_troop_id, ":stack_troop",":party", ":i_stack"),
+        (store_character_level, ":stack_strength", ":stack_troop"),
+        (val_add, ":stack_strength", 4), #new was 12 (patch 1.125)
+        (val_mul, ":stack_strength", ":stack_strength"),
+        (val_mul, ":stack_strength", 2), #new (patch 1.125)
+        (val_div, ":stack_strength", 100),
+        (val_max, ":stack_strength", 1), #new (patch 1.125)
+        (try_begin),
+          (neg|troop_is_hero, ":stack_troop"),
+          (party_stack_get_size, ":stack_size",":party",":i_stack"),
+          (party_stack_get_num_wounded, ":num_wounded",":party",":i_stack"),
+          (val_sub, ":stack_size", ":num_wounded"),
+          (val_mul, ":stack_strength", ":stack_size"),
+        (else_try),
+          (troop_is_wounded, ":stack_troop"), #hero & wounded
+          (assign, ":stack_strength", 0),
+        (try_end),
+        (val_add, reg0, ":stack_strength"),
+      (try_end),
+      (party_set_slot, ":party", slot_party_cached_strength, reg0),
   ]),
 
   #script_party_calculate_strength:
