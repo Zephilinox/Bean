@@ -22803,9 +22803,9 @@ scripts = [
           (call_script, "script_cf_reinforce_party", ":center_no"),
         (try_end),
         ## ADD some XP initially
-        (try_for_range, ":unused", 0, 7),
-          (store_mul, ":xp_range_min", 150, ":garrison_strength"),
-          (store_mul, ":xp_range_max", 200, ":garrison_strength"),
+        (try_for_range, ":unused", 0, 10), ##BEAN | was 7
+          (store_mul, ":xp_range_min", 300, ":garrison_strength"), ##BEAN | was 150
+          (store_mul, ":xp_range_max", 400, ":garrison_strength"), ##BEAN | was 200
           (store_random_in_range, ":xp", ":xp_range_min", ":xp_range_max"),
           (party_upgrade_with_xp, ":center_no", ":xp", 0),
         (try_end),
@@ -37934,8 +37934,9 @@ scripts = [
         (ge, ":party_no", spawn_points_begin),
         (store_faction_of_party, ":var1", ":party_no"),
         (faction_get_slot, ":var1", ":var1", dplmc_slot_faction_quality),
+        (val_mul, ":var1", 5), ##BEAN | 5 percent per point
         (val_add, ":var1", 100),
-        (val_clamp, ":var1", 97, 104),#100 plus or minus three percent
+        (val_clamp, ":var1", 85, 116), #100 plus or minus 15 percent
         (val_mul, ":xp_amount", ":var1"),
         (val_div, ":xp_amount", 100),
       (try_end),
@@ -57148,9 +57149,9 @@ scripts = [
     (try_for_range, ":unused", 0, ":garrison_strength"),
        (call_script, "script_cf_reinforce_party", ":center_no"),
     (try_end),
-    (try_for_range, ":unused", 0, 7),# ADD some XP initially
-       (store_mul, ":xp_range_min", 150, ":garrison_strength"),
-       (store_mul, ":xp_range_max", 200, ":garrison_strength"),
+    (try_for_range, ":unused", 0, 10),# ADD some XP initially ##BEAN | was 7
+       (store_mul, ":xp_range_min", 300, ":garrison_strength"), ##BEAN | was 150
+       (store_mul, ":xp_range_max", 400, ":garrison_strength"), ##BEAN | was 200
        (store_random_in_range, ":xp", ":xp_range_min", ":xp_range_max"),
        (party_upgrade_with_xp, ":center_no", ":xp", 0),
     (try_end),

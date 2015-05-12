@@ -845,7 +845,7 @@ simple_triggers = [
     ]),
 
   # Give some xp to hero parties
-   (48,
+   (24, ##BEAN - Increase XP | was 48
    [
          ##diplomacy start+
          ##change to allow promoted kingdom ladies to hire troops
@@ -860,7 +860,15 @@ simple_triggers = [
 
          (store_skill_level, ":trainer_level", skl_trainer, ":troop_no"),
          (val_add, ":trainer_level", 5), #average trainer level is 3 for npc lords, worst : 0, best : 6
-         (store_mul, ":xp_gain", ":trainer_level", 2000), #xp gain in two days of period for each lord, average : 8000. ##BEAN | was 1000
+         (store_mul, ":xp_gain", ":trainer_level", 2000), #xp gain in two days of period for each lord, average : 8000. ##BEAN - Increase XP | was 1000
+
+         ##BEAN BEGIN - King Troop XP
+         (try_begin),
+          (store_faction_of_troop, ":troop_kingdom", ":troop_no"),
+          (faction_slot_eq, ":troop_kingdom", slot_faction_leader, ":troop_no"),
+          (val_mul, ":xp_gain", 2),
+         (try_end),
+         ##BEAN END - King Troop XP
 
          (assign, ":max_accepted_random_value", 30),
          (try_begin),
@@ -883,14 +891,22 @@ simple_triggers = [
          (store_random_in_range, ":rand", 0, 100),
          (le, ":rand", ":max_accepted_random_value"),
 
-         (party_upgrade_with_xp, ":hero_party", ":xp_gain"),
+         (call_script, "script_upgrade_hero_party", ":hero_party", ":xp_gain"), ##BEAN - Use quality settings in diplomacy policy
        (try_end),
 
        (try_for_range, ":center_no", walled_centers_begin, walled_centers_end),
          (party_get_slot, ":center_lord", ":center_no", slot_town_lord),
          (neq, ":center_lord", "trp_player"),
 
-         (assign, ":xp_gain", 6000), #xp gain in two days of period for each center, average : 3000. ##BEAN | was 3000
+         (assign, ":xp_gain", 6000), #xp gain in two days of period for each center, average : 3000. ##BEAN - Increase XP | was 3000
+
+         ##BEAN BEGIN - King Troop XP
+         (try_begin),
+          (store_faction_of_troop, ":troop_kingdom", ":center_lord"),
+          (faction_slot_eq, ":troop_kingdom", slot_faction_leader, ":center_lord"),
+          (val_mul, ":xp_gain", 2),
+         (try_end),
+         ##BEAN END - King Troop XP
 
          (assign, ":max_accepted_random_value", 30),
          (try_begin),
@@ -917,7 +933,7 @@ simple_triggers = [
          (store_random_in_range, ":rand", 0, 100),
          (le, ":rand", ":max_accepted_random_value"),
 
-         (party_upgrade_with_xp, ":center_no", ":xp_gain"),
+         (call_script, "script_upgrade_hero_party", ":center_no", ":xp_gain"), ##BEAN - Use quality settings in diplomacy policy
        (try_end),
     ]),
 
@@ -1202,21 +1218,21 @@ simple_triggers = [
 			(neg|is_between, ":troop_no", "trp_kingdom_1_lord", "trp_knight_1_1"),
 			(neg|is_between, ":troop_no", pretenders_begin, pretenders_end),
 
-		  (assign, ":num_centers", 0),		  
-		  (try_for_range,":cur_center", walled_centers_begin, walled_centers_end),		    
+		  (assign, ":num_centers", 0),
+		  (try_for_range,":cur_center", walled_centers_begin, walled_centers_end),
 		    (store_faction_of_party, ":faction_of_center", ":cur_center"),
-			(eq, ":faction_of_center", ":faction"),			
+			(eq, ":faction_of_center", ":faction"),
 			(val_add, ":num_centers", 1),
 		  (try_end),
 
-		  #we are counting num_centers to allow defection although there is high relation between faction leader and troop. 
+		  #we are counting num_centers to allow defection although there is high relation between faction leader and troop.
 		  #but this rule should not applied for player's faction and player_supporters_faction so thats why here 1 is added to num_centers in that case.
-		  (try_begin), 
+		  (try_begin),
 		    (this_or_next|eq, ":faction", "$players_kingdom"),
 			(eq, ":faction", "fac_player_supporters_faction"),
 			(val_add, ":num_centers", 1),
 		  (try_end),
-			
+
 			(call_script, "script_troop_get_relation_with_troop", ":troop_no", ":faction_leader"),
           (this_or_next|le, reg0, -50), #was -75
 		  (eq, ":num_centers", 0), #if there is no walled centers that faction has defection happens 100%.
@@ -1239,13 +1255,13 @@ simple_triggers = [
 				(lt, ":random", 5),
 				(neq, ":troop_no", "trp_player"),
 				#do a defection
-                        (try_begin), 
-                          (neq, ":num_centers", 0), 
+                        (try_begin),
+                          (neq, ":num_centers", 0),
 						  #Note that I assign the troop number instead of 1 as is done in Native
                           (assign, "$g_give_advantage_to_original_faction", ":troop_no"),
                         (try_end),
 			#(assign, "$g_give_advantage_to_original_faction", 1),
-        
+
 			(store_faction_of_troop, ":orig_faction", ":troop_no"),
 				(call_script, "script_lord_find_alternative_faction", ":troop_no"),
 				(assign, ":new_faction", reg0),
