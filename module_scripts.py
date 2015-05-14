@@ -35579,7 +35579,7 @@ scripts = [
 		(str_store_troop_name, s2, ":liege"),
         (str_store_string, s1, "str_s2s_rebellion"),
 	(try_end),
-    #(faction_set_color, "fac_player_supporters_faction", 0xFF0000),
+    (faction_set_color, "fac_player_supporters_faction", 0xFF6400),
 
     (assign, "$players_kingdom", "fac_player_supporters_faction"),
     (assign, "$g_player_banner_granted", 1),
