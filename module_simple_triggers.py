@@ -902,6 +902,7 @@ simple_triggers = [
 
          ##BEAN BEGIN - King Troop XP
          (try_begin),
+          (ge, ":center_lord", 0), ##Make sure the fief has a lord
           (store_faction_of_troop, ":troop_kingdom", ":center_lord"),
           (faction_slot_eq, ":troop_kingdom", slot_faction_leader, ":center_lord"),
           (val_mul, ":xp_gain", 2),

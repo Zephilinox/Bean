@@ -42,7 +42,7 @@ from header_skills import *
 dplmc_horse_speed = (
   1, 0, 0, [],
   [
-  (eq, "$g_dplmc_horse_speed", 0),
+  (eq, "$g_dplmc_horse_speed", 1),
   (try_for_agents, ":agent_no"),
     (agent_is_alive, ":agent_no"),
     (agent_is_human, ":agent_no"),

@@ -4965,27 +4965,39 @@ scripts = [
 
       (store_character_level, ":troop_level", ":troop_id"),
 
-      (try_begin),
-        (is_between, ":troop_level", 0, 6),
-        (assign, reg0, 10),
-      (else_try),
-        (is_between, ":troop_level", 6, 11),
-        (assign, reg0, 20),
-      (else_try),
-        (is_between, ":troop_level", 11, 16),
-        (assign, reg0, 40),
-      (else_try),
-        (is_between, ":troop_level", 16, 21),
-        (assign, reg0, 80),
-      (else_try),
-        (is_between, ":troop_level", 21, 26),
-        (assign, reg0, 120),
-      (else_try),
-        (is_between, ":troop_level", 26, 31),
-        (assign, reg0, 160),
-      (else_try),
-        (assign, reg0, 200),
-      (try_end),
+      #(try_begin),
+      #  (is_between, ":troop_level", 0, 6),
+      #  (assign, reg0, 10),
+      #(else_try),
+      #  (is_between, ":troop_level", 6, 11),
+      #  (assign, reg0, 20),
+      #(else_try),
+      #  (is_between, ":troop_level", 11, 16),
+      #  (assign, reg0, 40),
+      #(else_try),
+      #  (is_between, ":troop_level", 16, 21),
+      #  (assign, reg0, 80),
+      #(else_try),
+      #  (is_between, ":troop_level", 21, 26),
+      #  (assign, reg0, 120),
+      #(else_try),
+      #  (is_between, ":troop_level", 26, 31),
+      #  (assign, reg0, 160),
+      #(else_try),
+      #  (assign, reg0, 200),
+      #(try_end),
+
+      ##BEAN Begin - Upgrade Cost
+      ##5+5 = 10, 10*10 = 100, 100/5 = 20
+      ##10+5 = 15, 15*15 = 225, 225/5 = 45
+      ##15+5 = 20, 20*20 = 400, 400/5 = 80
+      ##20+5 = 25, 25*25 = 625, 625/5 = 125
+      ##25+5 = 30. 30*30 = 900, 900/5 = 180
+      (val_add, ":troop_level", 5),
+      (val_mul, ":troop_level", ":troop_level"),
+      (val_div, ":troop_level", 5),
+      (assign, reg0, ":troop_level"),
+      ##BEAN END - Upgrade Cost
 
       (set_trigger_result, reg0),
   ]),
@@ -5030,6 +5042,15 @@ scripts = [
         (neg|troop_is_hero, ":troop_id"),
         (assign, reg0, 1),
       (try_end),
+
+      ##BEAN - Disable Knights Sold
+      (try_for_range, ":kingdom_no", kingdoms_begin, kingdoms_end),
+        (faction_get_slot, ":cur_knight_trp", ":kingdom_no", slot_faction_tier_7_troop),
+        (eq, ":cur_knight_trp", ":troop_id"),
+        (assign, reg0, 0),
+      (try_end),
+      ##BEAN END - Disable Knights Sold
+
       (set_trigger_result, reg0),
   ]),
 
@@ -35558,7 +35579,7 @@ scripts = [
 		(str_store_troop_name, s2, ":liege"),
         (str_store_string, s1, "str_s2s_rebellion"),
 	(try_end),
-    (faction_set_color, "fac_player_supporters_faction", 0xFF0000),
+    #(faction_set_color, "fac_player_supporters_faction", 0xFF0000),
 
     (assign, "$players_kingdom", "fac_player_supporters_faction"),
     (assign, "$g_player_banner_granted", 1),
@@ -64734,10 +64755,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
   ("initialize_bean",
     [
       (assign, "$bean_options_sort_party", 1),
-      (assign, "$bean_options_sort_player_party", 1),
+      (assign, "$bean_options_sort_player_party", 0),
       (assign, "$bean_options_sort_player_fiefs", 1),
 
       (call_script, "script_sort_parties_by_troop_level"),
+
+      (assign, "$g_dplmc_ai_changes", 2),
+      (assign, "$g_dplmc_gld_changes", 2),
     ]
   ),
   ##BEAN END - Initialize
@@ -64794,5 +64818,82 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     ]
   ),
   ##BEAN END - Knights
+
+  ##BEAN BEGIN - Change Faction Color
+  ("get_dest_color_from_rgb",
+  [
+    (store_script_param, ":red", 1),
+    (store_script_param, ":green", 2),
+    (store_script_param, ":blue", 3),
+
+    (assign, ":cur_color", 0xFF000000),
+    (val_mul, ":green", 0x100),
+    (val_mul, ":red", 0x10000),
+    (val_add, ":cur_color", ":blue"),
+    (val_add, ":cur_color", ":green"),
+    (val_add, ":cur_color", ":red"),
+    (assign, reg0, ":cur_color"),
+  ]),
+
+  ("convert_rgb_code_to_html_code",
+  [
+    (store_script_param, ":red", 1),
+    (store_script_param, ":green", 2),
+    (store_script_param, ":blue", 3),
+
+    (str_store_string, s0, "@#"),
+
+    (store_div, ":r_1", ":red", 0x10),
+    (store_add, ":dest_string", "str_key_0", ":r_1"),
+    (str_store_string, s1, ":dest_string"),
+    (str_store_string, s0, "@{s0}{s1}"),
+
+    (store_mod, ":r_2", ":red", 0x10),
+    (store_add, ":dest_string", "str_key_0", ":r_2"),
+    (str_store_string, s1, ":dest_string"),
+    (str_store_string, s0, "@{s0}{s1}"),
+
+    (store_div, ":g_1", ":green", 0x10),
+    (store_add, ":dest_string", "str_key_0", ":g_1"),
+    (str_store_string, s1, ":dest_string"),
+    (str_store_string, s0, "@{s0}{s1}"),
+
+    (store_mod, ":g_2", ":green", 0x10),
+    (store_add, ":dest_string", "str_key_0", ":g_2"),
+    (str_store_string, s1, ":dest_string"),
+    (str_store_string, s0, "@{s0}{s1}"),
+
+    (store_div, ":b_1", ":blue", 0x10),
+    (store_add, ":dest_string", "str_key_0", ":b_1"),
+    (str_store_string, s1, ":dest_string"),
+    (str_store_string, s0, "@{s0}{s1}"),
+
+    (store_mod, ":b_2", ":blue", 0x10),
+    (store_add, ":dest_string", "str_key_0", ":b_2"),
+    (str_store_string, s1, ":dest_string"),
+    (str_store_string, s0, "@{s0}{s1}"),
+  ]),
+
+  ("convert_slot_no_to_color",
+    [
+      (store_script_param, ":cur_color", 1),
+
+      (store_mod, ":blue", ":cur_color", 6),
+      (val_div, ":cur_color", 6),
+      (store_mod, ":green", ":cur_color", 6),
+      (val_div, ":cur_color", 6),
+      (store_mod, ":red", ":cur_color", 6),
+      (val_mul, ":blue", 0x33),
+      (val_mul, ":green", 0x33),
+      (val_mul, ":red", 0x33),
+      (assign, ":dest_color", 0xFF000000),
+      (val_mul, ":green", 0x100),
+      (val_mul, ":red", 0x10000),
+      (val_add, ":dest_color", ":blue"),
+      (val_add, ":dest_color", ":green"),
+      (val_add, ":dest_color", ":red"),
+      (assign, reg0, ":dest_color"),
+  ]),
+  ##BEAN END - Change Faction Color
 
 ]

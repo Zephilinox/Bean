@@ -3204,14 +3204,6 @@ game_menus = [
 ###################################################################################
 # End Autoloot
 ###################################################################################
-	("dplmc_camp_preferences",
-		[
-		],
-		"Diplomacy preferences.",
-		[
-			(jump_to_menu, "mnu_dplmc_preferences")
-		]
-	),
 
 ##diplomacy end
       ("camp_action",[],"Take an action.",
@@ -3244,13 +3236,7 @@ game_menus = [
        [(jump_to_menu, "mnu_camp_cheat"),
         ],
        ),
-      ##BEAN BEGIN - Options
-      ("camp_goto_bean",[],"Bean Options.",
-        [
-          (jump_to_menu, "mnu_camp_bean"),
-        ]
-      ),
-      ##BEAN END - Options
+
       ("resume_travelling",[],"Resume travelling.",
        [
            (change_screen_return),
@@ -17892,208 +17878,6 @@ goods, and books will never be sold. ^^You can change some settings here freely.
      ]
   ),
 
-  (
-    "dplmc_preferences",0,
-	##diplomacy start+ alter for PBOD
-    "Diplomacy "+DPLMC_DIPLOMACY_VERSION_STRING+" Preferences{s0}",##"Diplomacy preferences",
-	##diplomacy end+
-    "none",
-    [
-	##diplomacy start+
-	(troop_get_slot, reg0, "trp_dplmc_chamberlain", dplmc_slot_troop_affiliated),
-	(str_clear, s0),
-	(try_begin),
-		#Print a warning message for bad version numbers
-		(neq, reg0, 0),
-		(store_mod, ":verify", reg0, 128),
-		(this_or_next|lt, reg0, 0),
-			(neq, ":verify", DPLMC_VERSION_LOW_7_BITS),
-		(str_store_string, s0, "@{!}{s0}^^ WARNING: Unexpected version value in slot dplmc_slot_troop_affiliated in trp_dplmc_chamberlain: {reg0}"),
-	(else_try),
-		#In cheat mode, print the diplomacy+ version
-		(ge, "$cheat_mode", 1),
-		(val_div, reg0, 128),
-		(str_store_string, s0, "@{!}{s0}^^ DEBUG: Internal update code for current saved game is {reg0}.  Update code for the current release is "+str(DPLMC_CURRENT_VERSION_CODE)+"."),
-	(try_end),
-	##diplomacy end+
-    ],
-    [
-      ("dplmc_disable_horse_speed",[(eq, "$g_dplmc_horse_speed", 0),],"Disable Diplomacy horse speed.",
-       [
-           (assign, "$g_dplmc_horse_speed", 1),
-           (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),
-      ("dplmc_enable_horse_speed",[(eq, "$g_dplmc_horse_speed", 1),],"Enable Diplomacy horse speed.",
-       [
-           (assign, "$g_dplmc_horse_speed", 0),
-           (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),
-      ("dplmc_disable_battle_continuation",[ (eq, "$g_dplmc_battle_continuation", 0),],"Disable Diplomacy battle continuation.",
-       [
-           (assign, "$g_dplmc_battle_continuation", 1),
-           (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),
-      ("dplmc_enable_battle_continuation",[ (eq, "$g_dplmc_battle_continuation", 1),],"Enable Diplomacy battle continuation.",
-       [
-           (assign, "$g_dplmc_battle_continuation", 0),
-           (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),
-
-      ("dplmc_charge_when_dead",[ (eq, "$g_dplmc_battle_continuation", 0),(assign, reg0, "$g_dplmc_charge_when_dead"),],
-        "{reg0?Dis:En}able troops charging upon battle continuation.",
-       [
-           (store_sub, "$g_dplmc_charge_when_dead", 1, "$g_dplmc_charge_when_dead"),
-           (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),
-##diplomacy start+
-	#toggle terrain advantage
-      ("dplmc_disable_terrain_advantage",[(eq, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_ENABLE),],"Disable terrain advantage in Autocalc battles (currently this feature is Enabled).",
-       [
-           (assign, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_DISABLE),
-           (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),
-      ("dplmc_enable_terrain_advantage",[
-		(eq, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_DISABLE),],"Enable terrain advantage in Autocalc battles (currently this feature is Disabled).",
-       [
-           (assign, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_ENABLE),
-           (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),
-      ("dplmc_reset_terrain_advantage",[
-		(neq, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_DISABLE),
-		(neq, "$g_dplmc_terrain_advantage", DPLMC_TERRAIN_ADVANTAGE_ENABLE),
-		(assign, reg0, "$g_dplmc_terrain_advantage")
-		],"You used a saved game from another mod: g_dplmc_terrain_advantage = {reg0} (click to reset)",
-       [
-           (assign, "$g_dplmc_terrain_advantage", 0),
-           (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),
-	#toggle lord recycling
-	  ("dplmc_toggle_lord_recycling_a",[
-		(eq, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_DISABLE),
-		],"Enable lords returning from exile (currently disabled)",
-       [
-           (assign, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_ENABLE),
-        ]),
-	  ("dplmc_toggle_lord_recycling_b",[
-		(this_or_next|eq, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_FREQUENT),#currently this setting is not distinct
-		(eq, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_ENABLE),
-		],"Disable lords returning from exile (currently enabled)",
-       [
-	 	   (assign, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_DISABLE),
-        ]),
-      ("dplmc_toggle_lord_recycling_reset",
-		[(neq, "$g_dplmc_lord_recycling", DPLMC_AI_CHANGES_DISABLE),
- 		 (neq, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_ENABLE),
-		 (neq, "$g_dplmc_lord_recycling", DPLMC_LORD_RECYCLING_FREQUENT),
-		 (assign, reg0, "$g_dplmc_lord_recycling"),],
-			"You used a saved game from another mod: g_dplmc_lord_recycling = {reg0} (click to reset)",
-       [
-           (assign, "$g_dplmc_lord_recycling", 0),
-           (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),
-	#toggle AI changes
-	  ("dplmc_toggle_ai_changes_a",[
-		(eq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_DISABLE),
-		],"Enable AI changes (currently disabled)",
-       [
-           (assign, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_LOW),
-        ]),
-	  ("dplmc_toggle_ai_changes_b",[
-		(eq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_LOW),
-		],"Increase AI changes (currently low)",
-       [
-	 	   (assign, "$g_dplmc_ai_changes",DPLMC_AI_CHANGES_MEDIUM),
-        ]),
-
-	  ("dplmc_toggle_ai_changes_c",[
-		(eq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_MEDIUM),
-		],"Increase AI changes (currently medium)",
-       [
-	 	   (assign, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_HIGH),
-        ]),
-	  ("dplmc_toggle_ai_changes_d",[
-		(eq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_HIGH),
-		],"Disable AI changes (currently high/experimental)",
-       [
-	 	   (assign, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_DISABLE),
-        ]),
-      ("dplmc_reset_ai_changes",
-		[(neq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_DISABLE),
- 		 (neq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_LOW),
-		 (neq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_MEDIUM),
-		 (neq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_HIGH),
-		 (assign, reg0, "$g_dplmc_ai_changes"),],
-			"You used a saved game from another mod: g_dplmc_ai_changes = {reg0} (click to reset)",
-       [
-           (assign, "$g_dplmc_ai_changes", 0),
-           (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),
-	#toggle economics changes
-	  ("dplmc_toggle_gold_changes_a",[
-		(eq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_DISABLE),
-		],"Set economic & behavioral changes to low (current mode: disabled)",
-       [
-           (assign, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_LOW),
-        ]),
-	  ("dplmc_toggle_gold_changes_b",[
-		(eq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_LOW),
-		],"Set economic & behavioral changes to medium (current mode: low)",
-       [
-	 	   (assign, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_MEDIUM),
-        ]),
-	  ("dplmc_toggle_gold_changes_c",[
-		(eq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_MEDIUM),
-		],"Set economic & behavioral changes to high/experimental (current mode: medium)",
-       [
-	 	   (assign, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_HIGH),
-        ]),
-	  ("dplmc_toggle_gold_changes_d",[
-		(eq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_HIGH),
-		],"Disable economic & behavioral changes (current mode: high/experimental)",
-       [
-	 	   (assign, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_DISABLE),
-        ]),
-      ("dplmc_reset_gold_changes",
-		[(neq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_DISABLE),
- 		 (neq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_LOW),
-		 (neq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_MEDIUM),
-		 (neq, "$g_dplmc_gold_changes", DPLMC_GOLD_CHANGES_HIGH),
-		 (assign, reg0, "$g_dplmc_gold_changes"),],
-			"You used a saved game from another mod: g_dplmc_gold_changes = {reg0} (click to reset)",
-       [
-           (assign, "$g_dplmc_gold_changes", 0),
-           (jump_to_menu, "mnu_dplmc_preferences"),
-        ]),
-	#Toggle the default anti-woman prejudice.  This uses the already-existing
-	#global variable "$g_disable_condescending_comments", and gives it additional
-	#meaning.
-		("dplmc_switch_woman_prejudice_1", [
-			(this_or_next|eq, "$g_disable_condescending_comments", 0),
-			(eq, "$g_disable_condescending_comments", 1)],
-			"Change prejudice level (current level is default)",
-			[(val_add, "$g_disable_condescending_comments", 2),
-			(jump_to_menu, "mnu_dplmc_preferences"),]),
-		("dplmc_switch_woman_prejudice_2", [
-			(this_or_next|eq, "$g_disable_condescending_comments", 2),
-			(eq, "$g_disable_condescending_comments", 3)],
-			"Change prejudice level (current level is off)",
-			[(val_sub, "$g_disable_condescending_comments", 4),
-			(jump_to_menu, "mnu_dplmc_preferences"),]),
-		("dplmc_switch_woman_prejudice_3", [
-			(this_or_next|eq, "$g_disable_condescending_comments", -1),
-			(eq, "$g_disable_condescending_comments", -2)],
-			"Change prejudice level (current level is high)",
-			[(val_add, "$g_disable_condescending_comments", 2),
-			(jump_to_menu, "mnu_dplmc_preferences"),]),
-##diplomacy end+
-      ("dplmc_back",[],"Back...",
-       [
-           (jump_to_menu, "mnu_camp"),
-        ]),
-     ]
-  ),
-
-  ##diplomacy end
 ##diplomacy start+
   ("dplmc_affiliated_family_report",0,
    "{s0}",
@@ -18363,116 +18147,6 @@ goods, and books will never be sold. ^^You can change some settings here freely.
   ),
 ##diplomacy end+
 
-  ##BEAN BEGIN - Bean Options
-  ("camp_bean",0,
-  "Bean Options",
-  "none",
-    [
-    ],
-    [
-      ("camp_bean_sort_party",
-        [
-        ], "Sort Party Options",
-        [
-          (jump_to_menu, "mnu_camp_bean_sort_party_options"),
-        ]
-      ),
-
-      ("camp_bean_back",
-        [
-        ], "Back to Camp.",
-        [
-          (jump_to_menu, "mnu_camp"),
-        ]
-      ),
-    ]
-  ),
-
-  ("camp_bean_sort_party_options", 0,
-  "Bean Options - Sort Party",
-  "none",
-    [
-    ],
-
-    [
-      ("camp_bean_sort_party",
-        [
-          (try_begin),
-            (eq, "$bean_options_sort_party", 1),
-            (str_store_string, s10, "@Toggle All Party Sorting (Currently Enabled)"),
-          (else_try),
-            (str_store_string, s10, "@Toggle All Party Sorting (Currently Disabled)"),
-          (try_end),
-        ], "{s10}",
-        [
-          (try_begin),
-            (eq, "$bean_options_sort_party", 1),
-            (assign, "$bean_options_sort_party", 0),
-          (else_try),
-            (assign, "$bean_options_sort_party", 1),
-          (try_end),
-        ]
-      ),
-
-      ("camp_bean_sort_player_party",
-        [
-          (try_begin),
-            (eq, "$bean_options_sort_party", 0),
-            (disable_menu_option),
-          (end_try),
-
-          (try_begin),
-            (eq, "$bean_options_sort_player_party", 1),
-            (str_store_string, s10, "@Toggle Player Party Sorting (Currently Enabled)"),
-          (else_try),
-            (str_store_string, s10, "@Toggle Player Party Sorting (Currently Disabled)"),
-          (try_end),
-        ], "{s10}",
-        [
-          (try_begin),
-            (eq, "$bean_options_sort_player_party", 1),
-            (assign, "$bean_options_sort_player_party", 0),
-          (else_try),
-            (assign, "$bean_options_sort_player_party", 1),
-          (try_end),
-        ]
-      ),
-
-      ("camp_bean_sort_player_fiefs",
-        [
-          (try_begin),
-            (eq, "$bean_options_sort_party", 0),
-            (disable_menu_option),
-          (end_try),
-
-          (try_begin),
-            (eq, "$bean_options_sort_player_fiefs", 1),
-            (str_store_string, s10, "@Toggle Player Fief Sorting (Currently Enabled)"),
-          (else_try),
-            (str_store_string, s10, "@Toggle Player Fief Sorting (Currently Disabled)"),
-          (try_end),
-        ], "{s10}",
-        [
-          (try_begin),
-            (eq, "$bean_options_sort_player_fiefs", 1),
-            (assign, "$bean_options_sort_player_fiefs", 0),
-          (else_try),
-            (assign, "$bean_options_sort_player_fiefs", 1),
-          (try_end),
-        ]
-      ),
-
-      ("camp_bean_sort_party_back",
-        [
-        ], "Go Back",
-        [
-          (jump_to_menu, "mnu_camp_bean"),
-        ]
-      ),
-    ]
-  ),
-  ##BEAN END - Bean Options
-
   ##BEAN BEGIN - Knights
   (
     "recruit_knights", 0,
@@ -18618,3 +18292,12 @@ goods, and books will never be sold. ^^You can change some settings here freely.
   ##BEAN END - Knights
 
  ]
+
+##BEAN BEGIN - XGM Mod Options
+try:
+  var_set = {"game_menus" : game_menus}
+  from xgm_mod_options_game_menus import modmerge
+  modmerge(var_set)
+except:
+  raise
+##BEAN END - XGM Mod Options
