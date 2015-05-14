@@ -212,7 +212,7 @@ mod_options = [
 	),
 
 	("diplo_exile", xgm_ov_combobutton, ["Disabled", "Enabled", "Frequent"], "Lords returning from exile:", 0,
-	  "Allows exiled lords to be pardoned after a time and rejoin a faction to prevent 'lord-drain' in the late game.&&Default = Enabled", 0,
+	  "Allows exiled lords to be pardoned after a time and rejoin a faction to prevent 'lord-drain' in the late game.^^Default = Enabled", 0,
 	  [(store_add, reg1, "$g_dplmc_lord_recycling", 1),],
 	  [(store_sub, "$g_dplmc_lord_recycling", reg1, 1),], #1->0; 0-> -1 etc
 	),
@@ -230,7 +230,7 @@ mod_options = [
 	),
 
 	("diplo_prejudice", xgm_ov_combobutton, ["Disabled", "Default", "High"], "Anti-woman prejudice level:", 0,
-	  "Default = Default^^Disabled levels the playing-field for female player characters. Default as in Native. High increases the sexism/anti-woman prejudice of the medieval setting for female player characters.", 0,
+	  "Disabled levels the playing-field for female player characters. Default as in Native. High increases the sexism/anti-woman prejudice of the medieval setting for female player characters.^^Default = Default", 0,
 	   [(try_begin),
 			(this_or_next|eq, "$g_disable_condescending_comments", 2),
 			(eq, "$g_disable_condescending_comments", 3),

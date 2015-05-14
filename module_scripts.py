@@ -165,13 +165,13 @@ scripts = [
       (faction_set_slot, "fac_culture_2", slot_faction_tier_6_troop, "trp_vaegir_legendary_archer"), ##BEAN - Troop Tiers
       (faction_set_slot, "fac_culture_2", slot_faction_tier_7_troop, "trp_vaegir_knight"), ##BEAN - Troop Tiers
 
-      (faction_set_slot, "fac_culture_3", slot_faction_tier_1_troop, "trp_khergit_tribesman"),
-      (faction_set_slot, "fac_culture_3", slot_faction_tier_2_troop, "trp_khergit_skirmisher"),
-      (faction_set_slot, "fac_culture_3", slot_faction_tier_3_troop, "trp_khergit_horseman"),
-      (faction_set_slot, "fac_culture_3", slot_faction_tier_4_troop, "trp_khergit_horse_archer"),
-      (faction_set_slot, "fac_culture_3", slot_faction_tier_5_troop, "trp_khergit_veteran_horse_archer"),
-      (faction_set_slot, "fac_culture_3", slot_faction_tier_6_troop, "trp_player"), ##BEAN - Troop Tiers
-      (faction_set_slot, "fac_culture_3", slot_faction_tier_7_troop, "trp_player"), ##BEAN - Troop Tiers
+      (faction_set_slot, "fac_culture_3", slot_faction_tier_1_troop, "trp_khergit_recruit"),
+      (faction_set_slot, "fac_culture_3", slot_faction_tier_2_troop, "trp_khergit_cavalry"),
+      (faction_set_slot, "fac_culture_3", slot_faction_tier_3_troop, "trp_khergit_veteran_cavalry"),
+      (faction_set_slot, "fac_culture_3", slot_faction_tier_4_troop, "trp_khergit_master_cavalry"),
+      (faction_set_slot, "fac_culture_3", slot_faction_tier_5_troop, "trp_khergit_champion_cavalry"),
+      (faction_set_slot, "fac_culture_3", slot_faction_tier_6_troop, "trp_khergit_legendary_cavalry"), ##BEAN - Troop Tiers
+      (faction_set_slot, "fac_culture_3", slot_faction_tier_7_troop, "trp_khergit_knight"), ##BEAN - Troop Tiers
 
       (faction_set_slot, "fac_culture_4", slot_faction_tier_1_troop, "trp_nord_recruit"),
       (faction_set_slot, "fac_culture_4", slot_faction_tier_2_troop, "trp_nord_axeman"),
@@ -1284,10 +1284,10 @@ scripts = [
 
       (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_1_infantry, "trp_khergit_dismounted_lancer_multiplayer_ai"),
       (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_2_infantry, "trp_khergit_dismounted_lancer_multiplayer_ai"),
-      (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_1_archer, "trp_khergit_veteran_horse_archer"),
-      (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_2_archer, "trp_khergit_veteran_horse_archer"),
-      (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_1_cavalry, "trp_khergit_lancer"),
-      (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_2_cavalry, "trp_khergit_lancer"),
+      (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_1_archer, "trp_khergit_knight"),
+      (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_2_archer, "trp_khergit_knight"),
+      (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_1_cavalry, "trp_khergit_knight"),
+      (faction_set_slot, "fac_kingdom_3", slot_faction_quick_battle_tier_2_cavalry, "trp_khergit_knight"),
 
       (faction_set_slot, "fac_kingdom_4", slot_faction_quick_battle_tier_1_infantry, "trp_nord_legendary_axeman"),
       (faction_set_slot, "fac_kingdom_4", slot_faction_quick_battle_tier_2_infantry, "trp_nord_legendary_axeman"),
@@ -7149,7 +7149,7 @@ scripts = [
           (faction_slot_eq, ":faction_no", slot_faction_culture, "fac_culture_3"),
 
           (faction_set_slot, ":faction_no", slot_faction_deserter_troop, "trp_khergit_deserter"),
-          (faction_set_slot, ":faction_no", slot_faction_guard_troop, "trp_khergit_horseman"),
+          (faction_set_slot, ":faction_no", slot_faction_guard_troop, "trp_khergit_veteran_cavalry"),
           (faction_set_slot, ":faction_no", slot_faction_messenger_troop, "trp_khergit_messenger"),
           (faction_set_slot, ":faction_no", slot_faction_prison_guard_troop, "trp_khergit_prison_guard"),
           (faction_set_slot, ":faction_no", slot_faction_castle_guard_troop, "trp_khergit_castle_guard"),
@@ -64235,14 +64235,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
    [(store_script_param_1, ":culture"),
     (store_sub, ":num", ":culture", fac_culture_1), (val_mod, ":num", 6),
     (store_add, ":slot",  ":num","mesh_pic_arms_swadian"),
-    (create_mesh_overlay, reg0, ":slot"),
+    #(create_mesh_overlay, reg0, ":slot"),
     (store_add, ":slot", ":num", "mesh_pic_swad"),
-    (create_mesh_overlay, reg1, ":slot"),
-    (position_set_x, pos1, 180),(position_set_y, pos1, 560),
-    (position_set_x, pos2, 500),(position_set_y, pos2, 25),
-    (position_set_x, pos3, 500),(position_set_y, pos3, 500),
-    (overlay_set_position, reg0, pos1), (overlay_set_size, reg0, pos3),
-    (overlay_set_position, reg1, pos2), (overlay_set_size, reg1, pos3),
+    #(create_mesh_overlay, reg1, ":slot"),
+    #(position_set_x, pos1, 180),(position_set_y, pos1, 560),
+    #(position_set_x, pos2, 500),(position_set_y, pos2, 25),
+    #(position_set_x, pos3, 500),(position_set_y, pos3, 500),
+    #(overlay_set_position, reg0, pos1), (overlay_set_size, reg0, pos3),
+    #(overlay_set_position, reg1, pos2), (overlay_set_size, reg1, pos3),
     (try_for_range, ":slot", 0, 61),
        (troop_set_slot, "trp_temp_array_a", ":slot", 0),
        (troop_set_slot, "trp_temp_array_b", ":slot", 0),

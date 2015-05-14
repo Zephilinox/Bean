@@ -62,7 +62,7 @@ painbringer             World Map HD
 gameweb                 HD Textures
 Waihti, Somebody, etc.  Diplomacy for 1.165                             ##diplomacy, ##BEAN - Diplomacy
 Sphere                  XGM Mod Options                                 xgm_mod*.py, ##BEAN - XGM Mod Options
-Duh                     Change colours of factions                       ##BEAN - Change Faction Color
+Duh                     Change colours of factions                      ##BEAN - Change Faction Color
 ```
 
 ##Modifications

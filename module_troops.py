@@ -835,32 +835,234 @@ troops = [
    [itm_ashwood_pike,itm_battle_fork,itm_bardiche,itm_battle_axe,itm_fighting_axe,itm_tab_shield_kite_d,itm_studded_leather_coat,itm_lamellar_armor,itm_mail_chausses,itm_iron_greaves,itm_nordic_helmet,itm_nordic_helmet,itm_nordic_helmet,itm_spiked_helmet,itm_leather_gloves],
    def_attrib|level(24),wp(130),knows_athletics_3|knows_shield_2|knows_ironflesh_3,vaegir_face_middle_1, vaegir_face_older_2],
 
+##BEAN BEGIN - Khergit Troop Tree
+  [
+    "khergit_recruit", "Khergit Recruit", "Khergit Recruits",
+    tf_mounted | tf_guarantee_horse | tf_guarantee_boots | tf_guarantee_armor,
+    0, 0, fac_kingdom_3,
+    [
+      itm_club, itm_spear,
+      itm_steppe_cap, itm_nomad_cap_b,
+      itm_leather_vest, itm_steppe_armor,
+      itm_nomad_boots, itm_khergit_leather_boots,
+      itm_saddle_horse,
+    ],
+    ATTR(9, 6, 5, 4, 5),
+    wpex(60, 45, 15, 15, 15, 15),
+    SKILLS(ironflesh = 2, power_strike = 3, shield = 2, riding = 1, weapon_master = 1),
+    khergit_face_younger_1, khergit_face_old_2,
+  ],
 
-  ["khergit_tribesman","Khergit Tribesman","Khergit Tribesmen",tf_guarantee_boots|tf_guarantee_armor,0,0,fac_kingdom_3,
-   [itm_arrows,itm_club,itm_spear,itm_hunting_bow,
-    itm_steppe_cap,itm_nomad_cap_b,itm_leather_vest,itm_steppe_armor,itm_nomad_boots,itm_khergit_leather_boots],
-   def_attrib|level(5),wp(50),knows_common|knows_riding_3|knows_power_draw_2|knows_horse_archery_2,khergit_face_younger_1, khergit_face_old_2],
-  ["khergit_skirmisher","Khergit Skirmisher","Khergit Skirmishers",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_horse|tf_guarantee_ranged,0,0,fac_kingdom_3,
-   [itm_arrows,itm_sword_khergit_1,itm_winged_mace,itm_spear,itm_nomad_bow,itm_javelin,itm_tab_shield_small_round_a,
-    itm_steppe_cap,itm_nomad_cap_b,itm_leather_steppe_cap_a,itm_khergit_armor,itm_steppe_armor,itm_leather_vest,itm_nomad_boots,itm_khergit_leather_boots,itm_steppe_horse,itm_saddle_horse],
-   def_attrib|level(10),wp_one_handed (60) | wp_two_handed (60) | wp_polearm (60) | wp_archery (80) | wp_crossbow (60) | wp_throwing (80),knows_common|knows_riding_4|knows_power_draw_3|knows_power_throw_1|knows_horse_archery_3,khergit_face_younger_1, khergit_face_old_2],
-  ["khergit_horseman","Khergit Horseman","Khergit Horsemen",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_ranged|tf_guarantee_horse,0,0,fac_kingdom_3,
-  [itm_arrows,itm_light_lance,itm_nomad_bow,itm_sword_khergit_2,itm_tab_shield_small_round_a,itm_tab_shield_small_round_b,itm_spear,
-   itm_leather_steppe_cap_a, itm_leather_steppe_cap_b,itm_nomad_robe,itm_nomad_vest,itm_khergit_leather_boots,itm_hide_boots,itm_spiked_helmet,itm_nomad_cap,itm_steppe_horse,itm_hunter],
-   def_attrib|level(14),wp(80),knows_common|knows_riding_5|knows_power_draw_4|knows_ironflesh_2|knows_power_throw_2|knows_horse_archery_3|knows_shield_1,khergit_face_young_1, khergit_face_older_2],
-  ["khergit_horse_archer","Khergit Horse Archer","Khergit Horse Archers",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_ranged|tf_guarantee_horse,0,0,fac_kingdom_3,
-   [itm_arrows,itm_sword_khergit_2,itm_winged_mace,itm_spear,itm_khergit_bow,itm_tab_shield_small_round_a,itm_tab_shield_small_round_a,itm_tab_shield_small_round_b,itm_bodkin_arrows,itm_arrows,itm_javelin,
-    itm_leather_steppe_cap_b,itm_nomad_cap_b,itm_tribal_warrior_outfit,itm_nomad_robe,itm_khergit_leather_boots,itm_tab_shield_small_round_a,itm_tab_shield_small_round_b,itm_steppe_horse],
-   def_attrib|level(14),wp_one_handed (80) | wp_two_handed (80) | wp_polearm (80) | wp_archery (110) | wp_crossbow (80) | wp_throwing (110),knows_riding_5|knows_power_draw_3|knows_ironflesh_1|knows_horse_archery_4|knows_power_throw_3,khergit_face_young_1, khergit_face_older_2],
-  ["khergit_veteran_horse_archer","Khergit Veteran Horse Archer","Khergit Veteran Horse Archers",tf_mounted|tf_guarantee_all,0,0,fac_kingdom_3,
-   [itm_sword_khergit_3,itm_winged_mace,itm_spear,itm_khergit_bow,itm_khergit_bow,itm_khergit_bow
-   ,itm_nomad_bow,itm_arrows,itm_khergit_arrows,itm_khergit_arrows,itm_khergit_arrows,itm_javelin,itm_tab_shield_small_round_b,itm_tab_shield_small_round_c,
-    itm_khergit_cavalry_helmet,itm_khergit_cavalry_helmet,itm_leather_warrior_cap,itm_lamellar_vest_khergit,itm_tribal_warrior_outfit,itm_khergit_leather_boots,itm_leather_gloves,itm_steppe_horse,itm_courser],
-   def_attrib|level(21),wp_one_handed (90) | wp_two_handed (90) | wp_polearm (90) | wp_archery (130) | wp_crossbow (90) | wp_throwing (130),knows_riding_7|knows_power_draw_5|knows_ironflesh_3|knows_horse_archery_7|knows_power_throw_4|knows_shield_1,khergit_face_middle_1, khergit_face_older_2],
-  ["khergit_lancer","Khergit Lancer","Khergit Lancers",tf_mounted|tf_guarantee_all_wo_ranged,0,0,fac_kingdom_3,
-   [itm_sword_khergit_4,itm_spiked_mace,itm_one_handed_war_axe_b,itm_hafted_blade_a,itm_hafted_blade_b,itm_heavy_lance,itm_lance,
-    itm_khergit_guard_helmet,itm_khergit_cavalry_helmet,itm_khergit_war_helmet,itm_lamellar_vest_khergit,itm_lamellar_armor,itm_khergit_leather_boots,itm_splinted_leather_greaves,itm_leather_gloves,itm_scale_gauntlets,itm_tab_shield_small_round_b,itm_tab_shield_small_round_c,itm_courser,itm_warhorse_steppe,itm_warhorse_steppe,itm_warhorse_steppe],
-   def_attrib|level(23),wp_one_handed (110) | wp_two_handed (110) | wp_polearm (150) | wp_archery (110) | wp_crossbow (110) | wp_throwing (110),knows_riding_7|knows_power_strike_4|knows_power_draw_4|knows_power_throw_2|knows_ironflesh_4|knows_horse_archery_1|knows_shield_2,khergit_face_middle_1, khergit_face_older_2],
+  [
+    "khergit_cavalry", "Khergit Cavalry", "Khergit Cavalry",
+    tf_mounted | tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_ranged | tf_guarantee_horse,
+    0, 0, fac_kingdom_3,
+    [
+      itm_arrows,
+      itm_sword_khergit_2, itm_spear,
+      itm_nomad_bow,
+      itm_tab_shield_small_round_a, itm_tab_shield_small_round_b,
+      itm_leather_steppe_cap_a, itm_leather_steppe_cap_b,
+      itm_nomad_robe, itm_nomad_vest,
+      itm_khergit_leather_boots, itm_hide_boots,
+      itm_spiked_helmet, itm_nomad_cap,
+      itm_steppe_horse, itm_hunter,
+    ],
+    ATTR(12, 8, 5, 4, 10),
+    wpex(100, 80, 15, 15, 15, 15),
+    SKILLS(ironflesh = 4, power_strike = 4, shield = 2, riding = 2, weapon_master = 2),
+    khergit_face_young_1, khergit_face_older_2,
+  ],
+
+  [
+    "khergit_veteran_cavalry", "Khergit Veteran Cavalry", "Khergit Veteran Cavalry",
+    tf_mounted | tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_ranged | tf_guarantee_horse,
+    0, 0, fac_kingdom_3,
+    [
+      itm_arrows,
+      itm_sword_khergit_2, itm_spear,
+      itm_nomad_bow,
+      itm_tab_shield_small_round_a, itm_tab_shield_small_round_b,
+      itm_leather_steppe_cap_a, itm_leather_steppe_cap_b,
+      itm_nomad_robe, itm_nomad_vest,
+      itm_khergit_leather_boots, itm_hide_boots,
+      itm_spiked_helmet, itm_nomad_cap,
+      itm_steppe_horse, itm_hunter,
+    ],
+    ATTR(15, 10, 5, 4, 15),
+    wpex(140, 115, 15, 15, 15, 15),
+    SKILLS(ironflesh = 5, power_strike = 5, shield = 3, riding = 3, weapon_master = 3),
+    khergit_face_young_1, khergit_face_older_2,
+  ],
+
+  [
+    "khergit_master_cavalry", "Khergit Master Cavalry", "Khergit Master Cavalry",
+    tf_mounted | tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_ranged | tf_guarantee_horse,
+    0, 0, fac_kingdom_3,
+    [
+      itm_arrows,
+      itm_sword_khergit_2, itm_spear,
+      itm_nomad_bow,
+      itm_tab_shield_small_round_a, itm_tab_shield_small_round_b,
+      itm_leather_steppe_cap_a, itm_leather_steppe_cap_b,
+      itm_nomad_robe, itm_nomad_vest,
+      itm_khergit_leather_boots, itm_hide_boots,
+      itm_spiked_helmet, itm_nomad_cap,
+      itm_steppe_horse, itm_hunter,
+    ],
+    ATTR(18, 12, 5, 4, 20),
+    wpex(140, 115, 15, 15, 15, 15),
+    SKILLS(ironflesh = 6, power_strike = 6, shield = 4, riding = 4, weapon_master = 4),
+    khergit_face_young_1, khergit_face_older_2,
+  ],
+
+  [
+    "khergit_champion_cavalry", "Khergit Champion Cavalry", "Khergit Champion Cavalry",
+    tf_mounted | tf_guarantee_all_wo_ranged,
+    0, 0, fac_kingdom_3,
+    [
+      itm_sword_khergit_4, itm_spiked_mace, itm_one_handed_war_axe_b, itm_hafted_blade_a, itm_hafted_blade_b,
+      itm_khergit_guard_helmet, itm_khergit_cavalry_helmet, itm_khergit_war_helmet,
+      itm_lamellar_vest_khergit, itm_lamellar_armor,
+      itm_khergit_leather_boots, itm_splinted_leather_greaves,
+      itm_leather_gloves, itm_scale_gauntlets,
+      itm_tab_shield_small_round_b, itm_tab_shield_small_round_c,
+      itm_courser, itm_warhorse_steppe, itm_warhorse_steppe, itm_warhorse_steppe,
+    ],
+    ATTR(21, 15, 4, 4, 25),
+    wpex(220, 185, 15, 15, 15, 15),
+    SKILLS(ironflesh = 6, power_strike = 7, shield = 5, riding = 5, weapon_master = 5),
+    khergit_face_middle_1, khergit_face_older_2,
+  ],
+
+  [
+    "khergit_legendary_cavalry", "Khergit Legendary Cavalry", "Khergit Legendary Cavalry",
+    tf_mounted | tf_guarantee_all_wo_ranged,
+    0, 0, fac_kingdom_3,
+    [
+      itm_sword_khergit_4, itm_spiked_mace, itm_one_handed_war_axe_b, itm_hafted_blade_a, itm_hafted_blade_b,
+      itm_khergit_guard_helmet, itm_khergit_cavalry_helmet, itm_khergit_war_helmet,
+      itm_lamellar_vest_khergit, itm_lamellar_armor,
+      itm_khergit_leather_boots, itm_splinted_leather_greaves,
+      itm_leather_gloves, itm_scale_gauntlets,
+      itm_tab_shield_small_round_b, itm_tab_shield_small_round_c,
+      itm_courser, itm_warhorse_steppe, itm_warhorse_steppe, itm_warhorse_steppe,
+    ],
+    ATTR(21, 18, 6, 4, 30),
+    wpex(240, 240, 15, 15, 15, 15),
+    SKILLS(ironflesh = 7, power_strike = 7, shield = 6, athletics = 3, riding = 6, weapon_master = 6),
+    khergit_face_middle_1, khergit_face_older_2,
+  ],
+
+  [
+    "khergit_skirmisher", "Khergit Skirmisher", "Khergit Skirmishers",
+    tf_mounted | tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_horse | tf_guarantee_ranged,
+    0, 0, fac_kingdom_3,
+    [
+      itm_arrows,
+      itm_sword_khergit_1, itm_winged_mace, itm_spear,
+      itm_nomad_bow,
+      itm_javelin,
+      itm_tab_shield_small_round_a,
+      itm_steppe_cap, itm_nomad_cap_b, itm_leather_steppe_cap_a,
+      itm_khergit_armor, itm_steppe_armor, itm_leather_vest,
+      itm_nomad_boots, itm_khergit_leather_boots,
+      itm_steppe_horse, itm_saddle_horse
+    ],
+    ATTR(12, 9, 4, 4, 10),
+    wpex(80, 15, 15, 100, 15, 15),
+    SKILLS(ironflesh = 1, power_strike = 1, power_draw = 4, riding = 2, weapon_master = 2, horse_archery = 3),
+    khergit_face_younger_1, khergit_face_old_2,
+  ],
+
+
+  [
+    "khergit_veteran_skirmisher", "Khergit Veteran Skirmisher", "Khergit Veteran Skirmishers",
+    tf_mounted | tf_guarantee_boots | tf_guarantee_armor | tf_guarantee_ranged | tf_guarantee_horse,
+    0, 0, fac_kingdom_3,
+    [
+      itm_bodkin_arrows, itm_arrows, itm_arrows,
+      itm_sword_khergit_2, itm_winged_mace, itm_spear,
+      itm_khergit_bow,
+      itm_tab_shield_small_round_a, itm_tab_shield_small_round_a, itm_tab_shield_small_round_a, itm_tab_shield_small_round_b, itm_tab_shield_small_round_b,
+      itm_javelin,
+      itm_leather_steppe_cap_b, itm_nomad_cap_b,
+      itm_tribal_warrior_outfit, itm_nomad_robe,
+      itm_khergit_leather_boots,
+      itm_steppe_horse,
+    ],
+    ATTR(15, 11, 4, 4, 15),
+    wpex(115, 15, 15, 140, 15, 15),
+    SKILLS(ironflesh = 2, power_strike = 2, power_draw = 5, riding = 3, weapon_master = 3, horse_archery = 3),
+    khergit_face_young_1, khergit_face_older_2,
+  ],
+
+  [
+    "khergit_master_skirmisher", "Khergit Master Skirmisher", "Khergit Master Skirmishers",
+    tf_mounted | tf_guarantee_all,
+    0, 0, fac_kingdom_3,
+    [
+      itm_sword_khergit_3, itm_winged_mace, itm_spear,
+      itm_khergit_bow, itm_khergit_bow, itm_khergit_bow, itm_nomad_bow,
+      itm_arrows, itm_khergit_arrows, itm_khergit_arrows, itm_khergit_arrows,
+      itm_javelin,
+      itm_tab_shield_small_round_b, itm_tab_shield_small_round_c,
+      itm_khergit_cavalry_helmet, itm_khergit_cavalry_helmet, itm_leather_warrior_cap,
+      itm_lamellar_vest_khergit, itm_tribal_warrior_outfit,
+      itm_khergit_leather_boots,
+      itm_leather_gloves,
+      itm_steppe_horse, itm_courser,
+    ],
+    ATTR(18, 12, 5, 4, 20),
+    wpex(150, 15, 15, 180, 15, 15),
+    SKILLS(ironflesh = 3, power_strike = 3, power_draw = 6, riding = 4, weapon_master = 4, horse_archery = 4),
+    khergit_face_middle_1, khergit_face_older_2,
+  ],
+
+  [
+    "khergit_champion_skirmisher", "Khergit Champion Skirmisher", "Khergit Champion Skirmishers",
+    tf_mounted | tf_guarantee_all,
+    0, 0, fac_kingdom_3,
+    [
+      itm_sword_khergit_3, itm_winged_mace, itm_spear,
+      itm_khergit_bow, itm_khergit_bow, itm_khergit_bow, itm_nomad_bow,
+      itm_arrows, itm_khergit_arrows, itm_khergit_arrows, itm_khergit_arrows,
+      itm_javelin,
+      itm_tab_shield_small_round_b, itm_tab_shield_small_round_c,
+      itm_khergit_cavalry_helmet, itm_khergit_cavalry_helmet, itm_leather_warrior_cap,
+      itm_lamellar_vest_khergit, itm_tribal_warrior_outfit,
+      itm_khergit_leather_boots,
+      itm_leather_gloves,
+      itm_steppe_horse, itm_courser,
+    ],
+    ATTR(18, 15, 7, 4, 25),
+    wpex(185, 15, 15, 220, 15, 15),
+    SKILLS(ironflesh = 5, power_strike = 5, power_draw = 6, riding = 5, weapon_master = 5, horse_archery = 5),
+    khergit_face_middle_1, khergit_face_older_2,
+  ],
+
+  [
+    "khergit_knight", "Khergit Knight", "Khergit Knights",
+    tf_mounted | tf_guarantee_all_wo_ranged,
+    0, 0, fac_kingdom_3,
+    [
+      itm_sword_khergit_4, itm_spiked_mace, itm_one_handed_war_axe_b, itm_hafted_blade_a, itm_hafted_blade_b,
+      itm_khergit_bow, itm_khergit_bow, itm_khergit_bow, itm_nomad_bow,
+      itm_arrows, itm_khergit_arrows, itm_khergit_arrows, itm_khergit_arrows,
+      itm_khergit_guard_helmet, itm_khergit_cavalry_helmet, itm_khergit_war_helmet,
+      itm_lamellar_vest_khergit, itm_lamellar_armor,
+      itm_khergit_leather_boots, itm_splinted_leather_greaves,
+      itm_leather_gloves, itm_scale_gauntlets,
+      itm_tab_shield_small_round_b, itm_tab_shield_small_round_c,
+      itm_courser, itm_warhorse_steppe, itm_warhorse_steppe, itm_warhorse_steppe,
+    ],
+    ATTR(24, 21, 10, 4, 40),
+    wpex(300, 300, 15, 15, 15, 15),
+    SKILLS(ironflesh = 8, power_strike = 8, power_draw = 8, shield = 4, riding = 7, weapon_master = 7, horse_archery = 7),
+    khergit_face_middle_1, khergit_face_older_2,
+  ],
+##BEAN END - Khergit Troop Tree
+
   ["khergit_messenger","Khergit Messenger","Khergit Messengers",tf_mounted|tf_guarantee_boots|tf_guarantee_armor|tf_guarantee_gloves|tf_guarantee_horse|tf_guarantee_ranged,0,0,fac_kingdom_3,
    [itm_sword_khergit_2,itm_leather_jerkin,itm_leather_boots,itm_courser,itm_leather_gloves,itm_short_bow,itm_arrows],
    str_7 | agi_21 | int_4 | cha_4|level(25),wp(125),knows_common|knows_riding_7|knows_horse_archery_5|knows_power_draw_5,khergit_face_young_1, khergit_face_older_2],
@@ -2742,6 +2944,19 @@ upgrade(troops, "vaegir_veteran_swordsman", "vaegir_master_swordsman"),
 upgrade(troops, "vaegir_master_swordsman", "vaegir_champion_swordsman"),
 ##BEAN END - Vaegir Troop Tree
 
+##BEAN BEGIN - Khergit Troop Tree
+upgrade2(troops, "khergit_recruit", "khergit_cavalry", "khergit_skirmisher"),
+
+upgrade("khergit_skirmisher", "khergit_veteran_skirmisher"),
+upgrade("khergit_veteran_skirmisher", "khergit_master_skirmisher"),
+upgrade("khergit_master_skirmisher", "khergit_champion_skirmisher"),
+
+upgrade("khergit_cavalry", "khergit_veteran_cavalry"),
+upgrade("khergit_veteran_cavalry", "khergit_master_cavalry"),
+upgrade("khergit_master_cavalry", "khergit_champion_cavalry"),
+upgrade("khergit_champion_cavalry", "khergit_legendary_cavalry"),
+##BEAN END - Khergit Troop Tree
+
 ##BEAN BEGIN - Nord Troop Tree
 upgrade2(troops, "nord_recruit", "nord_axeman", "nord_hunter")
 
@@ -2782,7 +2997,7 @@ upgrade2(troops,"looter","mountain_bandit", "forest_bandit")
 #new tree connections
 upgrade(troops,"mountain_bandit","rhodok_tribesman")
 upgrade(troops,"forest_bandit","swadian_recruit")
-upgrade(troops,"steppe_bandit","khergit_tribesman")
+upgrade(troops,"steppe_bandit","khergit_recruit")
 upgrade(troops,"taiga_bandit","vaegir_recruit")
 upgrade(troops,"sea_raider","nord_recruit")
 upgrade(troops,"desert_bandit","sarranid_recruit")

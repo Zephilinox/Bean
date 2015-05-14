@@ -297,7 +297,7 @@ def generate_presentation_load_script(_mod_options = mod_options):
 	opblock.Append([                       
 		(set_container_overlay, -1),
 		
-		(create_text_overlay, overlay_var, "@Perisno^Options", tf_center_justify),
+		(create_text_overlay, overlay_var, "@Bean^Options", tf_center_justify),
 		(position_set_x, pos1, 800),
 		(position_set_y, pos1, 600),
 		(overlay_set_position, overlay_var, pos1),
@@ -305,7 +305,7 @@ def generate_presentation_load_script(_mod_options = mod_options):
 		(position_set_y, pos1, 2000),
 		(overlay_set_size, overlay_var, pos1),
 		# Repeat for bold effect.
-		(create_text_overlay, overlay_var, "@Perisno^Options", tf_center_justify),
+		(create_text_overlay, overlay_var, "@Bean^Options", tf_center_justify),
 		(position_set_x, pos1, 800),
 		(position_set_y, pos1, 600),
 		(overlay_set_position, overlay_var, pos1),
