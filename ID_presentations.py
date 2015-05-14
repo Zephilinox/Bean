@@ -54,3 +54,5 @@ prsnt_faction_troop_tree = 52
 prsnt_troop_note = 53
 prsnt_all_items = 54
 prsnt_trade_ledger_basic = 55
+prsnt_change_all_factions_color = 56
+prsnt_mod_option = 57

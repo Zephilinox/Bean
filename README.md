@@ -56,6 +56,8 @@ rubik                   Sort Party Troops                               plugin_s
 painbringer             World Map HD
 gameweb                 HD Textures
 Waihti, Somebody, etc.  Diplomacy for 1.165                             ##diplomacy, ##BEAN - Diplomacy
+Sphere                  XGM Mod Options                                 xgm_mod*.py, ##BEAN - XGM Mod Options
+Duh                     Change colros of factions                       ##BEAN - Change Faction Color
 ```
 
 ##Modifications
@@ -69,7 +71,6 @@ Zephilinox              Enabled Native Custom Banners                   ##BEAN -
 Zephilinox              Extra Trade Goods                               ##BEAN - Extra Trade Goods
 Zephilinox              Weather                                         ##BEAN - Weather
 Zephilinox              Bean Initialization                             ##BEAN - Initialize
-Zephilinox              Bean Options                                    ##BEAN - Options
 Zephilinox              Speak With                                      ##BEAN - Speak With
 Zephilinox              No limit to attacking based on relations        ##BEAN - Attack Relations
 Zephilinox              Extra XP for King                               ##BEAN - King Troop XP
@@ -81,6 +82,8 @@ Zephilinox              Replaced regular_party_strength with normal     party_ca
 Zephilinox              Buffed XP of troops in centers                  game_start and give_center_to_lord and dplmc_player_center_surrender in module_scripts.py
 Zephilinox              Buffed XP from quality by 5x                    upgrade_hero_party in module_scripts.py
 Zephilinox              Buffed XP given to parties regularly            ##BEAN - Increase XP
+Zephilinox              Change upgrade cost for troops to be dynamic    ##BEAN - Upgrade Cost
+Zephilinox              Prisoner knights can't be sold                  ##BEAN - Disable Knights Sold
 ```
 
 ##Issues
@@ -95,6 +98,8 @@ Troop Trees
 Revamp every item
 Add new items to fill gaps
 Modify Troops to use revamped items
-Add ability to mass-sell all prisoners
 Trade with caravans
+Update overhauled morale mod?
+warn of low food
+disable companion complaints
 ```
