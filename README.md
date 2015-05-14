@@ -5,7 +5,7 @@ A M&B Warband mod to enhance, simplify and improve the game play experience of N
 ##Features
 New Map Textures
 Smooth Deathcam
-Colored Messages
+Coloured Messages
 Troop Tree Display
 View All Items
 Trade Item Modifiers
@@ -15,13 +15,18 @@ More Trade Goods
 More Food
 Weather
 Speak with Elder/Guild Master
+	No need to find and talk to them in the town first
 More higher quality troops in general, but especially for kings
-Revamped Troops
+Revamped Troop Trees
 Revamped Items (TODO)
-Special Faction Knights for Faction Lords
+Faction Knights for Faction Nobles
+	+6 for king, +2 for marshal, +1 per village, +2 per castle, +3 per town
 Recruit Faction Knights from castles and towns
+	2,000 denars each
 Loot villages, join sieges, and fight on any side of a battle regardless of relationships
 Persuasion is now based on charisma instead of intelligence
+Lots of options to configure
+Change faction colours
 
 ##Changelog
 
@@ -57,7 +62,7 @@ painbringer             World Map HD
 gameweb                 HD Textures
 Waihti, Somebody, etc.  Diplomacy for 1.165                             ##diplomacy, ##BEAN - Diplomacy
 Sphere                  XGM Mod Options                                 xgm_mod*.py, ##BEAN - XGM Mod Options
-Duh                     Change colros of factions                       ##BEAN - Change Faction Color
+Duh                     Change colours of factions                       ##BEAN - Change Faction Color
 ```
 
 ##Modifications
